@@ -5,4 +5,4 @@ Gruppo **AM19** composto da
 * [Matteo Civitillo](https://github.com/matteocivitillo)
 * [Enrico James Busato](https://github.com/LaJima)
 
-Il gioco selezionato per quest'anno è **Codex Naturalis**
+Il gioco selezionato per quest'anno è [**Codex Naturalis**](https://www.craniocreations.it/prodotto/codex-naturalis)
