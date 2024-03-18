@@ -1,14 +1,13 @@
 package org.example;
+import org.example.model.deck.*;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
+    private deck Deck;
+    private Type prova;
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        System.out.println( "prova1");
+        prova = Type.RESOURCES;
+        deck(prova);
     }
 }
