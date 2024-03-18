@@ -1,6 +1,6 @@
 package org.example.model.deck;
 
-class Card {
+public abstract class Card {
     private Side frontSide;
     private Side backSide;
     private Type typeCard;
