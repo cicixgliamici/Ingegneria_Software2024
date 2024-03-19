@@ -7,5 +7,8 @@ public class PlayersCardArea {
     private List<CardRes>  PlayerRes;
     private List<PropertiesCorner> PlayerObject;
 
-    public Card[][] InitialisizedPlayerArea
+    public Card[][] InitialisizedPlayerArea(){
+
+        return PlayedCard;
+    }
 }
