@@ -9,23 +9,23 @@ public class Deck {
         this.type = type;
         switch (type) {
             case RESOURCES:
-                this.cardNumbers = 40;
+                this.CardNumbers = 40;
                 // CHIAMARE FUNZIONE GENERA CARTE
                 break;
             case GOLD:
-                this.cardNumbers = 40; 
+                this.CardNumbers = 40; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
             case OBJECT:
-                this.cardNumbers = 16; 
+                this.CardNumbers = 16; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
             case STARTER:
-                this.cardNumbers = 6; 
+                this.CardNumbers = 6; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
             default:
-                this.cardNumbers = 0; 
+                this.CardNumbers = 0; 
         }
     }
 }
