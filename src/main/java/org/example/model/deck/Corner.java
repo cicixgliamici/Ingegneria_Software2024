@@ -5,6 +5,6 @@ public class Corner {
     private PropertiesCorner propertiesCorner;
     public Corner(Position position, PropertiesCorner propertiesCorner) {
         this.propertiesCorner = propertiesCorner;
-        this.position= position;
+        this.position = position;
     }
 }
