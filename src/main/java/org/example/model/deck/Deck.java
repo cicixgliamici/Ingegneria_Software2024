@@ -1,7 +1,7 @@
 package org.example.model.deck;
 
 public class Deck {
-    
+
     private Type type;
     private int CardNumbers;
 
@@ -27,6 +27,14 @@ public class Deck {
             default:
                 this.CardNumbers = 0; 
         }
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getCardNumbers() {
+        return CardNumbers;
     }
 }
 
