@@ -1,18 +1,14 @@
 package org.example.model.deck;
 
 public abstract class Card {
-    private Side frontSide;
-    private Side backSide;
-    private Type typeCard;
+    private Type type;
+    private CardRes cardres;
+    private CardRes requireGold;
+    private int points;
+    // REQUISITI CARTA OBIETTIVO MANCANTI
+    private CardPosition cardposition;
 
-    public Card() {
-
-    }
-
-    public Side getFrontSide() {
-        return frontSide;
-    }
-    public Side getBackSide() {
-        return backSide;
+    public Card(Type type){
+        // COSTRUTTORE CARTE
     }
 }
