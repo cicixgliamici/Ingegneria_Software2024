@@ -32,3 +32,4 @@ public class DeckTest {
         assertEquals(Type.STARTER, deck.getType());
         assertEquals(6, deck.getCardNumbers());
     }
+}
