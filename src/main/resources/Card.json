@@ -20,7 +20,7 @@
     "points": 0,
     "cardposition": "DECKHIDDEN" 
   },
-    {
+  {
     "type": "RESOURCES",
     "cardres":"PLANT",
     "requireGold": 0,
