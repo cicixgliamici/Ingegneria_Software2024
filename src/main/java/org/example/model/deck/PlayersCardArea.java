@@ -1,5 +1,7 @@
 package org.example.model.deck;
 
+import org.example.model.deck.enumeration.*;
+
 import java.util.List;
 
 public class PlayersCardArea {
@@ -16,7 +18,7 @@ public class PlayersCardArea {
         return this.PlayedCard;
     }
     public void GetStarted(Card StarterCard, Corner[][] PlayedCard){
-        Corner[]
+        //Corner[]
         return;
     }
 }

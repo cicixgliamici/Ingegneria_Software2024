@@ -1,5 +1,7 @@
 package org.example.model.deck;
 
+import org.example.model.deck.enumeration.*;
+
 public class SideCard {
     private Side side;
     private Corner[] corners;

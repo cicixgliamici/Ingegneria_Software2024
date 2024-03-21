@@ -1,9 +1,11 @@
 package org.example.model.deck;
 
-public abstract class Card {
+import org.example.model.deck.enumeration.*;
+
+public class Card {
     private Type type;
     private CardRes cardres;
-    private CardRes requireGold;
+    private CardRes[] requireGold;
     private int points;
     // REQUISITI CARTA OBIETTIVO MANCANTI
     private CardPosition cardposition;
