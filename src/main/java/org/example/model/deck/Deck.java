@@ -17,7 +17,7 @@ public class Deck {
     JSONParser parser = new JSONParser();
     JSONArray a = (JSONArray) parser.parse(new FileReader("// INSERIRE NOME FILE"));
 
-     public Deck(Type type) {
+     public Deck(Type type) throws IOException, ParseException {
         this.type = type;
         switch (type) {
             case RESOURCES:
