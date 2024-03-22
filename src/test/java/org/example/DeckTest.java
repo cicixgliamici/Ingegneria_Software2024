@@ -6,6 +6,9 @@ import junit.framework.TestSuite;
 import static junit.framework.Assert.assertEquals;
 
 import org.example.model.deck.*;
+import org.example.model.deck.enumeration.*;
+
+import static junit.framework.Assert.assertEquals;
 
 public class DeckTest extends TestCase {
 

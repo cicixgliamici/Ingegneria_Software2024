@@ -1,0 +1,30 @@
+[
+  {
+    "type": "RESOURCES",
+    "cardres":"FUNGI",
+    "requireGold": 0,
+    "points": 0,
+    "cardposition": "DECKHIDDEN"
+  },
+  {
+    "type": "RESOURCES",
+    "cardres":"INSECT",
+    "requireGold": 0,
+    "points": 0,
+    "cardposition": "DECKHIDDEN"
+  },
+  {
+    "type": "RESOURCES",
+    "cardres":"ANIMAL",
+    "requireGold": 0,
+    "points": 0,
+    "cardposition": "DECKHIDDEN" 
+  },
+  {
+    "type": "RESOURCES",
+    "cardres":"PLANT",
+    "requireGold": 0,
+    "points": 0,
+    "cardposition": "DECKHIDDEN" 
+  },
+]
