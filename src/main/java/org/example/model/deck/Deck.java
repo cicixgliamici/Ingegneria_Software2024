@@ -1,15 +1,15 @@
 package org.example.model.deck;
 import org.example.model.deck.enumeration.*;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 
-import java.io.FileNotFoundException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import java.util.List;
 
 
 /**
@@ -24,65 +24,95 @@ public class Deck {
 
      public Deck(Type typeDeck) throws IOException, ParseException {
         this.typeDeck = typeDeck;
-        JSONParser parser = new JSONParser();
-        JSONArray a = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
         switch (typeDeck) {
             case RESOURCES:
                 this.CardNumbers = 1;
-                for (Object o : a)
-                {
-                    JSONObject RiddenCard = (JSONObject) o;
+                try {
+                    // Leggi il file JSON
+                    FileReader reader = new FileReader("src/main/resources/Card.json");
 
-                    Type type  = (Type) RiddenCard.get("type");
-                    CardRes cardRes = (CardRes) RiddenCard.get("cardres");
+                    // Converte il contenuto del file in un oggetto JSON
+                    org.json.JSONArray jsonArray = new org.json.JSONArray(reader);
 
-                    JSONArray cardGoldRes = (JSONArray) RiddenCard.get("requireGold");
-                    CardRes[] copiaCardGoldRes= new CardRes[cardGoldRes.size()];
+                    // Crea una lista per memorizzare le carte
+                    List<Card> cards = new ArrayList<>();
 
-                    for (int i = 0; i < cardGoldRes.size(); i++) {
-                        try {
-                            JSONObject jsonObject =  copiaCardGoldRes.getJSONObject(i);
-                            String name = jsonObject.getString("name");
-                            int age = jsonObject.getInt("age");
-                            customArray[i] = new CustomObject(name, age);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        org.json.JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf(jsonObject.getString("type"));
+                        CardRes cardres = CardRes.valueOf(jsonObject.getString("cardres"));
+                        org.json.JSONArray requireGoldArray = jsonObject.getJSONArray("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.length()];
+                        for (int j = 0; j < requireGoldArray.length(); j++) {
+                            requireGold[j] = CardRes.valueOf(requireGoldArray.getString(j));
                         }
+                        int points = jsonObject.getInt("points");
+                        CardPosition cardposition = CardPosition.valueOf(jsonObject.getString("cardposition"));
 
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = jsonObject.getJSONObject("side");
+                        Side side = Side.valueOf(sideObject.getString("side"));
+                        List<Corner> frontCorners = readCorners(sideObject.getJSONArray("front"));
+                        List<Corner> backCorners = readCorners(sideObject.getJSONArray("back"));
+                        SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
-                    int Points = (int) RiddenCard.get("points");
-                    CardPosition cardPosition = (CardPosition) RiddenCard.get("cardposition");
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, cardres, requireGold, points, cardposition, sideCard));
+                    }
 
-                    JSONArray side = (JSONArray) RiddenCard.get("side");
+                    // Chiudi il lettore
+                    reader.close();
 
-                    Card newCard= new Card(type, cardRes, cardGoldRes, Points, cardPosition, side);
+                    // Stampa le carte lette
+                    for (Card card : cards) {
+                        System.out.println(card);
+                    }
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
                 }
-
                 break;
+
             case GOLD:
                 this.CardNumbers = 40; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
+
             case OBJECT:
                 this.CardNumbers = 16; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
+
             case STARTER:
                 this.CardNumbers = 6; 
                  // CHIAMARE FUNZIONE GENERA CARTE
                 break;
+
             default:
                 this.CardNumbers = 0; 
         }
 
     }
-
-    public Type getType() {
-        return type;
+    public static List<Corner> readCorners(org.json.JSONArray jsonArray) throws JSONException {
+        List<Corner> corners = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject cornerObject = jsonArray.getJSONObject(i);
+            String pos = cornerObject.getString("Position");
+            Position position = Position.valueOf(pos);
+            String propCorn = cornerObject.getString("PropertiesCorner");
+            PropertiesCorner propertiesCorner = PropertiesCorner.valueOf(propCorn);
+            corners.add(new Corner(position, propertiesCorner ));
+        }
+    return corners;
     }
 
     public int getCardNumbers() {
          return CardNumbers;
     }
+
 }
+
 
