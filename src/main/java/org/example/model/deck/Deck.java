@@ -11,29 +11,25 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 public class Deck {
     
-    private Type type;
+    private Type typeDeck;
     private int CardNumbers;
 
-    JSONParser parser = new JSONParser();
-    JSONArray a = (JSONArray) parser.parse(new FileReader("// INSERIRE NOME FILE"));
-
-     public Deck(Type type) throws IOException, ParseException {
-        this.type = type;
-        switch (type) {
+     public Deck(Type typeDeck) throws IOException, ParseException {
+        this.typeDeck = typeDeck;
+        JSONParser parser = new JSONParser();
+        JSONArray a = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
+        switch (typeDeck) {
             case RESOURCES:
-                this.CardNumbers = 40;
-                // CHIAMARE FUNZIONE GENERA CARTE
+                this.CardNumbers = 1;
                 for (Object o : a)
                 {
-                    JSONObject person = (JSONObject) o;
+                    JSONObject card = (JSONObject) o;
+                    Type type  = (Type) card.get("type");
+                    CardRes cardRes = (CardRes) card.get("cardres");
 
-                    String name = (String) person.get("name");
-                    System.out.println(name);
+                    JSONArray  = (JSONArray) card.get("cars");
 
-                    String city = (String) person.get("city");
-                    System.out.println(city);
-
-                    String job = (String) person.get("job");
+                    CardRes[] requireGold = (CardRes[]) card.get("requireGold");
                     System.out.println(job);
 
                     JSONArray cars = (JSONArray) person.get("cars");

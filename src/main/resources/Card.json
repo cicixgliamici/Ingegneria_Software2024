@@ -2,29 +2,23 @@
   {
     "type": "RESOURCES",
     "cardres":"FUNGI",
-    "requireGold": 0,
+    "requireGold": [],
     "points": 0,
-    "cardposition": "DECKHIDDEN"
-  },
-  {
-    "type": "RESOURCES",
-    "cardres":"INSECT",
-    "requireGold": 0,
-    "points": 0,
-    "cardposition": "DECKHIDDEN"
-  },
-  {
-    "type": "RESOURCES",
-    "cardres":"ANIMAL",
-    "requireGold": 0,
-    "points": 0,
-    "cardposition": "DECKHIDDEN" 
-  },
-  {
-    "type": "RESOURCES",
-    "cardres":"PLANT",
-    "requireGold": 0,
-    "points": 0,
-    "cardposition": "DECKHIDDEN" 
-  },
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side" : "BOTH",
+      "front": [
+        { "Position": "TOPL" , "PropertiesCorner": "FUNGI" },
+        { "Position": "TOPR" , "PropertiesCorner": "EMPTY" },
+        { "Position": "BOTTOMR" , "PropertiesCorner": "HIDDEN" },
+        { "Position": "BOTTOML" , "PropertiesCorner": "FUNGI" }
+      ],
+      "back": [
+        { "Position": "TOPL" , "PropertiesCorner": "HIDDEN" },
+        { "Position": "TOPR" , "PropertiesCorner": "HIDDEN" },
+        { "Position": "BOTTOMR" , "PropertiesCorner": "HIDDEN" },
+        { "Position": "BOTTOML" , "PropertiesCorner": "HIDDEN" }
+      ]
+    }
+  }
 ]
