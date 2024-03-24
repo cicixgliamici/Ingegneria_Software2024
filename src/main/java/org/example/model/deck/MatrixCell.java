@@ -2,7 +2,7 @@ package org.example.model.deck;
 
 public class MatrixCell {
     private Card CardCell;
-    int AvailabilityCorner;
+    private int AvailabilityCorner;
 
     public MatrixCell(Card cardCell, int availabilityCorner) {
         this.CardCell = cardCell;
