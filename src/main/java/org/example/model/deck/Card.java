@@ -18,6 +18,7 @@ public class Card {
     private int points;           // Point given
     // REQUISITI CARTA OBIETTIVO MANCANTI
     private CardPosition cardposition;   // Position of the card
+
     private SideCard side;  // Reference to the object SideCard
 
     public void setRequireGold(CardRes[] jsonArray) {
@@ -37,7 +38,11 @@ public class Card {
 
     public CardRes getCardRes() {
         return this.cardres;
-    } //grazie jj
+    }
+
+    public SideCard getSide() {
+        return side;
+    }
 
 }
 
