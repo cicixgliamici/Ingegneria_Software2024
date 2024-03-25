@@ -91,5 +91,6 @@ public class PlayersCardArea {
             ModifyPlayedCard((SearchCardMatrixToLinkCornerColumn(TouchedCard, ChoosenCorner)) + 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) - 1, Position.BOTTOML, NewCard);
         }
     }
+    //aiuto
 
 }
