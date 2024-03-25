@@ -7,7 +7,11 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
-        Type resources = Type.GOLD;
-        Deck deck = new Deck(resources);
+
+        Deck deck1 = new Deck(Type.RESOURCES);
+        Deck deck2 = new Deck(Type.GOLD);
+        Deck deck3 = new Deck(Type.OBJECT);
+        Deck deck4 = new Deck(Type.STARTER);
+
     }
 }

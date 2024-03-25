@@ -1,7 +1,7 @@
 package org.example.model.deck;
 import org.example.model.deck.enumeration.*;
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -81,7 +81,7 @@ public class Deck {
                 try {
                     // Leggi il file JSON
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
 
                     // Crea una lista per memorizzare le carte
                     List<Card> cards = new ArrayList<>();
@@ -99,8 +99,9 @@ public class Deck {
                             requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
                         }
                         int points = Integer.parseInt(card.get("points").toString());
-                        JSONObject goldenPointObject = (JSONObject) card.get("goldenPoint");
-                        GoldenPoint goldenPoint = GoldenPoint.valueOf((String) goldenPointObject.get("goldenPoint"));
+
+                        GoldenPoint goldenPoint = GoldenPoint.valueOf((String) card.get("goldenPoint"));
+
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
 
                         // Leggi e crea l'oggetto SideCard
@@ -114,13 +115,11 @@ public class Deck {
                         cards.add(new Card(type, cardres, requireGold, points, goldenPoint, cardposition, sideCard));
                     }
 
-                    System.out.println("FEIN! FEIN! FEIN!");
                     // Stampa le carte lette
                     printAllCards(cards);
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
-
                 break;
 
             case OBJECT:
