@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 public class Deck {
-
+    
     private Type type;
     private int CardNumbers;
 
@@ -69,14 +69,6 @@ public class Deck {
 
     public int getCardNumbers() {
          return CardNumbers;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public int getCardNumbers() {
-        return CardNumbers;
     }
 }
 
