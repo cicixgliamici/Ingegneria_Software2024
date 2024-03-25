@@ -60,7 +60,7 @@ public class Deck {
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
-                        cards.add(new Card(type, cardres, requireGold, points, cardposition, sideCard));
+                        cards.add(new Card(type, cardres, null, points, null, cardposition, sideCard));
                     }
 
                     // Chiudi il lettore
@@ -77,11 +77,11 @@ public class Deck {
                 break;
 
             case GOLD:
-                this.CardNumbers = 2;
+                this.CardNumbers = 40;
                 try {
                     // Leggi il file JSON
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/CardProva.json"));
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
 
                     // Crea una lista per memorizzare le carte
                     List<Card> cards = new ArrayList<>();
@@ -93,8 +93,14 @@ public class Deck {
                         // Leggi i campi dell'oggetto JSON
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
-
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        }
                         int points = Integer.parseInt(card.get("points").toString());
+                        JSONObject goldenPointObject = (JSONObject) card.get("goldenPoint");
+                        GoldenPoint goldenPoint = GoldenPoint.valueOf((String) goldenPointObject.get("goldenPoint"));
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
 
                         // Leggi e crea l'oggetto SideCard
@@ -105,7 +111,7 @@ public class Deck {
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
-                        cards.add(new Card(type, cardres, null, points, cardposition, sideCard));
+                        cards.add(new Card(type, cardres, requireGold, points, goldenPoint, cardposition, sideCard));
                     }
 
                     System.out.println("FEIN! FEIN! FEIN!");
