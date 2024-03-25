@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
-        Type resources = Type.RESOURCES;
+        Type resources = Type.GOLD;
         Deck deck = new Deck(resources);
     }
 }
