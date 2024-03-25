@@ -15,16 +15,16 @@ public class PlayersCardArea {
         this.PlayerObject = new ArrayList<PropertiesCorner>();
     }
 
-    public void ModifyPlayedCard(int Line, int Column, int Value, Card LinkCard){
+    public void ModifyPlayedCard(int Line, int Column, Position Value, Card LinkCard){
         this.PlayedCard[Line][Column].setAvailabilityCorner(Value);
         this.PlayedCard[Line][Column].setCardCell(LinkCard);
     }
 
     public void InitializedPlayerArea(int[][] PlayedCard, Card cardStarter){
-        ModifyPlayedCard(10,10, 1, cardStarter);
-        ModifyPlayedCard(10,11, 1, cardStarter);
-        ModifyPlayedCard(11,10, 1, cardStarter);
-        ModifyPlayedCard(11,11, 1, cardStarter);
+        ModifyPlayedCard(10,10, Position.TOPL, cardStarter);
+        ModifyPlayedCard(10,11, Position.TOPR, cardStarter);
+        ModifyPlayedCard(11,10, Position.BOTTOML, cardStarter);
+        ModifyPlayedCard(11,11, Position.BOTTOMR, cardStarter);
         if (cardStarter.getSide().getSide() == Side.FRONT){
             //inserimento valore ricavato dagli angoli nella lista
         }
