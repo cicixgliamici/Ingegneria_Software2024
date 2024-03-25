@@ -3,12 +3,14 @@ package org.example;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import static junit.framework.Assert.assertEquals;
+
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 
 import static junit.framework.Assert.assertEquals;
 
-public class DeckTest {
+public class DeckTest extends TestCase {
 
 
     public void testDeckResource() {

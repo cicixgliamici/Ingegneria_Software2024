@@ -4,12 +4,9 @@ import org.example.model.deck.enumeration.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-
-import org.json.simple.parser.JSONParser;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -29,48 +26,54 @@ public class Deck {
         this.typeDeck = typeDeck;
         switch (typeDeck) {
             case RESOURCES:
-                this.CardNumbers = 40;
+                this.CardNumbers = 1;
                 try {
+                    // Leggi il file JSON
+                    FileReader reader = new FileReader("src/main/resources/Card.json");
 
-                    JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
+                    // Converte il contenuto del file in un oggetto JSON
+                    org.json.JSONArray jsonArray = new org.json.JSONArray(reader);
 
                     // Crea una lista per memorizzare le carte
                     List<Card> cards = new ArrayList<>();
 
-                    for (Object obj : jsonArray) {
-                        JSONObject card = (JSONObject) obj;
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        org.json.JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                         // Leggi i campi dell'oggetto JSON
-                        Type type = Type.valueOf((String) card.get("type"));
-                        CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
-                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
-                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
-                        for (int j = 0; j < requireGoldArray.size(); j++) {
-                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        Type type = Type.valueOf(jsonObject.getString("type"));
+                        CardRes cardres = CardRes.valueOf(jsonObject.getString("cardres"));
+                        org.json.JSONArray requireGoldArray = jsonObject.getJSONArray("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.length()];
+                        for (int j = 0; j < requireGoldArray.length(); j++) {
+                            requireGold[j] = CardRes.valueOf(requireGoldArray.getString(j));
                         }
-                        int points = Integer.parseInt(card.get("points").toString());
-                        CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
-
+                        int points = jsonObject.getInt("points");
+                        CardPosition cardposition = CardPosition.valueOf(jsonObject.getString("cardposition"));
 
                         // Leggi e crea l'oggetto SideCard
-                        JSONObject sideObject = (JSONObject) card.get("side");
-                        Side side = Side.valueOf((String) sideObject.get("side"));
-                        List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
-                        List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
+                        JSONObject sideObject = jsonObject.getJSONObject("side");
+                        Side side = Side.valueOf(sideObject.getString("side"));
+                        List<Corner> frontCorners = readCorners(sideObject.getJSONArray("front"));
+                        List<Corner> backCorners = readCorners(sideObject.getJSONArray("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, requireGold, points, cardposition, sideCard));
-
                     }
-                    System.out.println("FEIN! FEIN! FEIN!");
-                    // Stampa le carte lette
-                    printAllCards(cards);
-                } catch (org.json.simple.parser.ParseException e) {
-                    throw new RuntimeException(e);
-                }
 
+                    // Chiudi il lettore
+                    reader.close();
+
+                    // Stampa le carte lette
+                    for (Card card : cards) {
+                        System.out.println(card);
+                    }
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case GOLD:
@@ -93,52 +96,22 @@ public class Deck {
         }
 
     }
-    public static List<Corner> readCorners(JSONArray jsonArray) {
-            List<Corner> corners = new ArrayList<>();
-            for (Object obj : jsonArray) {
-                JSONObject cornerObject = (JSONObject) obj;
-                String pos = (String) cornerObject.get("Position");
-                Position position = Position.valueOf(pos);
-                String propCorn = (String) cornerObject.get("PropertiesCorner");
-                PropertiesCorner propertiesCorner = PropertiesCorner.valueOf(propCorn);
-                corners.add(new Corner(position, propertiesCorner));
-            }
-            return corners;
-     }
+    public static List<Corner> readCorners(org.json.JSONArray jsonArray) throws JSONException {
+        List<Corner> corners = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject cornerObject = jsonArray.getJSONObject(i);
+            String pos = cornerObject.getString("Position");
+            Position position = Position.valueOf(pos);
+            String propCorn = cornerObject.getString("PropertiesCorner");
+            PropertiesCorner propertiesCorner = PropertiesCorner.valueOf(propCorn);
+            corners.add(new Corner(position, propertiesCorner ));
+        }
+    return corners;
+    }
 
     public int getCardNumbers() {
          return CardNumbers;
     }
-    public void printAllCards(List<Card> cards) {
-        for (Card card : cards) {
-            System.out.println("Type: " + card.getType());
-            System.out.println("Card Resource: " + card.getCardRes());
-            System.out.print("Required Gold: ");
-            CardRes[] requireGold = card.getRequireGold();
-            for (int i = 0; i < requireGold.length; i++) {
-                System.out.print(requireGold[i]);
-                if (i < requireGold.length - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.println();
-            System.out.println("Points: " + card.getPoints());
-            System.out.println("Card Position: " + card.getCardPosition());
-            System.out.println("Side: " + card.getSide().getSide());
-            System.out.println("Front Corners:");
-            List<Corner> frontCorners = card.getSide().getFrontCorners();
-            for (Corner corner : frontCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
-            }
-            System.out.println("Back Corners:");
-            List<Corner> backCorners = card.getSide().getBackCorners();
-            for (Corner corner : backCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
-            }
-            System.out.println();
-        }
-    }
-
 
 }
 
