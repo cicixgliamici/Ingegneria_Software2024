@@ -1,96 +1,47 @@
 {
-  deck: [
-    {
-      "type": "RESOURCES",
-      "cardres": "FUNGI",
-      "requireGold": [],
-      "points": 0,
-      "cardposition": "DECKHIDDEN",
-      "side": {
-        "side": "BOTH",
-        "front": [
-          {
-            "Position": "TOPL",
-            "PropertiesCorner": "FUNGI"
-          },
-          {
-            "Position": "TOPR",
-            "PropertiesCorner": "EMPTY"
-          },
-          {
-            "Position": "BOTTOMR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOML",
-            "PropertiesCorner": "FUNGI"
-          }
-        ],
-        "back": [
-          {
-            "Position": "TOPL",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "TOPR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOMR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOML",
-            "PropertiesCorner": "HIDDEN"
-          }
-        ]
+  "type": "RESOURCES",
+  "cardres": "FUNGI",
+  "requireGold": [],
+  "points": 0,
+  "cardposition": "DECKHIDDEN",
+  "side": {
+    "side": "BOTH",
+    "front": [
+      {
+        "Position": "TOPL",
+        "PropertiesCorner": "FUNGI"
+      },
+      {
+        "Position": "TOPR",
+        "PropertiesCorner": "EMPTY"
+      },
+      {
+        "Position": "BOTTOMR",
+        "PropertiesCorner": "HIDDEN"
+      },
+      {
+        "Position": "BOTTOML",
+        "PropertiesCorner": "FUNGI"
       }
-    },
-    {
-      "type": "RESOURCES",
-      "cardres": "FUNGI",
-      "requireGold": [],
-      "points": 0,
-      "cardposition": "DECKHIDDEN",
-      "side": {
-        "side": "BOTH",
-        "front": [
-          {
-            "Position": "TOPL",
-            "PropertiesCorner": "FUNGI"
-          },
-          {
-            "Position": "TOPR",
-            "PropertiesCorner": "EMPTY"
-          },
-          {
-            "Position": "BOTTOMR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOML",
-            "PropertiesCorner": "FUNGI"
-          }
-        ],
-        "back": [
-          {
-            "Position": "TOPL",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "TOPR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOMR",
-            "PropertiesCorner": "HIDDEN"
-          },
-          {
-            "Position": "BOTTOML",
-            "PropertiesCorner": "HIDDEN"
-          }
-        ]
+    ],
+    "back": [
+      {
+        "Position": "TOPL",
+        "PropertiesCorner": "HIDDEN"
+      },
+      {
+        "Position": "TOPR",
+        "PropertiesCorner": "HIDDEN"
+      },
+      {
+        "Position": "BOTTOMR",
+        "PropertiesCorner": "HIDDEN"
+      },
+      {
+        "Position": "BOTTOML",
+        "PropertiesCorner": "HIDDEN"
       }
-    }
-  ]
+    ]
+  }
 }
+
