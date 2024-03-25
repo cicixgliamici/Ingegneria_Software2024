@@ -36,8 +36,24 @@ public class Card {
         this.side = side;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public CardRes getCardRes() {
-        return this.cardres;
+        return cardres;
+    }
+
+    public CardRes[] getRequireGold() {
+        return requireGold;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public CardPosition getCardPosition() {
+        return cardposition;
     }
 
     public SideCard getSide() {
