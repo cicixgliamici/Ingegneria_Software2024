@@ -7,11 +7,13 @@ import java.util.List;
 
 public class PlayersCardArea {
     private MatrixCell[][] PlayedCard;
-    private List<CardRes>  PlayerRes;
+    private List<PropertiesCorner> PlayerRes;
     private List<PropertiesCorner> PlayerObject;
 
+    private final int DIM = 10;
+
     public PlayersCardArea() {
-        this.PlayerRes = new ArrayList<CardRes>();
+        this.PlayerRes = new ArrayList<PropertiesCorner>();
         this.PlayerObject = new ArrayList<PropertiesCorner>();
     }
 
@@ -20,17 +22,36 @@ public class PlayersCardArea {
         this.PlayedCard[Line][Column].setCardCell(LinkCard);
     }
 
-    public void InitializedPlayerArea(int[][] PlayedCard, Card cardStarter){
-        ModifyPlayedCard(10,10, Position.TOPL, cardStarter);
-        ModifyPlayedCard(10,11, Position.TOPR, cardStarter);
-        ModifyPlayedCard(11,10, Position.BOTTOML, cardStarter);
-        ModifyPlayedCard(11,11, Position.BOTTOMR, cardStarter);
-        if (cardStarter.getSide().getSide() == Side.FRONT){
-            //inserimento valore ricavato dagli angoli nella lista
+    public List<PropertiesCorner> getPlayerRes() {
+        return PlayerRes;
+    }
+
+    public List<PropertiesCorner> getPlayerObject() {
+        return PlayerObject;
+    }
+
+    public void InitializedPlayerArea(Card cardStarter){
+        ModifyPlayedCard(this.DIM,this.DIM, Position.TOPL, cardStarter);
+        ModifyPlayedCard(this.DIM,this.DIM + 1, Position.TOPR, cardStarter);
+        ModifyPlayedCard(this.DIM + 1,this.DIM, Position.BOTTOML, cardStarter);
+        ModifyPlayedCard(this.DIM + 1,this.DIM + 1, Position.BOTTOMR, cardStarter);
+        if (cardStarter.getSide().getSide() == Side.BACK){
+            this.PlayerRes.add(cardStarter.CastCardRes());
         }
 
-        else if(cardStarter.getSide().getSide() == Side.BACK){
-            //inserimento valore ricavato dagli angoli nella lista
+        else if(cardStarter.getSide().getSide() == Side.FRONT){
+            if (cardStarter.getSide().getFrontCorners().get(1).getPropertiesCorner() != null){
+                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(1).getPropertiesCorner());
+            }
+            else if (cardStarter.getSide().getFrontCorners().get(2).getPropertiesCorner() != null){
+                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(2).getPropertiesCorner());
+            }
+            else if(cardStarter.getSide().getFrontCorners().get(3).getPropertiesCorner() != null){
+                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(3).getPropertiesCorner());
+            }
+            else if(cardStarter.getSide().getFrontCorners().get(4).getPropertiesCorner() != null){
+                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(4).getPropertiesCorner());
+            } //da capire perchè non mi faccia fare un for al posto di sto obrobrio
         }
     }
 
@@ -57,6 +78,18 @@ public class PlayersCardArea {
         };
         return j;
     } //tocca trovare un search che sia più elegante e che non faccia venire un infarto a bill gates
+
+    public void UpdateListData(Corner RemDataCorner, Card AddDataCard){
+        if(RemDataCorner.getPropertiesCorner() == PropertiesCorner.INKWELL || RemDataCorner.getPropertiesCorner() == PropertiesCorner.MANUSCRIPT || RemDataCorner.getPropertiesCorner() == PropertiesCorner.QUILL){
+            this.PlayerObject.remove(RemDataCorner.getPropertiesCorner());
+        }
+        else if(RemDataCorner.getPropertiesCorner() == PropertiesCorner.ANIMAL || RemDataCorner.getPropertiesCorner() == PropertiesCorner.PLANT || RemDataCorner.getPropertiesCorner() == PropertiesCorner.INSECT || RemDataCorner.getPropertiesCorner() == PropertiesCorner.FUNGI){
+            this.PlayerRes.remove(RemDataCorner.getPropertiesCorner());
+        }
+        if (AddDataCard.getSide().getSide() == Side.FRONT){
+            //AddDataCard.getSide().getFrontCorners().iterator(); informarsi meglio sull'iterator
+        }
+    }
     public void InsertNewCard(Card TouchedCard, Card NewCard, Corner ChoosenCorner){
         if (ChoosenCorner.getPosition() == Position.TOPL){
             //aggiungere TOPR alla posizione i+1 j
@@ -65,6 +98,7 @@ public class PlayersCardArea {
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) , (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) - 1, Position.BOTTOML, NewCard);
             //aggiungere TOPL alla posizione i-1 j-1
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) - 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) - 1, Position.TOPL, NewCard);
+            UpdateListData(ChoosenCorner,NewCard);
         }
         else if (ChoosenCorner.getPosition() == Position.TOPR){
             //aggiungere TOPR alla posizione  i+1 j+1
@@ -73,6 +107,7 @@ public class PlayersCardArea {
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)), (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) + 1, Position.BOTTOMR, NewCard);
             //aggiungere TOPL alla poszione TOPL i-1 j
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) - 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)), Position.TOPL, NewCard);
+            UpdateListData(ChoosenCorner,NewCard);
         }
         else if (ChoosenCorner.getPosition() == Position.BOTTOMR){
             //aggiungere TOPR alla posizione i j+1
@@ -81,6 +116,7 @@ public class PlayersCardArea {
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) + 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) + 1, Position.BOTTOMR, NewCard);
             //aggiungere BOTTOML i+1 j
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) + 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)), Position.BOTTOML, NewCard);
+            UpdateListData(ChoosenCorner,NewCard);
         }
         else if(ChoosenCorner.getPosition() == Position.BOTTOML){
             //aggiungere TOPL i j-1
@@ -89,6 +125,7 @@ public class PlayersCardArea {
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) + 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)), Position.BOTTOMR, NewCard);
             //aggiungere BOTTOML i+1 j-1
             ModifyPlayedCard((SearchCardMatrixToLinkCornerLine(TouchedCard, ChoosenCorner)) + 1, (SearchCardMatrixToLinkCornerColumn(TouchedCard,ChoosenCorner)) - 1, Position.BOTTOML, NewCard);
+            UpdateListData(ChoosenCorner,NewCard);
         }
     }
 }
