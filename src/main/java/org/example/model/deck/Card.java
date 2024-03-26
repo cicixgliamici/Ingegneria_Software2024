@@ -28,7 +28,7 @@ public class Card {
     }
 
 
-    public Card(Type type, CardRes cardres, CardRes[] requireGold, int points,  GoldenPoint goldenPoint, CardPosition cardposition, SideCard side) {
+    public Card(Type type, CardRes cardres, CardRes[] requireGold,  int points, GoldenPoint goldenPoint, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
         this.requireGold = requireGold;

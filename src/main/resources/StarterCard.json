@@ -1,0 +1,48 @@
+[
+  {
+    "type": "STARTER",
+    "requireGold": ["FUNGI",
+      "ANIMAL"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "INSECT"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  }
+]

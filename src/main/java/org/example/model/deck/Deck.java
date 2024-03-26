@@ -129,7 +129,42 @@ public class Deck {
 
             case STARTER:
                 this.CardNumbers = 6;
-                // CHIAMARE FUNZIONE GENERA CARTE
+                try {
+                    // Leggi il file JSON
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
+
+                    // Crea una lista per memorizzare le carte
+                    List<Card> cards = new ArrayList<>();
+
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        }
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
+                        List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
+                        SideCard sideCard = new SideCard(side, frontCorners, backCorners);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, null, requireGold, null, null, null, sideCard));
+                    }
+
+                    // Stampa le carte lette
+                    printAllCards(cards);
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
 
             default:
