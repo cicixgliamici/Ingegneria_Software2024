@@ -2,7 +2,10 @@
   {
     "type": "RESOURCES",
     "cardres": "FUNGI",
-    "requireGold": [],
+    "requireGold": [
+      "FUNGI",
+      "FUNGI"
+    ],
     "points": 2,
     "goldenPoint" : "CORNER",
     "cardposition": "DECKHIDDEN",
