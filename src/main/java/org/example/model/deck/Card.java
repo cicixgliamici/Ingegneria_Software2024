@@ -15,7 +15,7 @@ public class Card {
      *  is the same of the enum CardRes
      */
     private CardRes[] requireGold;
-    private int points;           // Point given
+    private Integer points;           // Point given
     // REQUISITI CARTA OBIETTIVO MANCANTI
     private GoldenPoint goldenPoint;
     private CardPosition cardposition;   // Position of the card
@@ -28,7 +28,7 @@ public class Card {
     }
 
 
-    public Card(Type type, CardRes cardres, CardRes[] requireGold,  int points, GoldenPoint goldenPoint, CardPosition cardposition, SideCard side) {
+    public Card(Type type, CardRes cardres, CardRes[] requireGold,  Integer points, GoldenPoint goldenPoint, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
         this.requireGold = requireGold;
@@ -50,7 +50,7 @@ public class Card {
         return requireGold;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
