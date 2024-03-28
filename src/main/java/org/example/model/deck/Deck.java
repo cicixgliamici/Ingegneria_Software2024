@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class Deck {
 
     private Type typeDeck;
     private int CardNumbers;
-
+    List<Card> cards = new ArrayList<>();
     public Deck(Type typeDeck) throws IOException, ParseException {
         this.typeDeck = typeDeck;
         switch (typeDeck) {
@@ -35,7 +36,7 @@ public class Deck {
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
 
                     // Crea una lista per memorizzare le carte
-                    List<Card> cards = new ArrayList<>();
+
 
                     // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
@@ -58,9 +59,6 @@ public class Deck {
                         // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, null, points, null, null, cardposition, sideCard));
                     }
-
-                    // Stampa le carte lette
-                    printAllCards(cards);
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -73,9 +71,6 @@ public class Deck {
                     // Leggi il file JSON
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
-
-                    // Crea una lista per memorizzare le carte
-                    List<Card> cards = new ArrayList<>();
 
                     // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
@@ -106,8 +101,6 @@ public class Deck {
                         cards.add(new Card(type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
                     }
 
-                    // Stampa le carte lette
-                    printAllCards(cards);
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -121,8 +114,6 @@ public class Deck {
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
 
-                    // Crea una lista per memorizzare le carte
-                    List<Card> cards = new ArrayList<>();
 
                     // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
@@ -157,9 +148,6 @@ public class Deck {
                         // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
                     }
-
-                    // Stampa le carte lette
-                    printAllCards(cards);
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -171,9 +159,6 @@ public class Deck {
                     // Leggi il file JSON
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
-
-                    // Crea una lista per memorizzare le carte
-                    List<Card> cards = new ArrayList<>();
 
                     // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
@@ -197,9 +182,6 @@ public class Deck {
                         // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, null, requireGold, null, null, null, null, sideCard));
                     }
-
-                    // Stampa le carte lette
-                    printAllCards(cards);
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -224,56 +206,20 @@ public class Deck {
         return corners;
     }
 
-    public void printAllCards(List<Card> cards) {
+    public void printAllCards() {
         for (Card card : cards) {
-            if (card.getType()!= null){
-                System.out.println("Type: " + card.getType());
-            }
-            if(card.getCardRes()!= null){
-                System.out.println("Card Resource: " + card.getCardRes());
-            }
-            if(card.getRequireGold()!= null){
-                System.out.print("Required Gold: ");
-                CardRes[] requireGold = card.getRequireGold();
-                if(requireGold!= null) {
-                    for (int i = 0; i < requireGold.length; i++) {
-                        System.out.print(requireGold[i]);
-                        if (i < requireGold.length - 1) {
-                            System.out.print(", ");
-                        }
-                    }
-                }
-                System.out.println();
-            }
-
-            if(card.getPoints() != null){
-                System.out.println("Points: " + card.getPoints());
-            }
-
-            if (card.getGoldenPoint()!= null) {
-                System.out.println("GoldenPoint: " + card.getGoldenPoint());
-            }
-            if(card.getCardPosition()!= null){
-                System.out.println("Card Position: " + card.getCardPosition());
-
-            }
-            System.out.println("Side: " + card.getSide().getSide());
-            if(card.getSide().getFrontCorners()!= null){
-                System.out.println("Front Corners:");
-                List<Corner> frontCorners = card.getSide().getFrontCorners();
-                for (Corner corner : frontCorners) {
-                    System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
-                }
-            }
-            if(card.getSide().getBackCorners()!=null) {
-                System.out.println("Back Corners:");
-                List<Corner> backCorners = card.getSide().getBackCorners();
-                for (Corner corner : backCorners) {
-                    System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
-                }
-            }
-            System.out.println();
+            card.print();
         }
+    }
+    public void printCard(int numcard){
+        cards.get(numcard).print();
+    }
+    public void shuffle(){
+        Collections.shuffle(cards);
+    }
+
+    public Card drawCard (Deck deck){
+        return deck.cards.get(0);
     }
 }
 

@@ -2,6 +2,8 @@ package org.example.model.deck;
 
 import org.example.model.deck.enumeration.*;
 
+import java.util.List;
+
 /**
  * Class Card to abstract the four cards type of the game
  */
@@ -88,7 +90,55 @@ public class Card {
         return side;
     }
 
+    public void print(){
+        if (this.getType()!= null){
+            System.out.println("Type: " + this.getType());
+        }
+        if(this.getCardRes()!= null){
+            System.out.println("Card Resource: " + this.getCardRes());
+        }
+        if(this.getRequireGold()!= null){
+            System.out.print("Required Gold: ");
+            CardRes[] requireGold = this.getRequireGold();
+            if(requireGold!= null) {
+                for (int i = 0; i < requireGold.length; i++) {
+                    System.out.print(requireGold[i]);
+                    if (i < requireGold.length - 1) {
+                        System.out.print(", ");
+                    }
+                }
+            }
+            System.out.println();
+        }
 
+        if(this.getPoints() != null){
+            System.out.println("Points: " + this.getPoints());
+        }
+
+        if (this.getGoldenPoint()!= null) {
+            System.out.println("GoldenPoint: " + this.getGoldenPoint());
+        }
+        if(this.getCardPosition()!= null){
+            System.out.println("Card Position: " + this.getCardPosition());
+
+        }
+        System.out.println("Side: " + this.getSide().getSide());
+        if(this.getSide().getFrontCorners()!= null){
+            System.out.println("Front Corners:");
+            List<Corner> frontCorners = this.getSide().getFrontCorners();
+            for (Corner corner : frontCorners) {
+                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
+            }
+        }
+        if(this.getSide().getBackCorners()!=null) {
+            System.out.println("Back Corners:");
+            List<Corner> backCorners = this.getSide().getBackCorners();
+            for (Corner corner : backCorners) {
+                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
+            }
+        }
+        System.out.println();
+    }
 
 }
 

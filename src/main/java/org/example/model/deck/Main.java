@@ -8,9 +8,15 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
 
-        //Deck deck1 = new Deck(Type.RESOURCES);
+        Deck deck1 = new Deck(Type.RESOURCES);
+        //deck1.printAllCards();
+        deck1.printCard(0);
+        deck1.shuffle();
+        deck1.printCard(0);
+        Card card = deck1.drawCard(deck1);
+        card.print();
         //Deck deck2 = new Deck(Type.GOLD);
-        Deck deck3 = new Deck(Type.OBJECT);
+        //Deck deck3 = new Deck(Type.OBJECT);
         //Deck deck4 = new Deck(Type.STARTER);
 
     }
