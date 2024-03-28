@@ -47,21 +47,6 @@ public class Card {
         this.side = side;
     }
 
-    public PropertiesCorner CastCardRes(PropertiesCorner propertiesCorner){
-        if( == CardRes.PLANT){
-            return PropertiesCorner.PLANT;
-        }
-        else if(this.cardres == CardRes.ANIMAL){
-            return PropertiesCorner.ANIMAL;
-        }
-        else if(this.cardres == CardRes.FUNGI){
-            return PropertiesCorner.FUNGI;
-        }
-        else {
-            return PropertiesCorner.INSECT;
-        }
-    }
-
     public Type getType() {
         return type;
     }

@@ -1,4 +1,7 @@
-package org.example.model.deck.enumeration;
+package org.example.model.deck;
+
+import org.example.model.deck.enumeration.PropertiesCorner;
+
 public class CounterResources {
     private int AnimalCounter;
     private int PlantCounter;

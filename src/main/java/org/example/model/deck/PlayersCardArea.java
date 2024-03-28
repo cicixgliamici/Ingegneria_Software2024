@@ -1,9 +1,7 @@
 package org.example.model.deck;
 
 import org.example.model.deck.enumeration.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.example.model.deck.enumeration.cast.CastCardRes;
 
 public class PlayersCardArea {
     private MatrixCell[][] PlayedCard;
@@ -46,9 +44,10 @@ public class PlayersCardArea {
             } else if (cardStarter.getPropCorn(4)  != null) {
                 counter.AddResource(cardStarter.getPropCorn(4));
             }
+            //aggiunta nuova classe per fare il cast
             for (CardRes cardRes : cardStarter.getRequireGold()) {
-                PropertiesCorner propertiesCorner = CardRes.
-                counter.AddResource();
+                CastCardRes castCardRes= new CastCardRes(cardRes);
+                counter.AddResource(castCardRes.getPropertiesCorner());
             }
         }
     }
