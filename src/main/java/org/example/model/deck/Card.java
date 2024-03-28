@@ -47,8 +47,8 @@ public class Card {
         this.side = side;
     }
 
-    public PropertiesCorner CastCardRes(){
-        if(this.cardres == CardRes.PLANT){
+    public PropertiesCorner CastCardRes(PropertiesCorner propertiesCorner){
+        if( == CardRes.PLANT){
             return PropertiesCorner.PLANT;
         }
         else if(this.cardres == CardRes.ANIMAL){

@@ -17,10 +17,14 @@ public class PlayersCardArea {
     }
 
     public void InitializedPlayerArea(Card cardStarter){
+
+        //aggiunge i corner alla matrice
         ModifyPlayedCard( this.DIM, this.DIM, Position.TOPL, cardStarter);
         ModifyPlayedCard(this.DIM,this.DIM + 1, Position.TOPR, cardStarter);
         ModifyPlayedCard(this.DIM + 1,this.DIM, Position.BOTTOML, cardStarter);
         ModifyPlayedCard(this.DIM + 1,this.DIM + 1, Position.BOTTOMR, cardStarter);
+
+        //aumenta le risosre della carta iniziale
         if (cardStarter.getSide().getSide() == Side.BACK) {
             if (cardStarter.getPropCorn(1) != null) {
                 counter.AddResource(cardStarter.getPropCorn(1));
@@ -41,6 +45,10 @@ public class PlayersCardArea {
                 counter.AddResource(cardStarter.getPropCorn(3));
             } else if (cardStarter.getPropCorn(4)  != null) {
                 counter.AddResource(cardStarter.getPropCorn(4));
+            }
+            for (CardRes cardRes : cardStarter.getRequireGold()) {
+                PropertiesCorner propertiesCorner = CardRes.
+                counter.AddResource();
             }
         }
     }
