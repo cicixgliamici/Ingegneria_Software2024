@@ -21,11 +21,11 @@ public class SideCard {
         return side;
     }
 
-    public List<Corner> getFront() {
+    public List<Corner> getFrontCorners() {
         return front;
     }
 
-    public List<Corner> getBack() {
+    public List<Corner> getBackCorners() {
         return back;
     }
 }

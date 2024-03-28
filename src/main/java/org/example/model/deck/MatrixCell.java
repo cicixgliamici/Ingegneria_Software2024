@@ -1,10 +1,12 @@
 package org.example.model.deck;
 
+import org.example.model.deck.enumeration.Position;
+
 public class MatrixCell {
     private Card CardCell;
-    private int AvailabilityCorner;
+    private Position AvailabilityCorner;
 
-    public MatrixCell(Card cardCell, int availabilityCorner) {
+    public MatrixCell(Card cardCell, Position availabilityCorner) {
         this.CardCell = cardCell;
         this.AvailabilityCorner = availabilityCorner;
     }
@@ -13,7 +15,7 @@ public class MatrixCell {
         this.CardCell = cardCell;
     }
 
-    public void setAvailabilityCorner(int availabilityCorner){
+    public void setAvailabilityCorner(Position availabilityCorner){
         this.AvailabilityCorner = availabilityCorner;
     }
 
@@ -21,7 +23,7 @@ public class MatrixCell {
         return this.CardCell;
     }
 
-    public int getAvailabilityCorner() {
+    public Position getAvailabilityCorner() {
         return AvailabilityCorner;
     }
 }

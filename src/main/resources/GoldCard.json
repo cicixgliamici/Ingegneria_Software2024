@@ -1,0 +1,517 @@
+[
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "ANIMAL"
+    ],
+    "points": 1,
+    "goldenPoint" : "QUILL",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "QUILL"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "PLANT"
+    ],
+    "points": 1,
+    "goldenPoint" : "INKWELL",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "INKWELL"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "INSECT"
+    ],
+    "points": 1,
+    "goldenPoint" : "MANUSCRIPT",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "MANUSCRIPT"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI",
+      "ANIMAL"
+    ],
+    "points": 2,
+    "goldenPoint" : "CORNER",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+    {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI",
+      "PLANT"
+    ],
+    "points": 2,
+    "goldenPoint" : "CORNER",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+    {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI",
+      "INSECT"
+    ],
+    "points": 2,
+    "goldenPoint" : "CORNER",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI"
+    ],
+    "points": 3,
+    "goldenPoint" : ,
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "INKWELL"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI"
+    ],
+    "points": 3,
+    "goldenPoint" : ,
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "QUILL"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI"
+    ],
+    "points": 3,
+    "goldenPoint" : ,
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "MANUSCRIPT"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+    {
+    "type": "RESOURCES",
+    "cardres": "FUNGI",
+    "requireGold": [
+      "FUNGI",
+      "FUNGI",
+      "FUNGI",
+      "FUNGI",
+      "FUNGI"
+    ],
+    "points": 5,
+    "goldenPoint" : ,
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  }
+]
