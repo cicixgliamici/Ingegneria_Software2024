@@ -1029,13 +1029,13 @@
       ]
     }
   },
-  {
+    {
     "type": "RESOURCES",
-    "cardres": "INSECT",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "PLANT"
+      "PLANT",
+      "PLANT",
+      "INSECT"
     ],
     "points": 1,
     "goldenPoint" : "QUILL",
@@ -1045,19 +1045,19 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
           "PropertiesCorner": "QUILL"
         },
         {
-          "Position": "BOTTOMR",
+          "Position": "TOPR",
           "PropertiesCorner": "EMPTY"
         },
         {
-          "Position": "BOTTOML",
+          "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
         }
       ],
       "back": [
@@ -1082,11 +1082,11 @@
   },
   {
     "type": "RESOURCES",
-    "cardres": "INSECT",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "ANIMAL"
+      "PLANT",
+      "PLANT",
+      "FUNGI"
     ],
     "points": 1,
     "goldenPoint" : "MANUSCRIPT",
@@ -1100,62 +1100,11 @@
         },
         {
           "Position": "TOPR",
-          "PropertiesCorner": "HIDDEN"
-        },
-        {
-          "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOML",
           "PropertiesCorner": "MANUSCRIPT"
-        }
-      ],
-      "back": [
-        {
-          "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
         },
         {
           "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOML",
-          "PropertiesCorner": "EMPTY"
-        }
-      ]
-    }
-  },
-  {
-    "type": "GOLD",
-    "cardres": "INSECT",
-    "requireGold": [
-      "INSECT",
-      "INSECT",
-      "FUNGI"
-    ],
-    "points": 1,
-    "goldenPoint" : "INKWELL",
-    "cardposition": "DECKHIDDEN",
-    "side": {
-      "side": "BOTH",
-      "front": [
-        {
-          "Position": "TOPL",
           "PropertiesCorner": "HIDDEN"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOMR",
-          "PropertiesCorner": "INKWELL"
         },
         {
           "Position": "BOTTOML",
@@ -1184,11 +1133,114 @@
   },
   {
     "type": "RESOURCES",
-    "cardres": "INSECT",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT",
+      "PLANT",
+      "PLANT",
+      "ANIMAL"
+    ],
+    "points": 1,
+    "goldenPoint" : "INKWELL",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "INKWELL"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "PLANT",
+    "requireGold": [
+      "PLANT",
+      "PLANT",
+      "PLANT",
+      "INSECT"
+    ],
+    "points": 2,
+    "goldenPoint" : "CORNER",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "RESOURCES",
+    "cardres": "PLANT",
+    "requireGold": [
+      "PLANT",
+      "PLANT",
+      "PLANT",
       "ANIMAL"
     ],
     "points": 2,
@@ -1207,58 +1259,6 @@
         },
         {
           "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOML",
-          "PropertiesCorner": "HIDDEN"
-        }
-      ],
-      "back": [
-        {
-          "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOML",
-          "PropertiesCorner": "EMPTY"
-        }
-      ]
-    }
-  },
-  {
-    "type": "GOLD",
-    "cardres": "INSECT",
-    "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT",
-      "PLANT"
-    ],
-    "points": 2,
-    "goldenPoint" : "CORNER",
-    "cardposition": "DECKHIDDEN",
-    "side": {
-      "side": "BOTH",
-      "front": [
-        {
-          "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
         },
         {
@@ -1287,12 +1287,12 @@
     }
   },
   {
-    "type": "GOLD",
-    "cardres": "INSECT",
+    "type": "RESOURCES",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT",
+      "PLANT",
+      "PLANT",
+      "PLANT",
       "FUNGI"
     ],
     "points": 2,
@@ -1339,12 +1339,12 @@
     }
   },
   {
-    "type": "GOLD",
-    "cardres": "INSECT",
+    "type": "RESOURCES",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT"
+      "PLANT",
+      "PLANT",
+      "PLANT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1354,7 +1354,7 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "INKWELL"
+          "PropertiesCorner": "EMPTY"
         },
         {
           "Position": "TOPR",
@@ -1366,7 +1366,7 @@
         },
         {
           "Position": "BOTTOML",
-          "PropertiesCorner": "EMPTY"
+          "PropertiesCorner": "INKWELL"
         }
       ],
       "back": [
@@ -1390,12 +1390,12 @@
     }
   },
   {
-    "type": "GOLD",
-    "cardres": "INSECT",
+    "type": "RESOURCES",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT"
+      "PLANT",
+      "PLANT",
+      "PLANT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1405,13 +1405,13 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
           "PropertiesCorner": "MANUSCRIPT"
         },
         {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
           "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
         },
@@ -1441,12 +1441,12 @@
     }
   },
   {
-    "type": "GOLD",
-    "cardres": "INSECT",
+    "type": "RESOURCES",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT"
+      "PLANT",
+      "PLANT",
+      "PLANT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1460,7 +1460,7 @@
         },
         {
           "Position": "TOPR",
-          "PropertiesCorner": "HIDDEN"
+          "PropertiesCorner": "INKWELL"
         },
         {
           "Position": "BOTTOMR",
@@ -1468,7 +1468,7 @@
         },
         {
           "Position": "BOTTOML",
-          "PropertiesCorner": "QUILL"
+          "PropertiesCorner": "HIDDEN"
         }
       ],
       "back": [
@@ -1492,14 +1492,14 @@
     }
   },
   {
-    "type": "GOLD",
-    "cardres": "INSECT",
+    "type": "RESOURCES",
+    "cardres": "PLANT",
     "requireGold": [
-      "INSECT",
-      "INSECT",
-      "INSECT",
-      "INSECT",
-      "INSECT"
+      "PLANT",
+      "PLANT",
+      "PLANT",
+      "PLANT",
+      "PLANT"
     ],
     "points": 5,
     "goldenPoint": null,
@@ -1546,11 +1546,11 @@
   },
   {
     "type": "RESOURCES",
-    "cardres": "PLANT",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "INSECT"
+      "INSECT",
+      "INSECT",
+      "PLANT"
     ],
     "points": 1,
     "goldenPoint" : "QUILL",
@@ -1560,19 +1560,19 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "QUILL"
+          "PropertiesCorner": "EMPTY"
         },
         {
           "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
+          "PropertiesCorner": "QUILL"
         },
         {
           "Position": "BOTTOMR",
-          "PropertiesCorner": "HIDDEN"
+          "PropertiesCorner": "EMPTY"
         },
         {
           "Position": "BOTTOML",
-          "PropertiesCorner": "EMPTY"
+          "PropertiesCorner": "HIDDEN"
         }
       ],
       "back": [
@@ -1597,11 +1597,11 @@
   },
   {
     "type": "RESOURCES",
-    "cardres": "PLANT",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "FUNGI"
+      "INSECT",
+      "INSECT",
+      "ANIMAL"
     ],
     "points": 1,
     "goldenPoint" : "MANUSCRIPT",
@@ -1615,15 +1615,15 @@
         },
         {
           "Position": "TOPR",
-          "PropertiesCorner": "MANUSCRIPT"
-        },
-        {
-          "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
         },
         {
-          "Position": "BOTTOML",
+          "Position": "BOTTOMR",
           "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "MANUSCRIPT"
         }
       ],
       "back": [
@@ -1647,12 +1647,12 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "ANIMAL"
+      "INSECT",
+      "INSECT",
+      "FUNGI"
     ],
     "points": 1,
     "goldenPoint" : "INKWELL",
@@ -1662,67 +1662,15 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
           "PropertiesCorner": "HIDDEN"
         },
         {
-          "Position": "BOTTOMR",
+          "Position": "TOPR",
           "PropertiesCorner": "EMPTY"
         },
         {
-          "Position": "BOTTOML",
+          "Position": "BOTTOMR",
           "PropertiesCorner": "INKWELL"
-        }
-      ],
-      "back": [
-        {
-          "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOML",
-          "PropertiesCorner": "EMPTY"
-        }
-      ]
-    }
-  },
-  {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
-    "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT",
-      "INSECT"
-    ],
-    "points": 2,
-    "goldenPoint" : "CORNER",
-    "cardposition": "DECKHIDDEN",
-    "side": {
-      "side": "BOTH",
-      "front": [
-        {
-          "Position": "TOPL",
-          "PropertiesCorner": "HIDDEN"
-        },
-        {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
-          "Position": "BOTTOMR",
-          "PropertiesCorner": "EMPTY"
         },
         {
           "Position": "BOTTOML",
@@ -1751,11 +1699,11 @@
   },
   {
     "type": "RESOURCES",
-    "cardres": "PLANT",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT",
+      "INSECT",
+      "INSECT",
+      "INSECT",
       "ANIMAL"
     ],
     "points": 2,
@@ -1774,6 +1722,58 @@
         },
         {
           "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GOLD",
+    "cardres": "INSECT",
+    "requireGold": [
+      "INSECT",
+      "INSECT",
+      "INSECT",
+      "PLANT"
+    ],
+    "points": 2,
+    "goldenPoint" : "CORNER",
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
         },
         {
@@ -1802,12 +1802,12 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT",
+      "INSECT",
+      "INSECT",
+      "INSECT",
       "FUNGI"
     ],
     "points": 2,
@@ -1854,12 +1854,12 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT"
+      "INSECT",
+      "INSECT",
+      "INSECT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1869,7 +1869,7 @@
       "front": [
         {
           "Position": "TOPL",
-          "PropertiesCorner": "EMPTY"
+          "PropertiesCorner": "INKWELL"
         },
         {
           "Position": "TOPR",
@@ -1881,7 +1881,7 @@
         },
         {
           "Position": "BOTTOML",
-          "PropertiesCorner": "INKWELL"
+          "PropertiesCorner": "EMPTY"
         }
       ],
       "back": [
@@ -1905,12 +1905,12 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT"
+      "INSECT",
+      "INSECT",
+      "INSECT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1920,13 +1920,13 @@
       "front": [
         {
           "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
           "PropertiesCorner": "MANUSCRIPT"
         },
         {
-          "Position": "TOPR",
-          "PropertiesCorner": "EMPTY"
-        },
-        {
           "Position": "BOTTOMR",
           "PropertiesCorner": "HIDDEN"
         },
@@ -1956,12 +1956,12 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT"
+      "INSECT",
+      "INSECT",
+      "INSECT"
     ],
     "points": 3,
     "goldenPoint" : null ,
@@ -1975,7 +1975,7 @@
         },
         {
           "Position": "TOPR",
-          "PropertiesCorner": "INKWELL"
+          "PropertiesCorner": "HIDDEN"
         },
         {
           "Position": "BOTTOMR",
@@ -1983,7 +1983,7 @@
         },
         {
           "Position": "BOTTOML",
-          "PropertiesCorner": "HIDDEN"
+          "PropertiesCorner": "QUILL"
         }
       ],
       "back": [
@@ -2007,14 +2007,14 @@
     }
   },
   {
-    "type": "RESOURCES",
-    "cardres": "PLANT",
+    "type": "GOLD",
+    "cardres": "INSECT",
     "requireGold": [
-      "PLANT",
-      "PLANT",
-      "PLANT",
-      "PLANT",
-      "PLANT"
+      "INSECT",
+      "INSECT",
+      "INSECT",
+      "INSECT",
+      "INSECT"
     ],
     "points": 5,
     "goldenPoint": null,
