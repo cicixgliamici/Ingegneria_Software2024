@@ -7,51 +7,41 @@ import java.util.List;
 
 public class PlayersCardArea {
     private MatrixCell[][] PlayedCard;
-    private List<PropertiesCorner> PlayerRes;
-    private List<PropertiesCorner> PlayerObject;
 
     private final int DIM = 10;
-
-    public PlayersCardArea() {
-        this.PlayerRes = new ArrayList<PropertiesCorner>();
-        this.PlayerObject = new ArrayList<PropertiesCorner>();
-    }
+    CounterResources counter = new CounterResources();
 
     public void ModifyPlayedCard(int Line, int Column, Position Value, Card LinkCard){
         this.PlayedCard[Line][Column].setAvailabilityCorner(Value);
         this.PlayedCard[Line][Column].setCardCell(LinkCard);
     }
 
-    public List<PropertiesCorner> getPlayerRes() {
-        return PlayerRes;
-    }
-
-    public List<PropertiesCorner> getPlayerObject() {
-        return PlayerObject;
-    }
-
     public void InitializedPlayerArea(Card cardStarter){
-        ModifyPlayedCard(this.DIM,this.DIM, Position.TOPL, cardStarter);
+        ModifyPlayedCard( this.DIM, this.DIM, Position.TOPL, cardStarter);
         ModifyPlayedCard(this.DIM,this.DIM + 1, Position.TOPR, cardStarter);
         ModifyPlayedCard(this.DIM + 1,this.DIM, Position.BOTTOML, cardStarter);
         ModifyPlayedCard(this.DIM + 1,this.DIM + 1, Position.BOTTOMR, cardStarter);
-        if (cardStarter.getSide().getSide() == Side.BACK){
-            this.PlayerRes.add(cardStarter.CastCardRes());
+        if (cardStarter.getSide().getSide() == Side.BACK) {
+            if (cardStarter.getPropCorn(1) != null) {
+                counter.AddResource(cardStarter.getPropCorn(1));
+            } else if (cardStarter.getPropCorn(2)  != null) {
+                counter.AddResource(cardStarter.getPropCorn(2));
+            } else if (cardStarter.getPropCorn(3) != null) {
+                counter.AddResource(cardStarter.getPropCorn(3));
+            } else if (cardStarter.getPropCorn(4)  != null) {
+                counter.AddResource(cardStarter.getPropCorn(4));
+            }
         }
-
         else if(cardStarter.getSide().getSide() == Side.FRONT){
-            if (cardStarter.getSide().getFrontCorners().get(1).getPropertiesCorner() != null){
-                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(1).getPropertiesCorner());
+            if (cardStarter.getPropCorn(1) != null) {
+                counter.AddResource(cardStarter.getPropCorn(1));
+            } else if (cardStarter.getPropCorn(2)  != null) {
+                counter.AddResource(cardStarter.getPropCorn(2));
+            } else if (cardStarter.getPropCorn(3) != null) {
+                counter.AddResource(cardStarter.getPropCorn(3));
+            } else if (cardStarter.getPropCorn(4)  != null) {
+                counter.AddResource(cardStarter.getPropCorn(4));
             }
-            else if (cardStarter.getSide().getFrontCorners().get(2).getPropertiesCorner() != null){
-                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(2).getPropertiesCorner());
-            }
-            else if(cardStarter.getSide().getFrontCorners().get(3).getPropertiesCorner() != null){
-                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(3).getPropertiesCorner());
-            }
-            else if(cardStarter.getSide().getFrontCorners().get(4).getPropertiesCorner() != null){
-                this.PlayerRes.add(cardStarter.getSide().getFrontCorners().get(4).getPropertiesCorner());
-            } //da capire perchè non mi faccia fare un for al posto di sto obrobrio
         }
     }
 
