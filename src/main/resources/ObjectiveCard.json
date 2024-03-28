@@ -1,0 +1,14 @@
+[
+  {
+    "type": "OBJECT",
+    "cardres": "FUNGI",
+    "points": 1,
+    "objectivePoints" : [
+      "FUNGI", "FUNGI", "FUNGI"
+      ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+    "side": "BOTH"
+    }
+  }
+]

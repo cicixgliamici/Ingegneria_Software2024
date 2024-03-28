@@ -60,7 +60,7 @@ public class Deck {
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
-                        cards.add(new Card(type, cardres, null, points, null, cardposition, sideCard));
+                        cards.add(new Card(type, cardres, null, points, null, null, cardposition, sideCard));
                     }
 
                     // Chiudi il lettore
@@ -112,7 +112,7 @@ public class Deck {
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
-                        cards.add(new Card(type, cardres, requireGold, points, goldenPoint, cardposition, sideCard));
+                        cards.add(new Card(type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
                     }
 
                     // Stampa le carte lette
@@ -124,7 +124,54 @@ public class Deck {
 
             case OBJECT:
                 this.CardNumbers = 16;
-                // CHIAMARE FUNZIONE GENERA CARTE
+                this.CardNumbers = 40;
+                try {
+                    // Leggi il file JSON
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
+
+                    // Crea una lista per memorizzare le carte
+                    List<Card> cards = new ArrayList<>();
+
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
+                        /*
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        } */
+
+                        int points = Integer.parseInt(card.get("points").toString());
+
+
+                        JSONArray objectivePointsArray = (JSONArray) card.get("objectivePoints");
+                        ObjectivePoints[] objectivePoints = new ObjectivePoints[objectivePointsArray.size()];
+                        for (int j = 0; j < objectivePointsArray.size(); j++) {
+                            objectivePoints[j] = ObjectivePoints.valueOf((String) objectivePointsArray.get(j));
+                        }
+
+                        CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        SideCard sideCard = new SideCard(side, null, null);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
+                    }
+
+                    // Stampa le carte lette
+                    printAllCards(cards);
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
 
             case STARTER:
@@ -157,7 +204,7 @@ public class Deck {
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
 
                         // Crea l'oggetto Card e aggiungilo alla lista
-                        cards.add(new Card(type, null, requireGold, null, null, null, sideCard));
+                        cards.add(new Card(type, null, requireGold, null, null, null, null, sideCard));
                     }
 
                     // Stampa le carte lette

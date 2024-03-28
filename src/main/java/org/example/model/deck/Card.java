@@ -9,15 +9,21 @@ import org.example.model.deck.enumeration.*;
 public class Card {
     private Type type;        // Type of the card
     private CardRes cardres;    // Permanent resource
+                                //per le carte obbiettivo puo servire per la grafica, quelle con null sono grigie
 
     /**
      *  Array of requirment for Gold Cards, the order of resources
      *  is the same of the enum CardRes
      */
-    private CardRes[] requireGold;
+    private CardRes[] requireGold;    //array of requirement for place the goldcard
+
     private Integer points;           // Point given
-    // REQUISITI CARTA OBIETTIVO MANCANTI
-    private GoldenPoint goldenPoint;
+
+    private GoldenPoint goldenPoint;    //x carte oro: valore che indica quale attributo da i punti
+                                        //x carte iniziali: risorse permanenti
+
+    private ObjectivePoints[] objectivePoints;
+
     private CardPosition cardposition;   // Position of the card
 
     private SideCard side;  // Reference to the object SideCard
@@ -28,12 +34,13 @@ public class Card {
     }
 
 
-    public Card(Type type, CardRes cardres, CardRes[] requireGold,  Integer points, GoldenPoint goldenPoint, CardPosition cardposition, SideCard side) {
+    public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints[] objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
         this.requireGold = requireGold;
         this.points = points;
         this.goldenPoint= goldenPoint;
+        this.objectivePoints=objectivePoints;
         this.cardposition = cardposition;
         this.side = side;
     }
@@ -80,6 +87,8 @@ public class Card {
     public SideCard getSide() {
         return side;
     }
+
+
 
 }
 

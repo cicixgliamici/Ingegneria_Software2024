@@ -12,6 +12,9 @@ public class PlacementCard {
         this.CoverHide = true;
     }
 
+    //inserire un metodo che quanto posizioni una carta ti dice i punti finali di quella carta
+    //una volta posiziona la carta avrà quei punti per sempre quindi calcoliamoli subito
+
     public void setCoverHide(boolean bool){
         this.CoverHide = bool;
     }
