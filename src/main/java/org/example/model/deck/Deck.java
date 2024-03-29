@@ -108,7 +108,6 @@ public class Deck {
 
             case OBJECT:
                 this.CardNumbers = 16;
-                this.CardNumbers = 40;
                 try {
                     // Leggi il file JSON
                     JSONParser parser = new JSONParser();
@@ -219,7 +218,21 @@ public class Deck {
     }
 
     public Card drawCard (Deck deck){
-        return deck.cards.get(0);
+        Card card = deck.cards.get(1);
+        deck.cards.remove(1);
+        return card;
+    }
+
+    public Type getTypeDeck() {
+        return typeDeck;
+    }
+
+    public int getCardNumbers() {
+        return CardNumbers;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }
 

@@ -128,6 +128,5 @@ public class Card {
     public PropertiesCorner getPropCorn (int pos){
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
-
 }
 

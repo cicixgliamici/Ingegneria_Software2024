@@ -67,5 +67,33 @@ public class CounterResources {
             this.ManuscriptCounter--;
         }
     }
+
+    public int getAnimalCounter() {
+        return AnimalCounter;
+    }
+
+    public int getPlantCounter() {
+        return PlantCounter;
+    }
+
+    public int getFungiCounter() {
+        return FungiCounter;
+    }
+
+    public int getInsectCounter() {
+        return InsectCounter;
+    }
+
+    public int getQuillCounter() {
+        return QuillCounter;
+    }
+
+    public int getInkwellCounter() {
+        return InkwellCounter;
+    }
+
+    public int getManuscriptCounter() {
+        return ManuscriptCounter;
+    }
 }
 
