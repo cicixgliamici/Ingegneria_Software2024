@@ -5,6 +5,8 @@ import org.example.model.deck.enumeration.PropertiesCorner;
 
 public class MatrixCell {
     private Card CardCell;
+
+    //private Card CoverCard;
     private Position AvailabilityCorner;
 
     private SideCard sideCard;
