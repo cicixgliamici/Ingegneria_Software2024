@@ -1,5 +1,8 @@
-package org.example.model.deck;
+package org.example.model.PlayArea;
 
+import org.example.model.deck.Card;
+import org.example.model.deck.Corner;
+import org.example.model.deck.SideCard;
 import org.example.model.deck.enumeration.*;
 import org.example.model.deck.enumeration.cast.CastCardRes;
 

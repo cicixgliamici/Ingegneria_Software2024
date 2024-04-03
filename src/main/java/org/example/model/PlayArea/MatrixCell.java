@@ -1,5 +1,7 @@
-package org.example.model.deck;
+package org.example.model.PlayArea;
 
+import org.example.model.deck.Card;
+import org.example.model.deck.SideCard;
 import org.example.model.deck.enumeration.Position;
 import org.example.model.deck.enumeration.PropertiesCorner;
 

@@ -1,5 +1,7 @@
-package org.example.model.deck;
+package org.example.model;
 
+import org.example.model.deck.Card;
+import org.example.model.deck.Deck;
 import org.example.model.deck.enumeration.Type;
 import org.json.simple.parser.ParseException;
 
