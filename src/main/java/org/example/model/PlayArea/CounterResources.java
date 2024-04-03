@@ -1,4 +1,4 @@
-package org.example.model.PlayArea.vecchio;
+package org.example.model.PlayArea;
 
 import org.example.model.deck.enumeration.PropertiesCorner;
 

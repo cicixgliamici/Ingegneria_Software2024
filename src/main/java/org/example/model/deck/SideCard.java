@@ -28,5 +28,26 @@ public class SideCard {
     public List<Corner> getBackCorners() {
         return back;
     }
+
+    public void setSide(Side side) {
+        this.side = side;
+    }
+
+    public void setFront(List<Corner> front) {
+        this.front = front;
+    }
+
+    public void setBack(List<Corner> back) {
+        this.back = back;
+    }
+
+    public List<Corner> getChoosenList(){
+        if(this.side == Side.BACK){
+            return getBackCorners();
+        }
+        else {
+            return getFrontCorners();
+        }
+    }
 }
 

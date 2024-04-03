@@ -1,5 +1,6 @@
 package org.example.model.PlayArea.vecchio;
 
+import org.example.model.PlayArea.CounterResources;
 import org.example.model.deck.Card;
 import org.example.model.deck.Corner;
 import org.example.model.deck.SideCard;
