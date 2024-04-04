@@ -9,4 +9,12 @@ public class Corner {
         this.propertiesCorner = propertiesCorner;
         this.position = position;
     }
+
+    public Position getPosition(){
+        return this.position;
+    }
+
+    public PropertiesCorner getPropertiesCorner(){
+        return this.propertiesCorner;
+    }
 }

@@ -1,0 +1,194 @@
+[
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "REDDIAG"
+      ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+    "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "GREENDIAG"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "BLUDIAG"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "PURPLEDIAG"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 3,
+    "objectivePoints" : [
+      "REDGREEN"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 3,
+    "objectivePoints" : [
+      "GREENPURPLE"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 3,
+    "objectivePoints" : [
+      "BLUERED"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 3,
+    "objectivePoints" : [
+      "PURPLEBLUE"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "FUNGI", "FUNGI", "FUNGI"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "PLANT", "PLANT", "PLANT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "ANIMAL", "ANIMAL", "ANIMAL"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "INSECT", "INSECT", "INSECT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 3,
+    "objectivePoints" : [
+      "QUILL", "INKWELL", "MANUSCRIPT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "MANUSCRIPT", "MANUSCRIPT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "INKWELL", "INKWELL"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  },
+  {
+    "type": "OBJECT",
+    "cardres": null,
+    "points": 2,
+    "objectivePoints" : [
+      "QUILL", "QUILL"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH"
+    }
+  }
+]

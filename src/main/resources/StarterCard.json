@@ -1,0 +1,272 @@
+[
+  {
+    "type": "STARTER",
+    "requireGold": ["INSECT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "INSECT"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "INSECT"
+        }
+      ]
+    }
+  },
+  {
+    "type": "STARTER",
+    "requireGold": ["FUNGI"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "FUNGI"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "INSECT"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "FUNGI"
+        }
+      ]
+    }
+  },
+  {
+    "type": "STARTER",
+    "requireGold": ["PLANT", "FUNGI"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "INSECT"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "FUNGI"
+        }
+      ]
+    }
+  },
+  {
+    "type": "STARTER",
+    "requireGold": ["ANIMAL", "INSECT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "EMPTY"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "PLANT"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "INSECT"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "ANIMAL"
+        }
+      ]
+    }
+  },
+  {
+    "type": "STARTER",
+    "requireGold": ["ANIMAL", "INSECT", "PLANT"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "INSECT"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "PLANT"
+        }
+      ]
+    }
+  },
+  {
+    "type": "STARTER",
+    "requireGold": ["PLANT", "ANIMAL", "FUNGI"
+    ],
+    "cardposition": "DECKHIDDEN",
+    "side": {
+      "side": "BOTH",
+      "front": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "EMPTY"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "HIDDEN"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "HIDDEN"
+        }
+      ],
+      "back": [
+        {
+          "Position": "TOPL",
+          "PropertiesCorner": "FUNGI"
+        },
+        {
+          "Position": "TOPR",
+          "PropertiesCorner": "ANIMAL"
+        },
+        {
+          "Position": "BOTTOMR",
+          "PropertiesCorner": "INSECT"
+        },
+        {
+          "Position": "BOTTOML",
+          "PropertiesCorner": "PLANT"
+        }
+      ]
+    }
+  },
+]
