@@ -11,7 +11,7 @@ public class PlayerCardArea {
     //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, null, null, null, null, 0, 0);
-        this.Starter.searchAvailableNode(this.Starter);
+        this.Starter.searchAvailableNode();
         if ((cardStarter.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner());
         } else if ((cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
@@ -31,10 +31,8 @@ public class PlayerCardArea {
 
     }
 
-    public void InsertNewCard(Card NewCard, Corner choosenCorner, Card TouchedCard){
+    public void addCard(Card NewCard, Node ChoosenNode){
         //devo cercare nella lista degli angoli disponibili, l'angolo che ho scelto e la touchedcard
-
-
 
     }
 }

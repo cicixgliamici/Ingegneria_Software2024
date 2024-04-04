@@ -217,9 +217,9 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public Card drawCard (Deck deck){
-        Card card = deck.cards.get(1);
-        deck.cards.remove(1);
+    public Card drawCard () {
+        Card card = this.cards.get(0);
+        this.cards.remove(0);
         return card;
     }
 

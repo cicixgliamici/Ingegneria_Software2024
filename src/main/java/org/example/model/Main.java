@@ -12,17 +12,17 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
 
-        Deck deck1 = new Deck(Type.RESOURCES);
-        //deck1.printAllCards();
-        deck1.printCard(0);
-        deck1.shuffle();
-        deck1.printCard(0);
-        Card card = deck1.drawCard(deck1);
+        Deck ResourcesDeck = new Deck(Type.RESOURCES);
+        //ResourcesDeck.printAllCards();
+        ResourcesDeck.printCard(0);
+        ResourcesDeck.shuffle();
+        ResourcesDeck.printCard(0);
+        Card card = ResourcesDeck.drawCard();
         card.print();
-        Deck deck2 = new Deck(Type.GOLD);
-        Deck deck3 = new Deck(Type.OBJECT);
-        Deck deck4 = new Deck(Type.STARTER);
-        Card cartaInizialePlayer1 = deck4.drawCard(deck4);
+        Deck GoldDeck = new Deck(Type.GOLD);
+        Deck ObjectDeck = new Deck(Type.OBJECT);
+        Deck StarterDeck = new Deck(Type.STARTER);
+        Card cartaInizialePlayer1 = StarterDeck.drawCard();
         Player player1 = new Player(cartaInizialePlayer1, Side.FRONT);
 
     }
