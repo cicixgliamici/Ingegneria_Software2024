@@ -28,31 +28,37 @@ public class Node {
         this.y = y;
     }
 
-    public void searchAvailableNode(Node node){
-        if(node.botL == null){
-            AvailableNode.add(node.botL);
+    public void searchAvailableNode(){
+        if(this.botL == null){
+            AvailableNode.add(this.botL);
         }
         else {
-            searchAvailableNode(node.botL);
+            this.botL.searchAvailableNode();
         }
-        if (node.botR == null){
-            AvailableNode.add(node.botR);
-        }
-        else {
-            searchAvailableNode(node.botR);
-        }
-        if (node.topL == null){
-            AvailableNode.add(node.topL);
+        if (this.botR == null){
+            AvailableNode.add(this.botR);
         }
         else {
-            searchAvailableNode(node.topL);
+            this.botR.searchAvailableNode();
         }
-        if (node.topR == null){
-            AvailableNode.add(node.topR);
+        if (this.topL == null){
+            AvailableNode.add(this.topL);
         }
         else {
-            searchAvailableNode(node.topR);
+            this.topL.searchAvailableNode();
         }
+        if (this.topR == null){
+            AvailableNode.add(this.topR);
+        }
+        else {
+            this.botR.searchAvailableNode();
+        }
+    }
+
+
+    public void addNode(Node node){
+
+
     }
 
     public Node searchListAvailableNode (Card searchCard, Corner searchCorner){

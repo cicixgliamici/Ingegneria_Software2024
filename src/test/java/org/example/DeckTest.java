@@ -70,7 +70,7 @@ public class DeckTest extends TestCase {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
-        Card drawnCard = deck.drawCard(deck);
+        Card drawnCard = deck.drawCard();
         assertNotNull(drawnCard);
         assertEquals(39, deck.getCardNumbers());
     }
@@ -82,7 +82,7 @@ public class DeckTest extends TestCase {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
-        Card drawnCard = deck.drawCard(deck);
+        Card drawnCard = deck.drawCard();
         assertNotNull(drawnCard);
         assertEquals(39, deck.getCardNumbers());
     }
@@ -94,7 +94,7 @@ public class DeckTest extends TestCase {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
-        Card drawnCard = deck.drawCard(deck);
+        Card drawnCard = deck.drawCard();
         assertNotNull(drawnCard);
         assertEquals(15, deck.getCardNumbers());
     }
@@ -106,7 +106,7 @@ public class DeckTest extends TestCase {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
-        Card drawnCard = deck.drawCard(deck);
+        Card drawnCard = deck.drawCard();
         assertNotNull(drawnCard);
         assertEquals(5, deck.getCardNumbers());
     }
