@@ -18,3 +18,5 @@ public class Player {
     PlayerCardArea AreaDiGioco = new PlayerCardArea(cartaIniziale);
 
 }
+
+//controller del player
