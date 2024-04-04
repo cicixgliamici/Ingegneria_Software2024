@@ -1,15 +1,16 @@
 package org.example.model.PlayArea;
 import  org.example.model.deck.*;
+import  org.example.model.deck.enumeration.*;
 public class Token  {
     private boolean isFirst;
     private Color color;
     private int points;
-    public Token(boolean isFirst, Color color, int points){
-        this.isFirst = isFirst;
+    public Token(Color color){
+        this.isFirst = false;
         this.color = color;
-        this.points = points;
+        this.points = 0;
     }
-    public boolean getisFirst(){
+    public boolean isFirst(){
         return isFirst;
     }
     public Color getColor(){
@@ -18,7 +19,10 @@ public class Token  {
     public int getPoints(){
         return points;
     }
-    public void AddPoints(Card card){
+    public void setFirst(boolean isFirst) {
+        this.isFirst = isFirst;
+    }
+    public void addPoints(Card card){
         points = points + card.getPoints();
     }
 }
