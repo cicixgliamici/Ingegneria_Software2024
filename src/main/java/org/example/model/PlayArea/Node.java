@@ -1,6 +1,8 @@
 package org.example.model.PlayArea;
 
 import org.example.model.deck.Card;
+import org.example.model.deck.Corner;
+import org.example.model.deck.enumeration.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,15 @@ public class Node {
         else {
             searchAvailableNode(node.topR);
         }
+    }
+
+    public Node searchListAvailableNode (Card searchCard, Corner searchCorner){
+        for(int i = 0; i < 100; i++){
+            if(AvailableNode.get(i).carta.equals(searchCard)){
+                return AvailableNode.get(i);
+            }
+        }
+        return null;
     }
 
 }

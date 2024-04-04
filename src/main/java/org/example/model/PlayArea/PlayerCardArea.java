@@ -31,7 +31,8 @@ public class PlayerCardArea {
 
     }
 
-    public void InsertNewCard(Card NewCard, Corner choosenCorner){
+    public void InsertNewCard(Card NewCard, Corner choosenCorner, Card TouchedCard){
+        //devo cercare nella lista degli angoli disponibili, l'angolo che ho scelto e la touchedcard
 
 
 
