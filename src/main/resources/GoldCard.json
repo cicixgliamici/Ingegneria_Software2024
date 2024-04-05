@@ -368,7 +368,7 @@
       "FUNGI"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -419,7 +419,7 @@
       "FUNGI"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1862,7 +1862,7 @@
       "INSECT"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1913,7 +1913,7 @@
       "INSECT"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1964,7 +1964,7 @@
       "INSECT"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -2017,7 +2017,7 @@
       "INSECT"
     ],
     "points": 5,
-    "goldenPoint": null,
+    "goldenPoint": "NULL",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",

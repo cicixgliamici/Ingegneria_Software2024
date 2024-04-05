@@ -12,6 +12,8 @@ public class PlayerCardArea {
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, null, null, null, null, 0, 0);
         this.Starter.searchAvailableNode();
+        Starter.printList();
+        /*
         if ((cardStarter.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner());
         } else if ((cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
@@ -27,7 +29,7 @@ public class PlayerCardArea {
             CastCardRes castCardRes = new CastCardRes(cardRes);
             counter.AddResource(castCardRes.getPropertiesCorner());
         }
-
+        */
 
     }
 

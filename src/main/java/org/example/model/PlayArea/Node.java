@@ -64,11 +64,32 @@ public class Node {
         }
     }
 
+    public void printList (){
+        for (Node node : AvailableNode) {
+            if(node.topL==null){
+                System.out.printf("topL");
+            }
+            if(node.topR==null){
+                System.out.printf("topR");
+            }
+            if(node.botL==null){
+                System.out.printf("botL");
+            }
+            if(node.botR==null){
+                System.out.printf("botR");
+            }
 
-    public void addNode(Node node){
+
+        }
+    }
+
+   /* public void addNode(Node node){
+        Position = node;
 
 
     }
+
+    */
 
     public Node searchListAvailableNode (Card searchCard, Corner searchCorner){
         for(int i = 0; i < 100; i++){

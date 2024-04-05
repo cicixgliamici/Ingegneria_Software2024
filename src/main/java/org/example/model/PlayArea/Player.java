@@ -32,6 +32,12 @@ public class Player {
         if (hand.size()==2)
             hand.add(c);
     }
+/*
+    public void printListCard (PlayerCardArea gameArea){
+        gameArea.
+    }
+
+ */
 }
 
 //controller del player
