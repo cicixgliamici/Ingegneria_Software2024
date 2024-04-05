@@ -16,7 +16,7 @@ public class Node {
     private int x;
     private int y;
 
-    private static List<Node> AvailableNode = new ArrayList<>();
+    public static List<Node> AvailableNode = new ArrayList<>();
 
     public Node(Card carta, Node topL, Node topR, Node botL, Node botR, int x, int y) {
         this.carta = carta;
@@ -28,6 +28,15 @@ public class Node {
         this.y = y;
     }
 
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    /** Search for every present card the availability of each node
+     *
+     */
     public void searchAvailableNode(){
         if(this.botL == null){
             AvailableNode.add(this.botL);

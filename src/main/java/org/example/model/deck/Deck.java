@@ -31,7 +31,7 @@ public class Deck {
             case RESOURCES:
                 this.CardNumbers = 40;
                 try {
-                    // Leggi il file JSON
+                    // Read JSON file
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
 
@@ -220,6 +220,7 @@ public class Deck {
     public Card drawCard () {
         Card card = this.cards.get(0);
         this.cards.remove(0);
+        this.CardNumbers--;
         return card;
     }
 

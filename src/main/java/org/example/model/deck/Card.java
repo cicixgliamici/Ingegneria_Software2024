@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Card {
-    private Type type;        // Type of the card
+    private Type type;        // Type of the card (Res, Gold, Obj, Srt)
     private CardRes cardres;    // Permanent resource
                                 //per le carte obbiettivo puo servire per la grafica, quelle con null sono grigie
 

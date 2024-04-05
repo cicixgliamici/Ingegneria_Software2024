@@ -317,7 +317,7 @@
       "FUNGI"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -472,7 +472,7 @@
       "FUNGI"
     ],
     "points": 5,
-    "goldenPoint" : null,
+    "goldenPoint" : "NULL",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -832,7 +832,7 @@
         "PLANT"
       ],
       "points": 3,
-      "goldenPoint" : null ,
+      "goldenPoint" : "NULL" ,
       "cardposition": "DECKHIDDEN",
       "side": {
         "side": "BOTH",
@@ -883,7 +883,7 @@
         "PLANT"
       ],
       "points": 3,
-      "goldenPoint" : null ,
+      "goldenPoint" : "NULL",
       "cardposition": "DECKHIDDEN",
       "side": {
         "side": "BOTH",
@@ -934,7 +934,7 @@
         "PLANT"
       ],
       "points": 3,
-      "goldenPoint" : null ,
+      "goldenPoint" : "NULL" ,
       "cardposition": "DECKHIDDEN",
       "side": {
         "side": "BOTH",
@@ -987,7 +987,7 @@
       "PLANT"
     ],
     "points": 5,
-    "goldenPoint": null,
+    "goldenPoint": "NULL",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1288,7 +1288,7 @@
   },
   {
     "type": "GOLD",
-    "cardres": "ANIAML",
+    "cardres": "ANIMAL",
     "requireGold": [
       "ANIMAL",
       "ANIMAL",
@@ -1340,14 +1340,14 @@
   },
   {
     "type": "GOLD",
-    "cardres": "ANIAML",
+    "cardres": "ANIMAL",
     "requireGold": [
       "ANIMAL",
       "ANIMAL",
       "ANIMAL"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1398,7 +1398,7 @@
       "ANIMAL"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1449,7 +1449,7 @@
       "ANIMAL"
     ],
     "points": 3,
-    "goldenPoint" : null ,
+    "goldenPoint" : "NULL" ,
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
@@ -1502,7 +1502,7 @@
       "ANIMAL"
     ],
     "points": 5,
-    "goldenPoint": null,
+    "goldenPoint": "NULL",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH",
