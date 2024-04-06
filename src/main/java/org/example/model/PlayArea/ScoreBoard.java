@@ -22,7 +22,7 @@ public class ScoreBoard {
 
         Token token = new Token(color);
         tokens.put(color, token);
-        personalScoarboard.put(token, 0);
+        personalScoarboard.put(token, token.getPoints());
 
         if (tokens.size() == 1) {
             token.setFirst(true);       //if first player added to the game, first player to start
@@ -46,8 +46,8 @@ public class ScoreBoard {
         return null;
     }
 
-    public void moveonScoreBoard(int valuePoint, ){
-
+    public void moveOnScoreBoard(Token token){
+        personalScoarboard.put(token, token.getPoints());
     }
 
 }

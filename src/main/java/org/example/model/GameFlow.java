@@ -53,6 +53,8 @@ public class GameFlow {
         Players.put(id, player);
     }
 
-    public void checkPoints()
+    public void checkPoints(){
+        //assegno al giocatore i punti e poi chiamo moveOnScoreBoard
+    }
 
 }
