@@ -53,4 +53,6 @@ public class GameFlow {
         Players.put(id, player);
     }
 
+    public void checkPoints()
+
 }
