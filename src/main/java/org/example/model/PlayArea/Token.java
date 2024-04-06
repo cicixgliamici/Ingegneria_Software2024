@@ -13,12 +13,14 @@ public class Token  {
     public boolean isFirst(){
         return isFirst;
     }
-    public Color getColor(){
-        return color;
-    }
     public int getPoints(){
         return points;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
     public void setFirst(boolean isFirst) {
         this.isFirst = isFirst;
     }

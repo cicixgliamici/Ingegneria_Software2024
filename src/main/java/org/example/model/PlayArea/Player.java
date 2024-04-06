@@ -10,9 +10,9 @@ import java.util.List;
 
 public class Player {
 
-    List<Card> hand;
+    private List<Card> hand;
 
-    Card InitialCard;
+    private Card InitialCard;
 
     public Player (Card InitialCard){
         this.InitialCard = InitialCard;
@@ -32,7 +32,11 @@ public class Player {
         if (hand.size()==2)
             hand.add(c);
     }
-/*
+
+    public void setInitialCard(Card initialCard) {
+        InitialCard = initialCard;
+    }
+    /*
     public void printListCard (PlayerCardArea gameArea){
         gameArea.
     }

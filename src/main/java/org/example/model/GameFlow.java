@@ -42,19 +42,24 @@ public class GameFlow {
         this.scoreBoard = scoreBoard;
     }
 
-    public void StartGame(){
-        //inizializzare l'hashmap dei giocatori
+    public void StartGame(int id, Player player, Color color, Deck goldDeck, Deck resourcesDeck){
+        //method called by the controller to initialized
+        addPlayer(id, player);
+        scoreBoard.addToken(color);
+        //chiamata per inizializzare i deck e porli negli arraylist (da chiedere)
+
+
     }
 
     public void addPlayer(int id, Player player) throws IllegalArgumentException{
         if (Players.containsKey(id)){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Player already initialized!\n");
         }
         Players.put(id, player);
     }
 
-    public void checkPoints(){
-        //assegno al giocatore i punti e poi chiamo moveOnScoreBoard
+    public void checkPoints(int id){
+
     }
 
 }

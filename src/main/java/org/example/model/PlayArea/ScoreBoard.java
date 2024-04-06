@@ -6,10 +6,8 @@ import  org.example.model.deck.*;
 
 public class ScoreBoard {
     private HashMap<Color, Token> tokens; // Associate a Token to a specific color
-    private HashMap<Token, Integer> personalScoarboard;
     public ScoreBoard(){
         tokens = new HashMap<>();
-        personalScoarboard = new HashMap<>();
     }
     public void addToken(Color color) throws IllegalArgumentException {
         if (tokens.containsKey(color)) {
@@ -22,7 +20,6 @@ public class ScoreBoard {
 
         Token token = new Token(color);
         tokens.put(color, token);
-        personalScoarboard.put(token, token.getPoints());
 
         if (tokens.size() == 1) {
             token.setFirst(true);       //if first player added to the game, first player to start
@@ -44,10 +41,6 @@ public class ScoreBoard {
             }
         }
         return null;
-    }
-
-    public void moveOnScoreBoard(Token token){
-        personalScoarboard.put(token, token.getPoints());
     }
 
 }
