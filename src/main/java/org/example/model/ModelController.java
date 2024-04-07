@@ -14,21 +14,23 @@ import java.util.List;
 //* Class in which the Model is properly setted to start the match
 
 public class ModelController {
-    static Deck ResourcesDeck;
-    static Deck GoldDeck;
-    static Deck ObjectDeck;
-    static Deck StarterDeck;
+    private static Deck ResourcesDeck;
+    private static Deck GoldDeck;
+    private static Deck ObjectDeck;
+    private static Deck StarterDeck;
 
-    List<Player> Players;
+    private List<Player> Players;
 
-    public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
+    private GameFlow gameFlow;
+
+   /* public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
         ModelController modelController= new ModelController();
         modelController.CreateDeck();
         // Place Deck on Game Area
         // Put 2 cards on ground
        //modelController.InizitializePlayers();
        Player p1= new Player(StarterDeck.drawCard());
-    }
+    } */
 
     // Create the four decks
     public void CreateDeck () throws IOException, ParseException {

@@ -43,4 +43,13 @@ public class ScoreBoard {
         return null;
     }
 
+    public Token getToken(Color color) throws IllegalArgumentException{
+        if(tokens.containsKey(color)){
+            return tokens.get(color);
+        }
+        else {
+            throw new IllegalArgumentException("Token doesn't exist!");
+        }
+    }
+
 }

@@ -25,7 +25,7 @@ public class GameFlow {
      - inizializza la carta obbiettivo comune
      */
 
-    private HashMap<Integer, Player> Players;
+    private HashMap<Player, Token> Players;
     private List<Deck> placedDeck;
     private List<Card> resourcesPlaced;
     private List<Card> goldPlaced;
@@ -42,20 +42,20 @@ public class GameFlow {
         this.scoreBoard = scoreBoard;
     }
 
-    public void StartGame(int id, Player player, Color color, Deck goldDeck, Deck resourcesDeck){
-        //method called by the controller to initialized
-        addPlayer(id, player);
-        scoreBoard.addToken(color);
-        //chiamata per inizializzare i deck e porli negli arraylist (da chiedere)
-
-
+    public void MapPlayerToken(Player player, Color color){
+            scoreBoard.addToken(color);
+            Players.put(player, scoreBoard.getToken(color));
     }
 
-    public void addPlayer(int id, Player player) throws IllegalArgumentException{
-        if (Players.containsKey(id)){
+    public void StartGame(){
+        //method called by the controller to initialize the game
+        //chiamata per inizializzare i deck e porli negli arraylist (da chiedere)
+    }
+   public void addPlayer(Token token, Player player) throws IllegalArgumentException{
+        if (Players.containsKey(player)){
             throw new IllegalArgumentException("Player already initialized!\n");
         }
-        Players.put(id, player);
+        Players.put(player,token);
     }
 
     public void checkPoints(int id){
