@@ -19,8 +19,8 @@ public class Node {
 
     public static List<Node> AvailableNode = new ArrayList<>();
 
-    public Node(Card carta, int x, int y) {
-        this.card = carta;
+    public Node(Card card, int x, int y) {
+        this.card = card;
         this.x = x;
         this.y = y;
         this.SetNullNode();
@@ -125,5 +125,25 @@ public class Node {
 
     public static List<Node> getAvailableNode() {
         return AvailableNode;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public Node getTopL() {
+        return topL;
+    }
+
+    public Node getTopR() {
+        return topR;
+    }
+
+    public Node getBotL() {
+        return botL;
+    }
+
+    public Node getBotR() {
+        return botR;
     }
 }

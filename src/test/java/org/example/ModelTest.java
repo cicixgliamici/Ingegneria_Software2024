@@ -6,11 +6,15 @@ import junit.framework.TestSuite;
 import static junit.framework.Assert.*;
 
 import org.example.model.ModelController;
+import org.example.model.PlayArea.*;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.reflect.Field;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -32,4 +36,42 @@ public class ModelTest extends TestCase {
         assertNotNull(ModelController.getStarterDeck());
         assertNotNull(ModelController.getObjectDeck());
     }
+    public void testCreateCorrectNumbers() throws IOException, ParseException {
+        ModelController modelController = new ModelController();
+        modelController.CreateDeck();
+        assertNotNull(modelController);
+        assertEquals(40, ModelController.getResourcesDeck().getCardNumbers());
+        assertEquals(40, ModelController.getGoldDeck().getCardNumbers());
+        assertEquals(6, ModelController.getStarterDeck().getCardNumbers());
+        assertEquals(16, ModelController.getObjectDeck().getCardNumbers());
+    }
+    public void testAddPlayer() throws Exception {
+        ModelController modelController = new ModelController();
+        Player player = new Player(null);
+        Field field = ModelController.class.getDeclaredField("PlayersList");
+        field.setAccessible(true);
+        List<Player> playersList = new ArrayList<>();
+        field.set(modelController, playersList);
+        modelController.AddPlayer(player);
+        assertNotNull(modelController);
+        assertTrue(playersList.contains(player));
+        assertEquals(1, playersList.size());
+    }
+    public void testmaxPlayers() throws Exception {
+        ModelController modelController = new ModelController();
+        Player player = new Player(null);
+        Field field = ModelController.class.getDeclaredField("PlayersList");
+        field.setAccessible(true);
+        List<Player> playersList = new ArrayList<>();
+        field.set(modelController, playersList);
+        modelController.AddPlayer(player);
+        modelController.AddPlayer(player);
+        modelController.AddPlayer(player);
+        modelController.AddPlayer(player);
+        assertNotNull(modelController);
+        assertTrue(playersList.contains(player));
+        assertEquals(4, playersList.size());
+    }
 }
+
+

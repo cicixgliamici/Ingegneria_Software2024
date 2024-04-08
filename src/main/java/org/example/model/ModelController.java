@@ -34,28 +34,27 @@ public class ModelController {
     private List<Player> PlayersList;
     private GameFlow gameFlow;
 
-   public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
-        ModelController modelController= new ModelController();
+    public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
+        ModelController modelController = new ModelController();
         modelController.CreateDeck();
         // Place Deck on Game Area
         // Put 2 cards on ground
-       //modelController.InizitializePlayers();
-       Player p1= new Player(StarterDeck.drawCard());
+        //modelController.InizitializePlayers();
+        Player p1 = new Player(StarterDeck.drawCard());
 
-       //per prova il player uno pesca una carta
-       p1.DrawCard(ResourcesDeck);
+        //per prova il player uno pesca una carta
+        p1.DrawCard(ResourcesDeck);
 
-       //il player uno sceglie la carta da giocare e la gioca
-       p1.ModifyGameArea();
+        //il player uno sceglie la carta da giocare e la gioca
+        p1.ModifyGameArea();
 
-       //metodo di controllo
-
+        //metodo di controllo
 
 
     }
 
     // Create the four decks
-    public void CreateDeck () throws IOException, ParseException {
+    public void CreateDeck() throws IOException, ParseException {
         ResourcesDeck = new Deck(Type.RESOURCES);
         //ResourcesDeck.printAllCards();
         //ResourcesDeck.printCard(0);
@@ -73,23 +72,24 @@ public class ModelController {
     }
 
 
-
     // Add the player from the
-    public void AddPlayer(Player P){
+    public void AddPlayer(Player P) {
         //il player P non viene creato qua ma deve essere creato quando si connette, nel momento della creazione sceglie gia come piazzare la sua carta inizale
         //funziona? se io devo scegliere come posizionare la carta iniziale ma non so ancora che carte ho in mano come faccio?
         //chi crea il player? lo creiamo in locale o lo crea il server?
         PlayersList.add(P);
     }
-    public void InizitializePlayers(){
-        for (Player P: PlayersList){
+
+    public void InizitializePlayers() {
+        for (Player P : PlayersList) {
             P.addCard(ResourcesDeck.drawCard());
             P.addCard(ResourcesDeck.drawCard());
             P.addCard(GoldDeck.drawCard());
             // Add Token Color
         }
     }
-    public void GameFlow(ScoreBoard scoreBoard){     //Called from the Controller
+
+    public void GameFlow(ScoreBoard scoreBoard) {     //Called from the Controller
         Players = new HashMap<>();
         placedDeck = new ArrayList<>();
         placedCard = new ArrayList<>();
@@ -97,7 +97,7 @@ public class ModelController {
         this.scoreBoard = scoreBoard;
     }
 
-    public void MapPlayerToken(Player player, Color color){  //Associate a player to a specific color
+    public void MapPlayerToken(Player player, Color color) {  //Associate a player to a specific color
         scoreBoard.addToken(color);
         Players.put(player, scoreBoard.getToken(color));
     }
@@ -106,9 +106,24 @@ public class ModelController {
         return ResourcesDeck;
     }
 
-    public static Deck getGoldDeck() { return GoldDeck; }
+    public static Deck getGoldDeck() {
+        return GoldDeck;
+    }
 
-    public static Deck getObjectDeck() { return ObjectDeck; }
+    public static Deck getObjectDeck() {
+        return ObjectDeck;
+    }
 
-    public static Deck getStarterDeck() { return StarterDeck; }
+    public static Deck getStarterDeck() {
+        return StarterDeck;
+    }
+
+    public HashMap<Player, Token> getPlayers() {
+        return Players;
+    }
+
+    public List<Player> getPlayersList() {
+        return PlayersList;
+    }
+
 }
