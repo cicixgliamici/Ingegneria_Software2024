@@ -8,6 +8,10 @@ import java.util.List;
 import  org.example.model.deck.*;
 import org.example.model.PlayArea.*;
 
+/** The Gameflow is a controller of the status of the match, it depends from the Controller and allows the players only to Draw an Play
+ *
+ */
+
 public class GameFlow {
     //nel gameflow avrò tutte le informazioni del gioco e tutta la gestione dei punti e le chiamate per il calcolo dei punteggi
     /* dati:
@@ -45,16 +49,43 @@ public class GameFlow {
             Players.put(player, scoreBoard.getToken(color));
     }
 
-    public void StartGame(){
-        //method called by the controller to initialize the game
-        //chiamata per inizializzare i deck e porli negli arraylist (da chiedere)
+    public void Draw(Deck choosenDeck,Player player) throws IllegalArgumentException{
+        /** switch():
+         *       case(DeckRes):
+         *              deckRes--
+         *              playerHand++
+         *              case(DeckGold):
+         *              deckGold--
+         *              playerHand++
+         *              case(placedCard):
+         *              placedCard--
+         *              playerHand++
+         *              chooseDeck(Deck)
+         *
+         *
+          */
+        switch (choosenDeck.getTypeDeck()){
+            case RESOURCES:
+                player.DrawCard(choosenDeck);
+
+        }
+
     }
-   public void addPlayer(Token token, Player player) throws IllegalArgumentException{
+
+    public void Play() throws IllegalArgumentException{
+        /** chooseCardHand (Card)
+         *  chooseWhereToPlace(Card)
+         *  if CalcPoint(Player)>=20
+         *      endGame(Controller)
+         *  recalcScoreBoard()
+         */
+    }
+   /*public void addPlayer(Token token, Player player) throws IllegalArgumentException{
         if (Players.containsKey(player)){
             throw new IllegalArgumentException("Player already initialized!\n");
         }
         Players.put(player,token);
-    }
+    } */
 
     public void checkPoints(int id){
 

@@ -10,9 +10,9 @@ public class PlayerCardArea {
 
     //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
     public PlayerCardArea(Card cardStarter) {
-        this.Starter = new Node(cardStarter, null, null, null, null, 0, 0);
+        this.Starter = new Node(cardStarter, 0,0 );
         this.Starter.searchAvailableNode();
-        Starter.printList();
+        Starter.printAvailableNode();
         /*
         if ((cardStarter.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner());
