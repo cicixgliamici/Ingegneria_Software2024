@@ -64,22 +64,31 @@ public class Node {
         }
     }
 
-    public void printList (){
+    public void printList() {
+        System.out.println("Available Nodes:");
         for (Node node : AvailableNode) {
-            if(node.topL==null){
-                System.out.printf("topL");
+            System.out.println("Node at (" + node.x + ", " + node.y + ")");
+            if (node.topL == null) {
+                System.out.println("    topL: available");
+            } else {
+                System.out.println("    topL: not available");
             }
-            if(node.topR==null){
-                System.out.printf("topR");
+            if (node.topR == null) {
+                System.out.println("    topR: available");
+            } else {
+                System.out.println("    topR: not available");
             }
-            if(node.botL==null){
-                System.out.printf("botL");
+            if (node.botL == null) {
+                System.out.println("    botL: available");
+            } else {
+                System.out.println("    botL: not available");
             }
-            if(node.botR==null){
-                System.out.printf("botR");
+            if (node.botR == null) {
+                System.out.println("    botR: available");
+            } else {
+                System.out.println("    botR: not available");
             }
-
-
+            System.out.println();
         }
     }
 

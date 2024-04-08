@@ -25,19 +25,17 @@ public class GameFlow {
      - inizializza la carta obbiettivo comune
      */
 
-    private HashMap<Player, Token> Players;
-    private List<Deck> placedDeck;
-    private List<Card> resourcesPlaced;
-    private List<Card> goldPlaced;
-    private ScoreBoard scoreBoard;
+    private HashMap<Player, Token> Players;     //* Associate Player to Token
+    private List<Deck> placedDeck;              //* Arraylist where there are placed Deck Resource and Gold
+    private List<Card> placedCard;              //* List of placed card
+    private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
     private List<String> winnerPlayer;
     //l'oggetto in riferimento al controller
 
-    public GameFlow(ScoreBoard scoreBoard){     //dal controller chiamerò il costruttore
+    public GameFlow(ScoreBoard scoreBoard){     //Called from the Controller
         Players = new HashMap<>();
         placedDeck = new ArrayList<>();
-        resourcesPlaced = new ArrayList<>();
-        goldPlaced = new ArrayList<>();
+        placedCard = new ArrayList<>();
         winnerPlayer = new ArrayList<>();
         this.scoreBoard = scoreBoard;
     }
