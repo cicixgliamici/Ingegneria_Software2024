@@ -1,5 +1,6 @@
-package org.example.model.deck;
+package org.example.model.PlayArea.vecchio;
 
+import org.example.model.deck.Card;
 import org.example.model.deck.enumeration.*;
 
 
@@ -11,6 +12,9 @@ public class PlacementCard {
         this.CardProperties = null;
         this.CoverHide = true;
     }
+
+    //inserire un metodo che quanto posizioni una carta ti dice i punti finali di quella carta
+    //una volta posiziona la carta avrà quei punti per sempre quindi calcoliamoli subito
 
     public void setCoverHide(boolean bool){
         this.CoverHide = bool;

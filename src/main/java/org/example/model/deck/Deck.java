@@ -1,74 +1,240 @@
 package org.example.model.deck;
 import org.example.model.deck.enumeration.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+
+import java.util.ArrayList;
+
+import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+
+/**
+ * Class Deck that get data from the JSON file
+ *
+ */
+
 public class Deck {
-    
-    private Type type;
+
+    private Type typeDeck;
     private int CardNumbers;
-
-    JSONParser parser = new JSONParser();
-    JSONArray a = (JSONArray) parser.parse(new FileReader("// INSERIRE NOME FILE"));
-
-     public Deck(Type type) throws IOException, ParseException {
-        this.type = type;
-        switch (type) {
+    List<Card> cards = new ArrayList<>();
+    public Deck(Type typeDeck) throws IOException, ParseException {
+        this.typeDeck = typeDeck;
+        switch (typeDeck) {
             case RESOURCES:
                 this.CardNumbers = 40;
-                // CHIAMARE FUNZIONE GENERA CARTE
-                for (Object o : a)
-                {
-                    JSONObject person = (JSONObject) o;
+                try {
+                    // Read JSON file
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
 
-                    String name = (String) person.get("name");
-                    System.out.println(name);
+                    // Crea una lista per memorizzare le carte
 
-                    String city = (String) person.get("city");
-                    System.out.println(city);
 
-                    String job = (String) person.get("job");
-                    System.out.println(job);
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
 
-                    JSONArray cars = (JSONArray) person.get("cars");
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
 
-                    for (Object c : cars)
-                    {
-                        System.out.println(c+"");
+                        int points = Integer.parseInt(card.get("points").toString());
+                        CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
+                        List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
+                        SideCard sideCard = new SideCard(side, frontCorners, backCorners);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, cardres, null, points, null, null, cardposition, sideCard));
                     }
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
                 }
 
                 break;
+
             case GOLD:
-                this.CardNumbers = 40; 
-                 // CHIAMARE FUNZIONE GENERA CARTE
+                this.CardNumbers = 40;
+                try {
+                    // Leggi il file JSON
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
+
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        }
+                        int points = Integer.parseInt(card.get("points").toString());
+
+                        GoldenPoint goldenPoint = GoldenPoint.valueOf((String) card.get("goldenPoint"));
+
+                        CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
+                        List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
+                        SideCard sideCard = new SideCard(side, frontCorners, backCorners);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
+                    }
+
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
+
             case OBJECT:
-                this.CardNumbers = 16; 
-                 // CHIAMARE FUNZIONE GENERA CARTE
+                this.CardNumbers = 16;
+                try {
+                    // Leggi il file JSON
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
+
+
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
+                        /*
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        } */
+
+                        int points = Integer.parseInt(card.get("points").toString());
+
+
+                        JSONArray objectivePointsArray = (JSONArray) card.get("objectivePoints");
+                        ObjectivePoints[] objectivePoints = new ObjectivePoints[objectivePointsArray.size()];
+                        for (int j = 0; j < objectivePointsArray.size(); j++) {
+                            objectivePoints[j] = ObjectivePoints.valueOf((String) objectivePointsArray.get(j));
+                        }
+
+                        CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        SideCard sideCard = new SideCard(side, null, null);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
+                    }
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
+
             case STARTER:
-                this.CardNumbers = 6; 
-                 // CHIAMARE FUNZIONE GENERA CARTE
+                this.CardNumbers = 6;
+                try {
+                    // Leggi il file JSON
+                    JSONParser parser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
+
+                    // Itera attraverso ogni oggetto nel JSONArray
+                    for (Object obj : jsonArray) {
+                        JSONObject card = (JSONObject) obj;
+
+                        // Leggi i campi dell'oggetto JSON
+                        Type type = Type.valueOf((String) card.get("type"));
+                        JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
+                        CardRes[] requireGold = new CardRes[requireGoldArray.size()];
+                        for (int j = 0; j < requireGoldArray.size(); j++) {
+                            requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
+                        }
+
+                        // Leggi e crea l'oggetto SideCard
+                        JSONObject sideObject = (JSONObject) card.get("side");
+                        Side side = Side.valueOf((String) sideObject.get("side"));
+                        List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
+                        List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
+                        SideCard sideCard = new SideCard(side, frontCorners, backCorners);
+
+                        // Crea l'oggetto Card e aggiungilo alla lista
+                        cards.add(new Card(type, null, requireGold, null, null, null, null, sideCard));
+                    }
+                } catch (org.json.simple.parser.ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
+
             default:
-                this.CardNumbers = 0; 
+                this.CardNumbers = 0;
         }
 
     }
 
-    public Type getType() {
-        return type;
+    public static List<Corner> readCorners(JSONArray jsonArray) {
+        List<Corner> corners = new ArrayList<>();
+        for (Object obj : jsonArray) {
+            JSONObject cornerObject = (JSONObject) obj;
+            String pos = (String) cornerObject.get("Position");
+            Position position = Position.valueOf(pos);
+            String propCorn = (String) cornerObject.get("PropertiesCorner");
+            PropertiesCorner propertiesCorner = PropertiesCorner.valueOf(propCorn);
+            corners.add(new Corner(position, propertiesCorner));
+        }
+        return corners;
+    }
+
+    public void printAllCards() {
+        for (Card card : cards) {
+            card.print();
+        }
+    }
+    public void printCard(int numcard){
+        cards.get(numcard).print();
+    }
+    public void shuffle(){
+        Collections.shuffle(cards);
+    }
+
+    public Card drawCard () {
+        Card card = this.cards.get(0);
+        this.cards.remove(0);
+        this.CardNumbers--;
+        return card;
+    }
+
+    public Type getTypeDeck() {
+        return typeDeck;
     }
 
     public int getCardNumbers() {
-         return CardNumbers;
+        return CardNumbers;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }
+
 

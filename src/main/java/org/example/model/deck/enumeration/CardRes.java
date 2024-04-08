@@ -1,5 +1,5 @@
 package org.example.model.deck.enumeration;
 
 public enum CardRes {
-    PLANT, ANIMAL, FUNGI, INSECT
+    PLANT, ANIMAL, FUNGI, INSECT, GREY, NULL
 }

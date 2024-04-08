@@ -1,0 +1,5 @@
+package org.example.model.deck.enumeration;
+
+public enum ObjectivePoints {
+    QUILL, MANUSCRIPT, INKWELL, CORNER, FUNGI, ANIMAL, PLANT, INSECT, REDDIAG, GREENDIAG, BLUDIAG, PURPLEDIAG,REDGREEN, GREENPURPLE, BLUERED, PURPLEBLUE
+}
