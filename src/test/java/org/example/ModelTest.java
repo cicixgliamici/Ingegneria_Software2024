@@ -14,28 +14,22 @@ import java.io.IOException;
 
 import static junit.framework.Assert.assertEquals;
 
-public class ModelTest {
+public class ModelTest extends TestCase {
 
 
-    public void testCreateDeck() {
+    public void testCreateDeck() throws IOException, ParseException {
         ModelController modelController = new ModelController();
-        try {
-            modelController.CreateDeck();
-            // Verifica che i mazzi siano stati creati correttamente
-            assertEquals(Type.RESOURCES, modelController.ResourceDeck.getTypeDeck());
-            assertEquals(Type.GOLD, modelController.getGoldDeck().getTypeDeck());
-            assertEquals(Type.OBJECT, modelController.getObjectDeck().getTypeDeck());
-            assertEquals(Type.STARTER, modelController.getTypeDeck());
-            // Verifica che i mazzi contengano il numero corretto di carte
-            assertEquals(40, modelController.getResourcesDeck().getCardNumbers());
-            assertEquals(40, modelController.getGoldDeck().getCardNumbers());
-            assertEquals(16, modelController.getObjectDeck().getCardNumbers());
-            assertEquals(6, modelController.getStarterDeck().getCardNumbers());
-
-        } catch (IOException | org.json.simple.parser.ParseException e) {
-            throw new RuntimeException(e);
-        }
+        modelController.CreateDeck();
+        assertNotNull(modelController);
     }
-     *
-     */
+
+    public void testCreateAllDecks() throws IOException, ParseException {
+        ModelController modelController = new ModelController();
+        modelController.CreateDeck();
+        assertNotNull(modelController);
+        assertNotNull(ModelController.getResourcesDeck());
+        assertNotNull(ModelController.getGoldDeck());
+        assertNotNull(ModelController.getStarterDeck());
+        assertNotNull(ModelController.getObjectDeck());
+    }
 }

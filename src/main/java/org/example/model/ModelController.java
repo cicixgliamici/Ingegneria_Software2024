@@ -69,7 +69,7 @@ public class ModelController {
         ObjectDeck.shuffle();
         StarterDeck = new Deck(Type.STARTER);
         StarterDeck.shuffle();
-        Card cartaInizialePlayer1 = StarterDeck.drawCard();
+        //Card cartaInizialePlayer1 = StarterDeck.drawCard();
     }
 
 
@@ -105,4 +105,10 @@ public class ModelController {
     public static Deck getResourcesDeck() {
         return ResourcesDeck;
     }
+
+    public static Deck getGoldDeck() { return GoldDeck; }
+
+    public static Deck getObjectDeck() { return ObjectDeck; }
+
+    public static Deck getStarterDeck() { return StarterDeck; }
 }
