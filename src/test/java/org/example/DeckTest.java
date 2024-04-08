@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class DeckTest extends TestCase {
 
-
+//* Test the creation and the correct number of cards in the decks
     public void testDeckResource() {
         Deck deck = null;
         try {
@@ -62,7 +62,7 @@ public class DeckTest extends TestCase {
         assertEquals(Type.STARTER, deck.getTypeDeck());
         assertEquals(6, deck.getCardNumbers());
     }
-
+//* Test the draw method
     public void testDrawCardRes() {
         Deck deck = null;
         try {
