@@ -25,7 +25,7 @@ public class GameFlow {
      - inizializza la carta obbiettivo comune
      */
 
-    private HashMap<Player, Token> Players;     //* Associate Player to Token
+    private HashMap<Player, Token> Players;     //* Associate Player to Toke
     private List<Deck> placedDeck;              //* Arraylist where there are placed Deck Resource and Gold
     private List<Card> placedCard;              //* List of placed card
     private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
