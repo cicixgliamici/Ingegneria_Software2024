@@ -29,29 +29,13 @@ public class GameFlow {
      - inizializza la carta obbiettivo comune
      */
 
-    private HashMap<Player, Token> Players;     //* Associate Player to Toke
-    private List<Deck> placedDeck;              //* Arraylist where there are placed Deck Resource and Gold
-    private List<Card> placedCard;              //* List of placed card
-    private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
-    private List<String> winnerPlayer;
-    //l'oggetto in riferimento al controller
 
-    public GameFlow(ScoreBoard scoreBoard){     //Called from the Controller
-        Players = new HashMap<>();
-        placedDeck = new ArrayList<>();
-        placedCard = new ArrayList<>();
-        winnerPlayer = new ArrayList<>();
-        this.scoreBoard = scoreBoard;
-    }
 
-    public void MapPlayerToken(Player player, Color color){
-            scoreBoard.addToken(color);
-            Players.put(player, scoreBoard.getToken(color));
-    }
 
-    public void Draw(Deck choosenDeck,Player player) throws IllegalArgumentException{
-        /** switch():
-         *       case(DeckRes):
+
+    public void DrawFromDeck(Deck choosenDeck,Player player) throws IllegalArgumentException{
+        /** switch (choosenDeck.getTypeDeck()) {
+         *  case RESOURCES:
          *              deckRes--
          *              playerHand++
          *              case(DeckGold):
@@ -64,21 +48,38 @@ public class GameFlow {
          *
          *
           */
-        switch (choosenDeck.getTypeDeck()){
-            case RESOURCES:
-                player.DrawCard(choosenDeck);
-
-        }
-
+        player.DrawCard(choosenDeck);
     }
 
-    public void Play() throws IllegalArgumentException{
+    public void DrawFromCardPlaced(List<Card> placedCard, Player player, Card pickCard, Deck resurcesDeck, Deck goldDeck) throws IllegalArgumentException{
+        //placedCard.remove(searchCardPlaced(pickCard));
+        player.addCard(pickCard);
+        if(pickCard.getType() == Type.RESOURCES){
+            placedCard.add(resurcesDeck.drawCard());
+        }
+        else if (pickCard.getType() == Type.GOLD){
+            placedCard.add(resurcesDeck.drawCard());
+        }
+        else {
+            throw new IllegalArgumentException("not valid Card!\n");
+        }
+
+
+    };
+
+    public void Play(Card choosenCard, HashMap<Player, Token> Players, ScoreBoard scoreBoard, Player player) throws IllegalArgumentException{
         /** chooseCardHand (Card)
          *  chooseWhereToPlace(Card)
          *  if CalcPoint(Player)>=20
          *      endGame(Controller)
          *  recalcScoreBoard()
          */
+        //chiamata alla struttura dati per inserire la carta
+        scoreBoard.addColorPoints(Players.get(player).getColor(), choosenCard);
+        if(Players.get(player).getPoints() == 20){
+            //lo notifico al model
+        }
+
     }
    /*public void addPlayer(Token token, Player player) throws IllegalArgumentException{
         if (Players.containsKey(player)){
@@ -90,5 +91,16 @@ public class GameFlow {
     public void checkPoints(int id){
 
     }
+
+    /*public int searchCardPlaced(Card card) throws IllegalArgumentException{
+        for (int i=0; i<4; i++){
+            if(placedCard.get(i) == card){
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Card doesn't placed!\n");
+    }
+
+     */
 
 }

@@ -12,7 +12,6 @@ public class PlayerCardArea {
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, 0,0 );
         this.Starter.searchAvailableNode();
-        Starter.printAvailableNode();
         /*
         if ((cardStarter.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner());
@@ -36,5 +35,9 @@ public class PlayerCardArea {
     public void addCard(Card NewCard, Node ChoosenNode){
         //devo cercare nella lista degli angoli disponibili, l'angolo che ho scelto e la touchedcard
 
+    }
+
+    public Node getStarter() {
+        return Starter;
     }
 }

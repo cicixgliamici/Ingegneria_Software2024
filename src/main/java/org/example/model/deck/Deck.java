@@ -224,6 +224,11 @@ public class Deck {
         return card;
     }
 
+    public Card FakeDrawCard () {
+        Card card = this.cards.get(0);
+        return card;
+    }
+
     public Type getTypeDeck() {
         return typeDeck;
     }

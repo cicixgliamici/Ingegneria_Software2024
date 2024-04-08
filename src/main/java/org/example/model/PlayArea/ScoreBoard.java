@@ -5,7 +5,7 @@ import  org.example.model.deck.*;
 
 
 public class ScoreBoard {
-    private HashMap<Color, Token> tokens; // Associate a Token to a specific color
+    private final HashMap<Color, Token> tokens; // Associate a Token to a specific color
     public ScoreBoard(){
         tokens = new HashMap<>();
     }
@@ -26,7 +26,7 @@ public class ScoreBoard {
         }
     }
 
-    public void addColorPoints(Color color, int points, Card card) {
+    public void addColorPoints(Color color, Card card) {
         Token token = tokens.get(color);
         if (token != null) {
             token.addPoints(card);

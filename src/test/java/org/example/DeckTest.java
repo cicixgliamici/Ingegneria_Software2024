@@ -110,4 +110,19 @@ public class DeckTest extends TestCase {
         assertNotNull(drawnCard);
         assertEquals(5, deck.getCardNumbers());
     }
+
+    public void testShuffleResources(){
+        Deck deck = null;
+        try {
+            deck = new Deck(Type.RESOURCES);
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+        Card FirstShuffleCard = deck.FakeDrawCard();
+        assertNotNull(FirstShuffleCard);
+        deck.shuffle();
+        Card SecondShuffleCard = deck.FakeDrawCard();
+        assertNotNull(SecondShuffleCard);
+        assertNotSame(FirstShuffleCard, SecondShuffleCard);
+    }
 }

@@ -20,10 +20,8 @@ public class NodeTest  extends TestCase {
         Deck StarterDeck = new Deck(Type.STARTER);
         Card starterCard = StarterDeck.drawCard();
         Node initialCard = new Node(starterCard, null, null, null, null, 0, 0);
-
         // Execute the method
         initialCard.searchAvailableNode();
-
         // Verify that there are 4 avaiable node
         assertEquals(4, AvailableNode.size());
     }

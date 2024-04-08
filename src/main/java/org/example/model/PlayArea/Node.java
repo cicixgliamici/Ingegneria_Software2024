@@ -3,8 +3,10 @@ package org.example.model.PlayArea;
 import org.example.model.deck.Card;
 import org.example.model.deck.Corner;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Node {
     private Card card;
@@ -21,12 +23,19 @@ public class Node {
         this.card = carta;
         this.x = x;
         this.y = y;
-        this.SetNode();
+        this.SetNullNode();
     }
-
-
-    public Node(Card carta) {
-        this.card = carta;
+    public Node (Card card, Node topL, Node topR, Node botL, Node botR, int x, int y){
+        this.card=card;
+        this.topL= topL;
+        this.topR= topR;
+        this.botL= botL;
+        this.botR= botR;
+        this.x= x;
+        this.y= y;
+    }
+    public Node(Card card) {
+        this.card = card;
     }
 
     public Node NullNodeTopR(){
@@ -53,18 +62,18 @@ public class Node {
         Node emptynode= new EmptyNode(null);
         return new Node(null, null, emptynode, null, null,  x, y);
     }
-    public void SetNode(){
+    public void SetNullNode(){
         this.botR = NullNodeBotR();
         this.botL = NullNodeBotL();
         this.topR = NullNodeTopR();
         this.topL = NullNodeTopL();
     }
 
-    public void ModifyNode (Card card){
-        this.card = card;
+    public void SetCardNode(Card c){
+        this.card=c;
+        this.SetNullNode();
+
     }
-
-
     /** Search for every present card the availability of each node
      *
      */
@@ -101,28 +110,20 @@ public class Node {
         }
     }
 
-
-
-
-    /*
-    public Node searchListAvailableNode (Card searchCard, Corner searchCorner){
-        for(int i = 0; i < 100; i++){
-            if(AvailableNode.get(i).card.equals(searchCard)){
-                return AvailableNode.get(i);
-            }
-        }
-        return null;
-    }
-
-
-
-     */
-    public void printAvailableNode() {
+    public Node printAndChooseNode() {
         System.out.println("Available Nodes:");
-        for (Node node : AvailableNode) {
-            System.out.println("Node at position (" + node.x + ", " + node.y + ")");
+        for (int i = 0; i < AvailableNode.size(); i++) {
+            Node node = AvailableNode.get(i);
+            System.out.println((i + 1) + ": Nodo alla posizione (" + node.x + ", " + node.y + ")");
         }
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        System.out.print("Scegli il numero del nodo (1-" + AvailableNode.size() + "): ");
+        choice = scanner.nextInt();
+        return AvailableNode.get(choice - 1);
     }
 
-
+    public static List<Node> getAvailableNode() {
+        return AvailableNode;
+    }
 }
