@@ -2,6 +2,7 @@ package org.example.model.PlayArea;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,27 +13,22 @@ import java.util.Scanner;
 public class Player {
 
     private List<Card> hand;
-
+    private CounterResources counter;
     private Card InitialCard;
+    private PlayerCardArea gameArea;
 
     public Player (Card InitialCard){
+        this.hand= new ArrayList<>();
         this.InitialCard = InitialCard;
-    }
-    //il player deve scegliere il side della carta iniziale da giocarla prima di creare l'area di gioco
-    //creare un metodo che cambi l'attributo Side di SideCard inizialmente a BOTH facendo scegliere se front o back
-    //per ora messo di default a fro
-
-    PlayerCardArea gameArea = new PlayerCardArea(InitialCard);
-
-    public void DrawCard(Deck deckFromDraw){
-
-        if (hand.size()==2)
-            hand.add(deckFromDraw.drawCard());
+        this.counter=new CounterResources();
     }
 
-    public void addCard(Card c){
-        if (hand.size()==2)
-            hand.add(c);
+    public void InitializeGameArea(){
+        this.gameArea= new PlayerCardArea(InitialCard);
+        System.out.println("scegli un lato della carta starter da giocare: 1- front, 2-retro");
+        Scanner scanner= new Scanner(System.in);
+        int choice= scanner.nextInt();
+        InitialCard.setSide(choice);
     }
 
     //ritorna
@@ -45,15 +41,13 @@ public class Player {
         int choice;
         System.out.print("Scegli il numero della carta da giocare (1-" + hand.size() + "): ");
         choice = scanner.nextInt();
+        System.out.print("Scegli il  lato della carta: 1-fronte, 2-retro");
+        int side= scanner.nextInt();
+        hand.get(choice-1).setSide(side);
         return hand.remove(choice - 1);
     }
 
 
-
-
-    public void setInitialCard(Card initialCard) {
-        InitialCard = initialCard;
-    }
 
     public void ModifyGameArea (){
         //metodo incaricato di gestire una giocata di un player
@@ -61,16 +55,49 @@ public class Player {
         Card CardToPlay = this.ChoseACard();
         Node ChoosenNode = gameArea.getStarter().printAndChooseNode();
         //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
+
         ChoosenNode.SetCardNode(CardToPlay);
-        Node nodo_prova= ChoosenNode.printAndChooseNode();
+
+        //TODO aggiornare le risorse
+
+
     }
-    /*
-    public void printListCard (PlayerCardArea gameArea){
-        gameArea.
+
+    //altri metodi
+
+    public void DrawCard(Deck deckFromDraw){
+
+        if (hand.size()==2)
+            hand.add(deckFromDraw.drawCard());
+    }
+
+    public void addCard(Card c){
+        hand.add(c);
     }
 
 
- */
+
+
+    //getter e setter
+
+    public void setInitialCard(Card initialCard) {
+        InitialCard = initialCard;
+    }
+
+    public List<Card> getHand() {
+        return hand;
+    }
+
+    public Card getInitialCard() {
+        return InitialCard;
+    }
+
+    public PlayerCardArea getGameArea() {
+        return gameArea;
+    }
+
+
+
 }
 
 //controller del player

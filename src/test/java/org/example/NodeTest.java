@@ -86,5 +86,56 @@ public class NodeTest  extends TestCase {
         assertNull(botL.getBotR());
     }
 
+    public void testSetNullNode() throws IOException, ParseException {
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        Node starterNode = new Node(starterCard, 0, 0);
+        starterNode.SetNullNode();
+        assertNull(starterNode.getTopL().getCard());
+        assertNull(starterNode.getTopR().getCard());
+        assertNull(starterNode.getBotL().getCard());
+        assertNull(starterNode.getBotR().getCard());
+        assertEquals(1, starterNode.getTopR().getX());
+        assertEquals(1, starterNode.getTopR().getY());
+        assertEquals(-1, starterNode.getTopL().getX());
+        assertEquals(1, starterNode.getTopL().getY());
+        assertEquals(1, starterNode.getBotR().getX());
+        assertEquals(-1, starterNode.getBotR().getY());
+        assertEquals(-1, starterNode.getBotL().getX());
+        assertEquals(-1, starterNode.getBotL().getY());
+    }
 
+    public void testAvailableNode() throws IOException, ParseException{
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        Node starterNode = new Node(starterCard, 0, 0);
+        assertTrue(AvailableNode.isEmpty());
+        AvailableNode.add(starterNode);
+        assertEquals(1,AvailableNode.size());
+        AvailableNode.remove(starterNode);
+        assertTrue(AvailableNode.isEmpty());
+    }
+    public void testSearchAvbNode() throws IOException, ParseException{
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        Node starterNode = new Node(starterCard, 0, 0);
+        assertTrue(AvailableNode.isEmpty());
+        starterNode.searchAvailableNode();
+        assertEquals(4,AvailableNode.size());
+        AvailableNode.clear();
+        assertTrue(AvailableNode.isEmpty());
+    }
+    public void testSetCard() throws IOException, ParseException {
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        Node starterNode = new Node(null, 0, 0);
+        assertNull(starterNode.getCard());
+        starterNode.SetCardNode(starterCard);
+        assertEquals(starterCard, starterNode.getCard());
+    }
+
+    public void testPaCNode() throws IOException, ParseException{
+        //negro bastardo pisello in culo
+    }
 }
+

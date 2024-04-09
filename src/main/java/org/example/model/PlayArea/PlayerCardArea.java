@@ -12,29 +12,37 @@ public class PlayerCardArea {
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, 0,0 );
         this.Starter.searchAvailableNode();
-        /*
-        if ((cardStarter.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(cardStarter.getSide().getBackCorners().get(1).getPropertiesCorner());
-        } else if ((cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(cardStarter.getPropCorn(2));
-        } else if ((cardStarter.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(cardStarter.getPropCorn(3));
-        } else if ((cardStarter.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (cardStarter.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(cardStarter.getPropCorn(4));
-        }
-
-        //aggiunta nuova classe per fare il cast
-        for (CardRes cardRes : cardStarter.getRequireGold()) {
-            CastCardRes castCardRes = new CastCardRes(cardRes);
-            counter.AddResource(castCardRes.getPropertiesCorner());
-        }
-        */
+        this.UpdateCounter(cardStarter);
 
     }
 
-    public void addCard(Card NewCard, Node ChoosenNode){
-        //devo cercare nella lista degli angoli disponibili, l'angolo che ho scelto e la touchedcard
 
+
+    public void UpdateCounter(Card card) {
+        if ((card.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getSide().getBackCorners().get(1).getPropertiesCorner());
+        } else if ((card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(2));
+        } else if ((card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(3));
+        } else if ((card.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(4));
+        }
+        //todo implementare anche il counter di punti
+        //se risorsa o gold e ho scelto il back allora aggiungi card res
+        if((card.getType()==Type.RESOURCES || card.getType()==Type.GOLD) && (card.getSide().getSide()==Side.BACK)){
+            CardRes cardRes= card.getCardRes();
+            CastCardRes castCardRes= new CastCardRes(cardRes);
+            counter.AddResource(castCardRes.getPropertiesCorner());
+        }
+
+        //se starter e hai scelto il back allora add require gold
+        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()==Side.BACK)){
+            for (CardRes cardRes: card.getRequireGold()){
+                CastCardRes castCardRes= new CastCardRes(cardRes);
+                counter.AddResource(castCardRes.getPropertiesCorner());
+            }
+        }
     }
 
     public Node getStarter() {

@@ -30,6 +30,10 @@ public class Card {
 
     private SideCard side;  // Reference to the object SideCard
 
+    public Card() {
+
+    }
+
     public void setRequireGold(CardRes[] jsonArray) {
         this.requireGold = jsonArray;
 
@@ -128,5 +132,43 @@ public class Card {
     public PropertiesCorner getPropCorn (int pos){
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setCardres(CardRes cardres) {
+        this.cardres = cardres;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public void setGoldenPoint(GoldenPoint goldenPoint) {
+        this.goldenPoint = goldenPoint;
+    }
+
+    public void setObjectivePoints(ObjectivePoints[] objectivePoints) {
+        this.objectivePoints = objectivePoints;
+    }
+
+    public void setCardposition(CardPosition cardposition) {
+        this.cardposition = cardposition;
+    }
+
+    public void setSide(SideCard side) {
+        this.side = side;
+    }
+    public void setSide(int x) {
+        if(x==1){
+            this.side.setSide(Side.FRONT);
+        }
+        if(x==2){
+            this.side.setSide(Side.BACK);
+        }
+    }
+
+
 }
 

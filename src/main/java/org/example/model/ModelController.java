@@ -31,23 +31,28 @@ public class ModelController {
     private HashMap<Player, Token> Players;     //* Associate Player to Toke
     private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
     private List<String> winnerPlayer;
-    private List<Player> PlayersList;
+    private List<Player> PlayersList = new ArrayList<>();
     private GameFlow gameFlow;
 
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
+        //todo non c'è il costruttore del model controller
         ModelController modelController = new ModelController();
         modelController.CreateDeck();
         // Place Deck on Game Area
         // Put 2 cards on ground
-        //modelController.InizitializePlayers();
         Player p1 = new Player(StarterDeck.drawCard());
+        p1.InitializeGameArea();
 
-        //per prova il player uno pesca una carta
-        p1.DrawCard(ResourcesDeck);
+        modelController.getPlayersList().add(p1);  //nel momento in cui viene creato player questo ha una carta iniziale disposta nella sua game area e una lista di carte hand
+        //una volta che si collegano tutti i player il model procede con l'inizializzazione assegnando a tutti i player connessi le carte della mano
+
+        modelController.InizitializePlayers();
 
         //il player uno sceglie la carta da giocare e la gioca
         p1.ModifyGameArea();
 
+        //per prova il player uno pesca una carta
+        p1.DrawCard(ResourcesDeck);
         //metodo di controllo
 
 

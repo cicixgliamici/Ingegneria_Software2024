@@ -72,7 +72,6 @@ public class Node {
     public void SetCardNode(Card c){
         this.card=c;
         this.SetNullNode();
-
     }
     /** Search for every present card the availability of each node
      *
@@ -145,5 +144,12 @@ public class Node {
 
     public Node getBotR() {
         return botR;
+    }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
     }
 }
