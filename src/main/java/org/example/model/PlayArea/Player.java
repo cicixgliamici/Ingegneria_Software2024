@@ -76,8 +76,8 @@ public class Player {
             hand.add(card);
         } else {
             System.out.println("Card doesn't exist");
-        }
-    }
+        }
+    }
 
     public void addCard(Card c){
         hand.add(c);
