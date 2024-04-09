@@ -14,27 +14,27 @@ public class DrawingCardArea {
     private ArrayList<Card>[] visibleGoCard;
 
     public DrawingCardArea() throws IOException, ParseException {
-        this.resourceDeck = new Deck(Type.RESOURCES);
-        this.goldDeck = new Deck(Type.GOLD);
-        visibleGoCard = new ArrayList[2];
-        visibleReCard = new ArrayList[2];
+        this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
+        this.goldDeck = new Deck(Type.GOLD);    //covered gold deck
+        visibleGoCard = new ArrayList[2];   //2 visible gold cards
+        visibleReCard = new ArrayList[2];   //2 visible resource cards
         initializeVReCard();
         initializeVGoCard();
     }
 
-    private void initializeVReCard(){
+    private void initializeVReCard(){   //create the 2 visible resource cards
         for(int i=0; i<2;i++){
             Card card = resourceDeck.getCards().remove(0);
             visibleReCard[i].add(card);
         }
     }
-    private void initializeVGoCard(){
+    private void initializeVGoCard(){   //create the 2 visible gold cards
         for(int i=0; i<2; i++){
             Card card = goldDeck.getCards().remove(0);
             visibleGoCard[i].add(card);
         }
     }
-    public Card drawCardFromDeck(Type type) {
+    public Card drawCardFromDeck(Type type) {   //draw card from the covered deck
         switch(type) {
             case RESOURCES:
                 return resourceDeck.drawCard();
@@ -44,7 +44,7 @@ public class DrawingCardArea {
                 return null;
         }
     }
-    public Card drawCardFromVisible(Type type, int i) {
+    public Card drawCardFromVisible(Type type, int i) {    //draw from one of the 4 visible cards
         Card drawnCard = null;
         switch(type) {
             case RESOURCES:
