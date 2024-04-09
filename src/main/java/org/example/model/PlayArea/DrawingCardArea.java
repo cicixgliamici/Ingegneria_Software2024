@@ -22,13 +22,13 @@ public class DrawingCardArea {
         initializeVGoCard();
     }
 
-    private void initializeVReCard(){   //creates the 2 visible resource cards
+    private void initializeVReCard(){   //create the 2 visible resource cards
         for(int i=0; i<2;i++){
             Card card = resourceDeck.getCards().remove(0);
             visibleReCard[i].add(card);
         }
     }
-    private void initializeVGoCard(){   //creates the 2 visible gold cards
+    private void initializeVGoCard(){   //create the 2 visible gold cards
         for(int i=0; i<2; i++){
             Card card = goldDeck.getCards().remove(0);
             visibleGoCard[i].add(card);
