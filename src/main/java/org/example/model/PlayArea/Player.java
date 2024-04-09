@@ -29,6 +29,7 @@ public class Player {
         Scanner scanner= new Scanner(System.in);
         int choice= scanner.nextInt();
         InitialCard.setSide(choice);
+        gameArea.UpdateCounter(InitialCard);
     }
 
     //ritorna
@@ -51,17 +52,20 @@ public class Player {
 
     public void ModifyGameArea (){
         //metodo incaricato di gestire una giocata di un player
+
         //fa scegliere al player su che nodo giocare la carta e la carta da giocare dalla sua mano
         Card CardToPlay = this.ChoseACard();
         Node ChoosenNode = gameArea.getStarter().printAndChooseNode();
+        gameArea.removeResources(ChoosenNode);
+
         //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
 
         ChoosenNode.SetCardNode(CardToPlay);
-
+        gameArea.UpdateCounter(CardToPlay);
         //TODO aggiornare le risorse
 
-
     }
+
 
     //altri metodi
 

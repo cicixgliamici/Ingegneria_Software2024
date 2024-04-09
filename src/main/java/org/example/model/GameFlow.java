@@ -48,7 +48,7 @@ public class GameFlow {
          *
          *
           */
-        player.DrawCard(choosenDeck);
+        //player.DrawCard(choosenDeck);
     }
 
     public void DrawFromCardPlaced(List<Card> placedCard, Player player, Card pickCard, Deck resurcesDeck, Deck goldDeck) throws IllegalArgumentException{

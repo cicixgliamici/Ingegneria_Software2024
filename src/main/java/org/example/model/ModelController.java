@@ -48,11 +48,12 @@ public class ModelController {
 
         modelController.InizitializePlayers();
 
+        //inizia il flusso di gioco
         //il player uno sceglie la carta da giocare e la gioca
         p1.ModifyGameArea();
 
         //per prova il player uno pesca una carta
-        p1.DrawCard(ResourcesDeck);
+        //p1.drawCard(ResourcesDeck);
         //metodo di controllo
 
 

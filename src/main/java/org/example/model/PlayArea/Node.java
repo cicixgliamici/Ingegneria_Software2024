@@ -17,6 +17,7 @@ public class Node {
     private int x;
     private int y;
 
+    //todo cambiare la lista, non puo essere static senno anche gli altri giocatori che istanziano un nodo vedono questa lista, metterla come attributo di player
     public static List<Node> AvailableNode = new ArrayList<>();
 
     public Node(Card card, int x, int y) {
@@ -63,10 +64,10 @@ public class Node {
         return new Node(null, null, emptynode, null, null,  x, y);
     }
     public void SetNullNode(){
-        this.botR = NullNodeBotR();
-        this.botL = NullNodeBotL();
-        this.topR = NullNodeTopR();
-        this.topL = NullNodeTopL();
+        if (this.botR==null) this.botR = NullNodeBotR();
+        if (this.botL==null) this.botL = NullNodeBotL();
+        if (this.topR ==null) this.topR = NullNodeTopR();
+        if (this.topL ==null) this.topL = NullNodeTopL();
     }
 
     public void SetCardNode(Card c){
