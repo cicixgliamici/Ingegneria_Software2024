@@ -28,50 +28,15 @@ public class GameFlow {
      - notifica tutte le informazioni al controller da reperire al controller del player
      - inizializza la carta obbiettivo comune
      */
-
-
-
-
-
-    public void Draw(Player player, DrawingCardArea drawingCardArea, ChooseAreaToPick chooseAreaToPick, Card chooseCard, int i) throws IllegalArgumentException{
-        /** switch (choosenDeck.getTypeDeck()) {
-         *  case RESOURCES:
-         *              deckRes--
-         *              playerHand++
-         *              case(DeckGold):
-         *              deckGold--
-         *              playerHand++
-         *              case(placedCard):
-         *              placedCard--
-         *              playerHand++
-         *              chooseDeck(Deck)
-         *
-         *
-          */
+    public void Draw(Player player, DrawingCardArea drawingCardArea, ChooseAreaToPick chooseAreaToPick, Card chooseCard, Type type){
         switch(chooseAreaToPick) {
             case VISIBLEAREA:
-                if (){
-                    drawingCardArea.drawCardFromVisible(chooseCard.getType(), i);
-                }
+                drawingCardArea.RemoveCardFromVC(chooseCard);
+                player.addCard(chooseCard);
+            case DECKSAREA:
+                player.addCard(drawingCardArea.drawCardFromDeck(type));
         }
-
     }
-
-    public void DrawFromCardPlaced(List<Card> placedCard, Player player, Card pickCard, Deck resurcesDeck, Deck goldDeck) throws IllegalArgumentException{
-        //placedCard.remove(searchCardPlaced(pickCard));
-        player.addCard(pickCard);
-        if(pickCard.getType() == Type.RESOURCES){
-            placedCard.add(resurcesDeck.drawCard());
-        }
-        else if (pickCard.getType() == Type.GOLD){
-            placedCard.add(resurcesDeck.drawCard());
-        }
-        else {
-            throw new IllegalArgumentException("not valid Card!\n");
-        }
-
-
-    };
 
     public void Play(Card choosenCard, HashMap<Player, Token> Players, ScoreBoard scoreBoard, Player player) throws IllegalArgumentException{
         /** chooseCardHand (Card)

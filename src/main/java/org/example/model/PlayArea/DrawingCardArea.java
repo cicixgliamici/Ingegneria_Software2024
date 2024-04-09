@@ -10,14 +10,14 @@ import java.io.IOException;
 public class DrawingCardArea {
     private Deck resourceDeck;
     private Deck goldDeck;
-    private ArrayList<Card>[] visibleReCard;
-    private ArrayList<Card>[] visibleGoCard;
+    private List<Card> visibleReCard;
+    private List<Card> visibleGoCard;
 
     public DrawingCardArea() throws IOException, ParseException {
         this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
         this.goldDeck = new Deck(Type.GOLD);    //covered gold deck
-        visibleGoCard = new ArrayList[2];   //2 visible gold cards
-        visibleReCard = new ArrayList[2];   //2 visible resource cards
+        visibleGoCard = new ArrayList<>();   //2 visible gold cards
+        visibleReCard = new ArrayList<>();   //2 visible resource cards
         initializeVReCard();
         initializeVGoCard();
     }
@@ -25,13 +25,13 @@ public class DrawingCardArea {
     private void initializeVReCard(){   //create the 2 visible resource cards
         for(int i=0; i<2;i++){
             Card card = resourceDeck.getCards().remove(0);
-            visibleReCard[i].add(card);
+            visibleReCard.add(card);
         }
     }
     private void initializeVGoCard(){   //create the 2 visible gold cards
         for(int i=0; i<2; i++){
             Card card = goldDeck.getCards().remove(0);
-            visibleGoCard[i].add(card);
+            visibleGoCard.add(card);
         }
     }
     public Card drawCardFromDeck(Type type) {   //draw card from the covered deck
@@ -48,20 +48,20 @@ public class DrawingCardArea {
         Card drawnCard = null;
         switch(type) {
             case RESOURCES:
-                if (i >= 0 && i < visibleReCard.length && !visibleReCard[i].isEmpty()) {
-                    drawnCard = visibleReCard[i].remove(0);
+                if (i >= 0 && i < visibleReCard.size() && visibleReCard.get(i) != null) {
+                    drawnCard = visibleReCard.remove(0); //?????
                     if (!resourceDeck.getCards().isEmpty()) {
                         Card newCard = resourceDeck.getCards().remove(0);
-                        visibleReCard[i].add(newCard);
+                        visibleReCard.add(newCard);
                     }
                 }
                 break;
             case GOLD:
-                if (i >= 0 && i < visibleGoCard.length && !visibleGoCard[i].isEmpty()) {
-                    drawnCard = visibleGoCard[i].remove(0);
+                if (i >= 0 && i < visibleGoCard.size() && visibleGoCard.get(i) != null) {
+                    drawnCard = visibleGoCard.remove(0);
                     if (!goldDeck.getCards().isEmpty()) {
                         Card newCard = goldDeck.getCards().remove(0);
-                        visibleGoCard[i].add(newCard);
+                        visibleGoCard.add(newCard);
                     }
                 }
                 break;
@@ -69,20 +69,40 @@ public class DrawingCardArea {
         return drawnCard;
     }
     public void DisplayVisibleCard (){
-        System.out.println("Ecco le carte disposte: \n");
-        for (int i = 0; i < visibleReCard.length; i++){
-            System.out.println((i + 1) + ":"+ Arrays.stream(visibleReCard).toArray()[i]);
+        System.out.println("There are these cards: \n");
+        for (int i = 0; i < visibleReCard.size(); i++){
+            System.out.println((i + 1) + ":"+ visibleReCard.get(i));
         }
-        for (int i = 0; i <visibleGoCard.length; i++){
-            System.out.println((i + 1) + ":" + Arrays.stream(visibleGoCard).toArray()[i]);
+        for (int i = 0; i <visibleGoCard.size(); i++){
+            System.out.println((i + 1) + ":" + visibleGoCard.get(i));
         }
     }
 
-    /*public int searchCardInVC(Card card){
-        for (int i = 0; i < visibleGoCard.length; i++){
-            if (card = Arrays.stream(visibleGoCard).toArray()[i]){
-
-            }
+    public int searchCardInVC(Card card) throws IllegalArgumentException{
+        switch(card.getType()) {
+            case RESOURCES:
+                for (int i = 0; i < visibleReCard.size(); i++){
+                    if (card == visibleReCard.get(i)){
+                        return i;
+                    }
+                }
+            case GOLD:
+                for (int i = 0; i < visibleGoCard.size(); i++){
+                    if (card == visibleGoCard.get(i)){
+                        return i;
+                    }
+                }
         }
-    } */
+        throw new IllegalArgumentException("Card doesn't exist!\n");
+    }
+
+    public void RemoveCardFromVC(Card card) throws IllegalArgumentException{
+        switch (card.getType()){
+            case RESOURCES:
+                visibleReCard.remove(searchCardInVC(card));
+            case GOLD:
+                visibleGoCard.remove(searchCardInVC(card));
+        }
+        throw new IllegalArgumentException("Nothing to delete!\n");
+    }
 }
