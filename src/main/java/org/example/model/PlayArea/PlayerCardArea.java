@@ -6,31 +6,34 @@ import org.example.model.deck.enumeration.cast.CastCardRes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PlayerCardArea {
     private Node Starter;
     private CounterResources counter = new CounterResources();
     private List<Node> AllNodes;
 
+    private List<Node> AvailableNodes;
+
     //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, 0,0 );
-        this.Starter.searchAvailableNode();
+        this.AvailableNodes =new ArrayList<>();
+        this.AllNodes=new ArrayList<>();
+        this.searchAvailableNode(Starter);
         this.UpdateCounter(cardStarter);
         AllNodes.add(Starter);
     }
 
-
-
     public void UpdateCounter(Card card) {
-        if ((card.getSide().getChoosenList().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getSide().getBackCorners().get(1).getPropertiesCorner());
+        if ((card.getSide().getChoosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getSide().getBackCorners().get(0).getPropertiesCorner());
+        } else if ((card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(1));
         } else if ((card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(card.getPropCorn(2));
         } else if ((card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(card.getPropCorn(3));
-        } else if ((card.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(4).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(4));
         }
         //todo implementare anche il counter di punti
 
@@ -60,12 +63,64 @@ public class PlayerCardArea {
         while (nextNode != node){
 
 
-
-
-
-
         }
 
+    }
+
+
+    public void searchAvailableNode(Node node){
+
+        if(node.getBotL().getCard() == null && !(node.getBotL() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getBotL());
+        }
+        else {
+            if(!(node.getBotL() instanceof EmptyNode)) searchAvailableNode(node.getBotL());
+        }
+
+
+        if(node.getBotR().getCard() == null && !(node.getBotR() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getBotR());
+        }
+        else {
+            if(!(node.getBotR() instanceof EmptyNode)) searchAvailableNode(node.getBotR());
+        }
+
+
+        if(node.getTopL().getCard() == null && !(node.getTopL() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getTopL());
+        }
+        else {
+            if(!(node.getTopL() instanceof EmptyNode)) searchAvailableNode(node.getTopL());
+        }
+
+        if(node.getTopR().getCard() == null && !(node.getTopR() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getTopR());
+        }
+        else {
+            if(!(node.getTopR()instanceof EmptyNode)) searchAvailableNode(node.getTopR());
+        }
+    }
+
+    public Node printAndChooseNode() {
+        System.out.println("Available Nodes:");
+        for (int i = 0; i < AvailableNodes.size(); i++) {
+            Node node = AvailableNodes.get(i);
+            System.out.println((i + 1) + ": Nodo alla posizione (" + node.getX() + ", " + node.getY() + ")");
+        }
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        System.out.print("Scegli il numero del nodo (1-" + AvailableNodes.size() + "): ");
+        choice = scanner.nextInt();
+        return AvailableNodes.get(choice - 1);
+    }
+
+
+
+
+
+    //getter e setter
+    public List<Node> getAvailableNode() {
+        return this.AvailableNodes;
     }
 
     public Node getStarter() {

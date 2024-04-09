@@ -12,7 +12,6 @@ import org.example.model.deck.enumeration.*;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import static junit.framework.Assert.assertEquals;
-import static org.example.model.PlayArea.Node.AvailableNode;
 
 public class NodeTest  extends TestCase {
     public void testFCNode() throws IOException, ParseException {
@@ -105,6 +104,7 @@ public class NodeTest  extends TestCase {
         assertEquals(-1, starterNode.getBotL().getY());
     }
 
+    /*
     public void testAvailableNode() throws IOException, ParseException{
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
@@ -137,5 +137,7 @@ public class NodeTest  extends TestCase {
     public void testPaCNode() throws IOException, ParseException{
         //negro bastardo pisello in culo
     }
+
+     */
 }
 

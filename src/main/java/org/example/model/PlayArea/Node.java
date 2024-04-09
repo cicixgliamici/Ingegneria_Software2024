@@ -18,7 +18,7 @@ public class Node {
     private int y;
 
     //todo cambiare la lista, non puo essere static senno anche gli altri giocatori che istanziano un nodo vedono questa lista, metterla come attributo di player
-    public static List<Node> AvailableNode = new ArrayList<>();
+    //public static List<Node> AvailableNode = new ArrayList<>();
 
     public Node(Card card, int x, int y) {
         this.card = card;
@@ -77,55 +77,7 @@ public class Node {
     /** Search for every present card the availability of each node
      *
      */
-    public void searchAvailableNode(){
-        if(this.botL.card == null && !(this.botL instanceof EmptyNode)){
-            AvailableNode.add(this.botL);
-        }
-        else {
-            if(!(this.botL instanceof EmptyNode)) this.botL.searchAvailableNode();
-        }
 
-
-        if (this.botR.card == null && !(this.botR instanceof EmptyNode)){
-            AvailableNode.add(this.botR);
-        }
-        else {
-            if(!(this.botR instanceof EmptyNode))this.botR.searchAvailableNode();
-        }
-
-
-        if (this.topL.card == null && !(this.topL instanceof EmptyNode)){
-            AvailableNode.add(this.topL);
-        }
-        else {
-            if(!(this.topL instanceof EmptyNode)) this.topL.searchAvailableNode();
-        }
-
-
-        if (this.topR.card == null && !(this.topR instanceof EmptyNode)){
-            AvailableNode.add(this.topR);
-        }
-        else {
-            if(!(this.topR instanceof EmptyNode)) this.topR.searchAvailableNode();
-        }
-    }
-
-    public Node printAndChooseNode() {
-        System.out.println("Available Nodes:");
-        for (int i = 0; i < AvailableNode.size(); i++) {
-            Node node = AvailableNode.get(i);
-            System.out.println((i + 1) + ": Nodo alla posizione (" + node.x + ", " + node.y + ")");
-        }
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-        System.out.print("Scegli il numero del nodo (1-" + AvailableNode.size() + "): ");
-        choice = scanner.nextInt();
-        return AvailableNode.get(choice - 1);
-    }
-
-    public static List<Node> getAvailableNode() {
-        return AvailableNode;
-    }
 
     public Card getCard() {
         return card;
