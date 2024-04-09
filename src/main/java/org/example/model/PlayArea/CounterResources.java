@@ -10,6 +10,7 @@ public class CounterResources {
     private int QuillCounter;
     private int InkwellCounter;
     private int ManuscriptCounter;
+    private int PointCounter;
 
     public CounterResources() {
         this.AnimalCounter = 0;
@@ -19,6 +20,7 @@ public class CounterResources {
         this.QuillCounter = 0;
         this.InkwellCounter = 0;
         this.ManuscriptCounter = 0;
+        this.PointCounter = 0;
     }
 
     public void AddResource(PropertiesCorner propertiesCorner){
@@ -67,7 +69,19 @@ public class CounterResources {
             this.ManuscriptCounter--;
         }
     }
+    public void AddPoint(int point ){
+        this.PointCounter =+ point;
+    }
 
+
+
+
+
+
+
+
+
+    //getter and setter
     public int getAnimalCounter() {
         return AnimalCounter;
     }

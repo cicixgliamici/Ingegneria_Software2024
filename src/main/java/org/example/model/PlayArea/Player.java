@@ -56,12 +56,13 @@ public class Player {
         //fa scegliere al player su che nodo giocare la carta e la carta da giocare dalla sua mano
         Card CardToPlay = this.ChoseACard();
         Node ChoosenNode = gameArea.printAndChooseNode();
-        //gameArea.removeResources(ChoosenNode);
+        //todo gameArea.removeResources(ChoosenNode);
 
         //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
 
         ChoosenNode.SetCardNode(CardToPlay);
         gameArea.UpdateCounter(CardToPlay);
+        gameArea.UpdatePoints(CardToPlay);
         System.out.println(
                 "fatto cacca"
         );

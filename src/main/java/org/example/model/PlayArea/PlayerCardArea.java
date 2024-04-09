@@ -114,6 +114,12 @@ public class PlayerCardArea {
         return AvailableNodes.get(choice - 1);
     }
 
+    public void UpdatePoints(Card card) {
+        counter.AddPoint(card.getPoints());
+    }
+
+
+
 
 
 
