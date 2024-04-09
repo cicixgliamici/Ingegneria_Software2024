@@ -33,7 +33,7 @@ public class GameFlow {
 
 
 
-    public void DrawFromDeck(Deck choosenDeck,Player player) throws IllegalArgumentException{
+    public void Draw(Player player, DrawingCardArea drawingCardArea, ChooseAreaToPick chooseAreaToPick, Card chooseCard, int i) throws IllegalArgumentException{
         /** switch (choosenDeck.getTypeDeck()) {
          *  case RESOURCES:
          *              deckRes--
@@ -48,7 +48,13 @@ public class GameFlow {
          *
          *
           */
-        //player.DrawCard(choosenDeck);
+        switch(chooseAreaToPick) {
+            case VISIBLEAREA:
+                if (){
+                    drawingCardArea.drawCardFromVisible(chooseCard.getType(), i);
+                }
+        }
+
     }
 
     public void DrawFromCardPlaced(List<Card> placedCard, Player player, Card pickCard, Deck resurcesDeck, Deck goldDeck) throws IllegalArgumentException{

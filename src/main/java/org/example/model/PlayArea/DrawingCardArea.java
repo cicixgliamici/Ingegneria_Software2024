@@ -68,4 +68,21 @@ public class DrawingCardArea {
         }
         return drawnCard;
     }
+    public void DisplayVisibleCard (){
+        System.out.println("Ecco le carte disposte: \n");
+        for (int i = 0; i < visibleReCard.length; i++){
+            System.out.println((i + 1) + ":"+ Arrays.stream(visibleReCard).toArray()[i]);
+        }
+        for (int i = 0; i <visibleGoCard.length; i++){
+            System.out.println((i + 1) + ":" + Arrays.stream(visibleGoCard).toArray()[i]);
+        }
+    }
+
+    /*public int searchCardInVC(Card card){
+        for (int i = 0; i < visibleGoCard.length; i++){
+            if (card = Arrays.stream(visibleGoCard).toArray()[i]){
+
+            }
+        }
+    } */
 }
