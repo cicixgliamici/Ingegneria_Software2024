@@ -18,15 +18,15 @@ public class Player {
     private PlayerCardArea gameArea;
 
     public Player (Card InitialCard){
-        this.hand= new ArrayList<>();
+        this.hand  = new ArrayList<>();
         this.InitialCard = InitialCard;
-        this.counter=new CounterResources();
+        this.counter = new CounterResources();
     }
 
     public void InitializeGameArea(){
-        this.gameArea= new PlayerCardArea(InitialCard);
+        this.gameArea = new PlayerCardArea(InitialCard);
         System.out.println("scegli un lato della carta starter da giocare: 1- front, 2-retro");
-        Scanner scanner= new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         InitialCard.setSide(choice);
         gameArea.UpdateCounter(InitialCard);
