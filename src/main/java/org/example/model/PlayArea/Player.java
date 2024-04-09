@@ -24,26 +24,29 @@ public class Player {
 
     PlayerCardArea gameArea = new PlayerCardArea(InitialCard);
 
-    public void DrawCard(Deck deckFromDraw){
-
-        if (hand.size()==2)
-            hand.add(deckFromDraw.drawCard());
+    public void drawCard(DrawingCardArea drawingCardArea, Type type) {
+        Card card = drawingCardArea.drawCardFromDeck(type);
+        hand.add(card);
     }
 
-    public void addCard(Card c){
-        if (hand.size()==2)
-            hand.add(c);
+    public void drawCardFromVisible(DrawingCardArea drawingCardArea, Type type, int i) {
+        Card card = drawingCardArea.drawCardFromVisible(type, i);
+        if (card != null) {
+            hand.add(card);
+        } else {
+            System.out.println("Card doesn't exist");
+        }
     }
 
     //ritorna
     public Card ChoseACard (){
-        System.out.println("la tua mano attuale è: ");
+        System.out.println("Your current hand is: ");
         for (int i = 0; i < hand.size(); i++) {
             System.out.println((i + 1) + ": " + hand.get(i));
         }
         Scanner scanner = new Scanner(System.in);
         int choice;
-        System.out.print("Scegli il numero della carta da giocare (1-" + hand.size() + "): ");
+        System.out.print("Choose the number of the card you want to play (1-" + hand.size() + "): ");
         choice = scanner.nextInt();
         return hand.remove(choice - 1);
     }
