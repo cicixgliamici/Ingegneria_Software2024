@@ -82,6 +82,10 @@ public class Player {
     public void addCard(Card c){
         hand.add(c);
     }
+
+
+
+
     //getter e setter
 
     public void setInitialCard(Card initialCard) {
