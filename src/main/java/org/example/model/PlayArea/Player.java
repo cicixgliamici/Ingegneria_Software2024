@@ -65,11 +65,19 @@ public class Player {
 
     //altri metodi
 
-    public void DrawCard(Deck deckFromDraw){
-
-        if (hand.size()==2)
-            hand.add(deckFromDraw.drawCard());
+    public void drawCard(DrawingCardArea drawingCardArea, Type type) {
+        Card card = drawingCardArea.drawCardFromDeck(type);
+        hand.add(card);
     }
+
+    public void drawCardFromVisible(DrawingCardArea drawingCardArea, Type type, int i) {
+        Card card = drawingCardArea.drawCardFromVisible(type, i);
+        if (card != null) {
+            hand.add(card);
+        } else {
+            System.out.println("Card doesn't exist");
+        }
+    }
 
     public void addCard(Card c){
         hand.add(c);
