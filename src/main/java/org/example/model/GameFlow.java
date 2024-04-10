@@ -8,7 +8,7 @@ import java.util.List;
 import  org.example.model.deck.*;
 import org.example.model.PlayArea.*;
 
-/** The Gameflow is a controller of the status of the match, it depends from the Controller and allows the players only to Draw an Play
+/** The Gameflow is a controller of the status of the match, it depends on the Controller and allows the players only to Draw an Play
  *
  */
 
@@ -39,18 +39,14 @@ public class GameFlow {
     }
 
     public void Play(Card choosenCard, HashMap<Player, Token> Players, ScoreBoard scoreBoard, Player player) throws IllegalArgumentException{
-        /** chooseCardHand (Card)
-         *  chooseWhereToPlace(Card)
-         *  if CalcPoint(Player)>=20
-         *      endGame(Controller)
-         *  recalcScoreBoard()
-         */
-        //chiamata alla struttura dati per inserire la carta
-        scoreBoard.addColorPoints(Players.get(player).getColor(), choosenCard);
-        if(Players.get(player).getPoints() == 20){
-            //lo notifico al model
+        if (Players.containsKey(player)) {
+            // TODO implementare la chiamata della funzione su dove mettere la carta
+            scoreBoard.addColorPoints(Players.get(player).getColor(), choosenCard); //prendo in ingresso la carta scelta e aggiorno lo scoreboard dei punti
+            Players.get(player).addPoints(choosenCard); //aggiorno i punti relativo al token
         }
-
+        else {
+            throw new IllegalArgumentException("Player doesn't exist!\n");
+        }
     }
    /*public void addPlayer(Token token, Player player) throws IllegalArgumentException{
         if (Players.containsKey(player)){
@@ -58,20 +54,4 @@ public class GameFlow {
         }
         Players.put(player,token);
     } */
-
-    public void checkPoints(int id){
-
-    }
-
-    /*public int searchCardPlaced(Card card) throws IllegalArgumentException{
-        for (int i=0; i<4; i++){
-            if(placedCard.get(i) == card){
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("Card doesn't placed!\n");
-    }
-
-     */
-
 }

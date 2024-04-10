@@ -10,12 +10,20 @@ import java.io.IOException;
 public class DrawingCardArea {
     private Deck resourceDeck;
     private Deck goldDeck;
+    private Deck objectDeck;
+    private Deck starterDeck;
     private List<Card> visibleReCard;
     private List<Card> visibleGoCard;
 
     public DrawingCardArea() throws IOException, ParseException {
         this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
-        this.goldDeck = new Deck(Type.GOLD);    //covered gold deck
+        this.resourceDeck.shuffle();
+        this.goldDeck = new Deck(Type.GOLD);//covered gold deck
+        this.goldDeck.shuffle();
+        this.objectDeck = new Deck(Type.OBJECT);
+        this.objectDeck.shuffle();
+        this.starterDeck = new Deck(Type.STARTER);
+        this.starterDeck.shuffle();
         visibleGoCard = new ArrayList<>();   //2 visible gold cards
         visibleReCard = new ArrayList<>();   //2 visible resource cards
         initializeVReCard();

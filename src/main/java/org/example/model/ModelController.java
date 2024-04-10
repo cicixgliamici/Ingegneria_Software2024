@@ -1,10 +1,7 @@
 package org.example.model;
 
 //* import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.example.model.PlayArea.Node;
-import org.example.model.PlayArea.Player;
-import org.example.model.PlayArea.ScoreBoard;
-import org.example.model.PlayArea.Token;
+import org.example.model.PlayArea.*;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
 import org.example.model.deck.enumeration.Color;
@@ -21,13 +18,11 @@ import java.util.List;
 
 public class ModelController {
     //*  Attributes for the decks
-    private static Deck ResourcesDeck;
-    private static Deck GoldDeck;
-    private static Deck ObjectDeck;
-    private static Deck StarterDeck;
-    private List<Deck> placedDeck;              //* Arraylist where there are placed Deck Resource and Gold
-    private List<Card> placedCard;              //* List of placed card
-    //* Attributes for the Gameflow controll
+    /*private static Deck ResourcesDeck;
+    private static Deck GoldDeck; */
+    //private static Deck ObjectDeck;
+    //private static Deck StarterDeck;
+    private DrawingCardArea drawingCardArea;
     private HashMap<Player, Token> Players;     //* Associate Player to Toke
     private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
     private List<String> winnerPlayer;
@@ -37,20 +32,20 @@ public class ModelController {
     public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
         //todo non c'è il costruttore del model controller
         ModelController modelController = new ModelController();
-        modelController.CreateDeck();
+        //modelController.CreateDeck();
         // Place Deck on Game Area
         // Put 2 cards on ground
-        Player p1 = new Player(StarterDeck.drawCard());
-        p1.InitializeGameArea();
+        //Player p1 = new Player(StarterDeck.drawCard());
+        //p1.InitializeGameArea();
 
-        modelController.getPlayersList().add(p1);  //nel momento in cui viene creato player questo ha una carta iniziale disposta nella sua game area e una lista di carte hand
+        //modelController.getPlayersList().add(p1);  //nel momento in cui viene creato player questo ha una carta iniziale disposta nella sua game area e una lista di carte hand
         //una volta che si collegano tutti i player il model procede con l'inizializzazione assegnando a tutti i player connessi le carte della mano
 
         modelController.InizitializePlayers();
 
         //inizia il flusso di gioco
         //il player uno sceglie la carta da giocare e la gioca
-        p1.ModifyGameArea();
+        //p1.ModifyGameArea();
 
         //per prova il player uno pesca una carta
         //p1.drawCard(ResourcesDeck);
@@ -59,24 +54,32 @@ public class ModelController {
 
     }
 
-    // Create the four decks
+    public ModelController(){
+        scoreBoard = new ScoreBoard();
+
+    }
+
+    /* Create the four decks
     public void CreateDeck() throws IOException, ParseException {
-        ResourcesDeck = new Deck(Type.RESOURCES);
+        /** Creo i deck che con le carte che verranno distribuite ai player
+         *  scelgo la carta obbiettivo comune
+         *  scelgo la carta oggetto segreta
+        //ResourcesDeck = new Deck(Type.RESOURCES); già inizializzata dalla classe DrawingCardArea.java
         //ResourcesDeck.printAllCards();
         //ResourcesDeck.printCard(0);
-        ResourcesDeck.shuffle();
+        //ResourcesDeck.shuffle();
         //ResourcesDeck.printCard(0);
         //Card card = ResourcesDeck.drawCard();
         //card.print();
-        GoldDeck = new Deck(Type.GOLD);
-        GoldDeck.shuffle();
+        //GoldDeck = new Deck(Type.GOLD); già implementato da DrawingCardArea.java
+        //GoldDeck.shuffle();
         ObjectDeck = new Deck(Type.OBJECT);
         ObjectDeck.shuffle();
         StarterDeck = new Deck(Type.STARTER);
         StarterDeck.shuffle();
         //Card cartaInizialePlayer1 = StarterDeck.drawCard();
     }
-
+*/
 
     // Add the player from the
     public void AddPlayer(Player P) {
