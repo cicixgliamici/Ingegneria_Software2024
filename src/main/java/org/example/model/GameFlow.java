@@ -48,10 +48,4 @@ public class GameFlow {
             throw new IllegalArgumentException("Player doesn't exist!\n");
         }
     }
-   /*public void addPlayer(Token token, Player player) throws IllegalArgumentException{
-        if (Players.containsKey(player)){
-            throw new IllegalArgumentException("Player already initialized!\n");
-        }
-        Players.put(player,token);
-    } */
 }

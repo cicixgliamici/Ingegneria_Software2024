@@ -17,15 +17,10 @@ import java.util.List;
 //* Class in which the Model is properly setted to start the match
 
 public class ModelController {
-    //*  Attributes for the decks
-    /*private static Deck ResourcesDeck;
-    private static Deck GoldDeck; */
-    //private static Deck ObjectDeck;
-    //private static Deck StarterDeck;
     private DrawingCardArea drawingCardArea;
     private HashMap<Player, Token> Players;     //* Associate Player to Toke
     private ScoreBoard scoreBoard;              //* Object scoreboard to memorize points
-    private List<String> winnerPlayer;
+    private List<String> winnerPlayer; //scriverà il nome del vincitore
     private List<Player> PlayersList = new ArrayList<>();
     private GameFlow gameFlow;
 
@@ -41,7 +36,7 @@ public class ModelController {
         //modelController.getPlayersList().add(p1);  //nel momento in cui viene creato player questo ha una carta iniziale disposta nella sua game area e una lista di carte hand
         //una volta che si collegano tutti i player il model procede con l'inizializzazione assegnando a tutti i player connessi le carte della mano
 
-        modelController.InizitializePlayers();
+        //modelController.InizitializePlayers();
 
         //inizia il flusso di gioco
         //il player uno sceglie la carta da giocare e la gioca
@@ -54,9 +49,12 @@ public class ModelController {
 
     }
 
-    public ModelController(){
+    public ModelController() throws IOException, ParseException {
+        drawingCardArea = new DrawingCardArea();
         scoreBoard = new ScoreBoard();
-
+        Players = new HashMap<>();
+        winnerPlayer = new ArrayList<>();
+        gameFlow = new GameFlow(); // TODO valutare l'aggiunta di stati per il gameflow
     }
 
     /* Create the four decks
@@ -80,6 +78,16 @@ public class ModelController {
         //Card cartaInizialePlayer1 = StarterDeck.drawCard();
     }
 */
+    public void ConnectPlayer(Player P, Color color){
+        PlayersList.add(P);
+        scoreBoard.addToken(color);
+        Players.put(P, scoreBoard.getToken(color));
+        P.addCard(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
+        P.addCard(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
+        P.addCard(drawingCardArea.drawCardFromDeck(Type.GOLD));
+        P.setInitialCard(drawingCardArea.drawCardFromDeck(Type.STARTER));
+        // TODO mettere la chiamata la metodo che assegna il l'obbiettivo segreto al giocatore
+    }
 
     // Add the player from the
     public void AddPlayer(Player P) {
@@ -89,42 +97,9 @@ public class ModelController {
         PlayersList.add(P);
     }
 
-    public void InizitializePlayers() {
-        for (Player P : PlayersList) {
-            P.addCard(ResourcesDeck.drawCard());
-            P.addCard(ResourcesDeck.drawCard());
-            P.addCard(GoldDeck.drawCard());
-            // Add Token Color
-        }
-    }
-
-    public void GameFlow(ScoreBoard scoreBoard) {     //Called from the Controller
-        Players = new HashMap<>();
-        placedDeck = new ArrayList<>();
-        placedCard = new ArrayList<>();
-        winnerPlayer = new ArrayList<>();
-        this.scoreBoard = scoreBoard;
-    }
-
     public void MapPlayerToken(Player player, Color color) {  //Associate a player to a specific color
         scoreBoard.addToken(color);
         Players.put(player, scoreBoard.getToken(color));
-    }
-
-    public static Deck getResourcesDeck() {
-        return ResourcesDeck;
-    }
-
-    public static Deck getGoldDeck() {
-        return GoldDeck;
-    }
-
-    public static Deck getObjectDeck() {
-        return ObjectDeck;
-    }
-
-    public static Deck getStarterDeck() {
-        return StarterDeck;
     }
 
     public HashMap<Player, Token> getPlayers() {

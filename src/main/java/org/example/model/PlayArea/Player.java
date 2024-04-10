@@ -16,6 +16,7 @@ public class Player {
     private CounterResources counter;
     private Card InitialCard;
     private PlayerCardArea gameArea;
+    private List<String> Username; // TODO mettere nel costruttore al posto della carta iniziale il nome del giocatore
 
     public Player (Card InitialCard){
         this.hand  = new ArrayList<>();

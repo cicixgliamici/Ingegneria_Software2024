@@ -48,6 +48,10 @@ public class DrawingCardArea {
                 return resourceDeck.drawCard();
             case GOLD:
                 return goldDeck.drawCard();
+            case STARTER:
+                return starterDeck.drawCard();
+            case OBJECT:
+                return objectDeck.drawCard();
             default:
                 return null;
         }
