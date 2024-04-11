@@ -1,7 +1,7 @@
-package org.example.model;
+package org.example.controller;
+import org.example.model.Model;
 import org.example.model.deck.enumeration.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +13,77 @@ import org.example.model.PlayArea.*;
  */
 
 public class GameFlow {
+    List<Player> players;
+    Model model;
+
+    public GameFlow(List<Player> players, Model model) {
+        this.players=players;
+        this.model= model;
+        FirstRound();
+        Rounds();
+        Player winnner = EndGame();
+        System.out.println("the winner is : " + winnner.username);
+    }
+
+    //todo primo round:
+    public void FirstRound (){
+        //todo tutti i giocatori devono solamente piazzare una carta
+        for (Player p : players){
+            p.Play(model);
+        }
+    }
+
+    public void Rounds(){
+        //todo corpo della partita: draw - play - checkpoints (se points >= 20 esce dal ciclo)
+        boolean IsEnd = false;
+        while (!IsEnd) {
+            for(Player p : players){
+                p.Draw(model);
+                p.Play(model);
+                IsEnd = p.CheckPoints(model);
+            }
+        }
+    }
+
+    public Player EndGame(){
+        //todo calcolo punteggi finali degli obbiettivi nascosti e pubblici
+
+        //todo decreto vincitore
+        return new Player("cacca");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //nel gameflow avrò tutte le informazioni del gioco e tutta la gestione dei punti e le chiamate per il calcolo dei punteggi
     /* dati:
     - i giocatori presenti (a ognuno di essi devo attribuire un username) quindi un hashmap
@@ -28,6 +99,13 @@ public class GameFlow {
      - notifica tutte le informazioni al controller da reperire al controller del player
      - inizializza la carta obbiettivo comune
      */
+
+
+
+    /*
+    // TODO va sposato in Player sennò bisogna passargli troppi parametri
+    //il game flow deve soltanto gestire i flussi di gioco, non il gioco intero. Deve dividere le fasi di ciasun player
+    //quindi x es: player1 : pesca, player 1 gioca, player 2 pesca etc. le varie giocate le gestisce il singolo player.
     public void Draw(Player player, DrawingCardArea drawingCardArea, ChooseAreaToPick chooseAreaToPick, Card chooseCard, Type type){
         switch(chooseAreaToPick) {
             case VISIBLEAREA:
@@ -48,4 +126,6 @@ public class GameFlow {
             throw new IllegalArgumentException("Player doesn't exist!\n");
         }
     }
+    */
+
 }

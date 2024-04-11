@@ -1,22 +1,16 @@
 package org.example;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import static junit.framework.Assert.*;
-import org.example.model.*;
-import org.example.model.PlayArea.Node;
+import org.example.controller.Player;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
-import org.example.model.deck.enumeration.*;
-import org.example.model.PlayArea.Player;
+import org.example.model.deck.enumeration.Side;
+import org.example.model.deck.enumeration.Type;
 import org.json.simple.parser.ParseException;
-import org.example.model.PlayArea.DrawingCardArea;
-import java.io.IOException;
+
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import static junit.framework.Assert.assertEquals;
-import static org.example.model.PlayArea.Node.AvailableNode;
 
 public class PlayerTest extends TestCase {
     public void testConstructor() throws IOException, ParseException {

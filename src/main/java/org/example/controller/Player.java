@@ -1,4 +1,6 @@
-package org.example.model.PlayArea;
+package org.example.controller;
+import org.example.model.Model;
+import org.example.model.PlayArea.PlayerCardArea;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 
@@ -11,17 +13,78 @@ import java.util.Scanner;
  */
 
 public class Player {
+    String username;
+    public Player(String username) {
+        this.username= username;
+    }
 
-    private List<Card> hand;
-    private CounterResources counter;
-    private Card InitialCard;
-    private PlayerCardArea gameArea;
-    private List<String> Username; // TODO mettere nel costruttore al posto della carta iniziale il nome del giocatore
+    /** Method for the TUI to see the Player's hand
+     *
+     */
+    public void SeeHand(Model model){
+        //todo metodo che stampa la mano del player su cui viene chiamato
+        List<Card> hand= model.getPlayerArea(this).getHand();
+        for (Card c: hand){
+            System.out.println(c);
+        }
+    }
 
-    public Player (Card InitialCard){
+    public Card ChosenCard (Model model) {
+        SeeHand(model);
+        System.out.println("Chose the number of the card you want to play");
+        Scanner scanner= new Scanner(System.in);
+        int choice = scanner.nextInt();
+        return model.getPlayerArea(this).getHand().get(choice);
+    }
+
+    public void Play (Model model){
+        //todo metodo chiamato dal gameflow per indicare al player di fare una giocata
+        //mostra nodi
+        model.getPlayerArea(this).PlayACard(ChosenCard(model));
+    }
+
+    public int ChooseStarterSide(PlayerCardArea playerCardArea){
+        //todo implementare un metodo per mostrare una carta
+        System.out.println("Pick your starter card side 1 - front , 2 - back");
+        Scanner scanner= new Scanner(System.in);
+        int choice = scanner.nextInt();
+        return choice;
+    }
+
+    public void Draw (Model model){
+        //todo implementare la pescata di una carta, facendo scegliere al player da dove vuole pescare e nel caso voglia pescare dal dalle carte scoperte, quale voglia pescare
+    }
+
+    public boolean CheckPoints(Model model){
+        //todo controlla per il player i punti e ritorna true se i punti sono più di venti senno ritorna false
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
+    private String username; // TODO mettere nel costruttore al posto della carta iniziale il nome del giocatore
+
+
+    /** The initial card of the player is drawn from the starter deck
+     *
+
+      public Player (String username){
         this.hand  = new ArrayList<>();
-        this.InitialCard = InitialCard;
         this.counter = new CounterResources();
+        this.username= username;
+
+        //this.gameArea = new PlayerCardArea()
     }
 
     public void InitializeGameArea(){
@@ -93,9 +156,7 @@ public class Player {
     }
 
 
-
-
-    //getter e setter
+    /** Setter Area
 
     public void setInitialCard(Card initialCard) {
         InitialCard = initialCard;
@@ -113,6 +174,8 @@ public class Player {
         return gameArea;
     }
 
+
+    */
 
 
 }

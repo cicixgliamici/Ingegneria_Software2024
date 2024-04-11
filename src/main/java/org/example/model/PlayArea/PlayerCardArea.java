@@ -9,11 +9,38 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PlayerCardArea {
+    private Card InitialCard;
+    private PlayerCardArea gameArea;
+    private List<Card> hand;
     private Node Starter;
     private CounterResources counter = new CounterResources();
     private List<Node> AllNodes;
 
     private List<Node> AvailableNodes;
+
+    public void PlayACard (Card card){
+        //todo schierare la carta passata come parametro dal player in uno dei nodi che scegli il player
+        printAndChoseNode();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
     public PlayerCardArea(Card cardStarter) {
@@ -68,6 +95,8 @@ public class PlayerCardArea {
     }
 
 
+
+
     public void searchAvailableNode(Node node){
 
         if(node.getBotL().getCard() == null && !(node.getBotL() instanceof EmptyNode)){
@@ -120,10 +149,6 @@ public class PlayerCardArea {
 
 
 
-
-
-
-
     //getter e setter
     public List<Node> getAvailableNode() {
         return this.AvailableNodes;
@@ -131,5 +156,29 @@ public class PlayerCardArea {
 
     public Node getStarter() {
         return Starter;
+    }
+
+    public Card getInitialCard() {
+        return InitialCard;
+    }
+
+    public PlayerCardArea getGameArea() {
+        return gameArea;
+    }
+
+    public List<Card> getHand() {
+        return hand;
+    }
+
+    public CounterResources getCounter() {
+        return counter;
+    }
+
+    public List<Node> getAllNodes() {
+        return AllNodes;
+    }
+
+    public List<Node> getAvailableNodes() {
+        return AvailableNodes;
     }
 }

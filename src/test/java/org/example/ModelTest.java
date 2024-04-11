@@ -1,22 +1,17 @@
 package org.example;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import static junit.framework.Assert.*;
 
-import org.example.model.ModelController;
-import org.example.model.PlayArea.*;
+import org.example.model.Model;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
-import org.example.model.PlayArea.Player;
+import org.example.controller.Player;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Field;
-import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -24,64 +19,64 @@ public class ModelTest extends TestCase {
 
 
     public void testCreateDeck() throws IOException, ParseException {
-        ModelController modelController = new ModelController();
-        modelController.CreateDeck();
-        assertNotNull(modelController);
+        Model model = new Model();
+        model.CreateDeck();
+        assertNotNull(model);
     }
 
     public void testCreateAllDecks() throws IOException, ParseException {
-        ModelController modelController = new ModelController();
-        modelController.CreateDeck();
-        assertNotNull(modelController);
-        assertNotNull(ModelController.getResourcesDeck());
-        assertNotNull(ModelController.getGoldDeck());
-        assertNotNull(ModelController.getStarterDeck());
-        assertNotNull(ModelController.getObjectDeck());
+        Model model = new Model();
+        model.CreateDeck();
+        assertNotNull(model);
+        assertNotNull(Model.getResourcesDeck());
+        assertNotNull(Model.getGoldDeck());
+        assertNotNull(Model.getStarterDeck());
+        assertNotNull(Model.getObjectDeck());
     }
     public void testCreateCorrectNumbers() throws IOException, ParseException {
-        ModelController modelController = new ModelController();
-        modelController.CreateDeck();
-        assertNotNull(modelController);
-        assertEquals(40, ModelController.getResourcesDeck().getCardNumbers());
-        assertEquals(40, ModelController.getGoldDeck().getCardNumbers());
-        assertEquals(6, ModelController.getStarterDeck().getCardNumbers());
-        assertEquals(16, ModelController.getObjectDeck().getCardNumbers());
+        Model model = new Model();
+        model.CreateDeck();
+        assertNotNull(model);
+        assertEquals(40, Model.getResourcesDeck().getCardNumbers());
+        assertEquals(40, Model.getGoldDeck().getCardNumbers());
+        assertEquals(6, Model.getStarterDeck().getCardNumbers());
+        assertEquals(16, Model.getObjectDeck().getCardNumbers());
     }
     public void testAddPlayer() throws Exception {
-        ModelController modelController = new ModelController();
+        Model model = new Model();
         Player player = new Player(null);
-        Field field = ModelController.class.getDeclaredField("PlayersList");
+        Field field = Model.class.getDeclaredField("PlayersList");
         field.setAccessible(true);
         List<Player> playersList = new ArrayList<>();
-        field.set(modelController, playersList);
-        modelController.AddPlayer(player);
-        assertNotNull(modelController);
+        field.set(model, playersList);
+        model.AddPlayer(player);
+        assertNotNull(model);
         assertTrue(playersList.contains(player));
         assertEquals(1, playersList.size());
     }
     public void testmaxPlayers() throws Exception {
-        ModelController modelController = new ModelController();
+        Model model = new Model();
         Player player = new Player(null);
-        Field field = ModelController.class.getDeclaredField("PlayersList");
+        Field field = Model.class.getDeclaredField("PlayersList");
         field.setAccessible(true);
         List<Player> playersList = new ArrayList<>();
-        field.set(modelController, playersList);
-        modelController.AddPlayer(player);
-        modelController.AddPlayer(player);
-        modelController.AddPlayer(player);
-        modelController.AddPlayer(player);
-        assertNotNull(modelController);
+        field.set(model, playersList);
+        model.AddPlayer(player);
+        model.AddPlayer(player);
+        model.AddPlayer(player);
+        model.AddPlayer(player);
+        assertNotNull(model);
         assertTrue(playersList.contains(player));
         assertEquals(4, playersList.size());
     }
 
     public void testInitializePlayer() throws IOException, ParseException {
-        ModelController modelController = new ModelController();
-        modelController.CreateDeck();
-        assertNotNull(modelController);
+        Model model = new Model();
+        model.CreateDeck();
+        assertNotNull(model);
         Player player = new Player(null);
-        modelController.AddPlayer(player);
-        modelController.InizitializePlayers();
+        model.AddPlayer(player);
+        model.InizitializePlayers();
         List<Card> hand = player.getHand();
         assertEquals(3, player.getHand().size());
         assertEquals(Type.RESOURCES, hand.get(0).getType());

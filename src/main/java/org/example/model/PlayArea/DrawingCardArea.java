@@ -24,19 +24,25 @@ public class DrawingCardArea {
         this.objectDeck.shuffle();
         this.starterDeck = new Deck(Type.STARTER);
         this.starterDeck.shuffle();
-        visibleGoCard = new ArrayList<>();   //2 visible gold cards
-        visibleReCard = new ArrayList<>();   //2 visible resource cards
-        initializeVReCard();
+        visibleGoCard = new ArrayList<>();       //2 visible gold cards
+        visibleReCard = new ArrayList<>();       //2 visible resource cards
         initializeVGoCard();
+        initializeVReCard();
     }
 
-    private void initializeVReCard(){   //create the 2 visible resource cards
-        for(int i=0; i<2;i++){
-            Card card = resourceDeck.getCards().remove(0);
-            visibleReCard.add(card);
+    /** Creates the 2 visible resource cards, taking them from the firsts two of the generated deck
+     *
+     */
+    private void initializeVReCard(){
+        for(int i=0; i<2 ; i++){
+            visibleReCard.add(resourceDeck.drawCard());
         }
     }
-    private void initializeVGoCard(){   //create the 2 visible gold cards
+
+    /** Creates the 2 visible gold cards, taking them from the firsts two of the generated deck
+     *
+     */
+    private void initializeVGoCard(){
         for(int i=0; i<2; i++){
             Card card = goldDeck.getCards().remove(0);
             visibleGoCard.add(card);
@@ -61,7 +67,7 @@ public class DrawingCardArea {
         switch(type) {
             case RESOURCES:
                 if (i >= 0 && i < visibleReCard.size() && visibleReCard.get(i) != null) {
-                    drawnCard = visibleReCard.remove(0); //?????
+                    drawnCard = visibleReCard.remove(i);
                     if (!resourceDeck.getCards().isEmpty()) {
                         Card newCard = resourceDeck.getCards().remove(0);
                         visibleReCard.add(newCard);
@@ -70,7 +76,7 @@ public class DrawingCardArea {
                 break;
             case GOLD:
                 if (i >= 0 && i < visibleGoCard.size() && visibleGoCard.get(i) != null) {
-                    drawnCard = visibleGoCard.remove(0);
+                    drawnCard = visibleGoCard.remove(i);
                     if (!goldDeck.getCards().isEmpty()) {
                         Card newCard = goldDeck.getCards().remove(0);
                         visibleGoCard.add(newCard);

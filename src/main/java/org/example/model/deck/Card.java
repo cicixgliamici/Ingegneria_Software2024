@@ -31,7 +31,6 @@ public class Card {
     private SideCard side;  // Reference to the object SideCard
 
     public Card() {
-
     }
 
     public void setRequireGold(CardRes[] jsonArray) {

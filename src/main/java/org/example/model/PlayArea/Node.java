@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class for the placement of cards
+ */
+
 public class Node {
     private Card card;
     private Node topL;
