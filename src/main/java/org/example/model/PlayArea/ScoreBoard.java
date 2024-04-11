@@ -2,6 +2,7 @@ package org.example.model.PlayArea;
 import org.example.model.deck.enumeration.*;
 import java.util.HashMap;
 import  org.example.model.deck.*;
+import org.example.controller.*;
 
 
 public class ScoreBoard {
@@ -15,7 +16,7 @@ public class ScoreBoard {
      * when the color is already used and when there is already
      * the maximum amount of players
      */
-    public void addToken(Color color) throws IllegalArgumentException {
+    public void addToken(Color color, Player player) throws IllegalArgumentException {
         if (tokens.containsKey(color)) {
             throw new IllegalArgumentException("Select another color");
         }
@@ -24,7 +25,7 @@ public class ScoreBoard {
             throw new IllegalArgumentException("max 4 players");
         }
 
-        Token token = new Token(color);
+        Token token = new Token(color, player);
         tokens.put(color, token);
 
         if (tokens.size() == 1) {
