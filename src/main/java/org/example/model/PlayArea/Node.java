@@ -39,6 +39,10 @@ public class Node {
         this.card = card;
     }
 
+    /**  The node that is created is positioned 
+    *    mirror-image of the original one
+    */
+    
     public Node NullNodeTopR(){
         int x = this.x+1;
         int y= this.y+1;
