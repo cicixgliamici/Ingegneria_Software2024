@@ -9,6 +9,12 @@ public class ScoreBoard {
     public ScoreBoard(){
         tokens = new HashMap<>();
     }
+
+    /**
+     * Adds a new token to the scoreboard, throwing an exception
+     * when the color is already used and when there is already
+     * the maximum amount of players
+     */
     public void addToken(Color color) throws IllegalArgumentException {
         if (tokens.containsKey(color)) {
             throw new IllegalArgumentException("Select another color");
@@ -26,6 +32,9 @@ public class ScoreBoard {
         }
     }
 
+    /**
+     * Adds points to each player based on the color of their token
+     */
     public void addColorPoints(Color color, Card card) {
         Token token = tokens.get(color);
         if (token != null) {
@@ -34,6 +43,10 @@ public class ScoreBoard {
             throw new IllegalArgumentException("Color isn't present on the scoreboard");
         }
     }
+
+    /**
+     * Gets the first player of the match
+     */
     public Color getFirstPlayer() {
         for (Token token : tokens.values()) {
             if (token.isFirst()) {

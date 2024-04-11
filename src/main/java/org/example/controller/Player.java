@@ -2,14 +2,13 @@ package org.example.controller;
 import org.example.model.Model;
 import org.example.model.PlayArea.PlayerCardArea;
 import org.example.model.deck.*;
-import org.example.model.deck.enumeration.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/** This class reference the player in the Model, in order to keep his resources and the PlayerCardArea, the real player
- * is in the Controller
+/** All the attributes and methods for the management of the Player.
+ *  The player is in the controller and talks to the PlayArea in the model.
+ *  It doesn't have any data saved (Hand, Decks and his PlayArea)
  */
 
 public class Player {
@@ -87,26 +86,32 @@ public class Player {
         //this.gameArea = new PlayerCardArea()
     }
 
+    /** Method for the TUI so that the player can choose the side of the starter card and
+     * the model can initialize his PlayArea
+
     public void InitializeGameArea(){
         this.gameArea = new PlayerCardArea(InitialCard);
-        System.out.println("scegli un lato della carta starter da giocare: 1- front, 2-retro");
+        System.out.println("Choose a side for your Starter card: 1- front, 2-back");
         Scanner scanner = new Scanner(System.in);
         int choice= scanner.nextInt();
         InitialCard.setSide(choice);
         gameArea.UpdateCounter(InitialCard);
     }
 
-    //ritorna
+    /** Method for the TUI where the player can see his
+     * hand each turn and choose what card he wants to
+     * play.
+
     public Card ChoseACard (){
-        System.out.println("la tua mano attuale è: ");
+        System.out.println("Your hand is: ");
         for (int i = 0; i < hand.size(); i++) {
             System.out.println((i + 1) + ": " + hand.get(i));
         }
         Scanner scanner = new Scanner(System.in);
         int choice;
-        System.out.print("Scegli il numero della carta da giocare (1-" + hand.size() + "): ");
+        System.out.print("Choose the number of the card you want to play (1-" + hand.size() + "): ");
         choice = scanner.nextInt();
-        System.out.print("Scegli il  lato della carta: 1-fronte, 2-retro");
+        System.out.println("Choose a side for your Starter card: 1- front, 2-back");
         int side= scanner.nextInt();
         hand.get(choice-1).setSide(side);
         return hand.remove(choice - 1);
@@ -161,6 +166,8 @@ public class Player {
     public void setInitialCard(Card initialCard) {
         InitialCard = initialCard;
     }
+
+    /** Getter Area
 
     public List<Card> getHand() {
         return hand;

@@ -16,8 +16,7 @@ import java.util.List;
 
 
 /**
- * Class Deck that get data from the JSON file
- *
+ * Class Deck that gets data from the JSON file
  */
 
 public class Deck {

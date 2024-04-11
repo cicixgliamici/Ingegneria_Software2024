@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-//* Class in which the Model is properly setted to start the match
+/** Class in which the Model is properly set up to start the match
+ */
 
 public class Model {
     private DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board

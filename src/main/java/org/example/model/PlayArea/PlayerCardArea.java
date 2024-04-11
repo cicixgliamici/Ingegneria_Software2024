@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/** It is connected to a player through a Hash Map, and contains his Hand and the
+ * cards he has played.
+ *
+ */
 public class PlayerCardArea {
     private Card InitialCard;
     private PlayerCardArea gameArea;
@@ -53,7 +57,7 @@ public class PlayerCardArea {
     }
 
     public void UpdateCounter(Card card) {
-        if ((card.getSide().getChoosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+        if ((card.getSide().getChosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(card.getSide().getBackCorners().get(0).getPropertiesCorner());
         } else if ((card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
             counter.AddResource(card.getPropCorn(1));
@@ -130,7 +134,7 @@ public class PlayerCardArea {
         }
     }
 
-    public Node printAndChooseNode() {
+    public Node printAndChoseNode() {
         System.out.println("Available Nodes:");
         for (int i = 0; i < AvailableNodes.size(); i++) {
             Node node = AvailableNodes.get(i);

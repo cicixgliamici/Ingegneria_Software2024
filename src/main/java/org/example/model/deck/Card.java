@@ -5,7 +5,7 @@ import org.example.model.deck.enumeration.*;
 import java.util.List;
 
 /**
- * Class Card to abstract the four cards type of the game
+ * Class Card to abstract the four card types of the game
  */
 
 public class Card {
@@ -14,15 +14,15 @@ public class Card {
                                 //per le carte obbiettivo puo servire per la grafica, quelle con null sono grigie
 
     /**
-     *  Array of requirment for Gold Cards, the order of resources
-     *  is the same of the enum CardRes
+     *  Array of requirements for Gold Cards, the order of the resources
+     *  is the same as the enum CardRes
      */
-    private CardRes[] requireGold;    //array of requirement for place the goldcard
+    private CardRes[] requireGold;    //array of requirements for the placement of the gold cards
 
     private Integer points;           // Point given
 
-    private GoldenPoint goldenPoint;    //x carte oro: valore che indica quale attributo da i punti
-                                        //x carte iniziali: risorse permanenti
+    private GoldenPoint goldenPoint;    //for gold cards: point requirements
+                                        //for starter cards: permanent resources
 
     private ObjectivePoints[] objectivePoints;
 
@@ -78,6 +78,9 @@ public class Card {
         return side;
     }
 
+    /**
+     * Prints the card showing all it's properties
+     */
     public void print(){
         if (this.getType()!= null){
             System.out.println("Type: " + this.getType());
@@ -86,7 +89,7 @@ public class Card {
             System.out.println("Card Resource: " + this.getCardRes());
         }
         if(this.getRequireGold()!= null){
-            System.out.print("Required Gold: ");
+            System.out.print("Gold Requirement: ");
             CardRes[] requireGold = this.getRequireGold();
             if(requireGold!= null) {
                 for (int i = 0; i < requireGold.length; i++) {
@@ -115,20 +118,20 @@ public class Card {
             System.out.println("Front Corners:");
             List<Corner> frontCorners = this.getSide().getFrontCorners();
             for (Corner corner : frontCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
+                System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
             }
         }
         if(this.getSide().getBackCorners()!=null) {
             System.out.println("Back Corners:");
             List<Corner> backCorners = this.getSide().getBackCorners();
             for (Corner corner : backCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", PropertiesCorner: " + corner.getPropertiesCorner());
+                System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
             }
         }
         System.out.println();
     }
 
-    public PropertiesCorner getPropCorn (int pos){
+    public PropertiesCorner getPropCorn (int pos){  //gets the card properties
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
 
@@ -136,7 +139,7 @@ public class Card {
         this.type = type;
     }
 
-    public void setCardres(CardRes cardres) {
+    public void setCardRes(CardRes cardres) {
         this.cardres = cardres;
     }
 
@@ -152,7 +155,7 @@ public class Card {
         this.objectivePoints = objectivePoints;
     }
 
-    public void setCardposition(CardPosition cardposition) {
+    public void setCardPosition(CardPosition cardposition) {
         this.cardposition = cardposition;
     }
 

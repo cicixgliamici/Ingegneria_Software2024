@@ -13,6 +13,10 @@ import java.io.IOException;
 
 import static junit.framework.Assert.assertEquals;
 
+/**
+ *  Test all the Methods of Deck, like creation and randomize
+ */
+
 public class DeckTest extends TestCase {
 
 //* Test the creation and the correct number of cards in the decks

@@ -7,7 +7,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 /**
- * Hello world!
+ * Main where we only initialize the Model and give it to the Controller
  *
  */
 public class Main

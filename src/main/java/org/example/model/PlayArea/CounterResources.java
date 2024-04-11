@@ -2,6 +2,11 @@ package org.example.model.PlayArea;
 
 import org.example.model.deck.enumeration.PropertiesCorner;
 
+/**
+ * Class to count the number of resources each player has in their area,
+ * useful for gold card placement requirements
+ */
+
 public class CounterResources {
     private int AnimalCounter;
     private int PlantCounter;
@@ -23,7 +28,7 @@ public class CounterResources {
         this.PointCounter = 0;
     }
 
-    public void AddResource(PropertiesCorner propertiesCorner){
+    public void AddResource(PropertiesCorner propertiesCorner){     //increments counter for each corner resource
         if(propertiesCorner==PropertiesCorner.ANIMAL){
             this.AnimalCounter++;
         }
@@ -46,7 +51,7 @@ public class CounterResources {
             this.ManuscriptCounter++;
         }
     }
-    public void RemoveResource(PropertiesCorner propertiesCorner){
+    public void RemoveResource(PropertiesCorner propertiesCorner){      //decrements counter whenever a resource gets covered
         if(propertiesCorner==PropertiesCorner.ANIMAL){
             this.AnimalCounter--;
         }

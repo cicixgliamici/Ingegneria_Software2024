@@ -2,6 +2,9 @@ package org.example.model.deck;
 
 import org.example.model.deck.enumeration.*;
 
+/**
+ * Class for handling card corners
+ */
 public class Corner {
     private Position position;
     private PropertiesCorner propertiesCorner;

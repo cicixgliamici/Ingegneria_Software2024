@@ -3,9 +3,13 @@ import org.example.model.deck.*;
 import org.example.model.deck.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import java.util.*;
-import org.example.model.PlayArea.Player;
 
 import java.io.IOException;
+
+/** Class that manipulates Decks and everything that is needed.
+ *  Generates decks and puts them on the ground.
+ *  Generates the drawing area with the four cards that you can draw.
+ */
 
 public class DrawingCardArea {
     private Deck resourceDeck;
@@ -18,11 +22,11 @@ public class DrawingCardArea {
     public DrawingCardArea() throws IOException, ParseException {
         this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
         this.resourceDeck.shuffle();
-        this.goldDeck = new Deck(Type.GOLD);//covered gold deck
+        this.goldDeck = new Deck(Type.GOLD);            //covered gold deck
         this.goldDeck.shuffle();
-        this.objectDeck = new Deck(Type.OBJECT);
+        this.objectDeck = new Deck(Type.OBJECT);        //object deck
         this.objectDeck.shuffle();
-        this.starterDeck = new Deck(Type.STARTER);
+        this.starterDeck = new Deck(Type.STARTER);      //starter deck
         this.starterDeck.shuffle();
         visibleGoCard = new ArrayList<>();       //2 visible gold cards
         visibleReCard = new ArrayList<>();       //2 visible resource cards
@@ -44,11 +48,12 @@ public class DrawingCardArea {
      */
     private void initializeVGoCard(){
         for(int i=0; i<2; i++){
-            Card card = goldDeck.getCards().remove(0);
-            visibleGoCard.add(card);
+            visibleReCard.add(goldDeck.drawCard());
         }
     }
-    public Card drawCardFromDeck(Type type) {   //draw card from the covered deck
+    /** Draw a card from the covered deck you choose
+     */
+    public Card drawCardFromDeck(Type type) {
         switch(type) {
             case RESOURCES:
                 return resourceDeck.drawCard();
@@ -62,15 +67,22 @@ public class DrawingCardArea {
                 return null;
         }
     }
-    public Card drawCardFromVisible(Type type, int i) {    //draw from one of the 4 visible cards
+
+    /** Draw from one of the 4 visible cards,
+     * the player chooses which card to draw and
+     * the type of the card that will replace the drawn card.
+     * The int is for which of the 2 cards you want.
+     * The index of the list is variable, because you can choose to get
+     * resource and replace with a gold.
+     * */
+    public Card drawCardFromVisible(Type type, int i) {
         Card drawnCard = null;
         switch(type) {
             case RESOURCES:
                 if (i >= 0 && i < visibleReCard.size() && visibleReCard.get(i) != null) {
                     drawnCard = visibleReCard.remove(i);
                     if (!resourceDeck.getCards().isEmpty()) {
-                        Card newCard = resourceDeck.getCards().remove(0);
-                        visibleReCard.add(newCard);
+                        visibleReCard.add(resourceDeck.drawCard());
                     }
                 }
                 break;
@@ -78,14 +90,17 @@ public class DrawingCardArea {
                 if (i >= 0 && i < visibleGoCard.size() && visibleGoCard.get(i) != null) {
                     drawnCard = visibleGoCard.remove(i);
                     if (!goldDeck.getCards().isEmpty()) {
-                        Card newCard = goldDeck.getCards().remove(0);
-                        visibleGoCard.add(newCard);
+                        visibleReCard.add(goldDeck.drawCard());
                     }
                 }
                 break;
         }
         return drawnCard;
     }
+
+    /** Method for the TUI so the player can choose the card.
+     *
+     */
     public void DisplayVisibleCard (){
         System.out.println("There are these cards: \n");
         for (int i = 0; i < visibleReCard.size(); i++){
@@ -96,7 +111,9 @@ public class DrawingCardArea {
         }
     }
 
-    public int searchCardInVC(Card card) throws IllegalArgumentException{
+    /** Method to search a card in the Visible Card Area
+     */
+    public int searchCardInVisC(Card card) throws IllegalArgumentException{
         switch(card.getType()) {
             case RESOURCES:
                 for (int i = 0; i < visibleReCard.size(); i++){
@@ -117,9 +134,9 @@ public class DrawingCardArea {
     public void RemoveCardFromVC(Card card) throws IllegalArgumentException{
         switch (card.getType()){
             case RESOURCES:
-                visibleReCard.remove(searchCardInVC(card));
+                visibleReCard.remove(searchCardInVisC(card));
             case GOLD:
-                visibleGoCard.remove(searchCardInVC(card));
+                visibleGoCard.remove(searchCardInVisC(card));
         }
         throw new IllegalArgumentException("Nothing to delete!\n");
     }

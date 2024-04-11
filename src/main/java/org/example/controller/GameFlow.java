@@ -8,8 +8,8 @@ import java.util.List;
 import  org.example.model.deck.*;
 import org.example.model.PlayArea.*;
 
-/** The Gameflow is a controller of the status of the match, it depends on the Controller and allows the players only to Draw an Play
- *
+/** The Gameflow is a controller of the status of the match, it depends on the Controller and allows the players only to Draw and Play
+ * then calculates at the end of each turn the points of the player.
  */
 
 public class GameFlow {

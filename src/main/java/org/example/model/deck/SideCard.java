@@ -1,11 +1,11 @@
 package org.example.model.deck;
 
-import org.example.model.deck.enumeration.*;
-
 import java.util.List;
 import org.example.model.deck.enumeration.Side;
-import java.util.List;
 
+/**
+ * Class for handling card sides
+ */
 public class SideCard {
     private Side side;
     private List<Corner> front;
@@ -41,7 +41,7 @@ public class SideCard {
         this.back = back;
     }
 
-    public List<Corner> getChoosenList(){
+    public List<Corner> getChosenList(){   //returns the corners of the chosen side
         if(this.side == Side.BACK){
             return getBackCorners();
         }
