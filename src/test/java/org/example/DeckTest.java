@@ -1,17 +1,11 @@
 package org.example;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import static junit.framework.Assert.*;
 
+import junit.framework.TestCase;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  *  Test all the Methods of Deck, like creation and randomize
@@ -19,114 +13,72 @@ import static junit.framework.Assert.assertEquals;
 
 public class DeckTest extends TestCase {
 
-//* Test the creation and the correct number of cards in the decks
-    public void testDeckResource() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.RESOURCES);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+    //* Test the creation and the correct number of cards in the decks
+    public void testDeckProperties() throws IOException, ParseException {
+        for (Type type : Type.values()) {
+            Deck deck = new Deck(type);
+            assertEquals(type, deck.getTypeDeck());
+            switch (type) {
+                case OBJECT:
+                    assertEquals(16, deck.getCardNumbers());
+                    break;
+                case STARTER:
+                    assertEquals(6, deck.getCardNumbers());
+                    break;
+                default:
+                    assertEquals(40, deck.getCardNumbers());
+                    break;
+            }
         }
-        assertEquals(Type.RESOURCES, deck.getTypeDeck());
-        assertEquals(40, deck.getCardNumbers());
     }
 
-
-    public void testDeckGold() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.GOLD);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+    public void testDeckDraw() throws IOException, ParseException {
+        for (Type type : Type.values()) {
+            Deck deck = new Deck(type);
+            assertEquals(type, deck.getTypeDeck());
+            Card drawnCard = deck.drawCard();
+            assertNotNull(drawnCard);
+            switch (type) {
+                case OBJECT:
+                    assertEquals(15, deck.getCardNumbers());
+                    break;
+                case STARTER:
+                    assertEquals(5, deck.getCardNumbers());
+                    break;
+                default:
+                    assertEquals(39, deck.getCardNumbers());
+                    break;
+            }
         }
-        assertEquals(Type.GOLD, deck.getTypeDeck());
-        assertEquals(40, deck.getCardNumbers());
     }
 
-
-    public void testDeckObject() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.OBJECT);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+    /** This test can file 1 time out of 40 :)
+     */
+    public void testShuffleResources() throws IOException, ParseException {
+        for (Type type : Type.values()) {
+            Deck deck = new Deck(type);
+            assertEquals(type, deck.getTypeDeck());
+            Card FirstShuffleCard = deck.FakeDrawCard();
+            assertNotNull(FirstShuffleCard);
+            deck.shuffle();
+            Card SecondShuffleCard = deck.FakeDrawCard();
+            assertNotNull(SecondShuffleCard);
+            assertNotSame(FirstShuffleCard, SecondShuffleCard);
         }
-        assertEquals(Type.OBJECT, deck.getTypeDeck());
-        assertEquals(16, deck.getCardNumbers());
     }
-
-
-    public void testDeckStarter() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.STARTER);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+    public void testShuffleV2Resources() throws IOException, ParseException {
+        for (Type type : Type.values()) {
+            Deck originalDeck = new Deck(type);
+            assertEquals(type, originalDeck.getTypeDeck());
+            Deck shuffledDeck = new Deck(type);
+            shuffledDeck.getCards().clear();
+            for (Card card : originalDeck.getCards()) {
+                shuffledDeck.getCards().add(new Card());
+            }
+            shuffledDeck.shuffle();
+            for (int i = 0; i < originalDeck.getCardNumbers(); i++) {
+                assertNotSame(originalDeck.getCards().get(i), shuffledDeck.getCards().get(i));
+            }
         }
-        assertEquals(Type.STARTER, deck.getTypeDeck());
-        assertEquals(6, deck.getCardNumbers());
-    }
-//* Test the draw method
-    public void testDrawCardRes() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.RESOURCES);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Card drawnCard = deck.drawCard();
-        assertNotNull(drawnCard);
-        assertEquals(39, deck.getCardNumbers());
-    }
-
-    public void testDrawCardGold() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.GOLD);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Card drawnCard = deck.drawCard();
-        assertNotNull(drawnCard);
-        assertEquals(39, deck.getCardNumbers());
-    }
-
-    public void testDrawCardObj() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.OBJECT);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Card drawnCard = deck.drawCard();
-        assertNotNull(drawnCard);
-        assertEquals(15, deck.getCardNumbers());
-    }
-
-    public void testDrawCardStarter() {
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.STARTER);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Card drawnCard = deck.drawCard();
-        assertNotNull(drawnCard);
-        assertEquals(5, deck.getCardNumbers());
-    }
-
-    public void testShuffleResources(){
-        Deck deck = null;
-        try {
-            deck = new Deck(Type.RESOURCES);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-        Card FirstShuffleCard = deck.FakeDrawCard();
-        assertNotNull(FirstShuffleCard);
-        deck.shuffle();
-        Card SecondShuffleCard = deck.FakeDrawCard();
-        assertNotNull(SecondShuffleCard);
-        assertNotSame(FirstShuffleCard, SecondShuffleCard);
     }
 }

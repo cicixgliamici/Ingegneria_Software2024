@@ -30,52 +30,33 @@ public class Deck {
             case RESOURCES:
                 this.CardNumbers = 40;
                 try {
-                    // Read JSON file
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
-
-                    // Crea una lista per memorizzare le carte
-
-
-                    // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
-
-                        // Leggi i campi dell'oggetto JSON
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
-
                         int points = Integer.parseInt(card.get("points").toString());
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
-
-                        // Leggi e crea l'oggetto SideCard
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-
-                        // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, null, points, null, null, cardposition, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
                 }
-
                 break;
 
             case GOLD:
                 this.CardNumbers = 40;
                 try {
-                    // Leggi il file JSON
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
-
-                    // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
-
-                        // Leggi i campi dell'oggetto JSON
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
                         JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
@@ -84,19 +65,13 @@ public class Deck {
                             requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
                         }
                         int points = Integer.parseInt(card.get("points").toString());
-
                         GoldenPoint goldenPoint = GoldenPoint.valueOf((String) card.get("goldenPoint"));
-
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
-
-                        // Leggi e crea l'oggetto SideCard
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-
-                        // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
                     }
 
@@ -108,16 +83,10 @@ public class Deck {
             case OBJECT:
                 this.CardNumbers = 16;
                 try {
-                    // Leggi il file JSON
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
-
-
-                    // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
-
-                        // Leggi i campi dell'oggetto JSON
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
                         /*
@@ -128,8 +97,6 @@ public class Deck {
                         } */
 
                         int points = Integer.parseInt(card.get("points").toString());
-
-
                         JSONArray objectivePointsArray = (JSONArray) card.get("objectivePoints");
                         ObjectivePoints[] objectivePoints = new ObjectivePoints[objectivePointsArray.size()];
                         for (int j = 0; j < objectivePointsArray.size(); j++) {
@@ -137,13 +104,9 @@ public class Deck {
                         }
 
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
-
-                        // Leggi e crea l'oggetto SideCard
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
                         SideCard sideCard = new SideCard(side, null, null);
-
-                        // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
@@ -154,30 +117,21 @@ public class Deck {
             case STARTER:
                 this.CardNumbers = 6;
                 try {
-                    // Leggi il file JSON
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
-
-                    // Itera attraverso ogni oggetto nel JSONArray
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
-
-                        // Leggi i campi dell'oggetto JSON
                         Type type = Type.valueOf((String) card.get("type"));
                         JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
                         CardRes[] requireGold = new CardRes[requireGoldArray.size()];
                         for (int j = 0; j < requireGoldArray.size(); j++) {
                             requireGold[j] = CardRes.valueOf((String) requireGoldArray.get(j));
                         }
-
-                        // Leggi e crea l'oggetto SideCard
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-
-                        // Crea l'oggetto Card e aggiungilo alla lista
                         cards.add(new Card(type, null, requireGold, null, null, null, null, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
@@ -204,6 +158,8 @@ public class Deck {
         return corners;
     }
 
+    /** TUI Method
+     */
     public void printAllCards() {
         for (Card card : cards) {
             card.print();
@@ -228,6 +184,8 @@ public class Deck {
         return card;
     }
 
+    /** Getter and Setter Zone
+     */
     public Type getTypeDeck() {
         return typeDeck;
     }

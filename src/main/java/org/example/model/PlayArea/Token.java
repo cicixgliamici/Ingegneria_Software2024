@@ -2,6 +2,10 @@ package org.example.model.PlayArea;
 import  org.example.model.deck.*;
 import  org.example.model.deck.enumeration.*;
 import org.example.controller.Player;
+
+/** Used to associate a player with a specific color and their points.
+ *  If the color is black, the player is the first.
+ */
 public class Token  {
     private boolean isFirst;
     private Color color;
@@ -16,10 +20,15 @@ public class Token  {
     public boolean isFirst(){
         return isFirst;
     }
+    public void addPoints(Card card){
+        points = points + card.getPoints();
+    }
+
+    /** Getter and Setter zone
+     */
     public int getPoints(){
         return points;
     }
-
     public Color getColor() {
         return color;
     }
@@ -28,8 +37,5 @@ public class Token  {
     }
     public void setFirst(boolean isFirst) {
         this.isFirst = isFirst;
-    }
-    public void addPoints(Card card){
-        points = points + card.getPoints();
     }
 }

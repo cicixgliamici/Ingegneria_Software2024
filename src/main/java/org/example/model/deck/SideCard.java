@@ -17,10 +17,11 @@ public class SideCard {
         this.back = back;
     }
 
+    /** Getter and Setter zone
+     */
     public Side getSide() {
         return side;
     }
-
     public List<Corner> getFrontCorners() {
         return front;
     }
@@ -28,19 +29,6 @@ public class SideCard {
     public List<Corner> getBackCorners() {
         return back;
     }
-
-    public void setSide(Side side) {
-        this.side = side;
-    }
-
-    public void setFront(List<Corner> front) {
-        this.front = front;
-    }
-
-    public void setBack(List<Corner> back) {
-        this.back = back;
-    }
-
     public List<Corner> getChosenList(){   //returns the corners of the chosen side
         if(this.side == Side.BACK){
             return getBackCorners();
@@ -48,6 +36,15 @@ public class SideCard {
         else {
             return getFrontCorners();
         }
+    }
+    public void setSide(Side side) {
+        this.side = side;
+    }
+    public void setFront(List<Corner> front) {
+        this.front = front;
+    }
+    public void setBack(List<Corner> back) {
+        this.back = back;
     }
 }
 

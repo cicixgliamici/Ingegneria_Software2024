@@ -12,33 +12,19 @@ public class Card {
     private Type type;        // Type of the card (Res, Gold, Obj, Srt)
     private CardRes cardres;    // Permanent resource
                                 //per le carte obbiettivo puo servire per la grafica, quelle con null sono grigie
-
     /**
      *  Array of requirements for Gold Cards, the order of the resources
      *  is the same as the enum CardRes
      */
     private CardRes[] requireGold;    //array of requirements for the placement of the gold cards
-
     private Integer points;           // Point given
-
     private GoldenPoint goldenPoint;    //for gold cards: point requirements
                                         //for starter cards: permanent resources
-
     private ObjectivePoints[] objectivePoints;
-
     private CardPosition cardposition;   // Position of the card
-
     private SideCard side;  // Reference to the object SideCard
-
     public Card() {
     }
-
-    public void setRequireGold(CardRes[] jsonArray) {
-        this.requireGold = jsonArray;
-
-    }
-
-
     public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints[] objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
@@ -50,36 +36,8 @@ public class Card {
         this.side = side;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public CardRes getCardRes() {
-        return cardres;
-    }
-
-    public CardRes[] getRequireGold() {
-        return requireGold;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public GoldenPoint getGoldenPoint() {
-        return goldenPoint;
-    }
-
-    public CardPosition getCardPosition() {
-        return cardposition;
-    }
-
-    public SideCard getSide() {
-        return side;
-    }
-
     /**
-     * Prints the card showing all it's properties
+     * Prints the card showing all it's properties, TUI Method
      */
     public void print(){
         if (this.getType()!= null){
@@ -135,6 +93,29 @@ public class Card {
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
 
+    /** Getter and Setter zone
+     */
+    public Type getType() {
+        return type;
+    }
+    public CardRes getCardRes() {
+        return cardres;
+    }
+    public CardRes[] getRequireGold() {
+        return requireGold;
+    }
+    public Integer getPoints() {
+        return points;
+    }
+    public GoldenPoint getGoldenPoint() {
+        return goldenPoint;
+    }
+    public CardPosition getCardPosition() {
+        return cardposition;
+    }
+    public SideCard getSide() {
+        return side;
+    }
     public void setType(Type type) {
         this.type = type;
     }
@@ -170,7 +151,9 @@ public class Card {
             this.side.setSide(Side.BACK);
         }
     }
+    public void setRequireGold(CardRes[] jsonArray) {
+        this.requireGold = jsonArray;
 
-
+    }
 }
 

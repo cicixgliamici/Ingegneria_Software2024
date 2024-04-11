@@ -1,15 +1,11 @@
 package org.example.model.PlayArea;
 
 import org.example.model.deck.Card;
-import org.example.model.deck.Corner;
-
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
- * Class for the placement of cards
+ * Class for the placement of cards.
+ * The node is an Object with 4 connections to other nodes.
+ * You can go to every node only from the beginner.
  */
 
 public class Node {
