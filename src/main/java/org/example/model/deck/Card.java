@@ -155,5 +155,37 @@ public class Card {
         this.requireGold = jsonArray;
 
     }
+    public boolean TOPLCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean TOPRCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean BOTRCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean BOTLCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
 }
 
