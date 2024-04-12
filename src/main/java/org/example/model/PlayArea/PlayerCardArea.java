@@ -14,17 +14,45 @@ import java.util.Scanner;
  */
 public class PlayerCardArea {
     private Card InitialCard;
-    private PlayerCardArea gameArea;
     private List<Card> hand;
     private Node Starter;
     private CounterResources counter = new CounterResources();
-    private List<Node> AllNodes;
+    private List<Node> AllNodes; //tutti i nodi inseriti
 
-    private List<Node> AvailableNodes;
+    private List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
+
+    public static void main(String[] args) {
+
+    }
+    public PlayerCardArea(Card cardStarter) {
+        this.Starter = new Node(cardStarter, 0,0 );
+        this.AvailableNodes =new ArrayList<>();
+        this.AllNodes=new ArrayList<>();
+        this.searchAvailableNode(Starter);
+        this.UpdateCounter(cardStarter);
+        AllNodes.add(Starter);
+    }
 
     public void PlayACard (Card card){
         //todo schierare la carta passata come parametro dal player in uno dei nodi che scegli il player
-        printAndChoseNode();
+        Node chosenNode = printAndChoseNode(); //scegliamo il nodo su cui giocare la carta
+
+    }
+
+    public void ModifyGameArea (){
+        //metodo incaricato di gestire una giocata di un player
+        //todo gameArea.removeResources(ChoosenNode);
+
+        //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
+
+        ChoosenNode.SetCardNode(CardToPlay);
+        gameArea.UpdateCounter(CardToPlay);
+        gameArea.UpdatePoints(CardToPlay);
+        System.out.println(
+                "fatto cacca"
+        );
+        //TODO aggiornare le risorse
+
     }
 
 
@@ -47,14 +75,7 @@ public class PlayerCardArea {
 
 
     //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
-    public PlayerCardArea(Card cardStarter) {
-        this.Starter = new Node(cardStarter, 0,0 );
-        this.AvailableNodes =new ArrayList<>();
-        this.AllNodes=new ArrayList<>();
-        this.searchAvailableNode(Starter);
-        this.UpdateCounter(cardStarter);
-        AllNodes.add(Starter);
-    }
+
 
     public void UpdateCounter(Card card) {
         if ((card.getSide().getChosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
@@ -152,6 +173,11 @@ public class PlayerCardArea {
     }
 
 
+    // todo public Node GetNodeAtXY
+
+
+
+
 
     //getter e setter
     public List<Node> getAvailableNode() {
@@ -164,10 +190,6 @@ public class PlayerCardArea {
 
     public Card getInitialCard() {
         return InitialCard;
-    }
-
-    public PlayerCardArea getGameArea() {
-        return gameArea;
     }
 
     public List<Card> getHand() {

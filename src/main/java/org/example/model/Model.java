@@ -5,6 +5,8 @@ import org.example.controller.Player;
 import org.example.model.PlayArea.*;
 import org.example.model.deck.enumeration.Type;
 import org.json.simple.parser.ParseException;
+import org.example.model.deck.*;
+import org.example.model.PlayArea.DrawingCardArea;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,8 +17,8 @@ import java.util.List;
 
 public class Model {
     private DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board
-    private HashMap<Player, Token> Players;     // Associates Player to Token
-    private HashMap<Player, PlayerCardArea> GameArea;
+    private HashMap<Player, Token> players;     // Associates Player to Token
+    private HashMap<Player, PlayerCardArea> gameArea;
     private ScoreBoard scoreBoard;              // Object scoreboard to memorize points
     private List<Player> PlayersList;
 
@@ -27,16 +29,22 @@ public class Model {
     public Model() throws IOException, ParseException {
         drawingCardArea = new DrawingCardArea();  //creates a drawing card area that creates the decks
         scoreBoard = new ScoreBoard(); //creates a unique scoreboard for each player
-        Players = new HashMap<>();
+        players = new HashMap<>();
         //todo collegare i player ai token
-        GameArea = new HashMap<>();
+        gameArea = new HashMap<>();
     }
 
+    /** This method cycles on the PlayersList because you can't
+     * do that on a HashMap.
+     * Then gives the player 3 cards.
+     */
     public void DealCards(){
         for (Player player : PlayersList){
-            //todo da 2 carte risorsa e una carta oro a ciascun player
+            PlayerCardArea playerCardArea = gameArea.get(player);
+            playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
+            playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
+            playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
         }
-
     }
 
 
@@ -66,7 +74,11 @@ public class Model {
     /** Getter and Setter Area
      */
     public HashMap<Player, Token> getPlayers() {
-        return Players;
+        return players;
+    }
+
+    public HashMap<Player, PlayerCardArea> getGameArea() {
+        return gameArea;
     }
 
     public List<Player> getPlayersList() {
@@ -86,7 +98,7 @@ public class Model {
     }
 
     public void setPlayers(HashMap<Player, Token> players) {
-        Players = players;
+        this.players = players;
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
@@ -100,14 +112,15 @@ public class Model {
     public void setPlayersAndGameArea(List<Player> playersList) {
         PlayersList = playersList;
         for (Player p : playersList){
-            PlayerCardArea playersCardArea = new PlayerCardArea(drawingCardArea.drawCardFromDeck(Type.STARTER));
-            GameArea.put(p, playersCardArea);
-            if (p.ChooseStarterSide(GameArea.get(p))==1){
-                //metti la carta stare a front
-                //aggiorna le risorse
+            Card starter = drawingCardArea.drawCardFromDeck(Type.STARTER);
+            PlayerCardArea playersCardArea = new PlayerCardArea(starter);
+            gameArea.put(p, playersCardArea);
+            if (p.ChooseStarterSide(gameArea.get(p))==1){
+                starter.setSide(1);
+                playersCardArea.UpdateCounter(starter);
             } else {
-                //metti back
-                //aggiorna le risorse
+                starter.setSide(2);
+                playersCardArea.UpdateCounter(starter);
             }
         }
     }
@@ -116,7 +129,7 @@ public class Model {
      *
      */
     public PlayerCardArea getPlayerArea(Player P){
-          return GameArea.get(P);
+          return gameArea.get(P);
     }
 
 

@@ -90,7 +90,7 @@ public class DrawingCardArea {
                 if (i >= 0 && i < visibleGoCard.size() && visibleGoCard.get(i) != null) {
                     drawnCard = visibleGoCard.remove(i);
                     if (!goldDeck.getCards().isEmpty()) {
-                        visibleReCard.add(goldDeck.drawCard());
+                        visibleGoCard.add(goldDeck.drawCard());
                     }
                 }
                 break;

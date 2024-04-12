@@ -65,5 +65,4 @@ public class ScoreBoard {
             throw new IllegalArgumentException("Token doesn't exist!");
         }
     }
-
 }
