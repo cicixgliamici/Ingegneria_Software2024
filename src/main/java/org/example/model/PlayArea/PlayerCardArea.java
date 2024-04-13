@@ -26,58 +26,82 @@ public class PlayerCardArea {
     private List<PlaceHolder> PlaceHolders;
 
     public static void main(String[] args) throws IOException, ParseException {
-        Deck deck= new Deck(Type.STARTER);
-        Card card= deck.getCards().get(5);
+        Deck deckStarter= new Deck(Type.STARTER);
+        Card card= deckStarter.getCards().get(5);
         card.setSide(1);
         PlayerCardArea playerCardArea= new PlayerCardArea(card);
+        int i = 1;
         System.out.println("Nodi vuoti disponibili: ");
         for (Node node : playerCardArea.getAvailableNodes()) {
+            System.out.print(i + ": ");
             System.out.println(node);
+            i++;
         }
+        System.out.println();
+
+        i=1;
         System.out.println("tutti i nodi: ");
         for (Node node : playerCardArea.getAllNodes()){
+            System.out.print(i + ": ");
             System.out.println(node);
+            i++;
         }
+        System.out.println();
+
+        i=1;
         System.out.println("Lista di placeholders: ");
         for (PlaceHolder placeHolder : playerCardArea.getPlaceHolders()){
+            System.out.print(i + ": ");
             System.out.println(placeHolder);
+            i++;
         }
-        Card card1=
+        System.out.println();
+
+        Deck deckRes = new Deck(Type.RESOURCES);
+        Card card1= deckRes.getCards().get(0);
+        card1.setSide(1);
+        playerCardArea.PlayACard(card1);
+        Card card2= deckRes.getCards().get(1);
+        card2.setSide(2);
+        playerCardArea.PlayACard(card2);
+        Card card3= deckRes.getCards().get(2);
+        card3.setSide(3);
+        playerCardArea.PlayACard(card3);
+
+
 
     }
+
+
     public PlayerCardArea(Card cardStarter) {
-        this.Starter = new Node(cardStarter, 0,0 );
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
         this.PlaceHolders=new ArrayList<>();
-        this.UpdateCounter(cardStarter);
-        AllNodes.add(Starter);
-        UpdateAvailableNode(Starter);
+        this.Starter = new Node(cardStarter, 0,0, PlaceHolders, AvailableNodes, AllNodes );
     }
 
     public void PlayACard (Card card){
-        //todo schierare la carta passata come parametro dal player in uno dei nodi che scegli il player
+        //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player
+        //todo implementare un ciclo che chieda al player su quale carta giocare finche la giocata non è valida oppure segnalare in qualche modo che la giocata non è valida
         Node chosenNode = printAndChoseNode(); //scegliamo il nodo su cui giocare la carta
-
+        ModifyGameArea(card, chosenNode);
+        UpdateAvailableNode(chosenNode);
     }
-/*
-    public void ModifyGameArea (){
+
+    public void ModifyGameArea (Card card, Node node){
         //metodo incaricato di gestire una giocata di un player
-        //todo gameArea.removeResources(ChoosenNode);
-
         //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
-
-        ChoosenNode.SetCardNode(CardToPlay);
+        node.SetCardNode(card, PlaceHolders, AvailableNodes, AllNodes);
+        /*
+        //TODO aggiornare le risorse
         gameArea.UpdateCounter(CardToPlay);
         gameArea.UpdatePoints(CardToPlay);
         System.out.println(
                 "fatto cacca"
         );
-        //TODO aggiornare le risorse
-
+        */
     }
 
- */
 
     public void UpdateAvailableNode(Node node){
         //todo metodo che aggiorna la lista di nodi disponibili, chiamato nel momento in cui setto un nuovo nodo
@@ -94,27 +118,6 @@ public class PlayerCardArea {
             AvailableNodes.add((Node)node.getTopR()); //verificare se il cast è corretto
         } else PlaceHolders.add((PlaceHolder)node.getTopR());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //questa funzione verrà chiamata dal controller del player per inizializzare la propria area di gioco
 
 
     public void UpdateCounter(Card card) {
@@ -145,8 +148,6 @@ public class PlayerCardArea {
         }
     }
 
-
-    //todo implementare un controllo per verificare che la carta inserita non copra altre carte
 
     //Facciamo una lista chiedendo al Prof. della disconnessione ed eventualmente procediamo a levarla e fare con una ricorsione
     public void removeResources(Node node){
@@ -189,9 +190,6 @@ public class PlayerCardArea {
 
 
     //getter e setter
-    public List<Node> getAvailableNode() {
-        return this.AvailableNodes;
-    }
 
     public Node getStarter() {
         return Starter;
