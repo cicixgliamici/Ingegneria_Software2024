@@ -42,7 +42,7 @@ public class PlayerCardArea {
         for (PlaceHolder placeHolder : playerCardArea.getPlaceHolders()){
             System.out.println(placeHolder);
         }
-        Card card1=
+        //*Card card1=
 
     }
     public PlayerCardArea(Card cardStarter) {
