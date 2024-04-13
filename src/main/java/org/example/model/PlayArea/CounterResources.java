@@ -82,10 +82,6 @@ public class CounterResources {
 
 
 
-
-
-
-
     //getter and setter
     public int getAnimalCounter() {
         return AnimalCounter;

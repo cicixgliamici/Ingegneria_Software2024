@@ -3,7 +3,9 @@ package org.example.model.PlayArea;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 import org.example.model.deck.enumeration.cast.CastCardRes;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,16 +23,36 @@ public class PlayerCardArea {
 
     private List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
 
-    public static void main(String[] args) {
+    private List<PlaceHolder> PlaceHolders;
+
+    public static void main(String[] args) throws IOException, ParseException {
+        Deck deck= new Deck(Type.STARTER);
+        Card card= deck.getCards().get(5);
+        card.setSide(1);
+        PlayerCardArea playerCardArea= new PlayerCardArea(card);
+        System.out.println("Nodi vuoti disponibili: ");
+        for (Node node : playerCardArea.getAvailableNodes()) {
+            System.out.println(node);
+        }
+        System.out.println("tutti i nodi: ");
+        for (Node node : playerCardArea.getAllNodes()){
+            System.out.println(node);
+        }
+        System.out.println("Lista di placeholders: ");
+        for (PlaceHolder placeHolder : playerCardArea.getPlaceHolders()){
+            System.out.println(placeHolder);
+        }
+        Card card1=
 
     }
     public PlayerCardArea(Card cardStarter) {
         this.Starter = new Node(cardStarter, 0,0 );
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
-        this.searchAvailableNode(Starter);
+        this.PlaceHolders=new ArrayList<>();
         this.UpdateCounter(cardStarter);
         AllNodes.add(Starter);
+        UpdateAvailableNode(Starter);
     }
 
     public void PlayACard (Card card){
@@ -38,7 +60,7 @@ public class PlayerCardArea {
         Node chosenNode = printAndChoseNode(); //scegliamo il nodo su cui giocare la carta
 
     }
-
+/*
     public void ModifyGameArea (){
         //metodo incaricato di gestire una giocata di un player
         //todo gameArea.removeResources(ChoosenNode);
@@ -53,6 +75,24 @@ public class PlayerCardArea {
         );
         //TODO aggiornare le risorse
 
+    }
+
+ */
+
+    public void UpdateAvailableNode(Node node){
+        //todo metodo che aggiorna la lista di nodi disponibili, chiamato nel momento in cui setto un nuovo nodo
+        if (node.getBotR() instanceof Node){
+            AvailableNodes.add((Node)node.getBotR()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getBotR());
+        if (node.getBotL() instanceof Node){
+            AvailableNodes.add((Node)node.getBotL()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getBotL());
+        if (node.getTopL() instanceof Node){
+            AvailableNodes.add((Node)node.getTopL()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getTopL());
+        if (node.getTopR() instanceof Node){
+            AvailableNodes.add((Node)node.getTopR()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getTopR());
     }
 
 
@@ -122,38 +162,7 @@ public class PlayerCardArea {
 
 
 
-    public void searchAvailableNode(Node node){
 
-        if(node.getBotL().getCard() == null && !(node.getBotL() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getBotL());
-        }
-        else {
-            if(!(node.getBotL() instanceof EmptyNode)) searchAvailableNode(node.getBotL());
-        }
-
-
-        if(node.getBotR().getCard() == null && !(node.getBotR() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getBotR());
-        }
-        else {
-            if(!(node.getBotR() instanceof EmptyNode)) searchAvailableNode(node.getBotR());
-        }
-
-
-        if(node.getTopL().getCard() == null && !(node.getTopL() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getTopL());
-        }
-        else {
-            if(!(node.getTopL() instanceof EmptyNode)) searchAvailableNode(node.getTopL());
-        }
-
-        if(node.getTopR().getCard() == null && !(node.getTopR() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getTopR());
-        }
-        else {
-            if(!(node.getTopR()instanceof EmptyNode)) searchAvailableNode(node.getTopR());
-        }
-    }
 
     public Node printAndChoseNode() {
         System.out.println("Available Nodes:");
@@ -207,4 +216,47 @@ public class PlayerCardArea {
     public List<Node> getAvailableNodes() {
         return AvailableNodes;
     }
+
+    public List<PlaceHolder> getPlaceHolders() {
+        return PlaceHolders;
+    }
 }
+
+
+
+
+/*
+    public void searchAvailableNode(Node node){
+
+        if(node.getBotL().getCard() == null && !(node.getBotL() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getBotL());
+        }
+        else {
+            if(!(node.getBotL() instanceof EmptyNode)) searchAvailableNode(node.getBotL());
+        }
+
+
+        if(node.getBotR().getCard() == null && !(node.getBotR() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getBotR());
+        }
+        else {
+            if(!(node.getBotR() instanceof EmptyNode)) searchAvailableNode(node.getBotR());
+        }
+
+
+        if(node.getTopL().getCard() == null && !(node.getTopL() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getTopL());
+        }
+        else {
+            if(!(node.getTopL() instanceof EmptyNode)) searchAvailableNode(node.getTopL());
+        }
+
+        if(node.getTopR().getCard() == null && !(node.getTopR() instanceof EmptyNode)){
+            this.AvailableNodes.add(node.getTopR());
+        }
+        else {
+            if(!(node.getTopR()instanceof EmptyNode)) searchAvailableNode(node.getTopR());
+        }
+    }
+*/
+

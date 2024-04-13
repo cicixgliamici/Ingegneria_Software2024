@@ -57,22 +57,27 @@ public class Node extends PlaceHolder{
         int y= this.y-1;
         return new Node(null, null, this , null, null,  x, y);
     }
-    public void SetNullNode(){
-        if(this.getCard().BOTRCornerIsHidden()){
-            if (this.botR==null) this.botR = NullNodeBotR();
-        } else this.botR= new PlaceHolder(this.x+1, this.y-1);
 
-        if (this.getCard().BOTLCornerIsHidden()){
-            if (this.botL==null) this.botL = NullNodeBotL();
-        } else this.botR= new PlaceHolder(this.x-1, this.y-1);
+    /** CornerIsHidden return True if is Hidden
+     *
+     */
+    public void SetNullNode() {
+        //todo verificare le condizioni logiche del metodo perche non sono sicuro che le condizioni degli if siano giuste
+        if (this.getCard().BOTRCornerIsHidden()) {
+            this.botR = new PlaceHolder(this.x + 1, this.y - 1);
+        } else if (this.botR == null) this.botR = NullNodeBotR();
 
-        if (this.getCard().TOPLCornerIsHidden()){
-            if (this.topL ==null) this.topL = NullNodeTopL();
-        } else this.botR= new PlaceHolder(this.x-1, this.y+1);
+        if (this.getCard().BOTLCornerIsHidden()) {
+            this.botL = new PlaceHolder(this.x - 1, this.y - 1);
+        } else if (this.botL == null) this.botL = NullNodeBotL();
 
-        if(this.getCard().TOPRCornerIsHidden()){
-            if (this.topR ==null) this.topR = NullNodeTopR();
-        } else this.botR= new PlaceHolder(this.x+1, this.y+1);
+        if (this.getCard().TOPLCornerIsHidden()) {
+            this.topL = new PlaceHolder(this.x - 1, this.y + 1);
+        } else  if (this.topL == null) this.topL = NullNodeTopL();
+
+        if (this.getCard().TOPRCornerIsHidden()) {
+            this.topR = new PlaceHolder(this.x + 1, this.y + 1);
+        } else if (this.topR == null) this.topR = NullNodeTopR();
     }
 
 
@@ -111,5 +116,10 @@ public class Node extends PlaceHolder{
     }
     public int getY() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return "nodo: " + x + " " + y;
     }
 }

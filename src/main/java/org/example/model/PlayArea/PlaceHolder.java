@@ -7,4 +7,11 @@ public class PlaceHolder {
         this.x = x;
         this.y = y;
     }
+
+
+    @Override
+    public String toString() {
+        return "Placeholder " + x + " : " + y;
+    }
+
 }
