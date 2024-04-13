@@ -46,8 +46,7 @@ public class Player {
         //todo implementare un metodo per mostrare una carta
         System.out.println("Pick your starter card side 1 - front , 2 - back");
         Scanner scanner= new Scanner(System.in);
-        int choice = scanner.nextInt();
-        return choice;
+        return scanner.nextInt();
     }
 
     public void Draw (Model model){
