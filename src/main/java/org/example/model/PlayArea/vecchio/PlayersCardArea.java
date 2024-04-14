@@ -1,4 +1,6 @@
+/*
 package org.example.model.PlayArea.vecchio;
+
 
 import org.example.model.PlayArea.CounterResources;
 import org.example.model.deck.Card;
@@ -10,9 +12,7 @@ import org.example.model.deck.enumeration.cast.CastCardRes;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Game Area in which the player put his cards
- *
- */
+
 public class PlayersCardArea {
     private MatrixCell[][] PlayedCard;
     private final int DIM = 10;
@@ -149,5 +149,5 @@ public class PlayersCardArea {
         }
     }
 
-     */
-}
+    }*/
+

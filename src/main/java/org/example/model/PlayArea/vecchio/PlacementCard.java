@@ -1,3 +1,4 @@
+/*
 package org.example.model.PlayArea.vecchio;
 
 import org.example.model.deck.Card;
@@ -28,4 +29,6 @@ public class PlacementCard {
         return this.CardProperties;
     }
 }
+
+ */
 

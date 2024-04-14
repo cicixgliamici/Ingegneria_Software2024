@@ -21,6 +21,6 @@ public class CardSideCornerTest extends TestCase {
     public void testPropCorn() throws IOException, ParseException{
         Deck deck = new Deck(Type.RESOURCES);
         Card card = deck.drawCard();
-        assertEquals(PropertiesCorner.FUNGI, card.getPropCorn(0));
+        assertEquals(PropertiesCorner.FUNGI, card.getFRONTPropCorn(0));
     }
 }

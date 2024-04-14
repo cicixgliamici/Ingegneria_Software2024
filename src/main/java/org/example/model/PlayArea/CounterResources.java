@@ -1,6 +1,8 @@
 package org.example.model.PlayArea;
 
+import org.example.model.deck.enumeration.CardRes;
 import org.example.model.deck.enumeration.PropertiesCorner;
+import org.example.model.deck.enumeration.cast.CastCardRes;
 
 /**
  * Class to count the number of resources each player has in their area,
@@ -76,6 +78,34 @@ public class CounterResources {
     }
     public void AddPoint(int point ){
         this.PointCounter =+ point;
+    }
+
+    public boolean IsPresent(CardRes cardRes){
+        //ritorna true se il properties corner passato come parametro è presente
+        CastCardRes cardRes1= new CastCardRes(cardRes);
+        PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
+        if(propertiesCorner==PropertiesCorner.ANIMAL){
+            return this.AnimalCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.FUNGI){
+            return this.FungiCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.PLANT){
+            return this.PlantCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.QUILL){
+            return this.QuillCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.INKWELL){
+            return this.InkwellCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.INSECT){
+            return this.InsectCounter > 0;
+        }
+        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
+            return this.ManuscriptCounter > 0;
+        }
+        return false;
     }
 
 

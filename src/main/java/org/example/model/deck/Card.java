@@ -23,8 +23,7 @@ public class Card {
     private ObjectivePoints[] objectivePoints;
     private CardPosition cardposition;   // Position of the card
     private SideCard side;  // Reference to the object SideCard
-    public Card() {
-    }
+
     public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints[] objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
@@ -89,7 +88,9 @@ public class Card {
         System.out.println();
     }
 
-    public PropertiesCorner getPropCorn (int pos){  //gets the card properties
+    public PropertiesCorner getFRONTPropCorn(int pos){
+        //gets the card properties
+
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
 
@@ -186,6 +187,29 @@ public class Card {
         else {
             return this.getSide().getBackCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
         }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tipo: ").append(type).append("\n");
+
+        // Stampa cardres se non è null
+        if (cardres != null) {
+            sb.append("CardRes: ").append(cardres).append("\n");
+        }
+
+        // Stampa proprietà di tutti gli angoli
+        if (side != null && side.getFrontCorners() != null && side.getBackCorners() != null) {
+            sb.append("Angoli Fronte:\n");
+            for (Corner corner : side.getFrontCorners()) {
+                sb.append(corner.toString()).append("\n");
+            }
+            sb.append("Angoli Retro:\n");
+            for (Corner corner : side.getBackCorners()) {
+                sb.append(corner.toString()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }
 

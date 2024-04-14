@@ -20,4 +20,7 @@ public class Corner {
     public PropertiesCorner getPropertiesCorner(){
         return this.propertiesCorner;
     }
+    public String toString() {
+        return "Posizione: " + position + ", Proprietà: " + propertiesCorner;
+    }
 }

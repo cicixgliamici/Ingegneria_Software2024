@@ -15,8 +15,8 @@ import java.util.Scanner;
  *
  */
 public class PlayerCardArea {
-    private Card InitialCard;
-    private List<Card> hand;
+    private Card InitialCard; //inizializzata con la playercardarea ma è utile?
+    private List<Card> hand = new ArrayList<>(); //non so se serve
     private Node Starter;
     private CounterResources counter = new CounterResources();
     private List<Node> AllNodes; //tutti i nodi inseriti
@@ -30,6 +30,35 @@ public class PlayerCardArea {
         Card card= deckStarter.getCards().get(5);
         card.setSide(1);
         PlayerCardArea playerCardArea= new PlayerCardArea(card);
+
+
+        Deck deckRes = new Deck(Type.RESOURCES);
+        Deck GoldDeck = new Deck(Type.GOLD);
+        Card card1= deckRes.getCards().get(0);
+        playerCardArea.getHand().add(card1);
+
+        Card card2= deckRes.getCards().get(1);
+        playerCardArea.getHand().add(card2);
+
+        Card card3= GoldDeck.getCards().get(2);
+        playerCardArea.getHand().add(card3);
+        int j=0;
+        for(Card c : playerCardArea.getHand()){
+            System.out.println(j + ": \n" + c);
+            j++;
+        }
+        /*
+        card1.setSide(1);
+        playerCardArea.PlayACard(card1);
+        Card card2= deckRes.getCards().get(1);
+        card2.setSide(2);
+        playerCardArea.PlayACard(card2);
+        Card card3= deckRes.getCards().get(2);
+        card3.setSide(1);
+        playerCardArea.PlayACard(card3);
+
+
+        //debug
         int i = 1;
         System.out.println("Nodi vuoti disponibili: ");
         for (Node node : playerCardArea.getAvailableNodes()) {
@@ -57,27 +86,19 @@ public class PlayerCardArea {
         }
         System.out.println();
 
-        Deck deckRes = new Deck(Type.RESOURCES);
-        Card card1= deckRes.getCards().get(0);
-        card1.setSide(1);
-        playerCardArea.PlayACard(card1);
-        Card card2= deckRes.getCards().get(1);
-        card2.setSide(2);
-        playerCardArea.PlayACard(card2);
-        Card card3= deckRes.getCards().get(2);
-        card3.setSide(3);
-        playerCardArea.PlayACard(card3);
 
 
-
+         */
     }
 
 
     public PlayerCardArea(Card cardStarter) {
+        this.InitialCard= cardStarter;
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
         this.PlaceHolders=new ArrayList<>();
         this.Starter = new Node(cardStarter, 0,0, PlaceHolders, AvailableNodes, AllNodes );
+        UpdateCounter(cardStarter);
     }
 
     public void PlayACard (Card card){
@@ -85,60 +106,37 @@ public class PlayerCardArea {
         //todo implementare un ciclo che chieda al player su quale carta giocare finche la giocata non è valida oppure segnalare in qualche modo che la giocata non è valida
         Node chosenNode = printAndChoseNode(); //scegliamo il nodo su cui giocare la carta
         ModifyGameArea(card, chosenNode);
-        UpdateAvailableNode(chosenNode);
     }
 
     public void ModifyGameArea (Card card, Node node){
         //metodo incaricato di gestire una giocata di un player
         //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
         node.SetCardNode(card, PlaceHolders, AvailableNodes, AllNodes);
-        /*
-        //TODO aggiornare le risorse
-        gameArea.UpdateCounter(CardToPlay);
-        gameArea.UpdatePoints(CardToPlay);
-        System.out.println(
-                "fatto cacca"
-        );
-        */
-    }
+        AvailableNodes.remove(node);
 
+        //Aggiornamento delle risorse
+        UpdateCounter(card);
+        removeResources(node);
 
-    public void UpdateAvailableNode(Node node){
-        //todo metodo che aggiorna la lista di nodi disponibili, chiamato nel momento in cui setto un nuovo nodo
-        if (node.getBotR() instanceof Node){
-            AvailableNodes.add((Node)node.getBotR()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getBotR());
-        if (node.getBotL() instanceof Node){
-            AvailableNodes.add((Node)node.getBotL()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getBotL());
-        if (node.getTopL() instanceof Node){
-            AvailableNodes.add((Node)node.getTopL()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getTopL());
-        if (node.getTopR() instanceof Node){
-            AvailableNodes.add((Node)node.getTopR()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getTopR());
+        //todo fare update point
+
     }
 
 
     public void UpdateCounter(Card card) {
-        if ((card.getSide().getChosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getSide().getBackCorners().get(0).getPropertiesCorner());
-        } else if ((card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(1));
-        } else if ((card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(2));
-        } else if ((card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(3));
-        }
-        //todo implementare anche il counter di punti
+        counter.AddResource(card.getSide().getChosenList().get(0).getPropertiesCorner());
+        counter.AddResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
+        counter.AddResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
+        counter.AddResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
+
+        //todo implementare anche il counter di punti, dove lo facciamo?
 
         //se risorsa o gold e ho scelto il back allora aggiungi card res
-        if((card.getType()==Type.RESOURCES || card.getType()==Type.GOLD) && (card.getSide().getSide()==Side.BACK)){
+        if(card.getCardRes()!= null){
             CardRes cardRes= card.getCardRes();
             CastCardRes castCardRes= new CastCardRes(cardRes);
             counter.AddResource(castCardRes.getPropertiesCorner());
         }
-
         //se starter e hai scelto il back allora add require gold
         if((card.getType()==Type.STARTER)&&(card.getSide().getSide()==Side.BACK)){
             for (CardRes cardRes: card.getRequireGold()){
@@ -151,18 +149,21 @@ public class PlayerCardArea {
 
     //Facciamo una lista chiedendo al Prof. della disconnessione ed eventualmente procediamo a levarla e fare con una ricorsione
     public void removeResources(Node node){
-        Node current = Starter;
-        Node nextNode= Starter;
-        while (nextNode != node){
-
-
+        for (Node node1 : AllNodes){
+            if(node1.getTopR()==node){
+                counter.RemoveResource(node1.getCard().getSide().getChosenList().get(1).getPropertiesCorner());
+            }
+            if(node1.getTopL()==node){
+                counter.RemoveResource(node1.getCard().getSide().getChosenList().get(0).getPropertiesCorner());
+            }
+            if(node1.getBotR()==node){
+                counter.RemoveResource(node1.getCard().getSide().getChosenList().get(2).getPropertiesCorner());
+            }
+            if(node1.getBotL()==node){
+                counter.RemoveResource(node1.getCard().getSide().getChosenList().get(3).getPropertiesCorner());
+            }
         }
-
     }
-
-
-
-
 
 
     public Node printAndChoseNode() {
@@ -180,6 +181,15 @@ public class PlayerCardArea {
 
     public void UpdatePoints(Card card) {
         counter.AddPoint(card.getPoints());
+    }
+
+    public boolean CheckPlayForGold(Card card){
+        if(card.getType()==Type.GOLD){
+            for (CardRes cardRes: card.getRequireGold()){
+                if (!counter.IsPresent(cardRes))return false;
+            }
+        }
+        return true;
     }
 
 
@@ -256,5 +266,51 @@ public class PlayerCardArea {
             if(!(node.getTopR()instanceof EmptyNode)) searchAvailableNode(node.getTopR());
         }
     }
-*/
+
+
+    public void UpdateAvailableNode(Node node){
+        //todo metodo che aggiorna la lista di nodi disponibili, chiamato nel momento in cui setto un nuovo nodo
+        if (node.getBotR() instanceof Node){
+            AvailableNodes.add((Node)node.getBotR()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getBotR());
+        if (node.getBotL() instanceof Node){
+            AvailableNodes.add((Node)node.getBotL()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getBotL());
+        if (node.getTopL() instanceof Node){
+            AvailableNodes.add((Node)node.getTopL()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getTopL());
+        if (node.getTopR() instanceof Node){
+            AvailableNodes.add((Node)node.getTopR()); //verificare se il cast è corretto
+        } else PlaceHolders.add((PlaceHolder)node.getTopR());
+    }
+
+    public void UpdateCounter(Card card) {
+        if ((card.getSide().getChosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getSide().getBackCorners().get(0).getPropertiesCorner());
+        } else if ((card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(1));
+        } else if ((card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(2));
+        } else if ((card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
+            counter.AddResource(card.getPropCorn(3));
+        }
+        //todo implementare anche il counter di punti, dove lo facciamo?
+
+        //se risorsa o gold e ho scelto il back allora aggiungi card res
+        if((card.getType()==Type.RESOURCES || card.getType()==Type.GOLD) && (card.getSide().getSide()==Side.BACK)){
+            CardRes cardRes= card.getCardRes();
+            CastCardRes castCardRes= new CastCardRes(cardRes);
+            counter.AddResource(castCardRes.getPropertiesCorner());
+        }
+
+        //se starter e hai scelto il back allora add require gold
+        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()==Side.BACK)){
+            for (CardRes cardRes: card.getRequireGold()){
+                CastCardRes castCardRes= new CastCardRes(cardRes);
+                counter.AddResource(castCardRes.getPropertiesCorner());
+            }
+        }
+    }
+ */
+
 
