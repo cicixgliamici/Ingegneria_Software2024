@@ -93,7 +93,6 @@ public class Node extends PlaceHolder{
                 this.botR = new PlaceHolder(this.x + 1, this.y - 1);
                 PlaceHolders.add(this.botR);
                 //controllo nella lista di tutti i nodi disponibili se ce n'è uno alla posizione del nuovo placeholder
-
                 if(AvailableNodes!=null && !AvailableNodes.isEmpty()) {
                     for (Node node : AvailableNodes) {
                         if(node.x==this.x+1 && node.y==this.y-1){
@@ -193,21 +192,21 @@ public class Node extends PlaceHolder{
         if(this.botL==null) {
             for (PlaceHolder placeHolder : placeHolderList) {
                 if(placeHolder.x==this.x-1 && placeHolder.y==this.y-1) {
-                    this.botR = placeHolder;
+                    this.botL = placeHolder;
                 }
             }
         }
         if(this.topR==null) {
             for (PlaceHolder placeHolder : placeHolderList) {
                 if(placeHolder.x==this.x+1 && placeHolder.y==this.y+1) {
-                    this.botR = placeHolder;
+                    this.topR = placeHolder;
                 }
             }
         }
         if(this.topL==null) {
             for (PlaceHolder placeHolder : placeHolderList) {
                 if(placeHolder.x==this.x-1 && placeHolder.y==this.y-1) {
-                    this.botR = placeHolder;
+                    this.topL = placeHolder;
                 }
             }
         }
@@ -215,7 +214,6 @@ public class Node extends PlaceHolder{
 
     // metodo che deve verificare che il nuovo nodo non vada a sovrapporsi con nessuna carta
     public void SetNodeForExistingCard(List<Node> AllNodes) {
-
         if(this.botR==null) {
             for (Node node : AllNodes) {
                 if(node.x==this.x+1 && node.y==this.y-1) {
@@ -226,21 +224,21 @@ public class Node extends PlaceHolder{
         if(this.botL==null) {
             for (Node node : AllNodes) {
                 if(node.x==this.x-1 && node.y==this.y-1) {
-                    this.botR = node;
+                    this.botL = node;
                 }
             }
         }
         if(this.topR==null) {
             for (Node node : AllNodes) {
                 if(node.x==this.x+1 && node.y==this.y+1) {
-                    this.botR = node;
+                    this.topR = node;
                 }
             }
         }
         if(this.topL==null) {
             for (Node node : AllNodes) {
                 if(node.x==this.x-1 && node.y==this.y+1) {
-                    this.botR = node;
+                    this.topL = node;
                 }
             }
         }

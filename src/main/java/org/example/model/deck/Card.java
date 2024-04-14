@@ -35,6 +35,9 @@ public class Card {
         this.side = side;
     }
 
+    public Card(){
+    }
+
     /**
      * Prints the card showing all it's properties, TUI Method
      */
