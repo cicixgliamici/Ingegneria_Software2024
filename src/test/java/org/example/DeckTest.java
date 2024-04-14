@@ -31,7 +31,7 @@ public class DeckTest extends TestCase {
             }
         }
     }
-
+    //* Test the method Draw from the class Deck
     public void testDeckDraw() throws IOException, ParseException {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
@@ -53,6 +53,8 @@ public class DeckTest extends TestCase {
     }
 
     /** This test can file 1 time out of 40 :)
+    *   Had to use "FakeDrawCard" instead of "drawCard" because
+    *   drawCard remove the card from the deck
      */
     public void testShuffleResources() throws IOException, ParseException {
         for (Type type : Type.values()) {
@@ -66,6 +68,8 @@ public class DeckTest extends TestCase {
             assertNotSame(FirstShuffleCard, SecondShuffleCard);
         }
     }
+
+    //* Pumped version that see every card 
     public void testShuffleV2Resources() throws IOException, ParseException {
         for (Type type : Type.values()) {
             Deck originalDeck = new Deck(type);
