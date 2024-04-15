@@ -26,8 +26,6 @@ public class GameFlow {
 
     //todo primo round:
     public void Rounds () {
-        System.out.println("First round: \n");
-        //todo tutti i giocatori devono solamente piazzare una carta
         boolean IsEnd = false;
         while (!IsEnd) {
             for (Player p : players) {
@@ -42,7 +40,6 @@ public class GameFlow {
     }
 
     public Player EndGame(){
-        //todo calcolo punteggi finali degli obbiettivi nascosti e pubblici
         for (Player p : players) {
             model.getPlayerArea(p).privateObject(model);
             model.getPlayerArea(p).publicObjects(model);

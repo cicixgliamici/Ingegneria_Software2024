@@ -227,38 +227,149 @@ public class PlayerCardArea {
     }
 
     public void publicObjects(Model model) {
+        int points=0;
         for (Card card : model.getPublicObjective()) {
             switch (card.getObjectivePoints()) {
                 case DIAG:
                     switch (card.getCardRes()) {
                         case FUNGI:
-                            break;
-                        case PLANT:
-                            break;
-                        case INSECT:
-                            break;
-                        case ANIMAL:
+                            for (Node node : AllNodes) {
+                                if (node.getCard().getCardRes() == CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)) {
+                                    counter.AddPoint(2);
+                                }
+                            }
+                            AlreadyUsed.clear();
                             break;
 
+                        case PLANT:
+                            for (Node node : AllNodes) {
+                                if (node.getCard().getCardRes() == CardRes.PLANT && FindDiagonal(node, AlreadyUsed)) {
+                                    counter.AddPoint(2);
+                                }
+                            }
+                            AlreadyUsed.clear();
+                            break;
+
+                        case INSECT:
+                            for (Node node : AllNodes) {
+                                if (node.getCard().getCardRes() == CardRes.INSECT && FindDiagonal(node, AlreadyUsed)) {
+                                    counter.AddPoint(2);
+                                }
+                            }
+                            AlreadyUsed.clear();
+                            break;
+
+                        case ANIMAL:
+                            for (Node node : AllNodes) {
+                                if (node.getCard().getCardRes() == CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)) {
+                                    counter.AddPoint(2);
+                                }
+                            }
+                            AlreadyUsed.clear();
+                            break;
                     }
                 case RES:
                     switch (card.getCardRes()) {
+                        case FUNGI:
+                            //TODO PER ORA AGGIUNGO I PUNTI A COUNTER MA FORSE HA PIU SENSO AGGIUNGERLI SOLO AL TABELLONE?
+                            int FungiCounter = counter.getFungiCounter();
+                            while (FungiCounter >= 3) {
+                                points += 2;
+                                FungiCounter = -3;
+                            }
+                            counter.AddPoint(points);
+                            break;
+                        case PLANT:
+                            int PlantCounter = counter.getPlantCounter();
+                            while (PlantCounter >= 3) {
+                                points += 2;
+                                PlantCounter = -3;
+                            }
+                            counter.AddPoint(points);
+                            break;
+                        case INSECT:
+                            int InsectCounter = counter.getInsectCounter();
+                            while (InsectCounter >= 3) {
+                                points += 2;
+                                InsectCounter = -3;
+                            }
+                            counter.AddPoint(points);
+                            break;
+                        case ANIMAL:
+                            int AnimalCounter = counter.getAnimalCounter();
+                            while (AnimalCounter >= 3) {
+                                points += 2;
+                                AnimalCounter = -3;
+                            }
+                            counter.AddPoint(points);
+                            break;
                         case QUILL:
+                            int QuillCounter = counter.getQuillCounter();
+                            while (QuillCounter >= 3) {
+                                points += 2;
+                                QuillCounter = -3;
+                            }
+                            counter.AddPoint(points);
                             break;
                         case INKWELL:
+                            int InkwellCounter = counter.getInkwellCounter();
+                            while (InkwellCounter >= 3) {
+                                points += 2;
+                                InkwellCounter = -3;
+                            }
+                            counter.AddPoint(points);
                             break;
                         case MANUSCRIPT:
+                            int ManuscriptCounter = counter.getManuscriptCounter();
+                            while (ManuscriptCounter >= 3) {
+                                points += 2;
+                                ManuscriptCounter = -3;
+                            }
+                            counter.AddPoint(points);
                             break;
                     }
                 case REDGREEN:
+                    for (Node node : AllNodes) {
+                        if (node.getCard().getCardRes() == CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)) {
+                            counter.AddPoint(3);
+                            AlreadyUsed.clear();
+                        }
+                    }
                     break;
                 case GREENPURPLE:
+                    for (Node node : AllNodes) {
+                        if (node.getCard().getCardRes() == CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)) {
+                            counter.AddPoint(3);
+                            AlreadyUsed.clear();
+                        }
+                    }
                     break;
                 case BLUERED:
+                    for (Node node : AllNodes) {
+                        if (node.getCard().getCardRes() == CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)) {
+                            counter.AddPoint(3);
+                            AlreadyUsed.clear();
+                        }
+                    }
                     break;
                 case PURPLEBLUE:
+                    for (Node node : AllNodes) {
+                        if (node.getCard().getCardRes() == CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)) {
+                            counter.AddPoint(3);
+                            AlreadyUsed.clear();
+                        }
+                    }
                     break;
                 case MIX:
+                    int QuillCounter = counter.getQuillCounter();
+                    int InkwellCounter = counter.getInkwellCounter();
+                    int ManuscriptCounter = counter.getManuscriptCounter();
+                    while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter > 0) {
+                        counter.AddPoint(3);
+                        ManuscriptCounter--;
+                        InkwellCounter--;
+                        QuillCounter--;
+                    }
                     break;
             }
         }
@@ -359,27 +470,58 @@ public class PlayerCardArea {
                         counter.AddPoint(points);
                         break;
                     case MANUSCRIPT:
-                        int Manuscriptcounter= counter.getManuscriptCounter();
-                        while (Manuscriptcounter >= 3){
+                        int ManuscriptCounter= counter.getManuscriptCounter();
+                        while (ManuscriptCounter >= 3){
                             points+=2;
-                            Manuscriptcounter=-3;
+                            ManuscriptCounter=-3;
                         }
                         counter.AddPoint(points);
                         break;
                 }
             case REDGREEN:
+                for (Node node : AllNodes) {
+                    if(node.getCard().getCardRes()==CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)){
+                        counter.AddPoint(3);
+                        AlreadyUsed.clear();
+                    }
+                }
                 break;
             case GREENPURPLE:
+                for (Node node : AllNodes) {
+                    if(node.getCard().getCardRes()==CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)){
+                        counter.AddPoint(3);
+                        AlreadyUsed.clear();
+                    }
+                }
                 break;
             case BLUERED:
+                for (Node node : AllNodes) {
+                    if(node.getCard().getCardRes()==CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)){
+                        counter.AddPoint(3);
+                        AlreadyUsed.clear();
+                    }
+                }
                 break;
             case PURPLEBLUE:
+                for (Node node : AllNodes) {
+                    if(node.getCard().getCardRes()==CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)){
+                        counter.AddPoint(3);
+                        AlreadyUsed.clear();
+                    }
+                }
                 break;
             case MIX:
+                int QuillCounter= counter.getQuillCounter();
+                int InkwellCounter = counter.getInkwellCounter();
+                int ManuscriptCounter= counter.getManuscriptCounter();
+                while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter>0){
+                    counter.AddPoint(3);
+                    ManuscriptCounter--;
+                    InkwellCounter--;
+                    QuillCounter--;
+                }
                 break;
         }
-
-
     }
 
     private boolean FindDiagonal (Node node, List<Node> AlreadyUsed){
@@ -435,8 +577,66 @@ public class PlayerCardArea {
     public boolean SameType(Node node1, Node node2) {
         return node1.getCard().getCardRes() == node2.getCard().getCardRes();
     }
-
-
+    private boolean FindRedGreen (Node node, List<Node> AlreadyUsed){
+        for (Node node1 : AllNodes) {
+            if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && node2.getCard().getCardRes()==CardRes.PLANT){
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    private boolean FindGreenPurple (Node node, List<Node> AlreadyUsed){
+        for (Node node1 : AllNodes) {
+            if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && node2.getCard().getCardRes()==CardRes.INSECT){
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    private boolean FindBlueRed (Node node, List<Node> AlreadyUsed){
+        for (Node node1 : AllNodes) {
+            if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && node2.getCard().getCardRes()==CardRes.FUNGI){
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    private boolean FindPurpleBlue (Node node, List<Node> AlreadyUsed){
+        for (Node node1 : AllNodes) {
+            if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && node2.getCard().getCardRes()==CardRes.ANIMAL){
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 
 
