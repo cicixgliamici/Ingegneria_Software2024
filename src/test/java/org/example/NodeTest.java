@@ -6,7 +6,7 @@ import org.example.model.PlayArea.Node;
 import org.example.model.PlayArea.PlaceHolder;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;

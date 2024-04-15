@@ -43,7 +43,10 @@ public class GameFlow {
 
     public Player EndGame(){
         //todo calcolo punteggi finali degli obbiettivi nascosti e pubblici
-
+        for (Player p : players) {
+            model.getPlayerArea(p).privateObject(model);
+            model.getPlayerArea(p).publicObjects(model);
+        }
         //todo decreto vincitore
         return new Player("Ha vinto lo sport, Good Game Well Played");
     }

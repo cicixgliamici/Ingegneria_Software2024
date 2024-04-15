@@ -98,12 +98,7 @@ public class Deck {
                         } */
 
                         int points = Integer.parseInt(card.get("points").toString());
-                        JSONArray objectivePointsArray = (JSONArray) card.get("objectivePoints");
-                        ObjectivePoints[] objectivePoints = new ObjectivePoints[objectivePointsArray.size()];
-                        for (int j = 0; j < objectivePointsArray.size(); j++) {
-                            objectivePoints[j] = ObjectivePoints.valueOf((String) objectivePointsArray.get(j));
-                        }
-
+                        ObjectivePoints objectivePoints = ObjectivePoints.valueOf((String) card.get("objectivePoints"));
                         CardPosition cardposition = CardPosition.valueOf((String) card.get("cardposition"));
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
@@ -198,6 +193,10 @@ public class Deck {
     public List<Card> getCards() {
         return cards;
     }
-}
 
+    public void AddCard(Card card){
+        cards.add(card);
+        CardNumbers++;
+    }
+}
 

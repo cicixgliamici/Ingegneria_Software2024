@@ -21,11 +21,11 @@ public class Card {
     private Integer points;           // Point given
     private GoldenPoint goldenPoint;    //for gold cards: point requirements
                                         //for starter cards: permanent resources
-    private ObjectivePoints[] objectivePoints;
+    private ObjectivePoints objectivePoints;
     private CardPosition cardposition;   // Position of the card
     private SideCard side;  // Reference to the object SideCard
     private int CoveredCornerByCard;
-    public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints[] objectivePoints, CardPosition cardposition, SideCard side) {
+    public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
         this.requireGold = requireGold;
@@ -152,6 +152,10 @@ public class Card {
         return sb.toString();
     }
 
+    public void toStringObjective(Card card){
+
+    }
+
 
     /** Getter and Setter zone
      */
@@ -192,7 +196,7 @@ public class Card {
         this.goldenPoint = goldenPoint;
     }
 
-    public void setObjectivePoints(ObjectivePoints[] objectivePoints) {
+    public void setObjectivePoints(ObjectivePoints objectivePoints) {
         this.objectivePoints = objectivePoints;
     }
 
@@ -225,7 +229,7 @@ public class Card {
     }
 
 
-    public ObjectivePoints[] getObjectivePoints() {
+    public ObjectivePoints getObjectivePoints() {
         return objectivePoints;
     }
 
@@ -236,5 +240,6 @@ public class Card {
     public int getCoveredCornerByCard() {
         return this.CoveredCornerByCard;
     }
+
 }
 

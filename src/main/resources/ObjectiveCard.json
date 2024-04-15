@@ -1,11 +1,9 @@
 [
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "FUNGI",
     "points": 2,
-    "objectivePoints" : [
-      "REDDIAG"
-      ],
+    "objectivePoints" :"DIAG",
     "cardposition": "DECKHIDDEN",
     "side": {
     "side": "BOTH"
@@ -13,11 +11,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "PLANT",
     "points": 2,
-    "objectivePoints" : [
-      "GREENDIAG"
-    ],
+    "objectivePoints" : "DIAG",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -25,11 +21,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "ANIMAL",
     "points": 2,
-    "objectivePoints" : [
-      "BLUDIAG"
-    ],
+    "objectivePoints" : "DIAG",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -37,11 +31,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "INSECT",
     "points": 2,
-    "objectivePoints" : [
-      "PURPLEDIAG"
-    ],
+    "objectivePoints" : "DIAG",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -51,9 +43,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
-    "objectivePoints" : [
-      "REDGREEN"
-    ],
+    "objectivePoints":"REDGREEN",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -63,9 +53,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
-    "objectivePoints" : [
-      "GREENPURPLE"
-    ],
+    "objectivePoints" : "GREENPURPLE",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -75,9 +63,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
-    "objectivePoints" : [
-      "BLUERED"
-    ],
+    "objectivePoints" : "BLUERED",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -87,9 +73,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
-    "objectivePoints" : [
-      "PURPLEBLUE"
-    ],
+    "objectivePoints" : "PURPLEBLUE",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -99,9 +83,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
-    "objectivePoints" : [
-      "FUNGI", "FUNGI", "FUNGI"
-    ],
+    "objectivePoints" : "FUNGI",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -111,9 +93,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
-    "objectivePoints" : [
-      "PLANT", "PLANT", "PLANT"
-    ],
+    "objectivePoints" : "PLANT",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -123,9 +103,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
-    "objectivePoints" : [
-      "ANIMAL", "ANIMAL", "ANIMAL"
-    ],
+    "objectivePoints" : "ANIMAL",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -135,9 +113,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
-    "objectivePoints" : [
-      "INSECT", "INSECT", "INSECT"
-    ],
+    "objectivePoints" : "INSECT",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -147,9 +123,7 @@
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
-    "objectivePoints" : [
-      "QUILL", "INKWELL", "MANUSCRIPT"
-    ],
+    "objectivePoints" : "MIX",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -157,11 +131,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "MANUSCRIPT",
     "points": 2,
-    "objectivePoints" : [
-      "MANUSCRIPT", "MANUSCRIPT"
-    ],
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -169,11 +141,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "INKWELL",
     "points": 2,
-    "objectivePoints" : [
-      "INKWELL", "INKWELL"
-    ],
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -181,11 +151,9 @@
   },
   {
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "QUILL",
     "points": 2,
-    "objectivePoints" : [
-      "QUILL", "QUILL"
-    ],
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"

@@ -4,6 +4,7 @@ import org.example.enumeration.CardRes;
 import org.example.enumeration.GoldenPoint;
 import org.example.enumeration.Side;
 import org.example.enumeration.Type;
+import org.example.model.Model;
 import org.example.model.deck.*;
 import org.example.enumeration.cast.CastCardRes;
 import org.json.simple.parser.ParseException;
@@ -20,6 +21,7 @@ import java.util.Scanner;
 public class PlayerCardArea {
     private Card InitialCard; //inizializzata con la playercardarea ma è utile?
     private List<Card> hand = new ArrayList<>(); //non so se serve
+    private Card SecretObjective;
     private Node Starter;
     private Counter counter = new Counter();
     private List<Node> AllNodes; //tutti i nodi inseriti
@@ -279,6 +281,92 @@ public class PlayerCardArea {
     public void setPlaceHolders(List<PlaceHolder> placeHolders) {
         PlaceHolders = placeHolders;
     }
+
+    public Card getSecretObjective() {
+        return SecretObjective;
+    }
+
+    public void setSecretObjective(Card secretObjective) {
+        SecretObjective = secretObjective;
+    }
+
+    public void publicObjects(Model model) {
+        for (Card card : model.getPublicObjective()) {
+            switch (card.getObjectivePoints()) {
+                case DIAG:
+                    switch (card.getCardRes()) {
+                        case FUNGI:
+                            break;
+                        case PLANT:
+                            break;
+                        case INSECT:
+                            break;
+                        case ANIMAL:
+                            break;
+
+                    }
+                case RES:
+                    switch (card.getCardRes()) {
+                        case QUILL:
+                            break;
+                        case INKWELL:
+                            break;
+                        case MANUSCRIPT:
+                            break;
+                    }
+                case REDGREEN:
+                    break;
+                case GREENPURPLE:
+                    break;
+                case BLUERED:
+                    break;
+                case PURPLEBLUE:
+                    break;
+                case MIX:
+                    break;
+            }
+        }
+    }
+
+    public void privateObject(Model model) {
+        switch (SecretObjective.getObjectivePoints()) {
+            case DIAG:
+                switch (SecretObjective.getCardRes()) {
+                    case FUNGI:
+                        break;
+                    case PLANT:
+                        break;
+                    case INSECT:
+                        break;
+                    case ANIMAL:
+                        break;
+
+                }
+            case RES:
+                switch (SecretObjective.getCardRes()) {
+                    case QUILL:
+                        break;
+                    case INKWELL:
+                        break;
+                    case MANUSCRIPT:
+                        break;
+                }
+            case REDGREEN:
+                break;
+            case GREENPURPLE:
+                break;
+            case BLUERED:
+                break;
+            case PURPLEBLUE:
+                break;
+            case MIX:
+                break;
+        }
+
+
+    }
+
+
 }
 
 

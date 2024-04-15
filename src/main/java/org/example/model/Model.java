@@ -2,6 +2,7 @@ package org.example.model;
 
 //* import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.example.controller.Player;
+import org.example.enumeration.ObjectivePoints;
 import org.example.model.PlayArea.*;
 import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
@@ -9,8 +10,10 @@ import org.example.model.deck.*;
 import org.example.model.PlayArea.DrawingCardArea;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /** Class in which the Model is properly set up to start the match
  */
@@ -21,6 +24,8 @@ public class Model {
     private HashMap<Player, PlayerCardArea> gameArea;
     private ScoreBoard scoreBoard;              // Object scoreboard to memorize points
     private List<Player> PlayersList;
+
+    private List<Card> PublicObjective;
 
 
     /** Constructor of the Model
@@ -45,7 +50,26 @@ public class Model {
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
+            List<Card> ObjectiveCard= new ArrayList<>();
+            ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            System.out.println("choose your secret objective, 0 or 1");
+            System.out.println("0: " + ObjectiveCard.get(0) +"\n1: "+ ObjectiveCard.get(1));
+            Scanner scanner= new Scanner(System.in);
+            int choice= scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 0 :
+                    playerCardArea.setSecretObjective(ObjectiveCard.get(0));
+                    drawingCardArea.getObjectDeck().AddCard(ObjectiveCard.get(1));
+                case 1:
+                    playerCardArea.setSecretObjective(ObjectiveCard.get(1));
+                    drawingCardArea.getObjectDeck().AddCard(ObjectiveCard.get(0));
+            }
         }
+        PublicObjective = new ArrayList<>();
+        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
     }
 
     /** Getter and Setter Area
@@ -82,6 +106,13 @@ public class Model {
         this.scoreBoard = scoreBoard;
     }
 
+    public List<Card> getPublicObjective() {
+        return PublicObjective;
+    }
+
+    public void setGameArea(HashMap<Player, PlayerCardArea> gameArea) {
+        this.gameArea = gameArea;
+    }
 
     /** Associates to each player
      * their own player area

@@ -1,6 +1,7 @@
 package org.example.controller;
 
-import org.example.enumeration.Type;
+import org.example.enumeration.*;
+import org.example.enumeration.ObjectivePoints;
 import org.example.model.Model;
 import org.example.model.PlayArea.Node;
 import org.example.model.PlayArea.PlayerCardArea;

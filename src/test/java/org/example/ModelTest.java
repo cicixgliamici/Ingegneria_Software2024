@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.example.controller.Controller;
 import org.example.model.Model;
 import org.example.model.deck.*;
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
 import org.example.controller.Player;
 import org.json.simple.parser.ParseException;
 
