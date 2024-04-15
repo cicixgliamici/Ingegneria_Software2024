@@ -28,7 +28,7 @@ public class PlayerCardArea {
 
     private List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
     private List<PlaceHolder> PlaceHolders;
-
+    private List<Node> AlreadyUsed;
 
     public static void main(String[] args) throws IOException, ParseException {
         Deck deckStarter= new Deck(Type.STARTER);
@@ -206,6 +206,7 @@ public class PlayerCardArea {
 
     }
 
+    //todo ancora da usare--> manca una verifica: posso inserire quella carta oro?
     public boolean CheckPlayForGold(Card card){
         if(card.getType()==Type.GOLD){
             for (CardRes cardRes: card.getRequireGold()){
@@ -215,9 +216,225 @@ public class PlayerCardArea {
         return true;
     }
 
-
     // todo public Node GetNodeAtXY
+    public Node GetNodeAtXY(int x, int y) {
+        for (Node node : AllNodes) {
+            if (node.getX() == x && node.getY() == y) {
+                return node;
+            }
+        }
+        return null;
+    }
 
+    public void publicObjects(Model model) {
+        for (Card card : model.getPublicObjective()) {
+            switch (card.getObjectivePoints()) {
+                case DIAG:
+                    switch (card.getCardRes()) {
+                        case FUNGI:
+                            break;
+                        case PLANT:
+                            break;
+                        case INSECT:
+                            break;
+                        case ANIMAL:
+                            break;
+
+                    }
+                case RES:
+                    switch (card.getCardRes()) {
+                        case QUILL:
+                            break;
+                        case INKWELL:
+                            break;
+                        case MANUSCRIPT:
+                            break;
+                    }
+                case REDGREEN:
+                    break;
+                case GREENPURPLE:
+                    break;
+                case BLUERED:
+                    break;
+                case PURPLEBLUE:
+                    break;
+                case MIX:
+                    break;
+            }
+        }
+    }
+
+    public void privateObject(Model model) {
+        //todo creiamo una nuova lista in cui inseriamo i nodi gia usati e la svuotiamo prima di ogni obbiettivo
+        AlreadyUsed=new ArrayList<>();
+        int points=0;
+        switch (SecretObjective.getObjectivePoints()) {
+            case DIAG:
+                switch (SecretObjective.getCardRes()) {
+                    case FUNGI:
+                        for (Node node : AllNodes) {
+                            if(node.getCard().getCardRes()==CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)){
+                                counter.AddPoint(2);
+                            }
+                        }
+                        AlreadyUsed.clear();
+                        break;
+
+                    case PLANT:
+                        for (Node node : AllNodes) {
+                            if(node.getCard().getCardRes()==CardRes.PLANT && FindDiagonal(node, AlreadyUsed)){
+                                counter.AddPoint(2);
+                            }
+                        }
+                        AlreadyUsed.clear();
+                        break;
+
+                    case INSECT:
+                        for (Node node : AllNodes) {
+                            if(node.getCard().getCardRes()==CardRes.INSECT && FindDiagonal(node, AlreadyUsed)){
+                                counter.AddPoint(2);
+                            }
+                        }
+                        AlreadyUsed.clear();
+                        break;
+
+                    case ANIMAL:
+                        for (Node node : AllNodes) {
+                            if(node.getCard().getCardRes()==CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)){
+                                counter.AddPoint(2);
+                            }
+                        }
+                        AlreadyUsed.clear();
+                        break;
+                }
+            case RES:
+                switch (SecretObjective.getCardRes()) {
+                    case FUNGI:
+                        //TODO PER ORA AGGIUNGO I PUNTI A COUNTER MA FORSE HA PIU SENSO AGGIUNGERLI SOLO AL TABELLONE?
+                        int FungiCounter= counter.getFungiCounter();
+                        while (FungiCounter >= 3){
+                            points+=2;
+                            FungiCounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case PLANT:
+                        int PlantCounter = counter.getPlantCounter();
+                        while (PlantCounter >= 3) {
+                            points += 2;
+                            PlantCounter = -3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case INSECT:
+                        int InsectCounter= counter.getInsectCounter();
+                        while (InsectCounter >= 3){
+                            points+=2;
+                            InsectCounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case ANIMAL:
+                        int AnimalCounter= counter.getAnimalCounter();
+                        while (AnimalCounter >= 3){
+                            points+=2;
+                            AnimalCounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case QUILL:
+                        int QuillCounter= counter.getQuillCounter();
+                        while (QuillCounter >= 3){
+                            points+=2;
+                            QuillCounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case INKWELL:
+                        int InkwellCounter = counter.getInkwellCounter();
+                        while (InkwellCounter >= 3){
+                            points+=2;
+                            InkwellCounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                    case MANUSCRIPT:
+                        int Manuscriptcounter= counter.getManuscriptCounter();
+                        while (Manuscriptcounter >= 3){
+                            points+=2;
+                            Manuscriptcounter=-3;
+                        }
+                        counter.AddPoint(points);
+                        break;
+                }
+            case REDGREEN:
+                break;
+            case GREENPURPLE:
+                break;
+            case BLUERED:
+                break;
+            case PURPLEBLUE:
+                break;
+            case MIX:
+                break;
+        }
+
+
+    }
+
+    private boolean FindDiagonal (Node node, List<Node> AlreadyUsed){
+        for (Node node1 : AllNodes) {
+            //topR
+            if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if (node1.getX()==node2.getX()+1 && node1.getY()==node2.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+            //topL
+            if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if (node1.getX()==node2.getX()-1 && node1.getY()==node2.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+            //botR
+            if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if (node1.getX()==node2.getX()+1 && node1.getY()==node2.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+            //botL
+            if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
+                for (Node node2 : AllNodes) {
+                    if (node1.getX()==node2.getX()-1 && node1.getY()==node2.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                        AlreadyUsed.add(node);
+                        AlreadyUsed.add(node1);
+                        AlreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean SameType(Node node1, Node node2) {
+        return node1.getCard().getCardRes() == node2.getCard().getCardRes();
+    }
 
 
 
@@ -290,81 +507,7 @@ public class PlayerCardArea {
         SecretObjective = secretObjective;
     }
 
-    public void publicObjects(Model model) {
-        for (Card card : model.getPublicObjective()) {
-            switch (card.getObjectivePoints()) {
-                case DIAG:
-                    switch (card.getCardRes()) {
-                        case FUNGI:
-                            break;
-                        case PLANT:
-                            break;
-                        case INSECT:
-                            break;
-                        case ANIMAL:
-                            break;
 
-                    }
-                case RES:
-                    switch (card.getCardRes()) {
-                        case QUILL:
-                            break;
-                        case INKWELL:
-                            break;
-                        case MANUSCRIPT:
-                            break;
-                    }
-                case REDGREEN:
-                    break;
-                case GREENPURPLE:
-                    break;
-                case BLUERED:
-                    break;
-                case PURPLEBLUE:
-                    break;
-                case MIX:
-                    break;
-            }
-        }
-    }
-
-    public void privateObject(Model model) {
-        switch (SecretObjective.getObjectivePoints()) {
-            case DIAG:
-                switch (SecretObjective.getCardRes()) {
-                    case FUNGI:
-                        break;
-                    case PLANT:
-                        break;
-                    case INSECT:
-                        break;
-                    case ANIMAL:
-                        break;
-
-                }
-            case RES:
-                switch (SecretObjective.getCardRes()) {
-                    case QUILL:
-                        break;
-                    case INKWELL:
-                        break;
-                    case MANUSCRIPT:
-                        break;
-                }
-            case REDGREEN:
-                break;
-            case GREENPURPLE:
-                break;
-            case BLUERED:
-                break;
-            case PURPLEBLUE:
-                break;
-            case MIX:
-                break;
-        }
-
-
-    }
 
 
 }

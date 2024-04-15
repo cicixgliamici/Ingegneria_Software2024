@@ -20,8 +20,8 @@ public class GameFlow {
         this.players=players;
         this.model= model;
         Rounds();
-        Player winnner = EndGame();
-        System.out.println("the winner is : " + winnner.username);
+        Player Winnner = EndGame();
+        System.out.println("the winner is : " + Winnner.username);
     }
 
     //todo primo round:
