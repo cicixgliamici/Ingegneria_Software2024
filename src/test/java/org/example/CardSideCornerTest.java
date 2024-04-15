@@ -2,8 +2,8 @@ package org.example;
 
 import junit.framework.TestCase;
 import org.example.model.deck.*;
-import org.example.model.deck.enumeration.PropertiesCorner;
-import org.example.model.deck.enumeration.Type;
+import org.example.enumeration.PropertiesCorner;
+import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;

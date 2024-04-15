@@ -1,5 +1,6 @@
 package org.example.model.deck;
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
+import org.example.enumeration.*;
 
 
 import java.util.ArrayList;

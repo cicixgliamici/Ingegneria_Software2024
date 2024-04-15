@@ -1,5 +1,6 @@
 package org.example.model.PlayArea;
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.Color;
+import org.example.enumeration.*;
 import java.util.HashMap;
 import  org.example.model.deck.*;
 import org.example.controller.*;

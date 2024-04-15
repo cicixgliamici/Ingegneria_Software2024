@@ -1,6 +1,7 @@
 package org.example;
 
 import junit.framework.TestCase;
+import org.example.enumeration.Type;
 import org.example.model.PlayArea.Node;
 import org.example.model.PlayArea.PlaceHolder;
 import org.example.model.deck.Card;

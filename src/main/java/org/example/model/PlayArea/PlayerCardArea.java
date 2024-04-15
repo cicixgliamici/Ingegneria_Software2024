@@ -1,8 +1,11 @@
 package org.example.model.PlayArea;
 //* import com.sun.java.swing.plaf.windows.TMSchema;
+import org.example.enumeration.CardRes;
+import org.example.enumeration.GoldenPoint;
+import org.example.enumeration.Side;
+import org.example.enumeration.Type;
 import org.example.model.deck.*;
-import org.example.model.deck.enumeration.*;
-import org.example.model.deck.enumeration.cast.CastCardRes;
+import org.example.enumeration.cast.CastCardRes;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -18,12 +21,12 @@ public class PlayerCardArea {
     private Card InitialCard; //inizializzata con la playercardarea ma è utile?
     private List<Card> hand = new ArrayList<>(); //non so se serve
     private Node Starter;
-    private CounterResources counter = new CounterResources();
+    private Counter counter = new Counter();
     private List<Node> AllNodes; //tutti i nodi inseriti
 
     private List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
-
     private List<PlaceHolder> PlaceHolders;
+
 
     public static void main(String[] args) throws IOException, ParseException {
         Deck deckStarter= new Deck(Type.STARTER);
@@ -104,7 +107,7 @@ public class PlayerCardArea {
     public void PlayACard (Card card){
         //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player
         //todo implementare un ciclo che chieda al player su quale carta giocare finche la giocata non è valida oppure segnalare in qualche modo che la giocata non è valida
-        Node chosenNode = printAndChoseNode(); //scegliamo il nodo su cui giocare la carta
+        Node chosenNode = printAndChooseNode(); //scegliamo il nodo su cui giocare la carta
         ModifyGameArea(card, chosenNode);
     }
 
@@ -116,6 +119,7 @@ public class PlayerCardArea {
 
         //Aggiornamento delle risorse
         UpdateCounter(card);
+        UpdatePoints(card);
         removeResources(node);
 
         //todo fare update point
@@ -138,7 +142,7 @@ public class PlayerCardArea {
             counter.AddResource(castCardRes.getPropertiesCorner());
         }
         //se starter e hai scelto il back allora add require gold
-        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()==Side.BACK)){
+        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()== Side.BACK)){
             for (CardRes cardRes: card.getRequireGold()){
                 CastCardRes castCardRes= new CastCardRes(cardRes);
                 counter.AddResource(castCardRes.getPropertiesCorner());
@@ -166,21 +170,38 @@ public class PlayerCardArea {
     }
 
 
-    public Node printAndChoseNode() {
+    public Node printAndChooseNode() {
         System.out.println("Available Nodes:");
         for (int i = 0; i < AvailableNodes.size(); i++) {
             Node node = AvailableNodes.get(i);
-            System.out.println((i + 1) + ": Nodo alla posizione (" + node.getX() + ", " + node.getY() + ")");
+            System.out.println((i + 1) + ": Node at position (" + node.getX() + ", " + node.getY() + ")");
         }
         Scanner scanner = new Scanner(System.in);
         int choice;
-        System.out.print("Scegli il numero del nodo (1-" + AvailableNodes.size() + "): ");
+        System.out.print("Choose the node number (1-" + AvailableNodes.size() + "): ");
         choice = scanner.nextInt();
         return AvailableNodes.get(choice - 1);
     }
 
     public void UpdatePoints(Card card) {
-        counter.AddPoint(card.getPoints());
+        switch (card.getType()){
+            case RESOURCES:
+                counter.AddPoint(card.getPoints());
+                break;
+            case GOLD:
+                if(card.getGoldenPoint() == GoldenPoint.NULL){
+                    counter.AddPoint(card.getPoints());
+                } else if (card.getGoldenPoint() == GoldenPoint.CORNER){
+                    counter.AddPoint(card.getCoveredCornerByCard() * card.getPoints());
+                } else if (card.getGoldenPoint() == GoldenPoint.INKWELL){
+                    counter.AddPoint(card.getPoints() * counter.getInkwellCounter());
+                } else if (card.getGoldenPoint() == GoldenPoint.MANUSCRIPT){
+                    counter.AddPoint(card.getPoints() * counter.getManuscriptCounter());
+                } else if (card.getGoldenPoint() == GoldenPoint.QUILL){
+                    counter.AddPoint(card.getPoints() * counter.getQuillCounter());
+                }
+        }
+
     }
 
     public boolean CheckPlayForGold(Card card){
@@ -194,6 +215,7 @@ public class PlayerCardArea {
 
 
     // todo public Node GetNodeAtXY
+
 
 
 
@@ -213,7 +235,7 @@ public class PlayerCardArea {
         return hand;
     }
 
-    public CounterResources getCounter() {
+    public Counter getCounter() {
         return counter;
     }
 
@@ -227,6 +249,35 @@ public class PlayerCardArea {
 
     public List<PlaceHolder> getPlaceHolders() {
         return PlaceHolders;
+    }
+
+
+    public void setInitialCard(Card initialCard) {
+        InitialCard = initialCard;
+    }
+
+    public void setHand(List<Card> hand) {
+        this.hand = hand;
+    }
+
+    public void setStarter(Node starter) {
+        Starter = starter;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
+    }
+
+    public void setAllNodes(List<Node> allNodes) {
+        AllNodes = allNodes;
+    }
+
+    public void setAvailableNodes(List<Node> availableNodes) {
+        AvailableNodes = availableNodes;
+    }
+
+    public void setPlaceHolders(List<PlaceHolder> placeHolders) {
+        PlaceHolders = placeHolders;
     }
 }
 

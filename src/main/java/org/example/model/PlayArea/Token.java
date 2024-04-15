@@ -1,6 +1,7 @@
 package org.example.model.PlayArea;
+import org.example.enumeration.Color;
 import  org.example.model.deck.*;
-import  org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
 import org.example.controller.Player;
 
 /** Used to associate a player with a specific color and their points.

@@ -1,7 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Model;
-import org.example.model.deck.enumeration.Color;
+import org.example.enumeration.Color;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /** The Controller is a traffic warden that calls the methods to initialize the players
  *  and the gameflow, and then gives it the control.
@@ -26,36 +25,54 @@ public class Controller {
     public Controller(Model model) throws IOException, ParseException {
         //todo riceve le richieste dal server, per ora lavoriamo unicamente con la TUI
         this.model=model;
-        players= this.AcceptPlayer(); //accept all players that want to connect
+        players= this.AcceptPlayerBYTUI(); //accept all players that want to connect
         model.setPlayersAndGameArea(players);  //passes the list with all the players to the model
         model.DealCards();
         gameFlow= new GameFlow(players, model);
     }
 
 
-
-    public List<Player> AcceptPlayer(){
-        //todo: accetta il player tramite richiesta TUI o Server
-        //player di prova
-        Player p1= new Player("Matteo");
-        players.add(p1);
-        for (Player p : players) {
-            int i = 0;
-            List<String> colorStrings = Arrays.stream(Color.values())
-                    .map(Enum::name)
-                    .collect(Collectors.toList());
+    /** First TUI method, accept player, scan username
+     *  give them the possibility to choose color.
+     */
+    // TODO gestire l'eccezione inserimento (Int invece che Stringe e viceversa)
+        public List<Player> AcceptPlayerBYTUI() {
+            System.out.println("Welcome\n");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Choose your token color:");
-            for (Color color : Color.values()) {
-                System.out.println(i + ". " + color);
-                i++;
+            List<Player> players = new ArrayList<>();
+            List<Color> availableColors = new ArrayList<>(Arrays.asList(Color.values())); // List to remove chosen Colors
+            int choice = 0;
+            while (choice != 2) {
+                System.out.println("Press:" +
+                        "\n1 to add a new player" +
+                        "\n2 to start the match");
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+                switch (choice) {
+                    case 1:
+                        System.out.println("Insert the name");
+                        String username = scanner.nextLine();
+                        Player player = new Player(username);
+                        players.add(player);
+                        System.out.println("Choose your token color:");
+                        for (int i = 0; i < availableColors.size(); i++) {
+                            System.out.println(i + ". " + availableColors.get(i));
+                        }
+                        int chosenColorIndex = scanner.nextInt();
+                        Color chosenColor = availableColors.get(chosenColorIndex);
+                        availableColors.remove(chosenColor); // Remove the chosen color from the available ones
+                        model.getScoreBoard().addToken(chosenColor, player);
+                        break;
+
+                    case 2:
+                        System.out.println("THE MATCH HAS STARTED: ");
+                        break;
+                }
             }
-            int chosenColorIndex = scanner.nextInt();
-            Color chosenColor = Color.values()[chosenColorIndex];
-            model.getScoreBoard().addToken(chosenColor , p);
+            return players;
         }
-        return players;
-    }
+
+
     public void CalculateObjective (){
         //todo: metodo che per ogni player calcola i punti degli obbiettivi pubblici e nascosti
     }

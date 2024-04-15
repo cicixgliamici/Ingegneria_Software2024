@@ -1,15 +1,15 @@
 package org.example.model.PlayArea;
 
-import org.example.model.deck.enumeration.CardRes;
-import org.example.model.deck.enumeration.PropertiesCorner;
-import org.example.model.deck.enumeration.cast.CastCardRes;
+import org.example.enumeration.CardRes;
+import org.example.enumeration.PropertiesCorner;
+import org.example.enumeration.cast.CastCardRes;
 
 /**
  * Class to count the number of resources each player has in their area,
  * useful for gold card placement requirements
  */
 
-public class CounterResources {
+public class Counter {
     private int AnimalCounter;
     private int PlantCounter;
     private int FungiCounter;
@@ -19,7 +19,7 @@ public class CounterResources {
     private int ManuscriptCounter;
     private int PointCounter;
 
-    public CounterResources() {
+    public Counter() {
         this.AnimalCounter = 0;
         this.PlantCounter = 0;
         this.FungiCounter = 0;
@@ -140,5 +140,10 @@ public class CounterResources {
     public int getManuscriptCounter() {
         return ManuscriptCounter;
     }
+
+    public int getPointCounter() {
+        return PointCounter;
+    }
+
 }
 

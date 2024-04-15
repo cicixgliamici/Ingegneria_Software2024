@@ -1,6 +1,6 @@
 package org.example.model.PlayArea;
 import org.example.model.deck.*;
-import org.example.model.deck.enumeration.Type;
+import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import java.util.*;
 
@@ -48,7 +48,7 @@ public class DrawingCardArea {
      */
     private void initializeVGoCard(){
         for(int i=0; i<2; i++){
-            visibleReCard.add(goldDeck.drawCard());
+            visibleGoCard.add(goldDeck.drawCard());
         }
     }
     /** Draw a card from the covered deck you choose
@@ -131,6 +131,8 @@ public class DrawingCardArea {
         throw new IllegalArgumentException("Card doesn't exist!\n");
     }
 
+
+    //todo questo metodo a cosa serve?
     public void RemoveCardFromVC(Card card) throws IllegalArgumentException{
         switch (card.getType()){
             case RESOURCES:
@@ -139,5 +141,56 @@ public class DrawingCardArea {
                 visibleGoCard.remove(searchCardInVisC(card));
         }
         throw new IllegalArgumentException("Nothing to delete!\n");
+    }
+
+
+
+    //getter and setter
+    public Deck getResourceDeck() {
+        return resourceDeck;
+    }
+
+    public Deck getGoldDeck() {
+        return goldDeck;
+    }
+
+    public Deck getObjectDeck() {
+        return objectDeck;
+    }
+
+    public Deck getStarterDeck() {
+        return starterDeck;
+    }
+
+    public List<Card> getVisibleReCard() {
+        return visibleReCard;
+    }
+
+    public List<Card> getVisibleGoCard() {
+        return visibleGoCard;
+    }
+
+    public void setResourceDeck(Deck resourceDeck) {
+        this.resourceDeck = resourceDeck;
+    }
+
+    public void setGoldDeck(Deck goldDeck) {
+        this.goldDeck = goldDeck;
+    }
+
+    public void setObjectDeck(Deck objectDeck) {
+        this.objectDeck = objectDeck;
+    }
+
+    public void setStarterDeck(Deck starterDeck) {
+        this.starterDeck = starterDeck;
+    }
+
+    public void setVisibleReCard(List<Card> visibleReCard) {
+        this.visibleReCard = visibleReCard;
+    }
+
+    public void setVisibleGoCard(List<Card> visibleGoCard) {
+        this.visibleGoCard = visibleGoCard;
     }
 }

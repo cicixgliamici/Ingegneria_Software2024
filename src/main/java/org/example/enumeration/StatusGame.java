@@ -1,4 +1,4 @@
-package org.example.model.deck.enumeration;
+package org.example.enumeration;
 
 public enum StatusGame {
     NULL, DRAW, PLAY

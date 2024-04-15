@@ -218,6 +218,7 @@ public class Node extends PlaceHolder{
             for (Node node : AllNodes) {
                 if(node.x==this.x+1 && node.y==this.y-1) {
                     this.botR = node;
+                    this.getCard().setCoveredCornerByCard(this.getCard().getCoveredCornerByCard() + 1);
                 }
             }
         }
@@ -225,6 +226,7 @@ public class Node extends PlaceHolder{
             for (Node node : AllNodes) {
                 if(node.x==this.x-1 && node.y==this.y-1) {
                     this.botL = node;
+                    this.getCard().setCoveredCornerByCard(this.getCard().getCoveredCornerByCard() + 1);
                 }
             }
         }
@@ -232,6 +234,7 @@ public class Node extends PlaceHolder{
             for (Node node : AllNodes) {
                 if(node.x==this.x+1 && node.y==this.y+1) {
                     this.topR = node;
+                    this.getCard().setCoveredCornerByCard(this.getCard().getCoveredCornerByCard() + 1);
                 }
             }
         }
@@ -239,6 +242,7 @@ public class Node extends PlaceHolder{
             for (Node node : AllNodes) {
                 if(node.x==this.x-1 && node.y==this.y+1) {
                     this.topL = node;
+                    this.getCard().setCoveredCornerByCard(this.getCard().getCoveredCornerByCard() + 1);
                 }
             }
         }
@@ -283,7 +287,7 @@ public class Node extends PlaceHolder{
         //Assegno la carta al nuovo nodo
         this.card=c;
         //todo manca un metodo che verifichi la validità della giocata, x esempio se ci sono abbastanza risorse per schierare quella carta
-
+        this.card.setCoveredCornerByCard(1);
         this.SetPlaceHolderByCard(AvailableNodes,placeHolderList);
         this.SetNodePlaceHolder(placeHolderList);
         this.SetNodeForExistingCard(AllNodes);

@@ -1,7 +1,7 @@
-package org.example.model.deck.enumeration.cast;
+package org.example.enumeration.cast;
 
-import org.example.model.deck.enumeration.CardRes;
-import org.example.model.deck.enumeration.PropertiesCorner;
+import org.example.enumeration.CardRes;
+import org.example.enumeration.PropertiesCorner;
 
 public class CastCardRes {
     CardRes cardRes;

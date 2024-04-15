@@ -3,7 +3,7 @@ package org.example.model;
 //* import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.example.controller.Player;
 import org.example.model.PlayArea.*;
-import org.example.model.deck.enumeration.Type;
+import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import org.example.model.deck.*;
 import org.example.model.PlayArea.DrawingCardArea;
@@ -40,36 +40,13 @@ public class Model {
      */
     public void DealCards(){
         for (Player player : PlayersList){
+            System.out.println(player + ", you are receiving 2 resource cards and 1 gold card");
             PlayerCardArea playerCardArea = gameArea.get(player);
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /** Getter and Setter Area
      */
@@ -112,16 +89,16 @@ public class Model {
     public void setPlayersAndGameArea(List<Player> playersList) {
         PlayersList = playersList;
         for (Player p : playersList){
+            System.out.println(p + " this is your starter card:\n");
             Card starter = drawingCardArea.drawCardFromDeck(Type.STARTER);
-            PlayerCardArea playersCardArea = new PlayerCardArea(starter);
-            gameArea.put(p, playersCardArea);
-            if (p.ChooseStarterSide(gameArea.get(p))==1){
+            System.out.println(starter);
+            if (p.ChooseStarterSide()==1){
                 starter.setSide(1);
-                playersCardArea.UpdateCounter(starter);
             } else {
                 starter.setSide(2);
-                playersCardArea.UpdateCounter(starter);
             }
+            PlayerCardArea playersCardArea = new PlayerCardArea(starter);
+            gameArea.put(p, playersCardArea);
         }
     }
 
@@ -132,6 +109,13 @@ public class Model {
           return gameArea.get(P);
     }
 
+    public boolean Checkpoints(){
+        for (Player p : PlayersList){
+            if(getPlayerArea(p).getCounter().getPointCounter()>=20) return true;
+        }
+        //todo metodo che verifica per ogni player nel model che nessuno sia arrivato a venti punti
+        return false;
+    }
 
 
 

@@ -1,6 +1,6 @@
 package org.example.controller;
 import org.example.model.Model;
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,29 +19,25 @@ public class GameFlow {
     public GameFlow(List<Player> players, Model model) {
         this.players=players;
         this.model= model;
-        FirstRound();
         Rounds();
         Player winnner = EndGame();
         System.out.println("the winner is : " + winnner.username);
     }
 
     //todo primo round:
-    public void FirstRound (){
+    public void Rounds () {
+        System.out.println("First round: \n");
         //todo tutti i giocatori devono solamente piazzare una carta
-        for (Player p : players){
-            p.Play(model);
-        }
-    }
-
-    public void Rounds(){
-        //todo corpo della partita: draw - play - checkpoints (se points >= 20 esce dal ciclo)
         boolean IsEnd = false;
         while (!IsEnd) {
-            for(Player p : players){
-                p.Draw(model);
+            for (Player p : players) {
+                System.out.println("Player: " + p + " Play phase");
                 p.Play(model);
-                IsEnd = p.CheckPoints(model);
+                System.out.println("Player: " + p + " Draw phase");
+                p.Draw(model);
+                //todo muovere la pedina del player sulla scoreboard se ha fatto punti
             }
+            IsEnd = model.Checkpoints();
         }
     }
 
@@ -49,7 +45,7 @@ public class GameFlow {
         //todo calcolo punteggi finali degli obbiettivi nascosti e pubblici
 
         //todo decreto vincitore
-        return new Player("cacca");
+        return new Player("Ha vinto lo sport, Good Game Well Played");
     }
 
 

@@ -2,6 +2,7 @@ package org.example;
 
 
 import junit.framework.TestCase;
+import org.example.enumeration.Type;
 import org.example.model.deck.*;
 import org.example.model.deck.enumeration.*;
 import org.json.simple.parser.ParseException;

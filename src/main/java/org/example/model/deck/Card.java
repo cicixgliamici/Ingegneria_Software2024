@@ -1,6 +1,7 @@
 package org.example.model.deck;
 
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.*;
+import org.example.enumeration.*;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Card {
     private ObjectivePoints[] objectivePoints;
     private CardPosition cardposition;   // Position of the card
     private SideCard side;  // Reference to the object SideCard
-
+    private int CoveredCornerByCard;
     public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints[] objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
@@ -97,6 +98,61 @@ public class Card {
         return this.getSide().getFrontCorners().get(pos).getPropertiesCorner();
     }
 
+    public boolean TOPLCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean TOPRCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean BOTRCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+    public boolean BOTLCornerIsHidden() {
+        if (this.getSide().getSide() == Side.FRONT) {
+            return this.getSide().getFrontCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+        else {
+            return this.getSide().getBackCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Type: ").append(type).append("\n");
+        // Print cardres if not null
+        if (cardres != null) {
+            sb.append("Card Resources: ").append(cardres).append("\n");
+        }
+        // Print properties of all corners
+        if (side != null && side.getFrontCorners() != null && side.getBackCorners() != null) {
+            sb.append("Front Corners:\n");
+            for (Corner corner : side.getFrontCorners()) {
+                sb.append(corner.toString()).append("\n");
+            }
+            sb.append("Back Corners:\n");
+            for (Corner corner : side.getBackCorners()) {
+                sb.append(corner.toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+
     /** Getter and Setter zone
      */
     public Type getType() {
@@ -159,60 +215,26 @@ public class Card {
         this.requireGold = jsonArray;
 
     }
-    public boolean TOPLCornerIsHidden() {
-        if (this.getSide().getSide() == Side.FRONT) {
-            return this.getSide().getFrontCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-        else {
-            return this.getSide().getBackCorners().get(0).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-    }
-    public boolean TOPRCornerIsHidden() {
-        if (this.getSide().getSide() == Side.FRONT) {
-            return this.getSide().getFrontCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-        else {
-            return this.getSide().getBackCorners().get(1).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-    }
-    public boolean BOTRCornerIsHidden() {
-        if (this.getSide().getSide() == Side.FRONT) {
-            return this.getSide().getFrontCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-        else {
-            return this.getSide().getBackCorners().get(2).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-    }
-    public boolean BOTLCornerIsHidden() {
-        if (this.getSide().getSide() == Side.FRONT) {
-            return this.getSide().getFrontCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
-        else {
-            return this.getSide().getBackCorners().get(3).getPropertiesCorner() == PropertiesCorner.HIDDEN;
-        }
+
+    public void setCardposition(CardPosition cardposition) {
+        this.cardposition = cardposition;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Tipo: ").append(type).append("\n");
+    public void setCoveredCornerByCard(int coveredCornerByCard) {
+        this.CoveredCornerByCard = coveredCornerByCard;
+    }
 
-        // Stampa cardres se non è null
-        if (cardres != null) {
-            sb.append("CardRes: ").append(cardres).append("\n");
-        }
 
-        // Stampa proprietà di tutti gli angoli
-        if (side != null && side.getFrontCorners() != null && side.getBackCorners() != null) {
-            sb.append("Angoli Fronte:\n");
-            for (Corner corner : side.getFrontCorners()) {
-                sb.append(corner.toString()).append("\n");
-            }
-            sb.append("Angoli Retro:\n");
-            for (Corner corner : side.getBackCorners()) {
-                sb.append(corner.toString()).append("\n");
-            }
-        }
-        return sb.toString();
+    public ObjectivePoints[] getObjectivePoints() {
+        return objectivePoints;
+    }
+
+    public CardPosition getCardposition() {
+        return cardposition;
+    }
+
+    public int getCoveredCornerByCard() {
+        return this.CoveredCornerByCard;
     }
 }
 

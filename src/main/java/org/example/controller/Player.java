@@ -1,5 +1,8 @@
 package org.example.controller;
+
+import org.example.enumeration.Type;
 import org.example.model.Model;
+import org.example.model.PlayArea.Node;
 import org.example.model.PlayArea.PlayerCardArea;
 import org.example.model.deck.*;
 
@@ -23,6 +26,7 @@ public class Player {
     public void SeeHand(Model model){
         //todo metodo che stampa la mano del player su cui viene chiamato
         List<Card> hand= model.getPlayerArea(this).getHand();
+        System.out.println("this is your hand: \n");
         for (Card c: hand){
             System.out.println(c);
         }
@@ -39,10 +43,12 @@ public class Player {
     public void Play (Model model){
         //todo metodo chiamato dal gameflow per indicare al player di fare una giocata
         //mostra nodi
-        model.getPlayerArea(this).PlayACard(ChosenCard(model));
+        Card chosencard= ChosenCard(model);
+        model.getPlayerArea(this).PlayACard(chosencard);
+        model.getPlayerArea(this).getHand().remove(chosencard);
     }
 
-    public int ChooseStarterSide(PlayerCardArea playerCardArea){
+    public int ChooseStarterSide(){
         //todo implementare un metodo per mostrare una carta
         System.out.println("Pick your starter card side 1 - front , 2 - back");
         Scanner scanner= new Scanner(System.in);
@@ -50,7 +56,61 @@ public class Player {
     }
 
     public void Draw (Model model){
-        //todo implementare la pescata di una carta, facendo scegliere al player da dove vuole pescare e nel caso voglia pescare dal dalle carte scoperte, quale voglia pescare
+        //todo gestire l'eccezione di un inserimento non valido
+        Card card;
+        model.getDrawingCardArea().DisplayVisibleCard();
+        Scanner scanner=new Scanner(System.in);
+        int choice;
+        System.out.println("Press:" +
+                "\n1 to draw from the deck" +
+                "\n2 to draw from the visible cards");
+        choice= scanner.nextInt();
+        scanner.nextLine();
+        switch (choice){
+            case 1:
+                System.out.println("Press:" +
+                "\n1 to draw from the resource deck" +
+                "\n2 to draw from the gold deck");
+                choice= scanner.nextInt();
+                scanner.nextLine();
+                if(choice==1){
+                    card = model.getDrawingCardArea().drawCardFromDeck(Type.RESOURCES);
+                    model.getPlayerArea(this).getHand().add(card);
+                }
+                if (choice==2) {
+                    card = model.getDrawingCardArea().drawCardFromDeck(Type.GOLD);
+                    model.getPlayerArea(this).getHand().add(card);
+                }
+                break;
+
+            case 2:
+                System.out.println("Press:" +
+                        "\n1 to draw from the resource area" +
+                        "\n2 to draw from the gold area");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1) {
+                    int maxIndex = model.getDrawingCardArea().getVisibleReCard().size() - 1;
+                    System.out.println("Enter the number of the resource card you want to draw (0-" + maxIndex + "):");
+                    int resourceIndex = scanner.nextInt();
+                    if (resourceIndex >= 0 && resourceIndex <= maxIndex) {
+                        card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, resourceIndex);
+                        model.getPlayerArea(this).getHand().add(card);
+                    }
+                }
+                if (choice == 2) {
+                    int maxIndex = model.getDrawingCardArea().getVisibleGoCard().size() - 1;
+                    System.out.println("Enter the number of the gold card you want to draw (0-" + maxIndex + "):");
+                    int goldIndex = scanner.nextInt();
+                    if (goldIndex >= 0 && goldIndex <= maxIndex) {
+                        card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, goldIndex);
+                        model.getPlayerArea(this).getHand().add(card);
+                    }
+                    break;
+                }
+        }
+
+
     }
 
     public boolean CheckPoints(Model model){
@@ -58,16 +118,10 @@ public class Player {
         return false;
     }
 
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return this.username;
+    }
 
     /*
 

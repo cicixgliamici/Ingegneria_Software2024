@@ -1,7 +1,7 @@
 package org.example.model.deck;
 
 import java.util.List;
-import org.example.model.deck.enumeration.Side;
+import org.example.enumeration.Side;
 
 /**
  * Class for handling card sides

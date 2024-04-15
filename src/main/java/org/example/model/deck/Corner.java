@@ -1,6 +1,8 @@
 package org.example.model.deck;
 
-import org.example.model.deck.enumeration.*;
+import org.example.enumeration.Position;
+import org.example.enumeration.PropertiesCorner;
+import org.example.enumeration.*;
 
 /**
  * Class for handling card corners
@@ -21,6 +23,6 @@ public class Corner {
         return this.propertiesCorner;
     }
     public String toString() {
-        return "Posizione: " + position + ", Proprietà: " + propertiesCorner;
+        return "Position: " + position + ", Properties: " + propertiesCorner;
     }
 }
