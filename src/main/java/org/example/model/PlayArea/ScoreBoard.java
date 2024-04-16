@@ -66,4 +66,14 @@ public class ScoreBoard {
             throw new IllegalArgumentException("Token doesn't exist!");
         }
     }
+    public Color getTokenColor(Player player) {
+        for (Token token : tokens.values()) {
+            if (token.getPlayer().equals(player)) {
+                return token.getColor();
+            }
+        }
+        return null;
+    }
+
+
 }

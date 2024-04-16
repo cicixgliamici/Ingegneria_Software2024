@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 
 public class Controller {
-    List<Player> players= new ArrayList<>();
+    public List<Player> players= new ArrayList<>();
     GameFlow gameFlow; //per ora costruttore vuoto
     Model model;
 
@@ -44,8 +44,9 @@ public class Controller {
             int choice = 0;
             while (choice != 2) {
                 System.out.println("Press:" +
-                        "\n1 to add a new player" +
-                        "\n2 to start the match");
+                        "\n1 to add a new player." +
+                        "\n2 to start the match." +
+                        "\n3 to end the session.");
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 switch (choice) {
@@ -67,6 +68,11 @@ public class Controller {
                     case 2:
                         System.out.println("THE MATCH HAS STARTED: ");
                         break;
+                    case 3:
+                        System.out.println("Goodbye.");
+                        System.exit(0);
+                        break;
+
                 }
             }
             return players;
