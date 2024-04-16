@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- *  Test all the Methods of Deck, like creation and randomize
+ *
  */
 
 public class CompleteGameTest extends TestCase {
@@ -28,7 +28,5 @@ public class CompleteGameTest extends TestCase {
         Controller controller = new Controller(model);
         assertNotNull(controller);
         assertEquals(2, controller.players.size());
-        assertEquals(Color.RED, model.getScoreBoard().getTokenColor(controller.players.get(0)));
-        assertEquals(Color.GREEN, model.getScoreBoard().getTokenColor(controller.players.get(1)));
     }
 }

@@ -1,8 +1,8 @@
 package org.example.model.PlayArea;
 
 public class PlaceHolder {
-    int x;
-    int y;
+    public int x;
+    public int y;
     public PlaceHolder(int x, int y) {
         this.x = x;
         this.y = y;
@@ -14,4 +14,13 @@ public class PlaceHolder {
         return "Placeholder " + x + " : " + y;
     }
 
+    public void setTopL(PlaceHolder topL){}
+
+    public void setTopR(PlaceHolder topR) {
+    }
+
+    public void setBotL(PlaceHolder botL) {}
+
+    public void setBotR(PlaceHolder botR) {
+    }
 }

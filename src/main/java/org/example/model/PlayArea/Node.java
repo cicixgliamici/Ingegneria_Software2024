@@ -96,13 +96,13 @@ public class Node extends PlaceHolder{
                         if(node.x==this.x+1 && node.y==this.y-1){
                             //se lo trovo devo andare a sostituire in tutti i nodi piazzati che hanno quel nodo il nuovo placeholder
                             if(node.getTopR()!= null){
-                                ((Node)node.getTopR()).setBotL(this.botR);
+                                (node.getTopR()).setBotL(this.botR);
                             }
                             if(node.getBotL()!= null){
-                                ((Node)node.getBotL()).setTopR(this.botR);
+                                (node.getBotL()).setTopR(this.botR);
                             }
                             if(node.getBotR()!= null){
-                                ((Node)node.getBotR()).setTopL(this.botR);
+                                (node.getBotR()).setTopL(this.botR);
                             }
                         }
                     }
@@ -118,13 +118,13 @@ public class Node extends PlaceHolder{
                     for (Node node : AvailableNodes) {
                         if(node.x==this.x-1 && node.y==this.y-1){
                             if(node.getTopL()!= null){
-                                ((Node)node.getTopL()).setBotR(this.botL);
+                                (node.getTopL()).setBotR(this.botL);
                             }
                             if(node.getBotL()!= null){
-                                ((Node)node.getBotL()).setTopR(this.botL);
+                                (node.getBotL()).setTopR(this.botL);
                             }
                             if(node.getBotR()!= null){
-                                ((Node)node.getBotR()).setTopL(this.botL);
+                                (node.getBotR()).setTopL(this.botL);
                             }
                         }
                     }
@@ -140,13 +140,13 @@ public class Node extends PlaceHolder{
                     for (Node node : AvailableNodes) {
                         if(node.x==this.x+1 && node.y==this.y+1){
                             if(node.getTopR()!= null){
-                                ((Node)node.getTopR()).setBotL(this.topR);
+                                node.getTopR().setBotL(this.topR);
                             }
                             if(node.getBotR()!= null){
-                                ((Node)node.getBotR()).setTopL(this.topR);
+                                node.getBotR().setTopL(this.topR);
                             }
                             if(node.getTopL()!= null){
-                                ((Node)node.getTopL()).setBotR(this.topR);
+                                node.getTopL().setBotR(this.topR);
                             }
                         }
                     }
@@ -163,13 +163,13 @@ public class Node extends PlaceHolder{
                     for (Node node : AvailableNodes) {
                         if(node.x==this.x-1 && node.y==this.y+1){
                             if(node.getTopL()!= null){
-                                ((Node)node.getTopL()).setBotR(this.topL);
+                                node.getTopL().setBotR(this.topL);
                             }
                             if(node.getBotL()!= null){
-                                ((Node)node.getBotL()).setTopR(this.topL);
+                                node.getBotL().setTopR(this.topL);
                             }
                             if(node.getTopR()!= null){
-                                ((Node)node.getTopR()).setBotL(this.topL);
+                                node.getTopR().setBotL(this.topL);
                             }
                         }
                     }
@@ -346,4 +346,5 @@ public class Node extends PlaceHolder{
         this.botR = botR;
     }
 }
+
 

@@ -2,11 +2,11 @@ package org.example;
 
 
 import junit.framework.TestCase;
-import org.example.enumeration.Type;
-import org.example.model.deck.*;
-import org.example.enumeration.*;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
+import org.example.model.deck.*;
+import org.example.enumeration.*;
+
 
 /**
  *  Test all the Methods of Deck, like creation and randomize

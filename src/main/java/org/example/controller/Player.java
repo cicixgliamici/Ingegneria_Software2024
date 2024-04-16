@@ -19,6 +19,11 @@ public class Player {
         this.username= username;
     }
 
+    // For Test
+    public Player(){
+
+    }
+
     /** Method for the TUI to see the Player's hand
      *
      */

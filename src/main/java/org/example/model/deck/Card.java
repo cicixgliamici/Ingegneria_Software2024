@@ -138,6 +138,9 @@ public class Card {
         if (cardres != null) {
             sb.append("Card Resources: ").append(cardres).append("\n");
         }
+        if(objectivePoints!= null){
+            sb.append("Objective: ").append(objectivePoints).append("\n");
+        }
         // Print properties of all corners
         if (side != null && side.getFrontCorners() != null && side.getBackCorners() != null) {
             sb.append("Front Corners:\n");
