@@ -64,6 +64,7 @@ public class Node extends PlaceHolder{
     public void SetNullNode(List<Node> AvailableNodes) {
         if(this.botR==null) {
             this.botR = NullNodeBotR();
+            //todo metodo in placeholder a cui passi una lista e se è un nodo lo aggiunge alla lista oppure togliere nodi
             AvailableNodes.add((Node) this.botR);
         }
 
