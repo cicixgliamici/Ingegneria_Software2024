@@ -108,10 +108,6 @@ public class Counter {
         return false;
     }
 
-
-
-
-
     //getter and setter
     public int getAnimalCounter() {
         return AnimalCounter;

@@ -12,12 +12,12 @@ import java.io.IOException;
  */
 
 public class DrawingCardArea {
-    private Deck resourceDeck;
-    private Deck goldDeck;
-    private Deck objectDeck;
-    private Deck starterDeck;
-    private List<Card> visibleReCard;
-    private List<Card> visibleGoCard;
+    private final Deck resourceDeck;
+    private final Deck goldDeck;
+    private final Deck objectDeck;
+    private final Deck starterDeck;
+    private final List<Card> visibleReCard;
+    private final List<Card> visibleGoCard;
 
     public DrawingCardArea() throws IOException, ParseException {
         this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
@@ -111,55 +111,10 @@ public class DrawingCardArea {
         }
     }
 
-    /** Method to search a card in the Visible Card Area
-     */
-    public int searchCardInVisC(Card card) throws IllegalArgumentException{
-        switch(card.getType()) {
-            case RESOURCES:
-                for (int i = 0; i < visibleReCard.size(); i++){
-                    if (card == visibleReCard.get(i)){
-                        return i;
-                    }
-                }
-            case GOLD:
-                for (int i = 0; i < visibleGoCard.size(); i++){
-                    if (card == visibleGoCard.get(i)){
-                        return i;
-                    }
-                }
-        }
-        throw new IllegalArgumentException("Card doesn't exist!\n");
-    }
-
-
-    //todo questo metodo a cosa serve?
-    public void RemoveCardFromVC(Card card) throws IllegalArgumentException{
-        switch (card.getType()){
-            case RESOURCES:
-                visibleReCard.remove(searchCardInVisC(card));
-            case GOLD:
-                visibleGoCard.remove(searchCardInVisC(card));
-        }
-        throw new IllegalArgumentException("Nothing to delete!\n");
-    }
-
-
-
     //getter and setter
-    public Deck getResourceDeck() {
-        return resourceDeck;
-    }
-
-    public Deck getGoldDeck() {
-        return goldDeck;
-    }
 
     public Deck getObjectDeck() {
         return objectDeck;
-    }
-
-    public Deck getStarterDeck() {
-        return starterDeck;
     }
 
     public List<Card> getVisibleReCard() {
@@ -168,29 +123,5 @@ public class DrawingCardArea {
 
     public List<Card> getVisibleGoCard() {
         return visibleGoCard;
-    }
-
-    public void setResourceDeck(Deck resourceDeck) {
-        this.resourceDeck = resourceDeck;
-    }
-
-    public void setGoldDeck(Deck goldDeck) {
-        this.goldDeck = goldDeck;
-    }
-
-    public void setObjectDeck(Deck objectDeck) {
-        this.objectDeck = objectDeck;
-    }
-
-    public void setStarterDeck(Deck starterDeck) {
-        this.starterDeck = starterDeck;
-    }
-
-    public void setVisibleReCard(List<Card> visibleReCard) {
-        this.visibleReCard = visibleReCard;
-    }
-
-    public void setVisibleGoCard(List<Card> visibleGoCard) {
-        this.visibleGoCard = visibleGoCard;
     }
 }

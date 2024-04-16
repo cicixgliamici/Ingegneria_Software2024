@@ -23,7 +23,6 @@ public class Controller {
      * give it the control.
      */
     public Controller(Model model) throws IOException, ParseException {
-        //todo riceve le richieste dal server, per ora lavoriamo unicamente con la TUI
         this.model=model;
         players= this.AcceptPlayerBYTUI(); //accept all players that want to connect
         model.setPlayersAndGameArea(players);  //passes the list with all the players to the model
@@ -77,14 +76,4 @@ public class Controller {
             }
             return players;
         }
-
-
-    public void CalculateObjective (){
-        //todo: metodo che per ogni player calcola i punti degli obbiettivi pubblici e nascosti
-    }
-
-    public void Winner(){
-        // todo: compara i punti totali dei player e restituisce il vincitore
-    }
-
 }

@@ -1,15 +1,17 @@
 package org.example.model.PlayArea;
 import org.example.enumeration.Color;
-import org.example.enumeration.*;
 import java.util.HashMap;
-import  org.example.model.deck.*;
+import java.util.Map;
+
 import org.example.controller.*;
 
 
 public class ScoreBoard {
-    private final HashMap<Color, Token> tokens; // Associate a Token to a specific color
+    private final HashMap<Player, Integer> Points;
+    private final HashMap<Color, Player> tokens; // Associate a Token to a specific color
     public ScoreBoard(){
         tokens = new HashMap<>();
+        Points = new HashMap<>();
     }
 
     /**
@@ -26,54 +28,35 @@ public class ScoreBoard {
             throw new IllegalArgumentException("max 4 players");
         }
 
-        Token token = new Token(color, player);
-        tokens.put(color, token);
-
-        if (tokens.size() == 1) {
-            token.setFirst(true);       //if first player added to the game, first player to start
-        }
+        tokens.put(color, player);
     }
 
-    /**
-     * Adds points to each player based on the color of their token
-     */
-    public void addColorPoints(Color color, Card card) {
-        Token token = tokens.get(color);
-        if (token != null) {
-            token.addPoints(card);
-        } else {
-            throw new IllegalArgumentException("Color isn't present on the scoreboard");
-        }
+    public int GetPlayerPoint(Player p){
+        return Points.get(p);
+    }
+    public void UpdatePlayerPoint(Player p, int point){
+        Points.put(p,point);
     }
 
-    /**
-     * Gets the first player of the match
-     */
-    public Color getFirstPlayer() {
-        for (Token token : tokens.values()) {
-            if (token.isFirst()) {
-                return token.getColor();
+    public HashMap<Player, Integer> getPoints() {
+        return Points;
+    }
+
+    public HashMap<Color, Player> getTokens() {
+        return tokens;
+    }
+
+    public Player Winner(){
+        Player playerWithMaxPoints = null;
+        int maxPoints = Integer.MIN_VALUE;
+
+        for (Map.Entry<Player, Integer> entry : Points.entrySet()) {
+            if (entry.getValue() > maxPoints) {
+                maxPoints = entry.getValue();
+                playerWithMaxPoints = entry.getKey();
             }
         }
-        return null;
+        return playerWithMaxPoints;
     }
-
-    public Token getToken(Color color) throws IllegalArgumentException{
-        if(tokens.containsKey(color)){
-            return tokens.get(color);
-        }
-        else {
-            throw new IllegalArgumentException("Token doesn't exist!");
-        }
-    }
-    public Color getTokenColor(Player player) {
-        for (Token token : tokens.values()) {
-            if (token.getPlayer().equals(player)) {
-                return token.getColor();
-            }
-        }
-        return null;
-    }
-
 
 }

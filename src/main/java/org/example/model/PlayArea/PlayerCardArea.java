@@ -1,5 +1,5 @@
 package org.example.model.PlayArea;
-//* import com.sun.java.swing.plaf.windows.TMSchema;
+
 import org.example.enumeration.CardRes;
 import org.example.enumeration.GoldenPoint;
 import org.example.enumeration.Side;
@@ -7,9 +7,6 @@ import org.example.enumeration.Type;
 import org.example.model.Model;
 import org.example.model.deck.*;
 import org.example.enumeration.cast.CastCardRes;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,96 +16,25 @@ import java.util.Scanner;
  *
  */
 public class PlayerCardArea {
-    private Card InitialCard; //inizializzata con la playercardarea ma è utile?
-    private List<Card> hand = new ArrayList<>(); //non so se serve
+    private final List<Card> hand = new ArrayList<>(); //non so se serve
     private Card SecretObjective;
-    private Node Starter;
-    private Counter counter = new Counter();
-    private List<Node> AllNodes; //tutti i nodi inseriti
+    private final Counter counter = new Counter();
+    private final List<Node> AllNodes; //tutti i nodi inseriti
 
-    private List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
-    private List<PlaceHolder> PlaceHolders;
+    private final List<Node> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
+    private final List<PlaceHolder> PlaceHolders;
     private List<Node> AlreadyUsed;
 
-    public static void main(String[] args) throws IOException, ParseException {
-        Deck deckStarter= new Deck(Type.STARTER);
-        Card card= deckStarter.getCards().get(5);
-        card.setSide(1);
-        PlayerCardArea playerCardArea= new PlayerCardArea(card);
-
-
-        Deck deckRes = new Deck(Type.RESOURCES);
-        Deck GoldDeck = new Deck(Type.GOLD);
-        Card card1= deckRes.getCards().get(0);
-        playerCardArea.getHand().add(card1);
-
-        Card card2= deckRes.getCards().get(1);
-        playerCardArea.getHand().add(card2);
-
-        Card card3= GoldDeck.getCards().get(2);
-        playerCardArea.getHand().add(card3);
-        int j=0;
-        for(Card c : playerCardArea.getHand()){
-            System.out.println(j + ": \n" + c);
-            j++;
-        }
-        /*
-        card1.setSide(1);
-        playerCardArea.PlayACard(card1);
-        Card card2= deckRes.getCards().get(1);
-        card2.setSide(2);
-        playerCardArea.PlayACard(card2);
-        Card card3= deckRes.getCards().get(2);
-        card3.setSide(1);
-        playerCardArea.PlayACard(card3);
-
-
-        //debug
-        int i = 1;
-        System.out.println("Nodi vuoti disponibili: ");
-        for (Node node : playerCardArea.getAvailableNodes()) {
-            System.out.print(i + ": ");
-            System.out.println(node);
-            i++;
-        }
-        System.out.println();
-
-        i=1;
-        System.out.println("tutti i nodi: ");
-        for (Node node : playerCardArea.getAllNodes()){
-            System.out.print(i + ": ");
-            System.out.println(node);
-            i++;
-        }
-        System.out.println();
-
-        i=1;
-        System.out.println("Lista di placeholders: ");
-        for (PlaceHolder placeHolder : playerCardArea.getPlaceHolders()){
-            System.out.print(i + ": ");
-            System.out.println(placeHolder);
-            i++;
-        }
-        System.out.println();
-
-
-
-         */
-    }
-
-
     public PlayerCardArea(Card cardStarter) {
-        this.InitialCard= cardStarter;
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
         this.PlaceHolders=new ArrayList<>();
-        this.Starter = new Node(cardStarter, 0,0, PlaceHolders, AvailableNodes, AllNodes );
+        Node starter = new Node(cardStarter, 0, 0, PlaceHolders, AvailableNodes, AllNodes);
         UpdateCounter(cardStarter);
     }
 
     public void PlayACard (Card card){
         //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player
-        //todo implementare un ciclo che chieda al player su quale carta giocare finche la giocata non è valida oppure segnalare in qualche modo che la giocata non è valida
         Node chosenNode = printAndChooseNode(); //scegliamo il nodo su cui giocare la carta
         ModifyGameArea(card, chosenNode);
     }
@@ -123,9 +49,6 @@ public class PlayerCardArea {
         UpdateCounter(card);
         UpdatePoints(card);
         removeResources(node);
-
-        //todo fare update point
-
     }
 
 
@@ -134,8 +57,6 @@ public class PlayerCardArea {
         counter.AddResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
         counter.AddResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
         counter.AddResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
-
-        //todo implementare anche il counter di punti, dove lo facciamo?
 
         //se risorsa o gold e ho scelto il back allora aggiungi card res
         if(card.getCardRes()!= null){
@@ -206,7 +127,6 @@ public class PlayerCardArea {
 
     }
 
-    //todo ancora da usare--> manca una verifica: posso inserire quella carta oro?
     public boolean CheckPlayForGold(Card card){
         if(card.getType()==Type.GOLD){
             for (CardRes cardRes: card.getRequireGold()){
@@ -216,15 +136,6 @@ public class PlayerCardArea {
         return true;
     }
 
-    // todo public Node GetNodeAtXY
-    public Node GetNodeAtXY(int x, int y) {
-        for (Node node : AllNodes) {
-            if (node.getX() == x && node.getY() == y) {
-                return node;
-            }
-        }
-        return null;
-    }
 
     public void publicObjects(Model model) {
         int points=0;
@@ -271,7 +182,6 @@ public class PlayerCardArea {
                 case RES:
                     switch (card.getCardRes()) {
                         case FUNGI:
-                            //TODO PER ORA AGGIUNGO I PUNTI A COUNTER MA FORSE HA PIU SENSO AGGIUNGERLI SOLO AL TABELLONE?
                             int FungiCounter = counter.getFungiCounter();
                             while (FungiCounter >= 3) {
                                 points += 2;
@@ -375,8 +285,7 @@ public class PlayerCardArea {
         }
     }
 
-    public void privateObject(Model model) {
-        //todo creiamo una nuova lista in cui inseriamo i nodi gia usati e la svuotiamo prima di ogni obbiettivo
+    public void privateObject() {
         AlreadyUsed=new ArrayList<>();
         int points=0;
         switch (SecretObjective.getObjectivePoints()) {
@@ -421,7 +330,6 @@ public class PlayerCardArea {
             case RES:
                 switch (SecretObjective.getCardRes()) {
                     case FUNGI:
-                        //TODO PER ORA AGGIUNGO I PUNTI A COUNTER MA FORSE HA PIU SENSO AGGIUNGERLI SOLO AL TABELLONE?
                         int FungiCounter= counter.getFungiCounter();
                         while (FungiCounter >= 3){
                             points+=2;
@@ -642,14 +550,6 @@ public class PlayerCardArea {
 
     //getter e setter
 
-    public Node getStarter() {
-        return Starter;
-    }
-
-    public Card getInitialCard() {
-        return InitialCard;
-    }
-
     public List<Card> getHand() {
         return hand;
     }
@@ -658,141 +558,10 @@ public class PlayerCardArea {
         return counter;
     }
 
-    public List<Node> getAllNodes() {
-        return AllNodes;
-    }
-
-    public List<Node> getAvailableNodes() {
-        return AvailableNodes;
-    }
-
-    public List<PlaceHolder> getPlaceHolders() {
-        return PlaceHolders;
-    }
-
-
-    public void setInitialCard(Card initialCard) {
-        InitialCard = initialCard;
-    }
-
-    public void setHand(List<Card> hand) {
-        this.hand = hand;
-    }
-
-    public void setStarter(Node starter) {
-        Starter = starter;
-    }
-
-    public void setCounter(Counter counter) {
-        this.counter = counter;
-    }
-
-    public void setAllNodes(List<Node> allNodes) {
-        AllNodes = allNodes;
-    }
-
-    public void setAvailableNodes(List<Node> availableNodes) {
-        AvailableNodes = availableNodes;
-    }
-
-    public void setPlaceHolders(List<PlaceHolder> placeHolders) {
-        PlaceHolders = placeHolders;
-    }
-
-    public Card getSecretObjective() {
-        return SecretObjective;
-    }
-
     public void setSecretObjective(Card secretObjective) {
         SecretObjective = secretObjective;
     }
-
-
-
-
 }
 
-
-
-
-/*
-    public void searchAvailableNode(Node node){
-
-        if(node.getBotL().getCard() == null && !(node.getBotL() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getBotL());
-        }
-        else {
-            if(!(node.getBotL() instanceof EmptyNode)) searchAvailableNode(node.getBotL());
-        }
-
-
-        if(node.getBotR().getCard() == null && !(node.getBotR() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getBotR());
-        }
-        else {
-            if(!(node.getBotR() instanceof EmptyNode)) searchAvailableNode(node.getBotR());
-        }
-
-
-        if(node.getTopL().getCard() == null && !(node.getTopL() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getTopL());
-        }
-        else {
-            if(!(node.getTopL() instanceof EmptyNode)) searchAvailableNode(node.getTopL());
-        }
-
-        if(node.getTopR().getCard() == null && !(node.getTopR() instanceof EmptyNode)){
-            this.AvailableNodes.add(node.getTopR());
-        }
-        else {
-            if(!(node.getTopR()instanceof EmptyNode)) searchAvailableNode(node.getTopR());
-        }
-    }
-
-
-    public void UpdateAvailableNode(Node node){
-        //todo metodo che aggiorna la lista di nodi disponibili, chiamato nel momento in cui setto un nuovo nodo
-        if (node.getBotR() instanceof Node){
-            AvailableNodes.add((Node)node.getBotR()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getBotR());
-        if (node.getBotL() instanceof Node){
-            AvailableNodes.add((Node)node.getBotL()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getBotL());
-        if (node.getTopL() instanceof Node){
-            AvailableNodes.add((Node)node.getTopL()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getTopL());
-        if (node.getTopR() instanceof Node){
-            AvailableNodes.add((Node)node.getTopR()); //verificare se il cast è corretto
-        } else PlaceHolders.add((PlaceHolder)node.getTopR());
-    }
-
-    public void UpdateCounter(Card card) {
-        if ((card.getSide().getChosenList().get(0).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(0).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getSide().getBackCorners().get(0).getPropertiesCorner());
-        } else if ((card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(1).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(1));
-        } else if ((card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(2).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(2));
-        } else if ((card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.HIDDEN) && (card.getSide().getBackCorners().get(3).getPropertiesCorner() != PropertiesCorner.EMPTY)) {
-            counter.AddResource(card.getPropCorn(3));
-        }
-        //todo implementare anche il counter di punti, dove lo facciamo?
-
-        //se risorsa o gold e ho scelto il back allora aggiungi card res
-        if((card.getType()==Type.RESOURCES || card.getType()==Type.GOLD) && (card.getSide().getSide()==Side.BACK)){
-            CardRes cardRes= card.getCardRes();
-            CastCardRes castCardRes= new CastCardRes(cardRes);
-            counter.AddResource(castCardRes.getPropertiesCorner());
-        }
-
-        //se starter e hai scelto il back allora add require gold
-        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()==Side.BACK)){
-            for (CardRes cardRes: card.getRequireGold()){
-                CastCardRes castCardRes= new CastCardRes(cardRes);
-                counter.AddResource(castCardRes.getPropertiesCorner());
-            }
-        }
-    }
- */
 
 

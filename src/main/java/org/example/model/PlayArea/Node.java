@@ -1,8 +1,6 @@
 package org.example.model.PlayArea;
 
 import org.example.model.deck.Card;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -286,7 +284,6 @@ public class Node extends PlaceHolder{
     public void SetCardNode(Card c, List<PlaceHolder> placeHolderList, List<Node> AvailableNodes, List<Node> AllNodes){
         //Assegno la carta al nuovo nodo
         this.card=c;
-        //todo manca un metodo che verifichi la validità della giocata, x esempio se ci sono abbastanza risorse per schierare quella carta
         this.card.setCoveredCornerByCard(1);
         this.SetPlaceHolderByCard(AvailableNodes,placeHolderList);
         this.SetNodePlaceHolder(placeHolderList);
@@ -294,32 +291,7 @@ public class Node extends PlaceHolder{
         this.SetNodeForNewCard(AvailableNodes);
         this.SetNullNode(AvailableNodes);
         AllNodes.add(this);
-        //todo manca un metodo che aggiorni le risorse del counter e i punteggi quando aggiungo una carta, si puo anche implementare nel metodo modifyGameArea di playerCardArea
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //getter and setter
     public Card getCard() {
