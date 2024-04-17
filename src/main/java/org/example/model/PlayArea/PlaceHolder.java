@@ -1,5 +1,9 @@
 package org.example.model.PlayArea;
 
+import org.example.model.deck.Card;
+
+import java.util.List;
+
 public class PlaceHolder {
     public int x;
     public int y;
@@ -23,4 +27,34 @@ public class PlaceHolder {
 
     public void setBotR(PlaceHolder botR) {
     }
+    public Card getCard() {
+        return null;
+    }
+
+    public PlaceHolder getTopL() {
+        return null;
+    }
+
+    public PlaceHolder getTopR() {
+        return null;
+    }
+
+    public PlaceHolder getBotL() {
+        return null;
+    }
+
+    public PlaceHolder getBotR() {
+        return null;
+    }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
+    public void SetCardNode(Card card, List<PlaceHolder> placeHolders, List<PlaceHolder> availableNodes, List<PlaceHolder> allNodes) {
+    }
 }
+

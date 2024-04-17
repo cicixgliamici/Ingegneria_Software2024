@@ -6,7 +6,6 @@ import org.example.model.PlayArea.Node;
 import org.example.model.PlayArea.PlaceHolder;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
-import org.example.enumeration.*;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +19,8 @@ public class NodeTest  extends TestCase {
             Deck starterDeck = new Deck(Type.STARTER);
             Card starterCard = starterDeck.drawCard();
             List<PlaceHolder> placeHolderList = new ArrayList<>();
-            List<Node> availableNodes = new ArrayList<>();
-            List<Node> allNodes = new ArrayList<>();
+            List<PlaceHolder> availableNodes = new ArrayList<>();
+            List<PlaceHolder> allNodes = new ArrayList<>();
             Node node = new Node(starterCard, 0, 0, placeHolderList, availableNodes, allNodes);
             assertNotNull(node);
             assertEquals(0, node.getX());
@@ -103,7 +102,7 @@ public class NodeTest  extends TestCase {
     }
 
     public void testSetNullNode() throws IOException, ParseException{
-        List<Node> availableNodes = new ArrayList<>();
+        List<PlaceHolder> availableNodes = new ArrayList<>();
         Deck deck = new Deck(Type.STARTER);
         Card starterCard= deck.getCards().get(5);
         starterCard.setSide(1);

@@ -126,12 +126,10 @@ public class Player {
         return this.username;
     }
 
-    public void UpdateScoreboardPoints(Model model) throws IllegalArgumentException{
+    public void UpdateScoreboardPoints(Model model){
         ScoreBoard scoreBoard= model.getScoreBoard();
-        if(scoreBoard.GetPlayerPoint(this)<=model.getPlayerArea(this).getCounter().getPointCounter()){
+        if(scoreBoard.GetPlayerPoint(this)<model.getPlayerArea(this).getCounter().getPointCounter()){
             scoreBoard.UpdatePlayerPoint(this, model.getPlayerArea(this).getCounter().getPointCounter());
-        } else {
-            throw new IllegalArgumentException();
         }
     }
 }
