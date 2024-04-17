@@ -62,6 +62,7 @@ public class Controller {
                         Color chosenColor = availableColors.get(chosenColorIndex);
                         availableColors.remove(chosenColor); // Remove the chosen color from the available ones
                         model.getScoreBoard().addToken(chosenColor, player);
+                        model.getScoreBoard().getPoints().put(player,0);
                         break;
 
                     case 2:

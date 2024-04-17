@@ -34,8 +34,8 @@ public class Node extends PlaceHolder{
     }
 
     /**  The node that is created is positioned 
-    *    mirror-image of the original one
-    */
+     *    mirror-image of the original one
+     */
 
     public Node NullNodeTopR(){
         int x = this.x+1;
@@ -347,5 +347,3 @@ public class Node extends PlaceHolder{
         this.botR = botR;
     }
 }
-
-

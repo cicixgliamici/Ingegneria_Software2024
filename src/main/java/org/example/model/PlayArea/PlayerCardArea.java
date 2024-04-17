@@ -130,10 +130,10 @@ public class PlayerCardArea {
     public boolean CheckPlayForGold(Card card){
         if(card.getType()==Type.GOLD){
             for (CardRes cardRes: card.getRequireGold()){
-                if (!counter.IsPresent(cardRes))return false;
+                if (!counter.IsPresent(cardRes))return true;
             }
         }
-        return true;
+        return false;
     }
 
 
@@ -562,6 +562,3 @@ public class PlayerCardArea {
         SecretObjective = secretObjective;
     }
 }
-
-
-
