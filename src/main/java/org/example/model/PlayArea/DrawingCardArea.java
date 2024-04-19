@@ -102,12 +102,12 @@ public class DrawingCardArea {
      *
      */
     public void DisplayVisibleCard (){
-        System.out.println("There are these cards: \n");
+        //System.out.println("There are these cards: \n");
         for (int i = 0; i < visibleReCard.size(); i++){
-            System.out.println((i + 1) + ":"+ visibleReCard.get(i));
+            //System.out.println((i + 1) + ":"+ visibleReCard.get(i));
         }
         for (int i = 0; i <visibleGoCard.size(); i++){
-            System.out.println((i + 1) + ":" + visibleGoCard.get(i));
+            //System.out.println((i + 1) + ":" + visibleGoCard.get(i));
         }
     }
 
