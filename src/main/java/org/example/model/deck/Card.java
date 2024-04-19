@@ -43,53 +43,53 @@ public class Card {
      * Prints the card showing all it's properties, TUI Method
      */
     public void print(){
-        if (this.getType()!= null){
-            System.out.println("Type: " + this.getType());
-        }
-        if(this.getCardRes()!= null){
-            System.out.println("Card Resource: " + this.getCardRes());
-        }
+        //if (this.getType()!= null){
+        //    System.out.println("Type: " + this.getType());
+        //}
+        //if(this.getCardRes()!= null){
+        //    System.out.println("Card Resource: " + this.getCardRes());
+        //}
         if(this.getRequireGold()!= null){
-            System.out.print("Gold Requirement: ");
+            //System.out.print("Gold Requirement: ");
             CardRes[] requireGold = this.getRequireGold();
             if(requireGold!= null) {
                 for (int i = 0; i < requireGold.length; i++) {
-                    System.out.print(requireGold[i]);
+                    //System.out.print(requireGold[i]);
                     if (i < requireGold.length - 1) {
-                        System.out.print(", ");
+                        //System.out.print(", ");
                     }
                 }
             }
-            System.out.println();
+            //System.out.println();
         }
 
         if(this.getPoints() != null){
-            System.out.println("Points: " + this.getPoints());
+            //System.out.println("Points: " + this.getPoints());
         }
 
         if (this.getGoldenPoint()!= null) {
-            System.out.println("GoldenPoint: " + this.getGoldenPoint());
+            //System.out.println("GoldenPoint: " + this.getGoldenPoint());
         }
         if(this.getCardPosition()!= null){
-            System.out.println("Card Position: " + this.getCardPosition());
+            //System.out.println("Card Position: " + this.getCardPosition());
 
         }
         System.out.println("Side: " + this.getSide().getSide());
         if(this.getSide().getFrontCorners()!= null){
-            System.out.println("Front Corners:");
+            //System.out.println("Front Corners:");
             List<Corner> frontCorners = this.getSide().getFrontCorners();
             for (Corner corner : frontCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
+                //System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
             }
         }
         if(this.getSide().getBackCorners()!=null) {
-            System.out.println("Back Corners:");
+            //System.out.println("Back Corners:");
             List<Corner> backCorners = this.getSide().getBackCorners();
             for (Corner corner : backCorners) {
-                System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
+                //System.out.println("Position: " + corner.getPosition() + ", Corner Properties: " + corner.getPropertiesCorner());
             }
         }
-        System.out.println();
+        //System.out.println();
     }
 
     public PropertiesCorner getFRONTPropCorn(int pos){
