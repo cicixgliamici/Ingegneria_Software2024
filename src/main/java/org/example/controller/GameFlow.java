@@ -15,18 +15,18 @@ public class GameFlow {
         this.model= model;
         Rounds();
         Player Winnner = EndGame();
-        System.out.println("the winner is : " + Winnner);
+        //System.out.println("the winner is : " + Winnner);
     }
 
     public void Rounds () {
         boolean IsEnd = false;
         while (!IsEnd) {
             for (Player p : players) {
-                System.out.println("Player: " + p + " Play phase");
+                //System.out.println("Player: " + p + " Play phase");
                 p.Play(model);
-                System.out.println("Player: "+ p+ " Update Scoreboard Points");
+                //System.out.println("Player: "+ p+ " Update Scoreboard Points");
                 p.UpdateScoreboardPoints(model);
-                System.out.println("Player: " + p + " Draw phase");
+                //System.out.println("Player: " + p + " Draw phase");
                 p.Draw(model);
             }
             IsEnd = model.Checkpoints();
