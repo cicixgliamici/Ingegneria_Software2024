@@ -1,5 +1,5 @@
 package org.example.enumeration;
 
 public enum Color {
-    BLUE, RED, YELLOW, GREEN, //WHITE
+    BLUE, RED, YELLOW, GREEN
 }

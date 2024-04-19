@@ -93,8 +93,8 @@ public class PlayerCardArea {
     }
 
 
-    //public PlaceHolder printAndChooseNode() {
-        //System.out.println("Available Nodes:");
+    public PlaceHolder printAndChooseNode() {
+        /*System.out.println("Available Nodes:");
         //for (int i = 0; i < AvailableNodes.size(); i++) {
             //PlaceHolder node = AvailableNodes.get(i);
             //System.out.println((i + 1) + ": Node at position (" + node.getX() + ", " + node.getY() + ")");
@@ -103,8 +103,8 @@ public class PlayerCardArea {
         //int choice;
         //System.out.print("Choose the node number (1-" + AvailableNodes.size() + "): ");
         //choice = scanner.nextInt();
-        //return AvailableNodes.get(choice - 1);
-    //}
+        return AvailableNodes.get(choice - 1);*/
+    }
 
     public void UpdatePoints(Card card) {
         switch (card.getType()){

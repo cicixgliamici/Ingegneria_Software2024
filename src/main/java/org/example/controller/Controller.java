@@ -37,27 +37,27 @@ public class Controller {
     // TODO gestire l'eccezione inserimento (Int invece che Stringe e viceversa)
         public List<Player> AcceptPlayerBYTUI() {
             //System.out.println("Welcome\n");
-            Scanner scanner = new Scanner(System.in);
+            //Scanner scanner = new Scanner(System.in);
             List<Player> players = new ArrayList<>();
             List<Color> availableColors = new ArrayList<>(Arrays.asList(Color.values())); // List to remove chosen Colors
             int choice = 0;
             while (choice != 2) {
-                //System.out.println("Press:" +
-                //        "\n1 to add a new player." +
-                //        "\n2 to start the match." +
-                //        "\n3 to end the session.");
+                /*System.out.println("Press:" +
+                        "\n1 to add a new player." +
+                        "\n2 to start the match." +
+                        "\n3 to end the session.");
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
                 switch (choice) {
                     case 1:
-                        //System.out.println("Insert the name");
+                        System.out.println("Insert the name");
                         String username = scanner.nextLine();
                         Player player = new Player(username);
                         players.add(player);
-                        //System.out.println("Choose your token color:");
-                        //for (int i = 0; i < availableColors.size(); i++) {
-                        //    System.out.println(i + ". " + availableColors.get(i));
-                        //}
+                        System.out.println("Choose your token color:");
+                        for (int i = 0; i < availableColors.size(); i++) {
+                            System.out.println(i + ". " + availableColors.get(i));
+                        }
                         int chosenColorIndex = scanner.nextInt();
                         Color chosenColor = availableColors.get(chosenColorIndex);
                         availableColors.remove(chosenColor); // Remove the chosen color from the available ones
@@ -74,7 +74,7 @@ public class Controller {
                         break;
 
                 }
-            }
+            }*/
             return players;
         }
 }

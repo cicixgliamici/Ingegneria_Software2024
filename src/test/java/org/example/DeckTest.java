@@ -55,7 +55,7 @@ public class DeckTest extends TestCase {
 
     /** This test can file 1 time out of 40 :)
     *   Had to use "FakeDrawCard" instead of "drawCard" because
-    *   drawCard remove the card from the deck
+    *   drawCard removes the card from the deck
      */
     public void testShuffleResources() throws IOException, ParseException {
         for (Type type : Type.values()) {

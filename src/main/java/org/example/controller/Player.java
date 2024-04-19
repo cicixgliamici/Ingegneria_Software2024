@@ -40,12 +40,12 @@ public class Player {
         Card card=null;
         while (InvalidCard){
             SeeHand(model);
-            //System.out.println("Chose the number of the card you want to play");
+            /*System.out.println("Chose the number of the card you want to play");
             Scanner scanner= new Scanner(System.in);
             //todo verificare che il numero inserito sia valido
             int choice = scanner.nextInt();
             card = model.getPlayerArea(this).getHand().get(choice);
-            InvalidCard= model.getPlayerArea(this).CheckPlayForGold(card);
+            InvalidCard= model.getPlayerArea(this).CheckPlayForGold(card);*/
         }
         return card;
     }
@@ -58,27 +58,27 @@ public class Player {
     }
 
     public int ChooseStarterSide(){
-        //System.out.println("Pick your starter card side 1 - front , 2 - back");
+        /*System.out.println("Pick your starter card side 1 - front , 2 - back");
         Scanner scanner= new Scanner(System.in);
-        return scanner.nextInt();
+        return scanner.nextInt();*/
     }
 
     public void Draw (Model model){
         //todo gestire l'eccezione di un inserimento non valido
         Card card;
         model.getDrawingCardArea().DisplayVisibleCard();
-        Scanner scanner=new Scanner(System.in);
+        /*Scanner scanner=new Scanner(System.in);
         int choice;
-        //System.out.println("Press:" +
-        //        "\n1 to draw from the deck" +
-        //        "\n2 to draw from the visible cards");
+        System.out.println("Press:" +
+                "\n1 to draw from the deck" +
+               "\n2 to draw from the visible cards");
         choice= scanner.nextInt();
         scanner.nextLine();
         switch (choice){
             case 1:
-                //System.out.println("Press:" +
-                //"\n1 to draw from the resource deck" +
-                //"\n2 to draw from the gold deck");
+                System.out.println("Press:" +
+                "\n1 to draw from the resource deck" +
+                "\n2 to draw from the gold deck");
                 choice= scanner.nextInt();
                 scanner.nextLine();
                 if(choice==1){
@@ -92,9 +92,9 @@ public class Player {
                 break;
 
             case 2:
-                //System.out.println("Press:" +
-                //        "\n1 to draw from the resource area" +
-                //        "\n2 to draw from the gold area");
+                System.out.println("Press:" +
+                        "\n1 to draw from the resource area" +
+                        "\n2 to draw from the gold area");
                 choice = scanner.nextInt();
                 scanner.nextLine();
                 if (choice == 1) {
@@ -116,7 +116,7 @@ public class Player {
                     }
                     break;
                 }
-        }
+        }*/
 
 
     }
