@@ -37,7 +37,7 @@ public class DrawingCardArea {
     /** Creates the 2 visible resource cards, taking them from the firsts two of the generated deck
      *
      */
-    private void initializeVReCard(){
+    public void initializeVReCard(){
         for(int i=0; i<2 ; i++){
             visibleReCard.add(resourceDeck.drawCard());
         }
@@ -46,7 +46,7 @@ public class DrawingCardArea {
     /** Creates the 2 visible gold cards, taking them from the firsts two of the generated deck
      *
      */
-    private void initializeVGoCard(){
+    public void initializeVGoCard(){
         for(int i=0; i<2; i++){
             visibleGoCard.add(goldDeck.drawCard());
         }
