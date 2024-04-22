@@ -1,12 +1,12 @@
 package org.example.controller;
 
-import org.example.enumeration.*;
+import org.example.Server;
+import org.example.exception.InvalidCardException;
 import org.example.model.Model;
 import org.example.model.PlayArea.ScoreBoard;
 import org.example.model.deck.*;
 
 import java.util.List;
-import java.util.Scanner;
 
 /** All the attributes and methods for the management of the Player.
  *  The player is in the controller and talks to the PlayArea in the model.
@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Player {
     String username;
     public Player(String username) {
-        this.username= username;
+        this.username = username;
     }
 
     // For Test
@@ -35,24 +35,20 @@ public class Player {
         //}
     }
 
-    public Card ChosenCard (Model model) {
-        boolean InvalidCard= true;
-        Card card=null;
-        while (InvalidCard){
-            SeeHand(model);
-            /*System.out.println("Chose the number of the card you want to play");
-            Scanner scanner= new Scanner(System.in);
-            //todo verificare che il numero inserito sia valido
-            int choice = scanner.nextInt();
-            card = model.getPlayerArea(this).getHand().get(choice);
-            InvalidCard= model.getPlayerArea(this).CheckPlayForGold(card);*/
+    //metodo che verifica la validità di una carta scelta
+    public Card CheckChosenCard(Model model, Card card) throws InvalidCardException {
+        boolean isValidCard = model.getPlayerArea(this).CheckPlayForGold(card);
+        if (!isValidCard) {
+            throw new InvalidCardException("La carta selezionata non è valida.");
+        } else {
+            return card;
         }
-        return card;
     }
 
-    public void Play (Model model){
-        //mostra nodi
-        Card chosencard= ChosenCard(model);
+
+    public void Play (Model model, Server server) throws InvalidCardException {
+        Card card = ; //todo la carta viene richiesta al client
+        Card chosencard= CheckChosenCard(model, card);
         model.getPlayerArea(this).PlayACard(chosencard);
         model.getPlayerArea(this).getHand().remove(chosencard);
     }

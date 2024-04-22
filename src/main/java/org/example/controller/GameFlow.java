@@ -1,4 +1,5 @@
 package org.example.controller;
+import org.example.Server;
 import org.example.model.Model;
 import java.util.List;
 
@@ -9,10 +10,12 @@ import java.util.List;
 public class GameFlow {
     List<Player> players;
     Model model;
+    Server server;
 
-    public GameFlow(List<Player> players, Model model) {
+    public GameFlow(List<Player> players, Model model, Server server) {
         this.players=players;
         this.model= model;
+        this.server=server;
         Rounds();
         Player Winnner = EndGame();
         //System.out.println("the winner is : " + Winnner);
@@ -23,11 +26,11 @@ public class GameFlow {
         while (!IsEnd) {
             for (Player p : players) {
                 //System.out.println("Player: " + p + " Play phase");
-                p.Play(model);
+                p.Play(model, server);
                 //System.out.println("Player: "+ p+ " Update Scoreboard Points");
-                p.UpdateScoreboardPoints(model);
+                p.UpdateScoreboardPoints(model, server);
                 //System.out.println("Player: " + p + " Draw phase");
-                p.Draw(model);
+                p.Draw(model, server);
             }
             IsEnd = model.Checkpoints();
         }

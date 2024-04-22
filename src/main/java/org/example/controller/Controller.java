@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.Server;
 import org.example.model.Model;
 import org.example.enumeration.Color;
 import org.json.simple.parser.ParseException;
@@ -15,33 +16,35 @@ import java.util.Scanner;
  */
 
 public class Controller {
-    public List<Player> players= new ArrayList<>();
+    public List<Player> players = new ArrayList<>();
     GameFlow gameFlow; //per ora costruttore vuoto
     Model model;
+    Server server;
 
-    /** Initializes the list of players and the gameflow, then it will
+    /**
+     * Initializes the list of players and the gameflow, then it will
      * give it the control.
      */
     public Controller(Model model) throws IOException, ParseException {
-        this.model=model;
-        players= this.AcceptPlayerBYTUI(); //accept all players that want to connect
+        this.model = model;
+        players = this.AcceptPlayerBYTUI(); //accept all players that want to connect
         model.setPlayersAndGameArea(players);  //passes the list with all the players to the model
         model.DealCards();
-        gameFlow= new GameFlow(players, model);
+        gameFlow = new GameFlow(players, model, server);
     }
 
-
-    /** First TUI method, accept player, scan username
-     *  give them the possibility to choose color.
+    /**
+     * First TUI method, accept player, scan username
+     * give them the possibility to choose color.
      */
     // TODO gestire l'eccezione inserimento (Int invece che Stringe e viceversa)
-        public List<Player> AcceptPlayerBYTUI() {
-            //System.out.println("Welcome\n");
-            //Scanner scanner = new Scanner(System.in);
-            List<Player> players = new ArrayList<>();
-            List<Color> availableColors = new ArrayList<>(Arrays.asList(Color.values())); // List to remove chosen Colors
-            int choice = 0;
-            while (choice != 2) {
+    public List<Player> AcceptPlayerBYTUI() {
+        //System.out.println("Welcome\n");
+        //Scanner scanner = new Scanner(System.in);
+        List<Player> players = new ArrayList<>();
+        List<Color> availableColors = new ArrayList<>(Arrays.asList(Color.values())); // List to remove chosen Colors
+        int choice = 0;
+        while (choice != 2) {
                 /*System.out.println("Press:" +
                         "\n1 to add a new player." +
                         "\n2 to start the match." +
@@ -77,4 +80,5 @@ public class Controller {
             }*/
             return players;
         }
+    }
 }
