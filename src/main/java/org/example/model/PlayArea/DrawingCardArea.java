@@ -124,4 +124,16 @@ public class DrawingCardArea {
     public List<Card> getVisibleGoCard() {
         return visibleGoCard;
     }
+
+    public Deck getResourceDeck(){
+        return resourceDeck;
+    }
+
+    public Deck getGoldDeck(){
+        return goldDeck;
+    }
+
+    public Deck getStarterDeck(){
+        return starterDeck;
+    }
 }
