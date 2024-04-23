@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.Server;
+import org.example.Server.Server;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
 import org.example.model.PlayArea.ScoreBoard;
@@ -47,7 +47,7 @@ public class Player {
 
 
     public void Play (Model model, Server server) throws InvalidCardException {
-        Card card = ; //todo la carta viene richiesta al client
+        Card card = null; //todo la carta viene richiesta al client
         Card chosencard= CheckChosenCard(model, card);
         model.getPlayerArea(this).PlayACard(chosencard);
         model.getPlayerArea(this).getHand().remove(chosencard);

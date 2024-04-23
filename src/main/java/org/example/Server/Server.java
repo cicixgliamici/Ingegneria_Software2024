@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Server;
 
 import org.example.model.deck.Card;
 

@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.Server;
+import org.example.Server.Server;
 import org.example.model.Model;
 import org.example.enumeration.Color;
 import org.json.simple.parser.ParseException;
@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 /** The Controller is a traffic warden that calls the methods to initialize the players
  *  and the gameflow, and then gives it the control.

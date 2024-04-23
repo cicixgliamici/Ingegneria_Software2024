@@ -1,5 +1,5 @@
 package org.example.controller;
-import org.example.Server;
+import org.example.Server.Server;
 import org.example.model.Model;
 import java.util.List;
 

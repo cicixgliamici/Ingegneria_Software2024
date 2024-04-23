@@ -1,9 +1,16 @@
 package org.example;
 
 import junit.framework.TestCase;
+import org.example.enumeration.CardRes;
 import org.example.enumeration.PropertiesCorner;
+import org.example.enumeration.Type;
 import org.example.enumeration.cast.CastCardRes;
 import org.example.model.PlayArea.*;
+import org.example.model.deck.Card;
+import org.example.model.deck.Deck;
+
+import java.io.IOException;
+import java.text.ParseException;
 
 public class CounterTest extends TestCase {
     public void addResourceTest(){
@@ -55,11 +62,12 @@ public class CounterTest extends TestCase {
         assertEquals(2,counter.getPointCounter());
     }
 
-    public void isPresentTest() throws throws IOException, ParseException {
+    public void isPresentTest() throws IOException {
         Counter counter = new Counter();
-        Deck deck = new Deck(type.RESOURCES);
+        Deck deck = new Deck(Type.RESOURCES);
         Card card = deck.drawCard();
-        assertTrue(counter.isPresent(card));
+        CardRes cardRes = card.getCardRes();
+        assertTrue(counter.IsPresent(cardRes));
     }
 
 }

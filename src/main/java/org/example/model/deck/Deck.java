@@ -25,7 +25,7 @@ public class Deck {
     private Type typeDeck;
     private int CardNumbers;
     List<Card> cards = new ArrayList<>();
-    public Deck(Type typeDeck) throws IOException, ParseException {
+    public Deck(Type typeDeck) throws IOException {
         this.typeDeck = typeDeck;
         switch (typeDeck) {
             case RESOURCES:
