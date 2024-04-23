@@ -32,7 +32,7 @@ public class ScoreBoard {
         tokens.put(color, player);
     }
 
-    public int GetPlayerPoint(Player p){
+    public int getPlayerPoint(Player p){
         return Points.get(p);
     }
     public void UpdatePlayerPoint(Player p, int point){
