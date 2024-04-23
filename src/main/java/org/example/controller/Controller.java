@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.Server.Server;
+import org.example.server.Server;
 import org.example.model.Model;
 import org.example.enumeration.Color;
 import org.json.simple.parser.ParseException;

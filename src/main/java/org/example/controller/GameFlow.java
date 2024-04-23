@@ -1,6 +1,7 @@
 package org.example.controller;
-import org.example.Server.Server;
+import org.example.server.Server;
 import org.example.model.Model;
+import org.example.server.*;
 import java.util.List;
 
 /** The Gameflow is a controller of the status of the match, it depends on the Controller and allows the players only to Draw and Play
