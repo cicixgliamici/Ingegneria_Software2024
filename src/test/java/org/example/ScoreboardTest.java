@@ -2,7 +2,7 @@ package org.example;
 
 import junit.framework.TestCase;
 import org.example.enumeration.*;
-import org.example.model.PlayArea.ScoreBoard;
+import org.example.model.playarea.ScoreBoard;
 import org.example.controller.*;
 
 import java.io.IOException;

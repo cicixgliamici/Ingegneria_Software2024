@@ -1,17 +1,16 @@
 package org.example.model;
 
 import org.example.controller.Player;
-import org.example.model.PlayArea.*;
+import org.example.model.playarea.*;
 import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import org.example.model.deck.*;
-import org.example.model.PlayArea.DrawingCardArea;
+import org.example.model.playarea.DrawingCardArea;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 /** Class in which the Model is properly set up to start the match
  */

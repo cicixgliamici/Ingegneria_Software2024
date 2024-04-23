@@ -1,5 +1,5 @@
 
-package org.example.model.PlayArea;
+package org.example.model.playarea;
 import org.example.enumeration.Color;
 import java.util.HashMap;
 import java.util.Map;

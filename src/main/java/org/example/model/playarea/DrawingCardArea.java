@@ -1,4 +1,4 @@
-package org.example.model.PlayArea;
+package org.example.model.playarea;
 import org.example.model.deck.*;
 import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;

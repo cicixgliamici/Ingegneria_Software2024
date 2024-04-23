@@ -1,4 +1,4 @@
-package org.example.model.PlayArea;
+package org.example.model.playarea;
 
 import org.example.model.deck.Card;
 

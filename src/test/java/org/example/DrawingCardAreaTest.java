@@ -1,14 +1,12 @@
 package org.example;
 
 import junit.framework.TestCase;
-import org.example.model.PlayArea.DrawingCardArea;
+import org.example.model.playarea.DrawingCardArea;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
-import java.util.Stack;
 
 import org.example.model.deck.*;
 import org.example.enumeration.*;
-import org.example.model.deck.*;
 
 public class DrawingCardAreaTest extends TestCase{
     public void VReCardTest() throws IOException, ParseException{

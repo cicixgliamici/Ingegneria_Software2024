@@ -1,4 +1,4 @@
-package org.example.model.PlayArea;
+package org.example.model.playarea;
 
 import org.example.enumeration.CardRes;
 import org.example.enumeration.GoldenPoint;
@@ -9,7 +9,6 @@ import org.example.model.deck.*;
 import org.example.enumeration.cast.CastCardRes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /** It is connected to a player through a Hash Map, and contains his Hand and the
  * cards he has played.

@@ -4,13 +4,11 @@ import junit.framework.TestCase;
 import org.example.enumeration.CardRes;
 import org.example.enumeration.PropertiesCorner;
 import org.example.enumeration.Type;
-import org.example.enumeration.cast.CastCardRes;
-import org.example.model.PlayArea.*;
+import org.example.model.playarea.*;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 public class CounterTest extends TestCase {
     public void addResourceTest(){

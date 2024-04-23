@@ -2,8 +2,8 @@ package org.example;
 
 import junit.framework.TestCase;
 import org.example.enumeration.Type;
-import org.example.model.PlayArea.Node;
-import org.example.model.PlayArea.PlaceHolder;
+import org.example.model.playarea.Node;
+import org.example.model.playarea.PlaceHolder;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
 import org.json.simple.parser.ParseException;

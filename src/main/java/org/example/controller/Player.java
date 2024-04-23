@@ -3,7 +3,7 @@ package org.example.controller;
 import org.example.server.Server;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
-import org.example.model.PlayArea.ScoreBoard;
+import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
 
 import java.util.List;
