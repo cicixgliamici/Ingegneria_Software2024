@@ -57,6 +57,9 @@ public class Counter {
         if(propertiesCorner==PropertiesCorner.ANIMAL){
             this.AnimalCounter--;
         }
+        else if(propertiesCorner==PropertiesCorner.INSECT){
+            this.InsectCounter--;
+        }
         else if(propertiesCorner==PropertiesCorner.FUNGI){
             this.FungiCounter--;
         }
@@ -68,9 +71,6 @@ public class Counter {
         }
         else if(propertiesCorner==PropertiesCorner.INKWELL){
             this.InkwellCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.INSECT){
-            this.InsectCounter--;
         }
         else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
             this.ManuscriptCounter--;
