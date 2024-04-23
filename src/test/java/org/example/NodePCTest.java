@@ -13,6 +13,19 @@ import java.util.List;
 
 public class NodeTest  extends TestCase {
 
+    public void testPlaceHolder() {
+        PlaceHolder placeholder = new PlaceHolder(12,24);
+        assertEquals(12, placeholder.getX());
+        assertEquals(24, placeholder.getY());
+        assertNull(placeholder.getCard);
+        assertNull(placeholder.getTopL);
+        assertNull(placeholder.getTopR);
+        assertNull(placeholder.getBotL);
+        assertNull(placeholder.getBotR);
+        String expectedToString = "Placeholder 12 : 24";
+        assertEquals(expectedToString, placeholder.toString());
+    }
+
     /** Constructors
      */
         public void testFCNode() throws IOException, ParseException {
