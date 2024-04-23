@@ -55,4 +55,11 @@ public class CounterTest extends TestCase {
         assertEquals(2,counter.getPointCounter());
     }
 
+    public void isPresentTest() throws throws IOException, ParseException {
+        Counter counter = new Counter();
+        Deck deck = new Deck(type.RESOURCES);
+        Card card = deck.drawCard();
+        assertTrue(counter.isPresent(card));
+    }
+
 }
