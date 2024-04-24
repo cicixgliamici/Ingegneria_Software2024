@@ -6,6 +6,7 @@ import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import org.example.model.deck.*;
 import org.example.model.playarea.DrawingCardArea;
+import org.example.controller.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Model {
     private List<Player> PlayersList;
 
     private List<Card> PublicObjective;
+    private int currentPlayer;
 
 
     /** Constructor of the Model
@@ -119,6 +121,10 @@ public class Model {
             if(getPlayerArea(p).getCounter().getPointCounter()>=20) return true;
         }
         return false;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
     }
 
 

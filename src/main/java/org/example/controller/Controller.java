@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.Parameters;
 import org.example.server.Server;
 import org.example.model.Model;
 import org.example.enumeration.Color;
@@ -79,5 +80,13 @@ public class Controller {
             }*/
             return players;
         }
+    }
+    public void setParameters(int numPlayers) throws IOException, ParseException {
+        Parameters.setParameters(numPlayers);
+        this.model = new Model();
+    }
+
+    public void addPlayer(Player player){
+
     }
 }

@@ -15,8 +15,11 @@ import java.util.List;
 
 public class Player {
     String username;
-    public Player(String username) {
+    private int id;
+
+    public Player(String username, int id) {
         this.username = username;
+        this.id = id;
     }
 
     // For Test
@@ -127,6 +130,9 @@ public class Player {
         if(scoreBoard.GetPlayerPoint(this)<model.getPlayerArea(this).getCounter().getPointCounter()){
             scoreBoard.UpdatePlayerPoint(this, model.getPlayerArea(this).getCounter().getPointCounter());
         }
+    }
+    public int getId(){
+        return id;
     }
 }
 

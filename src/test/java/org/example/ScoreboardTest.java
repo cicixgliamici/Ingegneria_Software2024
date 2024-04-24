@@ -11,11 +11,11 @@ import java.text.ParseException;
 public class ScoreboardTest extends TestCase {
     public void testAddToken() throws IOException, ParseException {
         ScoreBoard scoreboard = new ScoreBoard();
-        Player player1 = new Player("eren_yeager");
-        Player player2 = new Player("grisha_yeager");
-        Player player3 = new Player("zeke_yeager");
-        Player player4 = new Player("carla_yeager");
-        Player player5 = new Player("dina_fritz");
+        Player player1 = new Player("eren_yeager", 1);
+        Player player2 = new Player("grisha_yeager", 2);
+        Player player3 = new Player("zeke_yeager", 3);
+        Player player4 = new Player("carla_yeager", 4);
+        Player player5 = new Player("dina_fritz", 5);
         scoreboard.addToken(Color.BLUE, player1);
         scoreboard.addToken(Color.RED, player2);
         scoreboard.addToken(Color.GREEN, player3);
@@ -28,17 +28,17 @@ public class ScoreboardTest extends TestCase {
     }
 
     public void testPoints() throws IOException, ParseException {
-        Player player1 = new Player("the_Owl");
+        Player player1 = new Player("the_Owl", 1);
         ScoreBoard scoreboard = new ScoreBoard();
         scoreboard.UpdatePlayerPoint(player1, 10);
         assertEquals(10, scoreboard.getPlayerPoint(player1));
     }
 
     public void testWinner() throws IOException, ParseException {
-        Player player1 = new Player("travis_scott");
-        Player player2 = new Player("young_thug");
-        Player player3 = new Player("twentyone_savage");
-        Player player4 = new Player("playboi_carti");
+        Player player1 = new Player("travis_scott", 1);
+        Player player2 = new Player("young_thug", 2);
+        Player player3 = new Player("twentyone_savage", 3);
+        Player player4 = new Player("playboi_carti", 4);
         ScoreBoard scoreboard = new ScoreBoard();
         scoreboard.UpdatePlayerPoint(player1, 10);
         scoreboard.UpdatePlayerPoint(player2, 20);
