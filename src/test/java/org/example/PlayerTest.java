@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class PlayerTest extends TestCase {
     public void testToString() throws IOException, ParseException{
-        Player player1 = new Player("cash_carti", 1);
+        Player player1 = new Player("cash_carti");
         String expectedToString = "cash_carti";
         assertEquals(expectedToString, player1.toString());
     }

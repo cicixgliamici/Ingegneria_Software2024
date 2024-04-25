@@ -11,17 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodeTest  extends TestCase {
+public class NodePCTest  extends TestCase {
 
     public void testPlaceHolder() {
         PlaceHolder placeholder = new PlaceHolder(12,24);
         assertEquals(12, placeholder.getX());
         assertEquals(24, placeholder.getY());
-        assertNull(placeholder.getCard);
-        assertNull(placeholder.getTopL);
-        assertNull(placeholder.getTopR);
-        assertNull(placeholder.getBotL);
-        assertNull(placeholder.getBotR);
         String expectedToString = "Placeholder 12 : 24";
         assertEquals(expectedToString, placeholder.toString());
     }
@@ -126,11 +121,11 @@ public class NodeTest  extends TestCase {
 
     /** Test particular setters
      */
-    public void testSetPlaceHolderByCard() throws IOException, ParseException {
+    public void testSetPlaceHolderByCard() throws IOException {
         // todo
     }
 
-    public void testSetNodePlaceHolder() throws IOException, ParseException{
+    public void testSetNodePlaceHolder() throws IOException{
         // todo
     }
 

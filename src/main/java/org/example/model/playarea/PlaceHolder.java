@@ -57,4 +57,3 @@ public class PlaceHolder {
     public void SetCardNode(Card card, List<PlaceHolder> placeHolders, List<PlaceHolder> availableNodes, List<PlaceHolder> allNodes) {
     }
 }
-

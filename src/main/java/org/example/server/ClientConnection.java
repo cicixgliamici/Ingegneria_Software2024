@@ -1,7 +1,7 @@
 package org.example.server;
 
 import org.example.listener.MoveListener;
-import sun.jvm.hotspot.utilities.Observer;
+//import sun.jvm.hotspot.utilities.Observer;
 
 public interface ClientConnection {
     void closeConnection();

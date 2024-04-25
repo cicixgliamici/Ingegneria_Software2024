@@ -1,3 +1,4 @@
+
 package org.example.server;
 
 import org.example.listener.*;
@@ -15,6 +16,7 @@ public class SocketClientConnection implements ClientConnection, Runnable, MoveS
     private Server server;
 
     private boolean active = true;
+
 
     private boolean isActive(){
         return active;
@@ -50,6 +52,7 @@ public class SocketClientConnection implements ClientConnection, Runnable, MoveS
         server.deregisterConnection(this);
         System.out.println("Done!");
     }
+
 
     @Override
     public void run() {

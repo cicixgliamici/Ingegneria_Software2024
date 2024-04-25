@@ -5,6 +5,8 @@ import org.example.exception.InvalidCardException;
 import org.example.model.Model;
 import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
+import org.example.model.playarea.PlaceHolder;
+import org.example.model.playarea.ScoreBoard;
 
 import java.util.List;
 
@@ -15,11 +17,8 @@ import java.util.List;
 
 public class Player {
     String username;
-    private int id;
-
-    public Player(String username, int id) {
+    public Player(String username) {
         this.username = username;
-        this.id = id;
     }
 
     // For Test
@@ -50,7 +49,8 @@ public class Player {
 
 
     public void Play (Model model, Server server) throws InvalidCardException {
-        Card card = null; //todo la carta viene richiesta al client
+        Card card = null ; //todo la carta viene richiesta al client
+        PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
         Card chosencard= CheckChosenCard(model, card);
         model.getPlayerArea(this).PlayACard(chosencard);
         model.getPlayerArea(this).getHand().remove(chosencard);
@@ -60,6 +60,7 @@ public class Player {
         /*System.out.println("Pick your starter card side 1 - front , 2 - back");
         Scanner scanner= new Scanner(System.in);
         return scanner.nextInt();*/
+        return 1;
     }
 
     public void Draw (Model model){
@@ -130,9 +131,6 @@ public class Player {
         if(scoreBoard.GetPlayerPoint(this)<model.getPlayerArea(this).getCounter().getPointCounter()){
             scoreBoard.UpdatePlayerPoint(this, model.getPlayerArea(this).getCounter().getPointCounter());
         }
-    }
-    public int getId(){
-        return id;
     }
 }
 

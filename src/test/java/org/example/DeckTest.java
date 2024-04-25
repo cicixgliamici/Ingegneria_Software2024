@@ -15,7 +15,7 @@ import org.example.enumeration.*;
 public class DeckTest extends TestCase {
 
     //* Test the creation and the correct number of cards in the decks
-    public void testDeckProperties() throws IOException, ParseException {
+    public void testDeckProperties() throws IOException {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
             assertEquals(type, deck.getTypeDeck());
@@ -33,7 +33,7 @@ public class DeckTest extends TestCase {
         }
     }
     //* Test the method Draw from the class Deck
-    public void testDeckDraw() throws IOException, ParseException {
+    public void testDeckDraw() throws IOException {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
             assertEquals(type, deck.getTypeDeck());
@@ -57,7 +57,7 @@ public class DeckTest extends TestCase {
     *   Had to use "FakeDrawCard" instead of "drawCard" because
     *   drawCard removes the card from the deck
      */
-    public void testShuffleResources() throws IOException, ParseException {
+    public void testShuffleResources() throws IOException {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
             assertEquals(type, deck.getTypeDeck());
@@ -71,7 +71,7 @@ public class DeckTest extends TestCase {
     }
 
     //* Pumped version that see every card 
-    public void testShuffleV2Resources() throws IOException, ParseException {
+    public void testShuffleV2Resources() throws IOException {
         for (Type type : Type.values()) {
             Deck originalDeck = new Deck(type);
             assertEquals(type, originalDeck.getTypeDeck());

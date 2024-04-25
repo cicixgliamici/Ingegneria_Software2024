@@ -90,6 +90,10 @@ public class Model {
     }
 
 
+    public void setPlayersList(List<Player> playersList) {
+        PlayersList = playersList;
+    }
+
     /** Associates to each player
      * their own player area
      */
