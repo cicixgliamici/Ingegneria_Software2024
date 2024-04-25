@@ -14,8 +14,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-    private boolean chooseMode;
     private int numPlayers;
+    private boolean First = false;
 
     public void setParameters(int numPlayers) {
         this.numPlayers = numPlayers;
@@ -25,49 +25,28 @@ public class Server {
         //todo metodo che chiede al client una carta dalla mano
         return new Card();
     }
-
-    public int getNumPlayers() {
-        return numPlayers;
-    }
-
-    public void setChooseMode(boolean chooseMode) {
-        this.chooseMode = chooseMode;
-    }
-
-    public boolean isChooseMode() {
-        return chooseMode;
-    }
-
-    private ServerSocket serverSocket;
-    private ExecutorService executor = Executors.newFixedThreadPool(128);
+    private ServerSocket serverSocket; //socket del server
+    private ExecutorService executor = Executors.newFixedThreadPool(128); //creazione dei thread
     private Map<String, ClientConnection> waitingConnection = new HashMap<>();
-    private Map<ClientConnection, ClientConnection> playingConnection = new HashMap<>();
+    private List<ClientConnection> playerConnected = new ArrayList<>();
     private ArrayList<String> nicknames = new ArrayList<>();
 
-
     /**
-     * Method deregisterClient deletes a client from the hashMaps and active lists, unregistering his
-     * connection with the server
-     *
-     * @param c of type ClientConnection
+     * Method to initialize server
+     * @param port
+     * @throws IOException
      */
+    public Server(int port) throws IOException {
+        this.serverSocket = new ServerSocket(port);
+    }
 
 
     public synchronized void deregisterConnection(ClientConnection c) {
-        ClientConnection opponent = playingConnection.get(c);
-        ClientConnection opponent2 = playingConnection.get(opponent);
-
-        if (opponent != null) {
-            opponent.closeConnection();
+        ClientConnection player = c;
+        if(player != null){
+            player.closeConnection();
         }
-
-        if (opponent2 != null) {
-            opponent2.closeConnection();
-        }
-
-        playingConnection.remove(c);
-        playingConnection.remove(opponent);
-        playingConnection.remove(opponent2);
+        playerConnected.remove(c);
         Iterator<String> iterator = waitingConnection.keySet().iterator();
         while (iterator.hasNext()) {
             if (waitingConnection.get(iterator.next()) == c) {
@@ -93,10 +72,7 @@ public class Server {
 
             ClientConnection c1 = waitingConnection.get(keys.get(1));
             ClientConnection c2 = waitingConnection.get(keys.get(0));
-            Player player1 = new Player(keys.get(1), 0);
-            Player player2 = new Player(keys.get(0), 1);
-            View player1View = new RemoteView(player1, keys.get(0), c1);
-            View player2View = new RemoteView(player2, keys.get(1), c2);
+            //todo implemntazione della view da far partire
 
             controller.addPlayer(player1);
             controller.addPlayer(player2);
@@ -238,5 +214,27 @@ public class Server {
                 c4.asyncSend(gameMessage.moveMessage);
             }
         }
+    }
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+    public boolean isFirst(){
+        return First;
+    }
+
+    public ArrayList<String> getNicknames() {
+        return nicknames;
+    }
+
+    public Map<String, ClientConnection> getWaitingConnection() {
+        return waitingConnection;
+    }
+
+    public void setFirst(boolean first) {
+        First = first;
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
     }
 }
