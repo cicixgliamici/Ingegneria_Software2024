@@ -1,5 +1,6 @@
 [
   {
+    "id": 81,
     "type": "STARTER",
     "requireGold": ["INSECT"
     ],
@@ -45,6 +46,7 @@
     }
   },
   {
+    "id": 82,
     "type": "STARTER",
     "requireGold": ["FUNGI"
     ],
@@ -90,6 +92,7 @@
     }
   },
   {
+    "id": 83,
     "type": "STARTER",
     "requireGold": ["PLANT", "FUNGI"
     ],
@@ -135,6 +138,7 @@
     }
   },
   {
+    "id": 84,
     "type": "STARTER",
     "requireGold": ["ANIMAL", "INSECT"
     ],
@@ -180,6 +184,7 @@
     }
   },
   {
+    "id": 85,
     "type": "STARTER",
     "requireGold": ["ANIMAL", "INSECT", "PLANT"
     ],
@@ -225,6 +230,7 @@
     }
   },
   {
+    "id": 86,
     "type": "STARTER",
     "requireGold": ["PLANT", "ANIMAL", "FUNGI"
     ],

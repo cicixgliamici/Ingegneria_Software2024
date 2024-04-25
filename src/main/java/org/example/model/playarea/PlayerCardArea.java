@@ -32,10 +32,11 @@ public class PlayerCardArea {
         UpdateCounter(cardStarter);
     }
 
-    public void PlayACard (Card card){
+    public void PlayACard (Card card, PlaceHolder placeHolder){
+
         //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player
-        PlaceHolder chosenNode = printAndChooseNode(); //scegliamo il nodo su cui giocare la carta
-        ModifyGameArea(card, chosenNode);
+        //PlaceHolder chosenNode = printAndChooseNode(); //scegliamo il nodo su cui giocare la carta
+        ModifyGameArea(card, placeHolder);
     }
 
     public void ModifyGameArea (Card card, PlaceHolder node){
@@ -560,5 +561,25 @@ public class PlayerCardArea {
 
     public void setSecretObjective(Card secretObjective) {
         SecretObjective = secretObjective;
+    }
+
+    public Card getSecretObjective() {
+        return SecretObjective;
+    }
+
+    public List<PlaceHolder> getAvailableNodes() {
+        return AvailableNodes;
+    }
+
+    public List<PlaceHolder> getPlaceHolders() {
+        return PlaceHolders;
+    }
+
+    public List<PlaceHolder> getAlreadyUsed() {
+        return AlreadyUsed;
+    }
+
+    public List<PlaceHolder> getAllNodes() {
+        return AllNodes;
     }
 }

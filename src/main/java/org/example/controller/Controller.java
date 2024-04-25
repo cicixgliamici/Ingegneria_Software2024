@@ -27,10 +27,10 @@ public class Controller {
      */
     public Controller(Model model) throws IOException, ParseException {
         this.model = model;
-        players = this.AcceptPlayerBYTUI(); //accept all players that want to connect
+        //players = this.AcceptPlayerBYTUI(); //accept all players that want to connect
         model.setPlayersAndGameArea(players);  //passes the list with all the players to the model
         model.DealCards();
-        gameFlow = new GameFlow(players, model, server);
+        //gameFlow = new GameFlow(players, model, server);
     }
 
     /**
@@ -38,6 +38,7 @@ public class Controller {
      * give them the possibility to choose color.
      */
     // TODO gestire l'eccezione inserimento (Int invece che Stringe e viceversa)
+    /*
     public List<Player> AcceptPlayerBYTUI() {
         //System.out.println("Welcome\n");
         //Scanner scanner = new Scanner(System.in);
@@ -77,10 +78,13 @@ public class Controller {
                         break;
 
                 }
-            }*/
+            }
             return players;
         }
     }
+
+     */
+
     public void setParameters(int numPlayers) throws IOException, ParseException {
         Parameters.setParameters(numPlayers);
         this.model = new Model();

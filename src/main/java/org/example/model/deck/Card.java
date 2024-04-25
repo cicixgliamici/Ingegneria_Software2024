@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class Card {
+    private int id;
     private Type type;        // Type of the card (Res, Gold, Obj, Srt)
     private CardRes cardres;    // Permanent resource
                                 //per le carte obbiettivo puo servire per la grafica, quelle con null sono grigie
@@ -25,9 +26,10 @@ public class Card {
     private CardPosition cardposition;   // Position of the card
     private SideCard side;  // Reference to the object SideCard
     private int CoveredCornerByCard;
-    public Card(Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints objectivePoints, CardPosition cardposition, SideCard side) {
+    public Card(int id, Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
+        this.id=id;
         this.requireGold = requireGold;
         this.points = points;
         this.goldenPoint= goldenPoint;
@@ -242,6 +244,14 @@ public class Card {
 
     public int getCoveredCornerByCard() {
         return this.CoveredCornerByCard;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public CardRes getCardres() {
+        return cardres;
     }
 
 }

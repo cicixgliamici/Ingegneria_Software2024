@@ -11,7 +11,7 @@ public class GameFlow {
     List<Player> players;
     Model model;
     Server server;
-
+    /*
     public GameFlow(List<Player> players, Model model, Server server) {
         this.players=players;
         this.model= model;
@@ -20,7 +20,7 @@ public class GameFlow {
         Player Winnner = EndGame();
         //System.out.println("the winner is : " + Winnner);
     }
-
+    /*
     public void Rounds () {
         boolean IsEnd = false;
         while (!IsEnd) {
@@ -36,6 +36,8 @@ public class GameFlow {
         }
     }
 
+     */
+    /*
     public Player EndGame(){
         for (Player p : players) {
             model.getPlayerArea(p).privateObject();
@@ -44,5 +46,7 @@ public class GameFlow {
         }
         return model.getScoreBoard().Winner();
     }
+    */
 
 }
+

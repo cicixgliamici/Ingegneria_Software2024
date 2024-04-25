@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -46,6 +47,7 @@
     }
   },
   {
+    "id": 2,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -92,6 +94,7 @@
     }
   },
   {
+    "id": 3,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -138,6 +141,7 @@
     }
   },
   {
+    "id": 4,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -184,6 +188,7 @@
     }
   },
   {
+    "id": 5,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -230,6 +235,7 @@
     }
   },
   {
+    "id": 6,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -276,6 +282,7 @@
     }
   },
   {
+    "id": 7,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -322,6 +329,7 @@
     }
   },
   {
+    "id": 8,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -368,6 +376,7 @@
     }
   },
   {
+    "id": 9,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -414,6 +423,7 @@
     }
   },
   {
+    "id": 10,
     "type": "RESOURCES",
     "cardres": "FUNGI",
     "requireGold": [],
@@ -460,6 +470,7 @@
     }
   },
   {
+    "id": 11,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -506,6 +517,7 @@
     }
   },
   {
+    "id": 12,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -552,6 +564,7 @@
     }
   },
   {
+    "id": 13,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -598,6 +611,7 @@
     }
   },
   {
+    "id": 14,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -644,6 +658,7 @@
     }
   },
   {
+    "id": 15,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -690,6 +705,7 @@
     }
   },
   {
+    "id": 16,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -736,6 +752,7 @@
     }
   },
   {
+    "id": 17,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -782,6 +799,7 @@
     }
   },
   {
+    "id": 18,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -828,6 +846,7 @@
     }
   },
   {
+    "id": 19,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -874,6 +893,7 @@
     }
   },
   {
+    "id": 20,
     "type": "RESOURCES",
     "cardres": "PLANT",
     "requireGold": [],
@@ -920,6 +940,7 @@
     }
   },
   {
+    "id": 21,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -966,6 +987,7 @@
     }
   },
   {
+    "id": 22,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1012,6 +1034,7 @@
     }
   },
   {
+    "id": 23,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1058,6 +1081,7 @@
     }
   },
   {
+    "id": 24,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1104,6 +1128,7 @@
     }
   },
   {
+    "id": 25,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1150,6 +1175,7 @@
     }
   },
   {
+    "id": 26,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1196,6 +1222,7 @@
     }
   },
   {
+    "id": 27,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1242,6 +1269,7 @@
     }
   },
   {
+    "id": 28,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1288,6 +1316,7 @@
     }
   },
   {
+    "id": 29,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1334,6 +1363,7 @@
     }
   },
   {
+    "id": 30,
     "type": "RESOURCES",
     "cardres": "ANIMAL",
     "requireGold": [],
@@ -1380,6 +1410,7 @@
     }
   },
   {
+    "id": 31,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1426,6 +1457,7 @@
     }
   },
   {
+    "id": 32,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1472,6 +1504,7 @@
     }
   },
   {
+    "id": 33,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1518,6 +1551,7 @@
     }
   },
   {
+    "id": 34,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1564,6 +1598,7 @@
     }
   },
   {
+    "id": 35,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1610,6 +1645,7 @@
     }
   },
   {
+    "id": 36,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1656,6 +1692,7 @@
     }
   },
   {
+    "id": 37,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1702,6 +1739,7 @@
     }
   },
   {
+    "id": 38,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1748,6 +1786,7 @@
     }
   },
   {
+    "id": 39,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],
@@ -1794,6 +1833,7 @@
     }
   },
   {
+    "id": 40,
     "type": "RESOURCES",
     "cardres": "INSECT",
     "requireGold": [],

@@ -40,7 +40,7 @@ public class Server {
         this.serverSocket = new ServerSocket(port);
     }
 
-
+    /*
     public synchronized void deregisterConnection(ClientConnection c) {
         ClientConnection player = c;
         if(player != null){
@@ -237,4 +237,6 @@ public class Server {
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
+
+     */
 }

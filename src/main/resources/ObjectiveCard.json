@@ -1,5 +1,6 @@
 [
   {
+    "id": 87,
     "type": "OBJECT",
     "cardres": "FUNGI",
     "points": 2,
@@ -10,6 +11,7 @@
     }
   },
   {
+    "id": 88,
     "type": "OBJECT",
     "cardres": "PLANT",
     "points": 2,
@@ -20,6 +22,7 @@
     }
   },
   {
+    "id": 89,
     "type": "OBJECT",
     "cardres": "ANIMAL",
     "points": 2,
@@ -30,6 +33,7 @@
     }
   },
   {
+    "id": 90,
     "type": "OBJECT",
     "cardres": "INSECT",
     "points": 2,
@@ -40,6 +44,7 @@
     }
   },
   {
+    "id": 91,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
@@ -50,6 +55,7 @@
     }
   },
   {
+    "id": 92,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
@@ -60,6 +66,7 @@
     }
   },
   {
+    "id": 93,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
@@ -70,6 +77,7 @@
     }
   },
   {
+    "id": 94,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
@@ -80,6 +88,7 @@
     }
   },
   {
+    "id": 95,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
@@ -90,6 +99,7 @@
     }
   },
   {
+    "id": 96,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
@@ -100,6 +110,7 @@
     }
   },
   {
+    "id": 97,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
@@ -110,6 +121,7 @@
     }
   },
   {
+    "id": 98,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 2,
@@ -120,6 +132,7 @@
     }
   },
   {
+    "id": 99,
     "type": "OBJECT",
     "cardres": "NULL",
     "points": 3,
@@ -130,6 +143,7 @@
     }
   },
   {
+    "id": 100,
     "type": "OBJECT",
     "cardres": "MANUSCRIPT",
     "points": 2,
@@ -140,6 +154,7 @@
     }
   },
   {
+    "id": 101,
     "type": "OBJECT",
     "cardres": "INKWELL",
     "points": 2,
@@ -150,6 +165,7 @@
     }
   },
   {
+    "id": 102,
     "type": "OBJECT",
     "cardres": "QUILL",
     "points": 2,

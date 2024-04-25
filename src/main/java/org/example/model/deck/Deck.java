@@ -35,6 +35,7 @@ public class Deck {
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
+                        int id = Integer.parseInt(card.get("id").toString());
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
                         int points = Integer.parseInt(card.get("points").toString());
@@ -44,7 +45,7 @@ public class Deck {
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-                        cards.add(new Card(type, cardres, null, points, null, null, cardposition, sideCard));
+                        cards.add(new Card(id, type, cardres, null, points, null, null, cardposition, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
@@ -58,6 +59,7 @@ public class Deck {
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
+                        int id = Integer.parseInt(card.get("id").toString());
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
                         JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
@@ -73,7 +75,7 @@ public class Deck {
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-                        cards.add(new Card(type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
+                        cards.add(new Card(id, type, cardres, requireGold, points, goldenPoint, null, cardposition, sideCard));
                     }
 
                 } catch (org.json.simple.parser.ParseException e) {
@@ -88,6 +90,7 @@ public class Deck {
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
+                        int id = Integer.parseInt(card.get("id").toString());
                         Type type = Type.valueOf((String) card.get("type"));
                         CardRes cardres = CardRes.valueOf((String) card.get("cardres"));
                         /*
@@ -103,7 +106,7 @@ public class Deck {
                         JSONObject sideObject = (JSONObject) card.get("side");
                         Side side = Side.valueOf((String) sideObject.get("side"));
                         SideCard sideCard = new SideCard(side, null, null);
-                        cards.add(new Card(type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
+                        cards.add(new Card(id, type, cardres, null, points, null, objectivePoints, cardposition, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);
@@ -117,6 +120,7 @@ public class Deck {
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
+                        int id = Integer.parseInt(card.get("id").toString());
                         Type type = Type.valueOf((String) card.get("type"));
                         JSONArray requireGoldArray = (JSONArray) card.get("requireGold");
                         CardRes[] requireGold = new CardRes[requireGoldArray.size()];
@@ -128,7 +132,7 @@ public class Deck {
                         List<Corner> frontCorners = readCorners((JSONArray) sideObject.get("front"));
                         List<Corner> backCorners = readCorners((JSONArray) sideObject.get("back"));
                         SideCard sideCard = new SideCard(side, frontCorners, backCorners);
-                        cards.add(new Card(type, null, requireGold, null, null, null, null, sideCard));
+                        cards.add(new Card(id, type, null, requireGold, null, null, null, null, sideCard));
                     }
                 } catch (org.json.simple.parser.ParseException e) {
                     throw new RuntimeException(e);

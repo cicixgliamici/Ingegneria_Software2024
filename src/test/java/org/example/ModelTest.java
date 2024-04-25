@@ -3,6 +3,7 @@ package org.example;
 import junit.framework.TestCase;
 
 import org.example.enumeration.Type;
+import org.example.exception.PlaceholderNotValid;
 import org.example.model.Model;
 import org.example.controller.Player;
 import org.example.model.playarea.Node;
@@ -18,11 +19,15 @@ import java.util.Scanner;
 import static junit.framework.Assert.assertEquals;
 
 public class ModelTest extends TestCase {
-    public void testDealCards() throws IOException, ParseException{
+
+    /** Test for the method DealCard which is in the Model, simulate
+     * the beginning of a match
+     */
+    public void testDealCards() throws IOException,ParseException{
         Model model = new Model();
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("Blur");
+        Player player1 = new Player("blur");
         Player player2 = new Player("manuxo");
         model.getPlayersList().add(player1);
         model.getPlayersList().add(player2);
@@ -46,7 +51,25 @@ public class ModelTest extends TestCase {
         assertEquals(2, model.getDrawingCardArea().getVisibleGoCard().size());
         assertEquals(2, model.getDrawingCardArea().getVisibleReCard().size());
     }
-    public void testPlayArea() throws IOException, ParseException {
+
+    public void testPlayAndDraw() throws IOException, ParseException, PlaceholderNotValid {
+        Model model = new Model();
+        List<Player> playerslist=new ArrayList<>();
+        model.setPlayersList(playerslist);
+        Player player1 = new Player("dario_moccia");
+        model.getPlayersList().add(player1);
+        model.setPlayersAndGameArea(model.getPlayersList());
+        model.DealCards();
+        player1.Play(model, 1, 1,1);
+        assertEquals(2, model.getPlayerArea(player1).getHand().size());
+        assertEquals(2, model.getPlayerArea(player1).getAllNodes().size());
+        player1.Draw(model, 0);
+        assertEquals(3, model.getPlayerArea(player1).getHand().size());
+        // 40 - 2*n - 2 - 1
+        assertEquals(35, model.getDrawingCardArea().getResourceDeck().getCardNumbers());
+        player1.Play(model, 1, -1,1);
+        assertEquals(3, model.getPlayerArea(player1).getAllNodes().size());
+        assertEquals(2, model.getPlayerArea(player1).getHand().size());
     }
 
 }

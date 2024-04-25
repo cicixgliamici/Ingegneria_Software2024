@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import org.example.enumeration.Type;
+import org.example.exception.PlaceholderNotValid;
 import org.example.server.Server;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
@@ -8,6 +10,7 @@ import org.example.model.deck.*;
 import org.example.model.playarea.PlaceHolder;
 import org.example.model.playarea.ScoreBoard;
 
+import java.awt.peer.PanelPeer;
 import java.util.List;
 
 /** All the attributes and methods for the management of the Player.
@@ -48,12 +51,22 @@ public class Player {
     }
 
 
-    public void Play (Model model, Server server) throws InvalidCardException {
-        Card card = null ; //todo la carta viene richiesta al client
+    public void Play (Model model, int choice, int x, int y) throws PlaceholderNotValid {
+        Card card = model.getPlayerArea(this).getHand().get(choice);
         PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
-        Card chosencard= CheckChosenCard(model, card);
-        model.getPlayerArea(this).PlayACard(chosencard);
-        model.getPlayerArea(this).getHand().remove(chosencard);
+        try {
+            for(PlaceHolder p : model.getPlayerArea(this).getAvailableNodes()){
+                if(p.x==x && p.y==y){
+                    placeHolder=p;
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
+        //Card chosencard= CheckChosenCard(model, card); //todo questo check va fatto prima, nel server
+        model.getPlayerArea(this).PlayACard(card, placeHolder);
+        model.getPlayerArea(this).getHand().remove(card);
     }
 
     public int ChooseStarterSide(){
@@ -63,62 +76,36 @@ public class Player {
         return 1;
     }
 
-    public void Draw (Model model){
+    public void Draw (Model model, int choice){
         //todo gestire l'eccezione di un inserimento non valido
         Card card;
         model.getDrawingCardArea().DisplayVisibleCard();
-        /*Scanner scanner=new Scanner(System.in);
-        int choice;
-        System.out.println("Press:" +
-                "\n1 to draw from the deck" +
-               "\n2 to draw from the visible cards");
-        choice= scanner.nextInt();
-        scanner.nextLine();
-        switch (choice){
-            case 1:
-                System.out.println("Press:" +
-                "\n1 to draw from the resource deck" +
-                "\n2 to draw from the gold deck");
-                choice= scanner.nextInt();
-                scanner.nextLine();
-                if(choice==1){
-                    card = model.getDrawingCardArea().drawCardFromDeck(Type.RESOURCES);
-                    model.getPlayerArea(this).getHand().add(card);
-                }
-                if (choice==2) {
-                    card = model.getDrawingCardArea().drawCardFromDeck(Type.GOLD);
-                    model.getPlayerArea(this).getHand().add(card);
-                }
+        switch (choice) {
+            case 0:
+                card = model.getDrawingCardArea().drawCardFromDeck(Type.RESOURCES);
+                model.getPlayerArea(this).getHand().add(card);
                 break;
-
+            case 1:
+                card = model.getDrawingCardArea().drawCardFromDeck(Type.GOLD);
+                model.getPlayerArea(this).getHand().add(card);
+                break;
             case 2:
-                System.out.println("Press:" +
-                        "\n1 to draw from the resource area" +
-                        "\n2 to draw from the gold area");
-                choice = scanner.nextInt();
-                scanner.nextLine();
-                if (choice == 1) {
-                    int maxIndex = model.getDrawingCardArea().getVisibleReCard().size() - 1;
-                    //System.out.println("Enter the number of the resource card you want to draw (0-" + maxIndex + "):");
-                    int resourceIndex = scanner.nextInt();
-                    if (resourceIndex >= 0 && resourceIndex <= maxIndex) {
-                        card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, resourceIndex);
-                        model.getPlayerArea(this).getHand().add(card);
-                    }
-                }
-                if (choice == 2) {
-                    int maxIndex = model.getDrawingCardArea().getVisibleGoCard().size() - 1;
-                    //System.out.println("Enter the number of the gold card you want to draw (0-" + maxIndex + "):");
-                    int goldIndex = scanner.nextInt();
-                    if (goldIndex >= 0 && goldIndex <= maxIndex) {
-                        card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, goldIndex);
-                        model.getPlayerArea(this).getHand().add(card);
-                    }
-                    break;
-                }
-        }*/
-
-
+                card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, 0);
+                model.getPlayerArea(this).getHand().add(card);
+                break;
+            case 3:
+                card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, 1);
+                model.getPlayerArea(this).getHand().add(card);
+                break;
+            case 4:
+                card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, 0);
+                model.getPlayerArea(this).getHand().add(card);
+                break;
+            case 5:
+                card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, 1);
+                model.getPlayerArea(this).getHand().add(card);
+                break;
+        }
     }
 
     @Override
@@ -128,7 +115,7 @@ public class Player {
 
     public void UpdateScoreboardPoints(Model model){
         ScoreBoard scoreBoard= model.getScoreBoard();
-        if(scoreBoard.GetPlayerPoint(this)<model.getPlayerArea(this).getCounter().getPointCounter()){
+        if(scoreBoard.getPlayerPoint(this) < model.getPlayerArea(this).getCounter().getPointCounter()){
             scoreBoard.UpdatePlayerPoint(this, model.getPlayerArea(this).getCounter().getPointCounter());
         }
     }
