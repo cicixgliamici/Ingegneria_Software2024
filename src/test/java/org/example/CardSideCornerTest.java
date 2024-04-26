@@ -83,23 +83,80 @@ public class CardSideCornerTest extends TestCase {
         assertEquals(Side.BACK, card.getSide().getSide());
     }
 
-    public void testGetChosenList(){
-        Corner c1 = new Corner();
-        Corner c2 = new Corner();
-        Corner c3 = new Corner();
-        Corner c4 = new Corner();
-        
+    public void testGetChosenListAndGetters(){
         List<Corner> frontCorners = new ArrayList<>();
-        frontCorners.add(c1);
-        frontCorners.add(c2);
         List<Corner> backCorners = new ArrayList<>();
-        backCorners.add(c3);
-        backCorners.add(c4);
-        
         SideCard sideCardFront = new SideCard(Side.FRONT, frontCorners, backCorners);
         SideCard sideCardBack = new SideCard(Side.BACK, frontCorners, backCorners);
-        
+        //getChosenList()
         assertEquals(frontCorners, sideCardFront.getChosenList());
         assertEquals(backCorners, sideCardBack.getChosenList());
+        //getSide()
+        assertEquals(Side.FRONT, sideCardFront.getSide());
+        assertEquals(Side.BACK, sideCardBack.getSide());
+        //getFrontCorners()
+        assertEquals(frontCorners, sideCardFront.getFrontCorners());
+        assertEquals(frontCorners, sideCardBack.getFrontCorners());
+        //getBackCorners()
+        assertEquals(backCorners, sideCardFront.getBackCorners());
+        assertEquals(backCorners, sideCardBack.getBackCorners());
+    }
+
+    public void testCardGetSet(){
+        Corner c1 = new Corner(Position.BOTTOML, PropertiesCorner.QUILL);
+        Corner c2 = new Corner(Position.TOPL, PropertiesCorner.PLANT);
+        Corner c3 = new Corner(Position.BOTTOMR, PropertiesCorner.ANIMAL);
+        Corner c4 = new Corner(Position.TOPR, PropertiesCorner.HIDDEN);
+        List<Corner> front = new ArrayList<>(Arrays.asList(c1, c2, c3, c4));
+        List<Corner> back = new ArrayList<>();
+        SideCard side = new SideCard(Side.FRONT, front, back);
+        Card c = new Card(side);
+        assertEquals(PropertiesCorner.QUILL, c.getFRONTPropCorn(0));
+        assertEquals(PropertiesCorner.PLANT, c.getFRONTPropCorn(1));
+        assertEquals(PropertiesCorner.ANIMAL, c.getFRONTPropCorn(2));
+        assertEquals(PropertiesCorner.HIDDEN, c.getFRONTPropCorn(3));
+        Type type = Type.RESOURCES;
+        CardRes cardRes = CardRes.ANIMAL;
+        int id = 1;
+        CardRes[] requireGold = new CardRes[]{CardRes.QUILL, CardRes.INSECT};
+        Integer points = 2;
+        GoldenPoint goldenPoint = GoldenPoint.CORNER;
+        ObjectivePoints objectivePoints = ObjectivePoints.BLUERED;
+        CardPosition cardPosition = CardPosition.HAND;
+        Card card1 = new Card(id, type, cardRes, requireGold, points, goldenPoint, objectivePoints, cardPosition, side);
+        assertEquals(id, card1.getId());
+        assertEquals(type, card1.getType());
+        assertEquals(cardRes, card1.getCardRes());
+        assertEquals(requireGold, card1.getRequireGold());
+        assertEquals(points, card1.getPoints());
+        assertEquals(goldenPoint, card1.getGoldenPoint());
+        assertEquals(objectivePoints, card1.getObjectivePoints());
+        assertEquals(cardPosition, card1.getCardPosition());
+        assertEquals(side, card1.getSide());
+        c.setType(type);
+        assertEquals(Type.RESOURCES, c.getType());
+        c.setCardRes(cardRes);
+        assertEquals(CardRes.ANIMAL, c.getCardRes());
+        c.setPoints(points);
+        assertEquals(points,c.getPoints());
+        c.setGoldenPoint(goldenPoint);
+        assertEquals(GoldenPoint.CORNER, c.getGoldenPoint());
+        c.setObjectivePoints(objectivePoints);
+        assertEquals(ObjectivePoints.BLUERED, c.getObjectivePoints());
+        c.setCardPosition(cardPosition);
+        assertEquals(CardPosition.HAND, c.getCardPosition());
+        c.setId(id);
+        assertEquals(1, c.getId());
+        int coveredCornerByCard = 2;
+        c.setCoveredCornerByCard(coveredCornerByCard);
+        assertEquals(2, c.getCoveredCornerByCard());
+    }
+
+    public void testCornerGet(){
+        Position position = Position.BOTTOML;
+        PropertiesCorner propertiesCorner = PropertiesCorner.QUILL;
+        Corner corner = new Corner(position, propertiesCorner);
+        assertEquals(Position.BOTTOML, corner.getPosition());
+        assertEquals(PropertiesCorner.QUILL, corner.getPropertiesCorner());
     }
 }
