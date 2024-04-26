@@ -82,4 +82,24 @@ public class CardSideCornerTest extends TestCase {
         card.setSide(2);
         assertEquals(Side.BACK, card.getSide().getSide());
     }
+
+    public void testGetChosenList(){
+        Corner c1 = new Corner();
+        Corner c2 = new Corner();
+        Corner c3 = new Corner();
+        Corner c4 = new Corner();
+        
+        List<Corner> frontCorners = new ArrayList<>();
+        frontCorners.add(c1);
+        frontCorners.add(c2);
+        List<Corner> backCorners = new ArrayList<>();
+        backCorners.add(c3);
+        backCorners.add(c4);
+        
+        SideCard sideCardFront = new SideCard(Side.FRONT, frontCorners, backCorners);
+        SideCard sideCardBack = new SideCard(Side.BACK, frontCorners, backCorners);
+        
+        assertEquals(frontCorners, sideCardFront.getChosenList());
+        assertEquals(backCorners, sideCardBack.getChosenList());
+    }
 }
