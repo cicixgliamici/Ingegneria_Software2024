@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.example.enumeration.CardRes;
 import org.example.enumeration.PropertiesCorner;
 import org.example.enumeration.Type;
+import org.example.enumeration.cast.CastCardRes;
 import org.example.model.playarea.*;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
@@ -11,7 +12,7 @@ import org.example.model.deck.Deck;
 import java.io.IOException;
 
 public class CounterTest extends TestCase {
-    public void addResourceTest(){
+    public void testAddRes(){
         Counter counter = new Counter();
         counter.AddResource(PropertiesCorner.ANIMAL);
         assertEquals(1,counter.getAnimalCounter());
@@ -29,7 +30,7 @@ public class CounterTest extends TestCase {
         assertEquals(1,counter.getQuillCounter());
     }
 
-    public void removeResourceTest(){
+    public void testRemoveRes(){
         Counter counter = new Counter();
         counter.AddResource(PropertiesCorner.ANIMAL);
         counter.RemoveResource(PropertiesCorner.ANIMAL);
@@ -54,18 +55,20 @@ public class CounterTest extends TestCase {
         assertEquals(0,counter.getQuillCounter());
     }
 
-    public void addPointCounter(){
+    public void testAddPoint(){
         Counter counter = new Counter();
         counter.AddPoint(2);
         assertEquals(2,counter.getPointCounter());
     }
 
-    public void isPresentTest() throws IOException {
+    public void testIsPresent() throws IOException {
         Counter counter = new Counter();
         Deck deck = new Deck(Type.RESOURCES);
         Card card = deck.drawCard();
-        CardRes cardRes = card.getCardRes();
-        assertTrue(counter.IsPresent(cardRes));
+        CastCardRes cardRes1= new CastCardRes(card.getCardRes());
+        PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
+        counter.AddResource(propertiesCorner);
+        assertTrue(counter.IsPresent(card.getCardRes()));
     }
 
 }

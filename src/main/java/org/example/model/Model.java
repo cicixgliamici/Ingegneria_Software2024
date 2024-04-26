@@ -6,7 +6,6 @@ import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 import org.example.model.deck.*;
 import org.example.model.playarea.DrawingCardArea;
-import org.example.controller.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -101,13 +100,13 @@ public class Model {
     /** Getter of the HashMap
      *
      */
-    public PlayerCardArea getPlayerArea(Player P){
+    public PlayerCardArea getPlayerCardArea(Player P){
           return gameArea.get(P);
     }
 
     public boolean Checkpoints(){
         for (Player p : PlayersList){
-            if(getPlayerArea(p).getCounter().getPointCounter()>=20) return true;
+            if(getPlayerCardArea(p).getCounter().getPointCounter()>=20) return true;
         }
         return false;
     }

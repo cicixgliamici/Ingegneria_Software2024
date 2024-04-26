@@ -1,5 +1,6 @@
 package org.example.model.playarea;
 
+import org.example.controller.Player;
 import org.example.enumeration.CardRes;
 import org.example.enumeration.GoldenPoint;
 import org.example.enumeration.Side;
@@ -59,13 +60,13 @@ public class PlayerCardArea {
         counter.AddResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
 
         //se risorsa o gold e ho scelto il back allora aggiungi card res
-        if(card.getCardRes()!= null){
+        if(card.getSide().getSide().equals(Side.BACK) && (card.getType()==Type.RESOURCES || card.getType()==Type.GOLD)){
             CardRes cardRes= card.getCardRes();
             CastCardRes castCardRes= new CastCardRes(cardRes);
             counter.AddResource(castCardRes.getPropertiesCorner());
         }
         //se starter e hai scelto il back allora add require gold
-        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()== Side.BACK)){
+        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()== Side.FRONT)){
             for (CardRes cardRes: card.getRequireGold()){
                 CastCardRes castCardRes= new CastCardRes(cardRes);
                 counter.AddResource(castCardRes.getPropertiesCorner());
@@ -129,12 +130,13 @@ public class PlayerCardArea {
     }
 
     public boolean CheckPlayForGold(Card card){
-        if(card.getType()==Type.GOLD){
-            for (CardRes cardRes: card.getRequireGold()){
-                if (!counter.IsPresent(cardRes))return true;
+            if (card.getType() == Type.GOLD) {
+                for (CardRes cardRes : card.getRequireGold()) {
+                    if (!counter.IsPresent(cardRes))
+                        return true;
+                }
             }
-        }
-        return false;
+            return false;
     }
 
 
@@ -148,6 +150,7 @@ public class PlayerCardArea {
                             for (PlaceHolder node : AllNodes) {
                                 if (node.getCard().getCardRes() == CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
+                                    counter.addObjectiveCounter();
                                 }
                             }
                             AlreadyUsed.clear();
@@ -157,6 +160,7 @@ public class PlayerCardArea {
                             for (PlaceHolder node : AllNodes) {
                                 if (node.getCard().getCardRes() == CardRes.PLANT && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
+                                    counter.addObjectiveCounter();
                                 }
                             }
                             AlreadyUsed.clear();
@@ -166,6 +170,7 @@ public class PlayerCardArea {
                             for (PlaceHolder node : AllNodes) {
                                 if (node.getCard().getCardRes() == CardRes.INSECT && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
+                                    counter.addObjectiveCounter();
                                 }
                             }
                             AlreadyUsed.clear();
@@ -175,11 +180,13 @@ public class PlayerCardArea {
                             for (PlaceHolder node : AllNodes) {
                                 if (node.getCard().getCardRes() == CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
+                                    counter.addObjectiveCounter();
                                 }
                             }
                             AlreadyUsed.clear();
                             break;
                     }
+                    break;
                 case RES:
                     switch (card.getCardRes()) {
                         case FUNGI:
@@ -187,62 +194,77 @@ public class PlayerCardArea {
                             while (FungiCounter >= 3) {
                                 points += 2;
                                 FungiCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case PLANT:
                             int PlantCounter = counter.getPlantCounter();
                             while (PlantCounter >= 3) {
                                 points += 2;
                                 PlantCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case INSECT:
                             int InsectCounter = counter.getInsectCounter();
                             while (InsectCounter >= 3) {
                                 points += 2;
                                 InsectCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case ANIMAL:
                             int AnimalCounter = counter.getAnimalCounter();
                             while (AnimalCounter >= 3) {
                                 points += 2;
                                 AnimalCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case QUILL:
                             int QuillCounter = counter.getQuillCounter();
                             while (QuillCounter >= 3) {
                                 points += 2;
                                 QuillCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case INKWELL:
                             int InkwellCounter = counter.getInkwellCounter();
                             while (InkwellCounter >= 3) {
                                 points += 2;
                                 InkwellCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
+
                             break;
                         case MANUSCRIPT:
                             int ManuscriptCounter = counter.getManuscriptCounter();
                             while (ManuscriptCounter >= 3) {
                                 points += 2;
                                 ManuscriptCounter = -3;
+                                counter.addObjectiveCounter();
                             }
                             counter.AddPoint(points);
                             break;
                     }
+                    break;
                 case REDGREEN:
                     for (PlaceHolder node : AllNodes) {
                         if (node.getCard().getCardRes() == CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)) {
                             counter.AddPoint(3);
+                            counter.addObjectiveCounter();
                             AlreadyUsed.clear();
                         }
                     }
@@ -251,6 +273,7 @@ public class PlayerCardArea {
                     for (PlaceHolder node : AllNodes) {
                         if (node.getCard().getCardRes() == CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)) {
                             counter.AddPoint(3);
+                            counter.addObjectiveCounter();
                             AlreadyUsed.clear();
                         }
                     }
@@ -259,6 +282,7 @@ public class PlayerCardArea {
                     for (PlaceHolder node : AllNodes) {
                         if (node.getCard().getCardRes() == CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)) {
                             counter.AddPoint(3);
+                            counter.addObjectiveCounter();
                             AlreadyUsed.clear();
                         }
                     }
@@ -267,6 +291,7 @@ public class PlayerCardArea {
                     for (PlaceHolder node : AllNodes) {
                         if (node.getCard().getCardRes() == CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)) {
                             counter.AddPoint(3);
+                            counter.addObjectiveCounter();
                             AlreadyUsed.clear();
                         }
                     }
@@ -277,6 +302,7 @@ public class PlayerCardArea {
                     int ManuscriptCounter = counter.getManuscriptCounter();
                     while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter > 0) {
                         counter.AddPoint(3);
+                        counter.addObjectiveCounter();
                         ManuscriptCounter--;
                         InkwellCounter--;
                         QuillCounter--;
@@ -296,15 +322,16 @@ public class PlayerCardArea {
                         for (PlaceHolder node : AllNodes) {
                             if(node.getCard().getCardRes()==CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
+                                counter.addObjectiveCounter();
                             }
                         }
                         AlreadyUsed.clear();
                         break;
-
                     case PLANT:
                         for (PlaceHolder node : AllNodes) {
                             if(node.getCard().getCardRes()==CardRes.PLANT && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
+                                counter.addObjectiveCounter();
                             }
                         }
                         AlreadyUsed.clear();
@@ -314,6 +341,7 @@ public class PlayerCardArea {
                         for (PlaceHolder node : AllNodes) {
                             if(node.getCard().getCardRes()==CardRes.INSECT && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
+                                counter.addObjectiveCounter();
                             }
                         }
                         AlreadyUsed.clear();
@@ -323,11 +351,13 @@ public class PlayerCardArea {
                         for (PlaceHolder node : AllNodes) {
                             if(node.getCard().getCardRes()==CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
+                                counter.addObjectiveCounter();
                             }
                         }
                         AlreadyUsed.clear();
                         break;
                 }
+                break;
             case RES:
                 switch (SecretObjective.getCardRes()) {
                     case FUNGI:
@@ -335,14 +365,17 @@ public class PlayerCardArea {
                         while (FungiCounter >= 3){
                             points+=2;
                             FungiCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
+
                         break;
                     case PLANT:
                         int PlantCounter = counter.getPlantCounter();
                         while (PlantCounter >= 3) {
                             points += 2;
                             PlantCounter = -3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
@@ -351,6 +384,7 @@ public class PlayerCardArea {
                         while (InsectCounter >= 3){
                             points+=2;
                             InsectCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
@@ -359,6 +393,7 @@ public class PlayerCardArea {
                         while (AnimalCounter >= 3){
                             points+=2;
                             AnimalCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
@@ -367,6 +402,7 @@ public class PlayerCardArea {
                         while (QuillCounter >= 3){
                             points+=2;
                             QuillCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
@@ -375,6 +411,7 @@ public class PlayerCardArea {
                         while (InkwellCounter >= 3){
                             points+=2;
                             InkwellCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
@@ -383,15 +420,18 @@ public class PlayerCardArea {
                         while (ManuscriptCounter >= 3){
                             points+=2;
                             ManuscriptCounter=-3;
+                            counter.addObjectiveCounter();
                         }
                         counter.AddPoint(points);
                         break;
                 }
+            break;
             case REDGREEN:
                 for (PlaceHolder node : AllNodes) {
                     if(node.getCard().getCardRes()==CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)){
                         counter.AddPoint(3);
                         AlreadyUsed.clear();
+                        counter.addObjectiveCounter();
                     }
                 }
                 break;
@@ -399,6 +439,7 @@ public class PlayerCardArea {
                 for (PlaceHolder node : AllNodes) {
                     if(node.getCard().getCardRes()==CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)){
                         counter.AddPoint(3);
+                        counter.addObjectiveCounter();
                         AlreadyUsed.clear();
                     }
                 }
@@ -407,6 +448,7 @@ public class PlayerCardArea {
                 for (PlaceHolder node : AllNodes) {
                     if(node.getCard().getCardRes()==CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)){
                         counter.AddPoint(3);
+                        counter.addObjectiveCounter();
                         AlreadyUsed.clear();
                     }
                 }
@@ -415,6 +457,7 @@ public class PlayerCardArea {
                 for (PlaceHolder node : AllNodes) {
                     if(node.getCard().getCardRes()==CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)){
                         counter.AddPoint(3);
+                        counter.addObjectiveCounter();
                         AlreadyUsed.clear();
                     }
                 }
@@ -425,6 +468,7 @@ public class PlayerCardArea {
                 int ManuscriptCounter= counter.getManuscriptCounter();
                 while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter>0){
                     counter.AddPoint(3);
+                    counter.addObjectiveCounter();
                     ManuscriptCounter--;
                     InkwellCounter--;
                     QuillCounter--;
@@ -557,6 +601,15 @@ public class PlayerCardArea {
 
     public Counter getCounter() {
         return counter;
+    }
+
+    public PlaceHolder getNodeByXY(int x, int y){
+        for (PlaceHolder p: AllNodes){
+            if(p.getX()==x && p.getY()==y){
+                return p;
+            }
+        }
+        return null;
     }
 
     //todo modificare il metodo in modo tale che il giocatore mandi la sua scelta dopo averla vista !

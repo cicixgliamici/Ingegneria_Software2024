@@ -19,6 +19,8 @@ public class Counter {
     private int ManuscriptCounter;
     private int PointCounter;
 
+    private int ObjectiveCounter;
+
     public Counter() {
         this.AnimalCounter = 0;
         this.PlantCounter = 0;
@@ -28,6 +30,7 @@ public class Counter {
         this.InkwellCounter = 0;
         this.ManuscriptCounter = 0;
         this.PointCounter = 0;
+        this.ObjectiveCounter=0;
     }
 
     public void AddResource(PropertiesCorner propertiesCorner){     //increments counter for each corner resource
@@ -76,8 +79,11 @@ public class Counter {
             this.ManuscriptCounter--;
         }
     }
-    public void AddPoint(int point ){
+    public void AddPoint(int point){
         this.PointCounter =+ point;
+        if(this.PointCounter>29){
+            this.PointCounter=29;
+        }
     }
 
     public boolean IsPresent(CardRes cardRes){
@@ -140,6 +146,12 @@ public class Counter {
     public int getPointCounter() {
         return PointCounter;
     }
+    public void addObjectiveCounter(){
+        this.ObjectiveCounter++;
+    }
 
+    public int getObjectiveCounter() {
+        return ObjectiveCounter;
+    }
 }
 
