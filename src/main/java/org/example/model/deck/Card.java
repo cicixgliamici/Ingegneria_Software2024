@@ -1,7 +1,6 @@
 package org.example.model.deck;
 
 import org.example.enumeration.*;
-import org.example.enumeration.*;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Card {
     private ObjectivePoints objectivePoints;
     private CardPosition cardposition;   // Position of the card
     private SideCard side;  // Reference to the object SideCard
-    private int CoveredCornerByCard;
+    private int coveredCornerByCard;
     public Card(int id, Type type, CardRes cardres, CardRes[] requireGold, Integer points, GoldenPoint goldenPoint, ObjectivePoints objectivePoints, CardPosition cardposition, SideCard side) {
         this.type = type;
         this.cardres = cardres;
@@ -39,6 +38,10 @@ public class Card {
     }
 
     public Card(){
+    }
+
+    public Card(SideCard side){
+        this.side = side;
     }
 
     /**
@@ -185,6 +188,12 @@ public class Card {
     public SideCard getSide() {
         return side;
     }
+    public ObjectivePoints getObjectivePoints() {
+        return objectivePoints;
+    }
+    public int getId() {
+        return id;
+    }
     public void setType(Type type) {
         this.type = type;
     }
@@ -208,6 +217,7 @@ public class Card {
     public void setCardPosition(CardPosition cardposition) {
         this.cardposition = cardposition;
     }
+    public void setId(int id){this.id = id;}
 
     public void setSide(SideCard side) {
         this.side = side;
@@ -225,33 +235,12 @@ public class Card {
 
     }
 
-    public void setCardposition(CardPosition cardposition) {
-        this.cardposition = cardposition;
-    }
-
     public void setCoveredCornerByCard(int coveredCornerByCard) {
-        this.CoveredCornerByCard = coveredCornerByCard;
-    }
-
-
-    public ObjectivePoints getObjectivePoints() {
-        return objectivePoints;
-    }
-
-    public CardPosition getCardposition() {
-        return cardposition;
+        this.coveredCornerByCard = coveredCornerByCard;
     }
 
     public int getCoveredCornerByCard() {
-        return this.CoveredCornerByCard;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public CardRes getCardres() {
-        return cardres;
+        return this.coveredCornerByCard;
     }
 
 
