@@ -44,7 +44,7 @@ public class Server {
         this.serverSocket = new ServerSocket(port);
     }
 
-    /*
+
     public synchronized void deregisterConnection(ClientConnection c) {
         ClientConnection player = c;
         if(player != null){
@@ -223,7 +223,7 @@ public class Server {
         return numPlayers;
     }
     public boolean isFirst(){
-        return First;
+        return first;
     }
 
     public ArrayList<String> getNicknames() {
@@ -235,12 +235,12 @@ public class Server {
     }
 
     public void setFirst(boolean first) {
-        First = first;
+        first = first;
     }
 
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
-     */
+
 }
