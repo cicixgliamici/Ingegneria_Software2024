@@ -86,4 +86,14 @@ public class DeckTest extends TestCase {
             }
         }
     }
+    // test addCard method in Deck
+    public void testAddCard() throws IOException {
+        for (Type type: Type.values()){
+            Deck deck = new Deck(type);
+            int cardsNumber = deck.getCardNumbers();
+            Card card = new Card();
+            deck.AddCard(card);
+            assertEquals(cardsNumber + 1, deck.getCardNumbers());
+        }
+    }
 }
