@@ -9,7 +9,7 @@ import org.example.model.deck.*;
 import org.example.enumeration.*;
 
 public class DrawingCardAreaTest extends TestCase{
-    public void VReCardTest() throws IOException, ParseException{
+    public void testVReCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
         int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
@@ -21,7 +21,7 @@ public class DrawingCardAreaTest extends TestCase{
         }
     }
 
-    public void VGoCardTest() throws IOException, ParseException{
+    public void testVGoCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
         int goDeckSize = drawingCardArea.getGoldDeck().getCardNumbers();
@@ -33,7 +33,7 @@ public class DrawingCardAreaTest extends TestCase{
         }
     }
 
-    public void drawFromDeckTest() throws IOException, ParseException{
+    public void testDrawFromDeck() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
 
         int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
@@ -53,7 +53,7 @@ public class DrawingCardAreaTest extends TestCase{
         assertEquals(obDeckSize - 1, drawingCardArea.getObjectDeck().getCardNumbers());
     }
 
-    public void drawFromVisibleTest() throws IOException, ParseException{
+    public void testDrawFromVisible() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
 
         int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();

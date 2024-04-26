@@ -11,7 +11,7 @@ import org.example.model.deck.Deck;
 import java.io.IOException;
 
 public class CounterTest extends TestCase {
-    public void addResourceTest(){
+    public void testAddResource(){
         Counter counter = new Counter();
         counter.AddResource(PropertiesCorner.ANIMAL);
         assertEquals(1,counter.getAnimalCounter());
@@ -29,7 +29,7 @@ public class CounterTest extends TestCase {
         assertEquals(1,counter.getQuillCounter());
     }
 
-    public void removeResourceTest(){
+    public void testRemoveResource(){
         Counter counter = new Counter();
         counter.AddResource(PropertiesCorner.ANIMAL);
         counter.RemoveResource(PropertiesCorner.ANIMAL);
@@ -54,13 +54,13 @@ public class CounterTest extends TestCase {
         assertEquals(0,counter.getQuillCounter());
     }
 
-    public void addPointCounter(){
+    public void testAddPointCounter(){
         Counter counter = new Counter();
         counter.AddPoint(2);
         assertEquals(2,counter.getPointCounter());
     }
 
-    public void isPresentTest() throws IOException {
+    public void testisPresent() throws IOException {
         Counter counter = new Counter();
         Deck deck = new Deck(Type.RESOURCES);
         Card card = deck.drawCard();
