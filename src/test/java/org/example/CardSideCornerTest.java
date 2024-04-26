@@ -73,6 +73,9 @@ public class CardSideCornerTest extends TestCase {
         SideCard side = new SideCard(Side.FRONT, front, back);
         Card card = new Card(side);
 
+        card.setSide(side);
+        assertEquals(Side.FRONT, card.getSide().getSide());
+
         card.setSide(1);
         assertEquals(Side.FRONT, card.getSide().getSide());
 
