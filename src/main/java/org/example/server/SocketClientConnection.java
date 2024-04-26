@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class SocketClientConnection implements Runnable, MoveSubject, ClientConnection{
-
+/*
     private Socket socket;
     private ObjectOutputStream out;
     private Server server;
@@ -105,9 +105,21 @@ public class SocketClientConnection implements Runnable, MoveSubject, ClientConn
         close();
     }
 }
-@Override
+ */
+
+    @Override
+    public void run() {
+
+    }
+
+    @Override
+    public void closeConnection() {
+
+    }
+
+    @Override
 public void asyncSend(final Object message){
-    new Thread(() -> sendMessage(message)).start();
+    //new Thread(() -> sendMessage(message)).start();
 }
 @Override
 public void registerListener(MoveListener listener){}

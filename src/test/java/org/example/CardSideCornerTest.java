@@ -1,12 +1,14 @@
 package org.example;
 
 import junit.framework.TestCase;
+import org.example.enumeration.*;
 import org.example.model.deck.*;
-import org.example.enumeration.PropertiesCorner;
-import org.example.enumeration.Type;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CardSideCornerTest extends TestCase {
     /**

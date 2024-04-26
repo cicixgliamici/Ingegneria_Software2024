@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
  */
 
 public class Server {
-    private int numPlayers;
+    /*private int numPlayers;
     private boolean first = false;
 
     public void setParameters(int numPlayers) {
@@ -39,7 +39,7 @@ public class Server {
      * Method to initialize server
      * @param port
      * @throws IOException
-     */
+
     public Server(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
     }
@@ -242,5 +242,5 @@ public class Server {
         this.numPlayers = numPlayers;
     }
 
-
+*/
 }
