@@ -42,7 +42,6 @@ public class Model {
      */
     public void DealCards(){
         for (Player player : PlayersList){
-            //System.out.println(player + ", you are receiving 2 resource cards and 1 gold card");
             PlayerCardArea playerCardArea = gameArea.get(player);
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
@@ -50,19 +49,6 @@ public class Model {
             List<Card> ObjectiveCard= new ArrayList<>();
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-            //System.out.println("choose your secret objective, 0 or 1");
-            //System.out.println("0: " + ObjectiveCard.get(0) +"\n1: "+ ObjectiveCard.get(1));
-            //Scanner scanner= new Scanner(System.in);
-            //int choice= scanner.nextInt();
-            //scanner.nextLine();
-            //switch (choice){
-            //    case 0 :
-            //        playerCardArea.setSecretObjective(ObjectiveCard.get(0));
-            //        drawingCardArea.getObjectDeck().AddCard(ObjectiveCard.get(1));
-            //    case 1:
-            //        playerCardArea.setSecretObjective(ObjectiveCard.get(1));
-            //        drawingCardArea.getObjectDeck().AddCard(ObjectiveCard.get(0));
-            //}
         }
         PublicObjective = new ArrayList<>();
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
@@ -71,7 +57,6 @@ public class Model {
 
     /** Getter and Setter Area
      */
-
 
     public List<Player> getPlayersList() {
         return PlayersList;
@@ -131,7 +116,7 @@ public class Model {
         return currentPlayer;
     }
 
-
-
-
+    public HashMap<Player, PlayerCardArea> getGameArea() {
+        return gameArea;
+    }
 }

@@ -1,13 +1,17 @@
 package org.example;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.example.enumeration.Type;
 import org.example.exception.PlaceholderNotValid;
 import org.example.model.Model;
 import org.example.controller.Player;
+import org.example.model.deck.Card;
+import org.example.model.deck.Deck;
 import org.example.model.playarea.Node;
 import org.example.model.playarea.PlaceHolder;
+import org.example.model.playarea.PlayerCardArea;
 import org.json.simple.parser.ParseException;
 
 import java.io.ByteArrayInputStream;
@@ -60,18 +64,45 @@ public class ModelTest extends TestCase {
         model.getPlayersList().add(player1);
         model.setPlayersAndGameArea(model.getPlayersList());
         model.DealCards();
-        player1.Play(model, 1, 1,1);
+        player1.Play(model, 1, 1, 1,1);
         assertEquals(2, model.getPlayerArea(player1).getHand().size());
         assertEquals(2, model.getPlayerArea(player1).getAllNodes().size());
         player1.Draw(model, 0);
         assertEquals(3, model.getPlayerArea(player1).getHand().size());
         // 40 - 2*n - 2 - 1
         assertEquals(35, model.getDrawingCardArea().getResourceDeck().getCardNumbers());
-        player1.Play(model, 1, -1,1);
+        player1.Play(model,1, 1, -1,1);
         assertEquals(3, model.getPlayerArea(player1).getAllNodes().size());
         assertEquals(2, model.getPlayerArea(player1).getHand().size());
     }
 
+    public void testObjective () throws IOException, ParseException, PlaceholderNotValid {
+        Model model = new Model();
+        Deck deckRes = new Deck(Type.RESOURCES);
+        Deck deckObj = new Deck(Type.OBJECT);
+        Deck deckStarter = new Deck(Type.STARTER);
+        List<Player> playerslist=new ArrayList<>();
+        model.setPlayersList(playerslist);
+        Player player1 = new Player("dario_moccia");
+        model.getPlayersList().add(player1);
+        Card starter = deckStarter.getCards().get(0);
+        starter.setSide(1);
+        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        model.getGameArea().put(player1, playerCardArea);
+        Card card1 = deckRes.getCards().get(0);
+        model.getPlayerArea(player1).getHand().add(card1);
+        Card card2 = deckRes.getCards().get(3);
+        model.getPlayerArea(player1).getHand().add(card2);
+        Card card3 = deckRes.getCards().get(4);
+        model.getPlayerArea(player1).getHand().add(card3);
+        player1.Play(model, 0, 1, 1,1);
+        player1.Play(model, 0, 1, 2,2);
+        player1.Play(model, 0, 1, 3,3);
+        Card card4 = deckObj.getCards().get(0);
+        model.getPlayerArea(player1).setSecretObjective(card4);
+        model.getPlayerArea(player1).privateObject();
+        assertEquals(2, model.getPlayerArea(player1).getCounter().getPointCounter());
+    }
 }
 
 

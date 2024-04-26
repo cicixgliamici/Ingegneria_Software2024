@@ -51,8 +51,9 @@ public class Player {
     }
 
 
-    public void Play (Model model, int choice, int x, int y) throws PlaceholderNotValid {
+    public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid {
         Card card = model.getPlayerArea(this).getHand().get(choice);
+        card.setSide(side);
         PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
         try {
             for(PlaceHolder p : model.getPlayerArea(this).getAvailableNodes()){

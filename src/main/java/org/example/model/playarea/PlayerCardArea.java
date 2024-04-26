@@ -433,7 +433,7 @@ public class PlayerCardArea {
         }
     }
 
-    private boolean FindDiagonal (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean FindDiagonal (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
         for (PlaceHolder node1 : AllNodes) {
             //topR
             if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
@@ -486,7 +486,7 @@ public class PlayerCardArea {
     public boolean SameType(PlaceHolder node1, PlaceHolder node2) {
         return node1.getCard().getCardRes() == node2.getCard().getCardRes();
     }
-    private boolean FindRedGreen (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean FindRedGreen (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
         for (PlaceHolder node1 : AllNodes) {
             if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
@@ -501,7 +501,7 @@ public class PlayerCardArea {
         }
         return false;
     }
-    private boolean FindGreenPurple (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean FindGreenPurple (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
         for (PlaceHolder node1 : AllNodes) {
             if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
@@ -516,7 +516,7 @@ public class PlayerCardArea {
         }
         return false;
     }
-    private boolean FindBlueRed (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean FindBlueRed (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
         for (PlaceHolder node1 : AllNodes) {
             if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
@@ -531,7 +531,7 @@ public class PlayerCardArea {
         }
         return false;
     }
-    private boolean FindPurpleBlue (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean FindPurpleBlue (PlaceHolder node, List<PlaceHolder> AlreadyUsed){
         for (PlaceHolder node1 : AllNodes) {
             if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
@@ -548,8 +548,8 @@ public class PlayerCardArea {
     }
 
 
-
-    //getter e setter
+    /** getter e setter zone
+     */
 
     public List<Card> getHand() {
         return hand;
@@ -559,6 +559,7 @@ public class PlayerCardArea {
         return counter;
     }
 
+    //todo modificare il metodo in modo tale che il giocatore mandi la sua scelta dopo averla vista !
     public void setSecretObjective(Card secretObjective) {
         SecretObjective = secretObjective;
     }
