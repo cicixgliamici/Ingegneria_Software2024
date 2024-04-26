@@ -12,10 +12,14 @@ import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+/* Il server resta in ascolto del primo giocatore, quando esso entra crea model e controller
+    dopodiché controlla che il numero di giocatori in attesa sia uguale a numPlayers, dopodiché
+    cicla sui giocatori e esegue tutte le chiamate.
+ */
 
 public class Server {
     private int numPlayers;
-    private boolean First = false;
+    private boolean first = false;
 
     public void setParameters(int numPlayers) {
         this.numPlayers = numPlayers;

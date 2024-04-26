@@ -254,5 +254,6 @@ public class Card {
         return cardres;
     }
 
+
 }
 

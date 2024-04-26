@@ -148,7 +148,7 @@ public class PlayerCardArea {
                     switch (card.getCardRes()) {
                         case FUNGI:
                             for (PlaceHolder node : AllNodes) {
-                                if (node.getCard().getCardRes() == CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)) {
+                                if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -158,7 +158,7 @@ public class PlayerCardArea {
 
                         case PLANT:
                             for (PlaceHolder node : AllNodes) {
-                                if (node.getCard().getCardRes() == CardRes.PLANT && FindDiagonal(node, AlreadyUsed)) {
+                                if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.PLANT && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -168,7 +168,7 @@ public class PlayerCardArea {
 
                         case INSECT:
                             for (PlaceHolder node : AllNodes) {
-                                if (node.getCard().getCardRes() == CardRes.INSECT && FindDiagonal(node, AlreadyUsed)) {
+                                if (!AlreadyUsed.contains(node)&&node.getCard().getCardRes() == CardRes.INSECT && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -178,7 +178,7 @@ public class PlayerCardArea {
 
                         case ANIMAL:
                             for (PlaceHolder node : AllNodes) {
-                                if (node.getCard().getCardRes() == CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)) {
+                                if (!AlreadyUsed.contains(node)&&node.getCard().getCardRes() == CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)) {
                                     counter.AddPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -262,7 +262,7 @@ public class PlayerCardArea {
                     break;
                 case REDGREEN:
                     for (PlaceHolder node : AllNodes) {
-                        if (node.getCard().getCardRes() == CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)) {
+                        if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)) {
                             counter.AddPoint(3);
                             counter.addObjectiveCounter();
                             AlreadyUsed.clear();
@@ -271,7 +271,7 @@ public class PlayerCardArea {
                     break;
                 case GREENPURPLE:
                     for (PlaceHolder node : AllNodes) {
-                        if (node.getCard().getCardRes() == CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)) {
+                        if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)) {
                             counter.AddPoint(3);
                             counter.addObjectiveCounter();
                             AlreadyUsed.clear();
@@ -280,7 +280,7 @@ public class PlayerCardArea {
                     break;
                 case BLUERED:
                     for (PlaceHolder node : AllNodes) {
-                        if (node.getCard().getCardRes() == CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)) {
+                        if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)) {
                             counter.AddPoint(3);
                             counter.addObjectiveCounter();
                             AlreadyUsed.clear();
@@ -289,7 +289,7 @@ public class PlayerCardArea {
                     break;
                 case PURPLEBLUE:
                     for (PlaceHolder node : AllNodes) {
-                        if (node.getCard().getCardRes() == CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)) {
+                        if (!AlreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)) {
                             counter.AddPoint(3);
                             counter.addObjectiveCounter();
                             AlreadyUsed.clear();
@@ -320,7 +320,7 @@ public class PlayerCardArea {
                 switch (SecretObjective.getCardRes()) {
                     case FUNGI:
                         for (PlaceHolder node : AllNodes) {
-                            if(node.getCard().getCardRes()==CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)){
+                            if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.FUNGI && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -329,7 +329,7 @@ public class PlayerCardArea {
                         break;
                     case PLANT:
                         for (PlaceHolder node : AllNodes) {
-                            if(node.getCard().getCardRes()==CardRes.PLANT && FindDiagonal(node, AlreadyUsed)){
+                            if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.PLANT && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -339,7 +339,7 @@ public class PlayerCardArea {
 
                     case INSECT:
                         for (PlaceHolder node : AllNodes) {
-                            if(node.getCard().getCardRes()==CardRes.INSECT && FindDiagonal(node, AlreadyUsed)){
+                            if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.INSECT && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -349,7 +349,7 @@ public class PlayerCardArea {
 
                     case ANIMAL:
                         for (PlaceHolder node : AllNodes) {
-                            if(node.getCard().getCardRes()==CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)){
+                            if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.ANIMAL && FindDiagonal(node, AlreadyUsed)){
                                 counter.AddPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -428,7 +428,7 @@ public class PlayerCardArea {
             break;
             case REDGREEN:
                 for (PlaceHolder node : AllNodes) {
-                    if(node.getCard().getCardRes()==CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)){
+                    if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)){
                         counter.AddPoint(3);
                         AlreadyUsed.clear();
                         counter.addObjectiveCounter();
@@ -437,7 +437,7 @@ public class PlayerCardArea {
                 break;
             case GREENPURPLE:
                 for (PlaceHolder node : AllNodes) {
-                    if(node.getCard().getCardRes()==CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)){
+                    if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.PLANT && FindGreenPurple(node, AlreadyUsed)){
                         counter.AddPoint(3);
                         counter.addObjectiveCounter();
                         AlreadyUsed.clear();
@@ -446,7 +446,7 @@ public class PlayerCardArea {
                 break;
             case BLUERED:
                 for (PlaceHolder node : AllNodes) {
-                    if(node.getCard().getCardRes()==CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)){
+                    if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.ANIMAL && FindBlueRed(node, AlreadyUsed)){
                         counter.AddPoint(3);
                         counter.addObjectiveCounter();
                         AlreadyUsed.clear();
@@ -455,7 +455,7 @@ public class PlayerCardArea {
                 break;
             case PURPLEBLUE:
                 for (PlaceHolder node : AllNodes) {
-                    if(node.getCard().getCardRes()==CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)){
+                    if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.INSECT && FindPurpleBlue(node, AlreadyUsed)){
                         counter.AddPoint(3);
                         counter.addObjectiveCounter();
                         AlreadyUsed.clear();
@@ -482,7 +482,7 @@ public class PlayerCardArea {
             //topR
             if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
-                    if (node1.getX()==node2.getX()+1 && node1.getY()==node2.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                    if (node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
                         AlreadyUsed.add(node);
                         AlreadyUsed.add(node1);
                         AlreadyUsed.add(node2);
@@ -493,7 +493,7 @@ public class PlayerCardArea {
             //topL
             if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
-                    if (node1.getX()==node2.getX()-1 && node1.getY()==node2.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                    if (node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
                         AlreadyUsed.add(node);
                         AlreadyUsed.add(node1);
                         AlreadyUsed.add(node2);
@@ -504,7 +504,7 @@ public class PlayerCardArea {
             //botR
             if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
-                    if (node1.getX()==node2.getX()+1 && node1.getY()==node2.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                    if (node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
                         AlreadyUsed.add(node);
                         AlreadyUsed.add(node1);
                         AlreadyUsed.add(node2);
@@ -515,7 +515,7 @@ public class PlayerCardArea {
             //botL
             if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
-                    if (node1.getX()==node2.getX()-1 && node1.getY()==node2.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
+                    if (node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && SameType(node,node1)) {
                         AlreadyUsed.add(node);
                         AlreadyUsed.add(node1);
                         AlreadyUsed.add(node2);

@@ -9,31 +9,27 @@ import org.example.model.deck.*;
 import org.example.enumeration.*;
 
 public class DrawingCardAreaTest extends TestCase{
-    public void VReCardTest() throws IOException, ParseException{
+    public void testVReCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
-        int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
-        drawingCardArea.initializeVReCard();
+        assertEquals(38 , drawingCardArea.getResourceDeck().getCardNumbers());
         assertEquals(2, drawingCardArea.getVisibleReCard().size());
-        assertEquals(reDeckSize - 2, drawingCardArea.getResourceDeck().getCardNumbers());
         for (Card card : drawingCardArea.getVisibleReCard()) {
             assertEquals(Type.RESOURCES, card.getType());
         }
     }
 
-    public void VGoCardTest() throws IOException, ParseException{
+    public void testVGoCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
-        int goDeckSize = drawingCardArea.getGoldDeck().getCardNumbers();
-        drawingCardArea.initializeVGoCard();
+        assertEquals(38, drawingCardArea.getGoldDeck().getCardNumbers());
         assertEquals(2, drawingCardArea.getVisibleGoCard().size());
-        assertEquals(goDeckSize - 2, drawingCardArea.getGoldDeck().getCardNumbers());
         for (Card card : drawingCardArea.getVisibleGoCard()) {
             assertEquals(Type.GOLD, card.getType());
         }
     }
 
-    public void drawFromDeckTest() throws IOException, ParseException{
+    public void testDrawFromDeck() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
 
         int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
@@ -53,7 +49,7 @@ public class DrawingCardAreaTest extends TestCase{
         assertEquals(obDeckSize - 1, drawingCardArea.getObjectDeck().getCardNumbers());
     }
 
-    public void drawFromVisibleTest() throws IOException, ParseException{
+    public void testDrawFromVisible() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
 
         int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
