@@ -35,7 +35,7 @@ public class ScoreBoard {
     public int getPlayerPoint(Player p){
         return Points.get(p);
     }
-    public void UpdatePlayerPoint(Player p, int point){
+    public void updatePlayerPoint(Player p, int point){
         Points.put(p,point);
     }
 

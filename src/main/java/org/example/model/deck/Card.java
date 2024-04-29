@@ -44,6 +44,11 @@ public class Card {
         this.side = side;
     }
 
+    public Card(Type type, CardRes[] requireGold){
+        this.type = type;
+        this.requireGold = requireGold;
+    }
+
     /**
      * Prints the card showing all it's properties, TUI Method
      */

@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.example.model.playarea.DrawingCardArea;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
+import java.util.List;
 
 import org.example.model.deck.*;
 import org.example.enumeration.*;
@@ -63,6 +64,46 @@ public class DrawingCardAreaTest extends TestCase{
         assertEquals(Type.GOLD,drawnCard2.getType());
         assertEquals(2, drawingCardArea.getVisibleGoCard().size());
         assertEquals(goDeckSize - 1, drawingCardArea.getGoldDeck().getCardNumbers());
+    }
+
+    public void testDCAGetSet() throws IOException, ParseException {
+        DrawingCardArea drawingCardArea = new DrawingCardArea();
+
+        Deck obDeck = drawingCardArea.getObjectDeck();
+        assertNotNull(obDeck);
+        assertEquals(Type.OBJECT, obDeck.getTypeDeck());
+        assertNotNull(obDeck.getCards());
+        assertFalse(obDeck.getCards().isEmpty());
+
+        Deck reDeck = drawingCardArea.getResourceDeck();
+        assertNotNull(reDeck);
+        assertEquals(Type.RESOURCES, reDeck.getTypeDeck());
+        assertNotNull(reDeck.getCards());
+        assertFalse(reDeck.getCards().isEmpty());
+
+        Deck goDeck = drawingCardArea.getGoldDeck();
+        assertNotNull(goDeck);
+        assertEquals(Type.GOLD, goDeck.getTypeDeck());
+        assertNotNull(goDeck.getCards());
+        assertFalse(goDeck.getCards().isEmpty());
+
+        Deck stDeck = drawingCardArea.getStarterDeck();
+        assertNotNull(stDeck);
+        assertEquals(Type.STARTER, stDeck.getTypeDeck());
+        assertNotNull(stDeck.getCards());
+        assertFalse(stDeck.getCards().isEmpty());
+
+        assertNotNull(drawingCardArea.getVisibleReCard());
+        assertEquals(2, drawingCardArea.getVisibleReCard().size());
+        for(Card card:drawingCardArea.getVisibleReCard()) {
+            assertEquals(Type.RESOURCES, card.getType());
+        }
+
+        assertNotNull(drawingCardArea.getVisibleGoCard());
+        assertEquals(2,drawingCardArea.getVisibleGoCard().size());
+        for(Card card:drawingCardArea.getVisibleGoCard()){
+            assertEquals(Type.GOLD, card.getType());
+        }
     }
 
 }

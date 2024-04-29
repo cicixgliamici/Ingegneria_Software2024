@@ -111,10 +111,10 @@ public class Player {
         return this.username;
     }
 
-    public void UpdateScoreboardPoints(Model model){
+    public void updateScoreboardPoints(Model model){
         ScoreBoard scoreBoard= model.getScoreBoard();
         if(scoreBoard.getPlayerPoint(this) < model.getPlayerCardArea(this).getCounter().getPointCounter()){
-            scoreBoard.UpdatePlayerPoint(this, model.getPlayerCardArea(this).getCounter().getPointCounter());
+            scoreBoard.updatePlayerPoint(this, model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
     }
 }

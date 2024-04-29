@@ -33,6 +33,12 @@ public class PlayerCardArea {
         UpdateCounter(cardStarter);
     }
 
+    public PlayerCardArea(){
+        this.AvailableNodes =new ArrayList<>();
+        this.AllNodes=new ArrayList<>();
+        this.PlaceHolders=new ArrayList<>();
+    }
+
     public void PlayACard (Card card, PlaceHolder placeHolder){
 
         //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player
@@ -126,7 +132,6 @@ public class PlayerCardArea {
                     counter.AddPoint(card.getPoints() * counter.getQuillCounter());
                 }
         }
-
     }
 
     public boolean CheckPlayForGold(Card card){

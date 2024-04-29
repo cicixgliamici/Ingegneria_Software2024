@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class Model {
-    private final DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board
+    private DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board
 
     private final HashMap<Player, PlayerCardArea> gameArea;
     private final ScoreBoard scoreBoard;              // Object scoreboard to memorize points
@@ -71,6 +71,10 @@ public class Model {
 
     public List<Card> getPublicObjective() {
         return PublicObjective;
+    }
+
+    public void setDrawingCardArea(DrawingCardArea drawingCardArea){
+        this.drawingCardArea = drawingCardArea;
     }
 
 

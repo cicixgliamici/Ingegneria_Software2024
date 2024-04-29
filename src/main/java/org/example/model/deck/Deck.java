@@ -1,6 +1,5 @@
 package org.example.model.deck;
 import org.example.enumeration.*;
-import org.example.enumeration.*;
 
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;

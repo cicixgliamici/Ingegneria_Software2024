@@ -63,12 +63,28 @@ public class CounterTest extends TestCase {
 
     public void testIsPresent() throws IOException {
         Counter counter = new Counter();
-        Deck deck = new Deck(Type.RESOURCES);
-        Card card = deck.drawCard();
-        CastCardRes cardRes1= new CastCardRes(card.getCardRes());
-        PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
-        counter.AddResource(propertiesCorner);
-        assertTrue(counter.IsPresent(card.getCardRes()));
+        for(Type type: Type.values()){
+            Deck deck = new Deck(type);
+            Card card = deck.drawCard();
+            CastCardRes cardRes1= new CastCardRes(card.getCardRes());
+            PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
+            counter.AddResource(propertiesCorner);
+            assertTrue(counter.IsPresent(card.getCardRes()));
+        }
     }
 
+    public void testCounterGetSet(){
+        Counter counter = new Counter();
+        assertEquals(0, counter.getAnimalCounter());
+        assertEquals(0, counter.getQuillCounter());
+        assertEquals(0, counter.getObjectiveCounter());
+        assertEquals(0,counter.getPlantCounter());
+        assertEquals(0,counter.getInsectCounter());
+        assertEquals(0,counter.getInkwellCounter());
+        assertEquals(0,counter.getFungiCounter());
+        assertEquals(0,counter.getPointCounter());
+        assertEquals(0, counter.getManuscriptCounter());
+        counter.addObjectiveCounter();
+        assertEquals(1,counter.getObjectiveCounter());
+    }
 }

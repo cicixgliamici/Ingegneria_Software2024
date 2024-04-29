@@ -2,7 +2,7 @@ package org.example;
 
 
 import junit.framework.TestCase;
-import org.json.simple.parser.ParseException;
+
 import java.io.IOException;
 import org.example.model.deck.*;
 import org.example.enumeration.*;
@@ -95,5 +95,20 @@ public class DeckTest extends TestCase {
             deck.AddCard(card);
             assertEquals(cardsNumber + 1, deck.getCardNumbers());
         }
+    }
+
+    public void testDeckGetSet() throws IOException {
+        Deck ReDeck = new Deck(Type.RESOURCES);
+        assertEquals(Type.RESOURCES, ReDeck.getTypeDeck());
+        assertEquals(40, ReDeck.getCardNumbers());
+        Deck GoDeck = new Deck(Type.GOLD);
+        assertEquals(Type.GOLD, GoDeck.getTypeDeck());
+        assertEquals(40, GoDeck.getCardNumbers());
+        Deck StDeck = new Deck(Type.STARTER);
+        assertEquals(Type.STARTER, StDeck.getTypeDeck());
+        assertEquals(6, StDeck.getCardNumbers());
+        Deck ObDeck = new Deck(Type.OBJECT);
+        assertEquals(Type.OBJECT, ObDeck.getTypeDeck());
+        assertEquals(16, ObDeck.getCardNumbers());
     }
 }

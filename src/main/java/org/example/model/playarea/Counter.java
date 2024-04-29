@@ -18,7 +18,6 @@ public class Counter {
     private int InkwellCounter;
     private int ManuscriptCounter;
     private int PointCounter;
-
     private int ObjectiveCounter;
 
     public Counter() {
@@ -152,6 +151,10 @@ public class Counter {
 
     public int getObjectiveCounter() {
         return ObjectiveCounter;
+    }
+
+    public void setPointCounter(int pointCounter) {
+        PointCounter = pointCounter;
     }
 }
 

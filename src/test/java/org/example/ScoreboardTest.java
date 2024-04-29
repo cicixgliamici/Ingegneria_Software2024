@@ -30,7 +30,7 @@ public class ScoreboardTest extends TestCase {
     public void testPoints() throws IOException, ParseException {
         Player player1 = new Player("the_Owl");
         ScoreBoard scoreboard = new ScoreBoard();
-        scoreboard.UpdatePlayerPoint(player1, 10);
+        scoreboard.updatePlayerPoint(player1, 10);
         assertEquals(10, scoreboard.getPlayerPoint(player1));
     }
 
@@ -40,11 +40,27 @@ public class ScoreboardTest extends TestCase {
         Player player3 = new Player("twentyone_savage");
         Player player4 = new Player("playboi_carti");
         ScoreBoard scoreboard = new ScoreBoard();
-        scoreboard.UpdatePlayerPoint(player1, 10);
-        scoreboard.UpdatePlayerPoint(player2, 20);
-        scoreboard.UpdatePlayerPoint(player3, 30);
-        scoreboard.UpdatePlayerPoint(player4, 40);
+        scoreboard.updatePlayerPoint(player1, 10);
+        scoreboard.updatePlayerPoint(player2, 20);
+        scoreboard.updatePlayerPoint(player3, 30);
+        scoreboard.updatePlayerPoint(player4, 40);
         assertEquals(player4, scoreboard.Winner());
-        
+    }
+
+    public void testScoreboardGeTSet(){
+        ScoreBoard scoreBoard = new ScoreBoard();
+        Player player1 = new Player("kanye");
+        Player player2 = new Player("donda");
+        scoreBoard.getPoints().put(player1, 10);
+        scoreBoard.getPoints().put(player2, 15);
+        Integer points1 = 10;
+        Integer points2 = 15;
+        assertEquals(points1, scoreBoard.getPoints().get(player1));
+        assertEquals(points2, scoreBoard.getPoints().get(player2));
+        scoreBoard.updatePlayerPoint(player1, 2);
+        Integer points3 = 2;
+        assertEquals(points3, scoreBoard.getPoints().get(player1));
+        scoreBoard.addToken(Color.RED, player1);
+        assertEquals(player1, scoreBoard.getTokens().get(Color.RED));
     }
 }
