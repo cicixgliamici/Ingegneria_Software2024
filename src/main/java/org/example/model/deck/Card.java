@@ -243,5 +243,6 @@ public class Card {
         return this.coveredCornerByCard;
     }
 
+
 }
 

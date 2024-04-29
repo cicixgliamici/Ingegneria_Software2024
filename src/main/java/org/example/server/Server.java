@@ -1,26 +1,47 @@
 package org.example.server;
 
-import org.example.controller.Controller;
-import org.example.controller.Player;
-import org.example.model.Model;
-import org.example.model.deck.Card;
-import org.json.simple.parser.ParseException;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+/* Il server resta in ascolto del primo giocatore, quando esso entra crea model e controller
+    dopodiché controlla che il numero di giocatori in attesa sia uguale a numPlayers, dopodiché
+    cicla sui giocatori e esegue tutte le chiamate.
+ */
 
 public class Server {
-    private int numPlayers;
-    private boolean First = false;
-
-    public void setParameters(int numPlayers) {
-        this.numPlayers = numPlayers;
+    private int port;
+    public Server(int port) {
+        this.port = port;
+    }
+    public void startServer() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        ServerSocket serverSocket;
+        try {
+            serverSocket = new ServerSocket(port);
+        } catch (IOException e) {
+            System.err.println(e.getMessage()); // Porta non disponibile
+            return;
+        }
+        System.out.println("Server ready");
+        while (true) {
+            try {
+                Socket socket = serverSocket.accept();
+                executor.submit(new ServerClientHandler(socket));
+            } catch(IOException e) {
+                break; // Entrerei qui se serverSocket venisse chiuso
+            }
+        }
+        executor.shutdown();
+    }
+    public static void main(String[] args) {
+        Server server = new Server(1337);
+        server.startServer();
     }
 
+
+    /*
     public Card getCard() {
         //todo metodo che chiede al client una carta dalla mano
         return new Card();
@@ -35,12 +56,12 @@ public class Server {
      * Method to initialize server
      * @param port
      * @throws IOException
-     */
+
     public Server(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
     }
 
-    /*
+
     public synchronized void deregisterConnection(ClientConnection c) {
         ClientConnection player = c;
         if(player != null){
@@ -219,7 +240,7 @@ public class Server {
         return numPlayers;
     }
     public boolean isFirst(){
-        return First;
+        return first;
     }
 
     public ArrayList<String> getNicknames() {
@@ -231,12 +252,12 @@ public class Server {
     }
 
     public void setFirst(boolean first) {
-        First = first;
+        first = first;
     }
 
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
+    */
 
-     */
 }

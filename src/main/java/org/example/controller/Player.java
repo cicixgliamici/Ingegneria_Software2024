@@ -2,15 +2,12 @@ package org.example.controller;
 
 import org.example.enumeration.Type;
 import org.example.exception.PlaceholderNotValid;
-import org.example.server.Server;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
 import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
 import org.example.model.playarea.PlaceHolder;
-import org.example.model.playarea.ScoreBoard;
 
-import java.awt.peer.PanelPeer;
 import java.util.List;
 
 /** All the attributes and methods for the management of the Player.
@@ -33,7 +30,7 @@ public class Player {
      *
      */
     public void SeeHand(Model model){
-        List<Card> hand= model.getPlayerArea(this).getHand();
+        List<Card> hand= model.getPlayerCardArea(this).getHand();
         //System.out.println("this is your hand: \n");
         //for (Card c: hand){
         //    System.out.println(c);
@@ -42,8 +39,8 @@ public class Player {
 
     //metodo che verifica la validità di una carta scelta
     public Card CheckChosenCard(Model model, Card card) throws InvalidCardException {
-        boolean isValidCard = model.getPlayerArea(this).CheckPlayForGold(card);
-        if (!isValidCard) {
+        boolean isValidCard = model.getPlayerCardArea(this).CheckPlayForGold(card);
+        if (isValidCard) {
             throw new InvalidCardException("La carta selezionata non è valida.");
         } else {
             return card;
@@ -51,12 +48,12 @@ public class Player {
     }
 
 
-    public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid {
-        Card card = model.getPlayerArea(this).getHand().get(choice);
+    public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
+        Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
         PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
         try {
-            for(PlaceHolder p : model.getPlayerArea(this).getAvailableNodes()){
+            for(PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()){
                 if(p.x==x && p.y==y){
                     placeHolder=p;
                 }
@@ -65,9 +62,9 @@ public class Player {
             throw new RuntimeException(e);
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
-        //Card chosencard= CheckChosenCard(model, card); //todo questo check va fatto prima, nel server
-        model.getPlayerArea(this).PlayACard(card, placeHolder);
-        model.getPlayerArea(this).getHand().remove(card);
+        Card chosencard= CheckChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
+        model.getPlayerCardArea(this).PlayACard(card, placeHolder);
+        model.getPlayerCardArea(this).getHand().remove(card);
     }
 
     public int ChooseStarterSide(){
@@ -84,27 +81,27 @@ public class Player {
         switch (choice) {
             case 0:
                 card = model.getDrawingCardArea().drawCardFromDeck(Type.RESOURCES);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
             case 1:
                 card = model.getDrawingCardArea().drawCardFromDeck(Type.GOLD);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
             case 2:
                 card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, 0);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
             case 3:
                 card = model.getDrawingCardArea().drawCardFromVisible(Type.RESOURCES, 1);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
             case 4:
                 card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, 0);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
             case 5:
                 card = model.getDrawingCardArea().drawCardFromVisible(Type.GOLD, 1);
-                model.getPlayerArea(this).getHand().add(card);
+                model.getPlayerCardArea(this).getHand().add(card);
                 break;
         }
     }
@@ -116,8 +113,8 @@ public class Player {
 
     public void UpdateScoreboardPoints(Model model){
         ScoreBoard scoreBoard= model.getScoreBoard();
-        if(scoreBoard.getPlayerPoint(this) < model.getPlayerArea(this).getCounter().getPointCounter()){
-            scoreBoard.UpdatePlayerPoint(this, model.getPlayerArea(this).getCounter().getPointCounter());
+        if(scoreBoard.getPlayerPoint(this) < model.getPlayerCardArea(this).getCounter().getPointCounter()){
+            scoreBoard.UpdatePlayerPoint(this, model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
     }
 }

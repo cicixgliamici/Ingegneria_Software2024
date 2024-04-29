@@ -27,7 +27,6 @@ public class Controller {
      */
     public Controller(Model model) throws IOException, ParseException {
         this.model = model;
-        //players = this.AcceptPlayerBYTUI(); //accept all players that want to connect
         model.setPlayersAndGameArea(players);  //passes the list with all the players to the model
         model.DealCards();
         //gameFlow = new GameFlow(players, model, server);

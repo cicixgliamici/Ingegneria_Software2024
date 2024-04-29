@@ -25,6 +25,5 @@ public class Corner {
     public String toString() {
         return "Position: " + position + ", Properties: " + propertiesCorner;
     }
-    public Corner(){
-    }
+    public Corner(){}
 }

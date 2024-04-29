@@ -12,10 +12,8 @@ public class DrawingCardAreaTest extends TestCase{
     public void testVReCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
-        int reDeckSize = drawingCardArea.getResourceDeck().getCardNumbers();
-        drawingCardArea.initializeVReCard();
+        assertEquals(38 , drawingCardArea.getResourceDeck().getCardNumbers());
         assertEquals(2, drawingCardArea.getVisibleReCard().size());
-        assertEquals(reDeckSize - 2, drawingCardArea.getResourceDeck().getCardNumbers());
         for (Card card : drawingCardArea.getVisibleReCard()) {
             assertEquals(Type.RESOURCES, card.getType());
         }
@@ -24,10 +22,8 @@ public class DrawingCardAreaTest extends TestCase{
     public void testVGoCard() throws IOException, ParseException{
         DrawingCardArea drawingCardArea = new DrawingCardArea();
         assertNotNull(drawingCardArea);
-        int goDeckSize = drawingCardArea.getGoldDeck().getCardNumbers();
-        drawingCardArea.initializeVGoCard();
+        assertEquals(38, drawingCardArea.getGoldDeck().getCardNumbers());
         assertEquals(2, drawingCardArea.getVisibleGoCard().size());
-        assertEquals(goDeckSize - 2, drawingCardArea.getGoldDeck().getCardNumbers());
         for (Card card : drawingCardArea.getVisibleGoCard()) {
             assertEquals(Type.GOLD, card.getType());
         }

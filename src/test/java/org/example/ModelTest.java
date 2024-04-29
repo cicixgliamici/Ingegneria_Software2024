@@ -1,26 +1,20 @@
 package org.example;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
-
+import org.example.controller.Player;
 import org.example.enumeration.Type;
+import org.example.exception.InvalidCardException;
 import org.example.exception.PlaceholderNotValid;
 import org.example.model.Model;
-import org.example.controller.Player;
 import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
 import org.example.model.playarea.Node;
-import org.example.model.playarea.PlaceHolder;
 import org.example.model.playarea.PlayerCardArea;
 import org.json.simple.parser.ParseException;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import static junit.framework.Assert.assertEquals;
 
 public class ModelTest extends TestCase {
 
@@ -39,13 +33,13 @@ public class ModelTest extends TestCase {
         model.DealCards();
         assertEquals(2, playerslist.size());
         for(Player player: playerslist) {
-            assertEquals(1, model.getPlayerArea(player).getAllNodes().size());
-            assertTrue(model.getPlayerArea(player).getAllNodes().get(0) instanceof Node);
-            assertEquals(Type.STARTER, model.getPlayerArea(player).getAllNodes().get(0).getCard().getType());
-            assertEquals(3, model.getPlayerArea(player).getHand().size());
-            assertEquals(Type.RESOURCES, model.getPlayerArea(player).getHand().get(0).getType());
-            assertEquals(Type.RESOURCES, model.getPlayerArea(player).getHand().get(1).getType());
-            assertEquals(Type.GOLD, model.getPlayerArea(player).getHand().get(2).getType());
+            assertEquals(1, model.getPlayerCardArea(player).getAllNodes().size());
+            assertTrue(model.getPlayerCardArea(player).getAllNodes().get(0) instanceof Node);
+            assertEquals(Type.STARTER, model.getPlayerCardArea(player).getAllNodes().get(0).getCard().getType());
+            assertEquals(3, model.getPlayerCardArea(player).getHand().size());
+            assertEquals(Type.RESOURCES, model.getPlayerCardArea(player).getHand().get(0).getType());
+            assertEquals(Type.RESOURCES, model.getPlayerCardArea(player).getHand().get(1).getType());
+            assertEquals(Type.GOLD, model.getPlayerCardArea(player).getHand().get(2).getType());
         }
         assertEquals(4, model.getDrawingCardArea().getStarterDeck().getCardNumbers());
         // 40 - 2*n - 2 on ground
@@ -56,7 +50,7 @@ public class ModelTest extends TestCase {
         assertEquals(2, model.getDrawingCardArea().getVisibleReCard().size());
     }
 
-    public void testPlayAndDraw() throws IOException, ParseException, PlaceholderNotValid {
+    public void testPlayAndDraw() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
         Model model = new Model();
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
@@ -65,43 +59,93 @@ public class ModelTest extends TestCase {
         model.setPlayersAndGameArea(model.getPlayersList());
         model.DealCards();
         player1.Play(model, 1, 1, 1,1);
-        assertEquals(2, model.getPlayerArea(player1).getHand().size());
-        assertEquals(2, model.getPlayerArea(player1).getAllNodes().size());
+        assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
+        assertEquals(2, model.getPlayerCardArea(player1).getAllNodes().size());
         player1.Draw(model, 0);
-        assertEquals(3, model.getPlayerArea(player1).getHand().size());
+        assertEquals(3, model.getPlayerCardArea(player1).getHand().size());
         // 40 - 2*n - 2 - 1
         assertEquals(35, model.getDrawingCardArea().getResourceDeck().getCardNumbers());
         player1.Play(model,1, 1, -1,1);
-        assertEquals(3, model.getPlayerArea(player1).getAllNodes().size());
-        assertEquals(2, model.getPlayerArea(player1).getHand().size());
+        assertEquals(3, model.getPlayerCardArea(player1).getAllNodes().size());
+        assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
     }
 
-    public void testObjective () throws IOException, ParseException, PlaceholderNotValid {
+    /** Give 3 Red resources card to a player, and see if it tests correctly
+     * the "3-diagonal red cards" objective.
+     * Then add another red card to the diagonal and see if it doesn't recount them.
+     */
+    public void testFungiDiagObjective () throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
         Model model = new Model();
         Deck deckRes = new Deck(Type.RESOURCES);
         Deck deckObj = new Deck(Type.OBJECT);
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("dario_moccia");
+        Player player1 = new Player("al-Khwārizmī");
+        model.getPlayersList().add(player1);
+        Card starter = deckStarter.getCards().get(0);
+        starter.setSide(1);
+        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        model.getGameArea().put(player1, playerCardArea);
+        assertEquals(0, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
+        Card card1 = deckRes.getCards().get(0);
+        model.getPlayerCardArea(player1).getHand().add(card1);
+        Card card2 = deckRes.getCards().get(3);
+        model.getPlayerCardArea(player1).getHand().add(card2);
+        Card card3 = deckRes.getCards().get(4);
+        model.getPlayerCardArea(player1).getHand().add(card3);
+        player1.Play(model, 0, 1, 1,1);
+        player1.Play(model, 0, 1, 2,2);
+        player1.Play(model, 0, 1, 3,3);
+        Card card4 = deckObj.getCards().get(0);
+        model.getPlayerCardArea(player1).setSecretObjective(card4);
+        Card card5 = deckRes.getCards().get(1);
+        model.getPlayerCardArea(player1).getHand().add(card5);
+        player1.Play(model, 0, 1,4,4);
+        model.getPlayerCardArea(player1).privateObject();
+        assertEquals(2, model.getPlayerCardArea(player1).getCounter().getPointCounter());
+        assertEquals(1, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
+    }
+
+    /** Add 3 resource cards by back to have the needed requirement for placing the
+     * first gold card, and place it.
+     * Then try to place a non-valid one, like the second one.
+     */
+    public void testGoldReq() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
+        Model model = new Model();
+        Deck deckRes = new Deck(Type.RESOURCES);
+        Deck deckStarter = new Deck(Type.STARTER);
+        Deck deckGold = new Deck(Type.GOLD);
+        List<Player> playerslist=new ArrayList<>();
+        model.setPlayersList(playerslist);
+        Player player1 = new Player("ola");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
         PlayerCardArea playerCardArea=new PlayerCardArea(starter);
         model.getGameArea().put(player1, playerCardArea);
         Card card1 = deckRes.getCards().get(0);
-        model.getPlayerArea(player1).getHand().add(card1);
-        Card card2 = deckRes.getCards().get(3);
-        model.getPlayerArea(player1).getHand().add(card2);
-        Card card3 = deckRes.getCards().get(4);
-        model.getPlayerArea(player1).getHand().add(card3);
-        player1.Play(model, 0, 1, 1,1);
-        player1.Play(model, 0, 1, 2,2);
-        player1.Play(model, 0, 1, 3,3);
-        Card card4 = deckObj.getCards().get(0);
-        model.getPlayerArea(player1).setSecretObjective(card4);
-        model.getPlayerArea(player1).privateObject();
-        assertEquals(2, model.getPlayerArea(player1).getCounter().getPointCounter());
+        model.getPlayerCardArea(player1).getHand().add(card1);
+        Card card2 = deckRes.getCards().get(1);
+        model.getPlayerCardArea(player1).getHand().add(card2);
+        Card card3 = deckRes.getCards().get(21);
+        model.getPlayerCardArea(player1).getHand().add(card3);
+        player1.Play(model, 0, 2, 1,1);
+        player1.Play(model, 0, 2, -1,1);
+        player1.Play(model, 0, 2, -1,-1);
+        Card card4 = deckGold.getCards().get(0);
+        model.getPlayerCardArea(player1).getHand().add(card4);
+        player1.Play(model, 0, 1, 1, -1);
+        assertEquals(card4, model.getPlayerCardArea(player1).getNodeByXY(1,-1).getCard());
+        assertEquals(1, model.getPlayerCardArea(player1).getCounter().getPointCounter());
+        try {
+            Card card5 = deckGold.getCards().get(1);
+            model.getPlayerCardArea(player1).getHand().add(card5);
+            player1.Play(model, 0, 1, 2, 2); // This is expected  InvalidCardException
+            fail("Expected an InvalidCardException to be thrown");
+        } catch (InvalidCardException e) {
+            assertEquals("La carta selezionata non è valida.", e.getMessage());
+        }
     }
 }
 
