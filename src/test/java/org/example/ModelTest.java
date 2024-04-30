@@ -102,7 +102,7 @@ public class ModelTest extends TestCase {
         Card card5 = deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(card5);
         player1.Play(model, 0, 1,4,4);
-        model.getPlayerCardArea(player1).privateObject();
+        model.getPlayerCardArea(player1).privateObjective();
         assertEquals(2, model.getPlayerCardArea(player1).getCounter().getPointCounter());
         assertEquals(1, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
     }

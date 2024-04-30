@@ -22,6 +22,8 @@ public class Model {
     private final ScoreBoard scoreBoard;              // Object scoreboard to memorize points
     private List<Player> PlayersList;
 
+
+
     private List<Card> PublicObjective;
     private int currentPlayer;
 
@@ -121,5 +123,9 @@ public class Model {
 
     public HashMap<Player, PlayerCardArea> getGameArea() {
         return gameArea;
+    }
+
+    public void setPublicObjective(List<Card> publicObjective) {
+        PublicObjective = publicObjective;
     }
 }

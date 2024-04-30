@@ -1,6 +1,5 @@
 package org.example.model.playarea;
 
-import org.example.controller.Player;
 import org.example.enumeration.CardRes;
 import org.example.enumeration.GoldenPoint;
 import org.example.enumeration.Side;
@@ -71,7 +70,7 @@ public class PlayerCardArea {
             CastCardRes castCardRes= new CastCardRes(cardRes);
             counter.AddResource(castCardRes.getPropertiesCorner());
         }
-        //se starter e hai scelto il back allora add require gold
+        //se starter e hai scelto il front allora add require gold
         if((card.getType()==Type.STARTER)&&(card.getSide().getSide()== Side.FRONT)){
             for (CardRes cardRes: card.getRequireGold()){
                 CastCardRes castCardRes= new CastCardRes(cardRes);
@@ -145,7 +144,7 @@ public class PlayerCardArea {
     }
 
 
-    public void publicObjects(Model model) {
+    public void publicObjective(Model model) {
         int points=0;
         for (Card card : model.getPublicObjective()) {
             switch (card.getObjectivePoints()) {
@@ -317,7 +316,7 @@ public class PlayerCardArea {
         }
     }
 
-    public void privateObject() {
+    public void privateObjective() {
         AlreadyUsed=new ArrayList<>();
         int points=0;
         switch (SecretObjective.getObjectivePoints()) {

@@ -79,7 +79,7 @@ public class Counter {
         }
     }
     public void AddPoint(int point){
-        this.PointCounter =+ point;
+        this.PointCounter += point;
         if(this.PointCounter>29){
             this.PointCounter=29;
         }
