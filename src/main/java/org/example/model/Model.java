@@ -128,4 +128,8 @@ public class Model {
     public void setPublicObjective(List<Card> publicObjective) {
         PublicObjective = publicObjective;
     }
+
+    public void tryConnection(){
+        System.out.println("Connection successful");
+    }
 }

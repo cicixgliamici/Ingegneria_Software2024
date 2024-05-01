@@ -114,6 +114,12 @@ public class PlayerCardAreaTest extends TestCase {
         publicObjective.add(c1);
         model.setPublicObjective(publicObjective);
         // da finire
-
+        Card card1 = new Card(0, Type.RESOURCES, CardRes.FUNGI, null, null, null, null, null, null);
+        Node node1 = new Node(card1, 0,0,null, null, null);
+        Node node2 = new Node(card1, 1, 1, null, null, null);
+        Node node3 = new Node(card1, 2, 2, null, null, null);
+        playerCardArea.publicObjective(model);
+        assertEquals(2, counter.getPointCounter());
+        assertEquals(1, counter.getObjectiveCounter());
     }
 }

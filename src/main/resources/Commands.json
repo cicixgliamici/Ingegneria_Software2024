@@ -1,0 +1,30 @@
+{
+  "commands": {
+    "tryConnection": {
+      "className": "org.example.model.Model",
+      "methodName": "tryConnection",
+      "fileName": "Model.java"
+    },
+    "draw": {
+      "className": "org.example.controller.Player",
+      "methodName": "Draw",
+      "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "int", "source": "user"}
+      ],
+      "fileName": "Player.java"
+    },
+    "play": {
+      "className": "org.example.controller.Player",
+      "methodName": "Play",
+      "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"}
+      ],
+      "fileName": "Player.java"
+    }
+  }
+}
