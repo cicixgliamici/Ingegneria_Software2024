@@ -107,7 +107,7 @@ public class Model {
      *
      */
     public PlayerCardArea getPlayerCardArea(Player P){
-          return gameArea.get(P);
+        return gameArea.get(P);
     }
 
     public boolean Checkpoints(){

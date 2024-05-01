@@ -20,15 +20,14 @@ public class Client {
 
     public void startClient() throws IOException {
         Socket socket = new Socket(ip, port);
-        System.out.println("Connection established");
         Scanner socketIn = new Scanner(socket.getInputStream());
         PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
-        socketOut.println("tryConnection");
-        socketOut.flush();
         Scanner stdin = new Scanner(System.in);
+
         // Thread per la ricezione dei messaggi dal server
         Thread serverListener = new Thread(() -> {
             try {
+                System.out.println("Connection established");
                 while (true) {
                     String socketLine = socketIn.nextLine();
                     System.out.println(socketLine);
@@ -38,21 +37,33 @@ public class Client {
             }
         });
         serverListener.start();
-        // Invio dei comandi predefiniti
-        try {
-            // Ciclo per l'invio di comandi aggiuntivi dall'utente
-            while (true) {
-                String inputLine = stdin.nextLine();
-                socketOut.println(inputLine);
+
+        // Thread per l'invio delle stringhe inserite dall'utente al server
+        Thread userInputThread = new Thread(() -> {
+            try {
+                while (true) {
+                    String inputLine = stdin.nextLine();
+                    socketOut.println(inputLine);
+                    socketOut.flush(); // Assicura che il messaggio venga inviato immediatamente
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("Connection closed");
             }
-        } catch (NoSuchElementException e) {
-            System.out.println("Connection closed");
+        });
+        userInputThread.start();
+
+        // Attende che entrambi i thread terminino prima di chiudere le risorse
+        try {
+            userInputThread.join();
+            serverListener.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             stdin.close();
             socketIn.close();
             socketOut.close();
             socket.close();
-            serverListener.interrupt(); // Interrompe il thread del listener quando il client viene chiuso
         }
     }
+
 }

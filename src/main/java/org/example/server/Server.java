@@ -17,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,6 +26,7 @@ public class Server {
     private Model model;
     private Controller controller;
     private Map<String, JSONObject> commands = new HashMap<>();
+    private Map<String, String> players = new HashMap<>();
 
     public Server(int port) throws IOException, ParseException {
         this.port = port;
@@ -34,27 +36,50 @@ public class Server {
     }
 
     public void startServer() {
+        int numConnections = 0;
+        int numMaxConnections = 1; // Imposta il numero massimo di giocatori come default a 1
         ExecutorService executor = Executors.newFixedThreadPool(128);
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server listening on port " + port);
-            while (true) {
+            while (numConnections < numMaxConnections) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    executor.submit(new ServerClientHandler(clientSocket,commands, model, controller));
-                }
-                /*
+                    String clientIP = clientSocket.getInetAddress().getHostAddress(); // Ottiene l'IP del client
+                    System.out.println("Connessione accettata da: " + clientIP);
 
+                    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-                 */
-                catch (IOException e) {
+                    // Richiedi lo username al client
+                    out.println("Enter your username:");
+                    String username = in.readLine();
+
+                    // Richiedi il numero massimo di giocatori solo al primo client che si connette
+                    if (players.isEmpty()) {
+                        out.println("Enter the maximum number of players (1-4):");
+                        numMaxConnections = Integer.parseInt(in.readLine());
+                    }
+
+                    // Aggiungi lo username alla mappa dei giocatori
+                    players.put(clientIP, username);
+
+                    executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
+                    numConnections++;
+                } catch (IOException e) {
                     System.out.println("Error handling client: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
+        System.out.println("Server stopped with " + numConnections + " connections");
+        for (String string: players.values()){
+            System.out.println(string);
+        }
+        executor.shutdown();
+
     }
 
     public void loadCommands() throws IOException {

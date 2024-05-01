@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ClientPortSelection {
 
     public static void main(String[] args) {
-        System.out.println("IP:    or digit one casual letter for local ip");
+        System.out.println("IP: digit one casual letter for local ip");
         Scanner in = new Scanner(System.in);
         String ip = in.nextLine();
         int port = -1;
@@ -35,7 +35,7 @@ public class ClientPortSelection {
                 System.out.println("Write a valid port number from 1024 to 65535");
 
         }
-        Client clientCLI = new Client(ip, port); //192.168.100.10
+        Client clientCLI = new Client(ip, port);
         try {
             clientCLI.startClient();
         } catch (IOException e) {

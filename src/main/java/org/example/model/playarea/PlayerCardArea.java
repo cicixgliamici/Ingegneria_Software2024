@@ -99,7 +99,7 @@ public class PlayerCardArea {
     }
 
 
-   // public PlaceHolder printAndChooseNode() {
+    // public PlaceHolder printAndChooseNode() {
         /*System.out.println("Available Nodes:");
         //for (int i = 0; i < AvailableNodes.size(); i++) {
             //PlaceHolder node = AvailableNodes.get(i);
@@ -110,7 +110,7 @@ public class PlayerCardArea {
         //System.out.print("Choose the node number (1-" + AvailableNodes.size() + "): ");
         //choice = scanner.nextInt();
         return AvailableNodes.get(choice - 1);*/
-   // }
+    // }
 
 
     public void UpdatePoints(Card card) {
@@ -134,13 +134,13 @@ public class PlayerCardArea {
     }
 
     public boolean CheckPlayForGold(Card card){
-            if (card.getType() == Type.GOLD) {
-                for (CardRes cardRes : card.getRequireGold()) {
-                    if (!counter.IsPresent(cardRes))
-                        return true;
-                }
+        if (card.getType() == Type.GOLD) {
+            for (CardRes cardRes : card.getRequireGold()) {
+                if (!counter.IsPresent(cardRes))
+                    return true;
             }
-            return false;
+        }
+        return false;
     }
 
 
@@ -429,7 +429,7 @@ public class PlayerCardArea {
                         counter.AddPoint(points);
                         break;
                 }
-            break;
+                break;
             case REDGREEN:
                 for (PlaceHolder node : AllNodes) {
                     if(!AlreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.FUNGI && FindRedGreen(node, AlreadyUsed)){

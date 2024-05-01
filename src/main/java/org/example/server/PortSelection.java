@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class PortSelection {
     public static void main( String[] args )
     {
-        System.out.println("PORT   or digit one casual letter for default (50000)");
+        System.out.println("insert port number or digit one casual letter for default (50000)");
         Scanner in = new Scanner(System.in);
         int port;
         do{
@@ -29,7 +29,7 @@ public class PortSelection {
                 System.out.println("Write a valid port number from 1024 to 65535");
 
         } while (port <= 1023 || port >= 65535);
-
+        in.close();
         Server server;
         try {
             server = new Server(port);
