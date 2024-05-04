@@ -60,7 +60,7 @@ public class ServerClientHandler implements Runnable {
             Method method;
             Object response;
             // Check if the command details include parameters
-            if (commandDetails.optJSONArray("parameters") != null && commandDetails.getJSONArray("parameters").length() > 0) {
+            if (commandDetails.optJSONArray("parameters") != null && !commandDetails.getJSONArray("parameters").isEmpty()) {
                 JSONArray params = commandDetails.getJSONArray("parameters");
                 Class<?>[] paramTypes = new Class[params.length()];
                 Object[] paramValues = new Object[params.length()];

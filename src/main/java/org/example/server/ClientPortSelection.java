@@ -17,6 +17,7 @@ public class ClientPortSelection {
             port = 50000;
         }
 
+
         boolean first = true;
         while (port <= 1023 || port >= 65535){
             if(first){
@@ -36,10 +37,6 @@ public class ClientPortSelection {
 
         }
         Client clientCLI = new Client(ip, port);
-        try {
-            clientCLI.startClient();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
+        clientCLI.startClient();
     }
 }

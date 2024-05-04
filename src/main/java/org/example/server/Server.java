@@ -15,9 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,7 +24,7 @@ public class Server {
     private Model model;
     private Controller controller;
     private Map<String, JSONObject> commands = new HashMap<>();
-    private Map<String, String> players = new HashMap<>();
+    private List<String> usernames = new ArrayList<>();
 
     public Server(int port) throws IOException, ParseException {
         this.port = port;
@@ -43,27 +41,31 @@ public class Server {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server listening on port " + port);
-            while (numConnections < numMaxConnections) {
+            while (true) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    String clientIP = clientSocket.getInetAddress().getHostAddress(); // Ottiene l'IP del client
-                    System.out.println("Connessione accettata da: " + clientIP);
-
                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+                    // Verifica se il numero massimo di connessioni è stato raggiunto
+                    if (numConnections >= numMaxConnections) {
+                        out.println("Connection failed: maximum number of players reached");
+                        clientSocket.close(); // Chiudi la connessione
+                        continue; // Vai alla prossima iterazione del ciclo per accettare nuovi client
+                    }
 
                     // Richiedi lo username al client
                     out.println("Enter your username:");
                     String username = in.readLine();
 
                     // Richiedi il numero massimo di giocatori solo al primo client che si connette
-                    if (players.isEmpty()) {
+                    if (usernames.isEmpty()) {
                         out.println("Enter the maximum number of players (1-4):");
                         numMaxConnections = Integer.parseInt(in.readLine());
                     }
 
-                    // Aggiungi lo username alla mappa dei giocatori
-                    players.put(clientIP, username);
+                    usernames.add(username);
+                    out.println("Connection successful");
 
                     executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
                     numConnections++;
@@ -75,11 +77,10 @@ public class Server {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
         System.out.println("Server stopped with " + numConnections + " connections");
-        for (String string: players.values()){
+        for (String string : usernames) {
             System.out.println(string);
         }
         executor.shutdown();
-
     }
 
     public void loadCommands() throws IOException {

@@ -129,7 +129,7 @@ public class Model {
         PublicObjective = publicObjective;
     }
 
-    public void tryConnection(){
-        System.out.println("Connection successful");
+    public String tryConnection(){
+        return "Connection successful";
     }
 }

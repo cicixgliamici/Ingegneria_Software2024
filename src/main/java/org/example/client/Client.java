@@ -3,11 +3,9 @@ package org.example.client;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.List;
-
 
 public class Client {
     private String ip;
@@ -18,52 +16,65 @@ public class Client {
         this.port = port;
     }
 
-    public void startClient() throws IOException {
-        Socket socket = new Socket(ip, port);
-        Scanner socketIn = new Scanner(socket.getInputStream());
-        PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
-        Scanner stdin = new Scanner(System.in);
-
-        // Thread per la ricezione dei messaggi dal server
-        Thread serverListener = new Thread(() -> {
-            try {
-                System.out.println("Connection established");
-                while (true) {
-                    String socketLine = socketIn.nextLine();
-                    System.out.println(socketLine);
-                }
-            } catch (NoSuchElementException e) {
-                System.out.println("Server closed the connection");
-            }
-        });
-        serverListener.start();
-
-        // Thread per l'invio delle stringhe inserite dall'utente al server
-        Thread userInputThread = new Thread(() -> {
-            try {
-                while (true) {
-                    String inputLine = stdin.nextLine();
-                    socketOut.println(inputLine);
-                    socketOut.flush(); // Assicura che il messaggio venga inviato immediatamente
-                }
-            } catch (NoSuchElementException e) {
-                System.out.println("Connection closed");
-            }
-        });
-        userInputThread.start();
-
-        // Attende che entrambi i thread terminino prima di chiudere le risorse
+    public void startClient() {
+        Socket socket = null;
         try {
-            userInputThread.join();
-            serverListener.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            socket = new Socket(ip, port);
+            Scanner socketIn = new Scanner(socket.getInputStream());
+            PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
+            Scanner stdin = new Scanner(System.in);
+
+            // Thread per la ricezione dei messaggi dal server
+            Thread serverListener = new Thread(() -> {
+                try {
+                    while (true) {
+                        String socketLine = socketIn.nextLine();
+                        System.out.println(socketLine);
+
+                    }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Server closed the connection");
+                }
+            });
+            serverListener.start();
+
+            // Thread per l'invio delle stringhe inserite dall'utente al server
+            Thread userInputThread = new Thread(() -> {
+                try {
+                    while (true) {
+                        String inputLine = stdin.nextLine();
+                        socketOut.println(inputLine);
+                    }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Connection closed");
+                }
+            });
+            userInputThread.start();
+
+            // Attende che entrambi i thread terminino prima di chiudere le risorse
+            try {
+                userInputThread.join();
+                serverListener.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                stdin.close();
+                socketIn.close();
+                socketOut.close();
+                socket.close();
+            }
+        } catch (UnknownHostException e) {
+            System.out.println("Unknown host: " + ip);
+        } catch (IOException e) {
+            System.out.println("Connection refused: " + e.getMessage());
         } finally {
-            stdin.close();
-            socketIn.close();
-            socketOut.close();
-            socket.close();
+            if (socket != null && !socket.isClosed()) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
-
 }
