@@ -51,32 +51,39 @@ public class ServerClientHandler implements Runnable {
             System.err.println(e.getMessage());
         }
     }
-    private void executeCommand(String commandKey, PrintWriter out) {
+
+    //i comandi devono essere tutti del tipo draw:1 oppure play:1,2,3,4
+    private void executeCommand(String inputLine, PrintWriter out) {
         try {
+            String[] parts = inputLine.split(":");
+            String commandKey = parts[0];
+            String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
+
+            if (!commands.containsKey(commandKey)) {
+                out.println("Command not recognized.");
+                return;
+            }
+
             JSONObject commandDetails = commands.get(commandKey);
             String className = commandDetails.getString("className");
             String methodName = commandDetails.getString("methodName");
+            JSONArray jsonParams = commandDetails.getJSONArray("parameters");
+
             Class<?> cls = Class.forName(className);
-            Method method;
-            Object response;
-            // Check if the command details include parameters
-            if (commandDetails.optJSONArray("parameters") != null && !commandDetails.getJSONArray("parameters").isEmpty()) {
-                JSONArray params = commandDetails.getJSONArray("parameters");
-                Class<?>[] paramTypes = new Class[params.length()];
-                Object[] paramValues = new Object[params.length()];
-                for (int i = 0; i < params.length(); i++) {
-                    JSONObject param = params.getJSONObject(i);
-                    String type = param.getString("type");
-                    paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
-                    paramValues[i] = type.equals("Model") ? model : Integer.parseInt(param.getString("value"));
-                }
-                method = cls.getDeclaredMethod(methodName, paramTypes);
-                response = method.invoke(controller, paramValues);
-            } else {
-                method = cls.getDeclaredMethod(methodName);
-                response = method.invoke(model); // Assuming the method is on 'this' instance
+            Class<?>[] paramTypes = new Class[jsonParams.length()];
+            Object[] paramValues = new Object[jsonParams.length()];
+
+            for (int i = 0; i < jsonParams.length(); i++) {
+                JSONObject param = jsonParams.getJSONObject(i);
+                String type = param.getString("type");
+                paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
+                paramValues[i] = type.equals("Model") ? model : Integer.parseInt(params[i]); // Assicurati che l'indice esista
             }
-            out.println("Command executed: " + response);
+
+            Method method = cls.getDeclaredMethod(methodName, paramTypes);
+            Object response = method.invoke(controller, paramValues);
+
+            out.println("Command executed: " + response.toString());
         } catch (Exception e) {
             out.println("Error executing command: " + e.getMessage());
             e.printStackTrace();

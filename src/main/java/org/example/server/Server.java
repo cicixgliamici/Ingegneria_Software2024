@@ -3,11 +3,10 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.model.Model;
 import org.example.model.ModelChangeListener;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import java.lang.reflect.Method;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
@@ -25,16 +24,20 @@ public class Server implements ModelChangeListener {
     private Model model;
     private Controller controller;
     private Map<String, JSONObject> commands = new HashMap<>();
-    private List<String> usernames = new ArrayList<>();
+
+    private Map<String, PrintWriter> clientWriters = new HashMap<>();
 
     public Server(int port) throws IOException, ParseException {
         this.port = port;
         this.model = new Model();
         this.controller = new Controller(model);
+        this.model.addModelChangeListener(this);
         loadCommands();
+
     }
 
     public void startServer() {
+        //todo se un client si sconnette e si riconnette con lo stesso username bisogna ricollegarlo allo stesso PrintWriter
         int numConnections = 0;
         int numMaxConnections = 1; // Imposta il numero massimo di giocatori come default a 1
         ExecutorService executor = Executors.newFixedThreadPool(128);
@@ -60,12 +63,12 @@ public class Server implements ModelChangeListener {
                     String username = in.readLine();
 
                     // Richiedi il numero massimo di giocatori solo al primo client che si connette
-                    if (usernames.isEmpty()) {
+                    if (clientWriters.isEmpty()) {
                         out.println("Enter the maximum number of players (1-4):");
                         numMaxConnections = Integer.parseInt(in.readLine());
                     }
 
-                    usernames.add(username);
+                    clientWriters.put(username, out);
                     out.println("Connection successful");
 
                     executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
@@ -78,14 +81,14 @@ public class Server implements ModelChangeListener {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
         System.out.println("Server stopped with " + numConnections + " connections");
-        for (String string : usernames) {
+        for (String string : clientWriters.keySet()) {
             System.out.println(string);
         }
         executor.shutdown();
     }
 
     public void loadCommands() throws IOException {
-        String path = "src/main/resources/Commands.json"; // Ensure this path is correct
+        String path = "src/main/resources/Commands.json";
         String text = new String(Files.readAllBytes(Paths.get(path)));
         JSONObject obj = new JSONObject(text);
         JSONObject jsonCommands = obj.getJSONObject("commands");
@@ -94,8 +97,11 @@ public class Server implements ModelChangeListener {
         }
     }
 
+    @Override
     public void onModelChange(String updateMessage) {
-        // Metodo da ModelChangeListener, invia update a tutti i client
-        // Questo potrebbe essere implementato salvando i PrintWriter di ogni client e scrivendovi le notifiche
+        for (PrintWriter writer : clientWriters.values()) {
+            writer.println(updateMessage);
+            writer.flush();
         }
+    }
 }

@@ -48,12 +48,15 @@ public class Model {
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
             List<Card> ObjectiveCard= new ArrayList<>();
+            //todo chiedere al client quale carta obbiettivo sceglie
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         }
         PublicObjective = new ArrayList<>();
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+        //todo il client riceve 5 carte: le tre della sua mano e le 2 carte obbiettivo--> dovrà ritornare due valori, uno indica la carta obbiettivo scelta e una indica il lato della carta starter
+        notifyModelChange("Card added to players' hands");
     }
 
     /** Getter and Setter Area

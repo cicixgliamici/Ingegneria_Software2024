@@ -65,6 +65,16 @@ public class Player {
         Card chosencard= CheckChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
         model.getPlayerCardArea(this).PlayACard(card, placeHolder);
         model.getPlayerCardArea(this).getHand().remove(card);
+        try {
+            // Tentativo di giocare una carta
+            model.getPlayerCardArea(this).PlayACard(card, placeHolder);
+            model.getPlayerCardArea(this).getHand().remove(card);
+            model.notifyModelChange("Card played by " + this + " at position (" + x + ", " + y + ")");
+        } catch (Exception e) {
+            model.notifyModelChange("Failed to play card by " + this + ": " + e.getMessage());
+            throw e; // Rilancia l'eccezione per ulteriore gestione degli errori
+        }
+
     }
 
     public int ChooseStarterSide(){
@@ -76,7 +86,7 @@ public class Player {
 
     public void Draw (Model model, int choice){
         //todo gestire l'eccezione di un inserimento non valido
-        Card card;
+        Card card=null;
         model.getDrawingCardArea().DisplayVisibleCard();
         switch (choice) {
             case 0:
@@ -104,6 +114,8 @@ public class Player {
                 model.getPlayerCardArea(this).getHand().add(card);
                 break;
         }
+        assert card != null;
+        model.notifyModelChange("Card drawn by " + this + ": " + card);
     }
 
     @Override
