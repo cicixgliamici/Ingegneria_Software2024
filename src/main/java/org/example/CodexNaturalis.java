@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.server.ClientPortSelection;
+import org.example.client.ClientPortSelection;
 import org.example.server.PortSelection;
 
 

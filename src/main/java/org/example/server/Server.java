@@ -2,6 +2,7 @@ package org.example.server;
 
 import org.example.controller.Controller;
 import org.example.model.Model;
+import org.example.model.ModelChangeListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -19,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Server {
+public class Server implements ModelChangeListener {
     private int port;
     private Model model;
     private Controller controller;
@@ -93,4 +94,8 @@ public class Server {
         }
     }
 
+    public void onModelChange(String updateMessage) {
+        // Metodo da ModelChangeListener, invia update a tutti i client
+        // Questo potrebbe essere implementato salvando i PrintWriter di ogni client e scrivendovi le notifiche
+        }
 }

@@ -26,7 +26,7 @@ public class Model {
 
     private List<Card> PublicObjective;
     private int currentPlayer;
-
+    private List<ModelChangeListener> listeners = new ArrayList<>();
 
     /** Constructor of the Model
      *
@@ -132,4 +132,30 @@ public class Model {
     public String tryConnection(){
         return "Connection successful";
     }
+
+
+
+
+    public void addModelChangeListener(ModelChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeModelChangeListener(ModelChangeListener listener) {
+        listeners.remove(listener);
+    }
+
+    // Questo metodo viene chiamato all'interno del modello quando qualcosa cambia
+    public void notifyModelChange(String updateMessage) {
+        for (ModelChangeListener listener : listeners) {
+            listener.onModelChange(updateMessage);
+        }
+    }
+
+    // Esempio di un metodo che cambia lo stato del modello
+    public void changeSomethingInModel() {
+        // Logica per cambiare il modello
+        // ...
+        notifyModelChange("Model changed, update sent to all listeners.");
+    }
+
 }

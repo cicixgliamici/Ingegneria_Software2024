@@ -1,8 +1,5 @@
-package org.example.server;
+package org.example.client;
 
-import org.example.client.Client;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class ClientPortSelection {
