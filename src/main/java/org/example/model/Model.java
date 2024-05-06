@@ -17,16 +17,12 @@ import java.util.List;
 
 public class Model {
     private DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board
-
     private final HashMap<Player, PlayerCardArea> gameArea;
     private final ScoreBoard scoreBoard;              // Object scoreboard to memorize points
     private List<Player> PlayersList;
-
-
-
     private List<Card> PublicObjective;
     private int currentPlayer;
-    private List<ModelChangeListener> listeners = new ArrayList<>();
+    private List<ModelChangeListener> listeners = new ArrayList<>(); // List of other classes that are interested when something changes (only the Server)
 
     /** Constructor of the Model
      *
@@ -143,11 +139,7 @@ public class Model {
         listeners.add(listener);
     }
 
-    public void removeModelChangeListener(ModelChangeListener listener) {
-        listeners.remove(listener);
-    }
-
-    // Questo metodo viene chiamato all'interno del modello quando qualcosa cambia
+    // Called when something changes in the Model from the methods like Draw and Play
     public void notifyModelChange(String updateMessage) {
         for (ModelChangeListener listener : listeners) {
             listener.onModelChange(updateMessage);
