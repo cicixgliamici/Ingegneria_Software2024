@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * The main class of the server. It simply creates a new server class and runs it.
- *
+ * Main class of the server, started when you play 1 in CodexNaturalis.Java
+ * You can choose the port where you want to listen
  */
-
 
 public class PortSelection {
     public static void main( String[] args )
@@ -27,7 +26,6 @@ public class PortSelection {
 
             if(port <= 1023 || port >= 65535)
                 System.out.println("Write a valid port number from 1024 to 65535");
-
         } while (port <= 1023 || port >= 65535);
         in.close();
         Server server;
