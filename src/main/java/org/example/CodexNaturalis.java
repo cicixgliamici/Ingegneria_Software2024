@@ -7,7 +7,7 @@ import org.example.server.PortSelection;
 import java.util.Scanner;
 
 /** First class runned when you start the CodexNaturalis.jar
-*   So that you can choose to run a server or tu run a client (TUI or GUI)
+*   So that you can choose to run a server or a client (TUI or GUI)
 */
 
 public class CodexNaturalis {
