@@ -32,6 +32,7 @@ public class Model {
         drawingCardArea = new DrawingCardArea();  //creates a drawing card area that creates the decks
         scoreBoard = new ScoreBoard(); //creates a unique scoreboard for each player
         gameArea = new HashMap<>();
+        PublicObjective = new ArrayList<>();
     }
 
     /** This method cycles on the PlayersList because you can't

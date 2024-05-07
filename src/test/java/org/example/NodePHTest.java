@@ -197,4 +197,42 @@ public class NodePHTest extends TestCase {
         assertEquals(4, model.getPlayerCardArea(player1).getAllNodes().size());
         assertEquals(0, model.getPlayerCardArea(player1).getPlaceHolders().size());
     }
+
+    public void testToString() throws IOException {
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        String expectedToString = "nodo: 0 0";
+        assertEquals(expectedToString, starterNode.toString());
+    }
+    public void testSetGet() throws IOException {
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        PlaceHolder placeHolder1 = new PlaceHolder(1,1);
+        PlaceHolder placeHolder2 = new PlaceHolder(1,-1);
+        PlaceHolder placeHolder3 = new PlaceHolder(-1,1);
+        PlaceHolder placeHolder4 = new PlaceHolder(-1,-1);
+        Node node = new Node(starterCard, placeHolder3, placeHolder1, placeHolder4  , placeHolder2, 0,0);
+        assertEquals(starterCard, node.getCard());
+        assertEquals(placeHolder1, node.getTopR());
+        assertEquals(placeHolder2, node.getBotR());
+        assertEquals(placeHolder3, node.getTopL());
+        assertEquals(placeHolder4, node.getBotL());
+        Deck deck = new Deck(Type.RESOURCES);
+        Card card = deck.drawCard();
+        node.setCard(card);
+        assertEquals(card, node.getCard());
+        PlaceHolder newplaceHolder1 = new PlaceHolder(2,2);
+        PlaceHolder newplaceHolder2 = new PlaceHolder(2,-2);
+        PlaceHolder newplaceHolder3 = new PlaceHolder(-2,2);
+        PlaceHolder newplaceHolder4 = new PlaceHolder(-2,-2);
+        node.setBotL(newplaceHolder3);
+        node.setBotR(newplaceHolder2);
+        node.setTopL(newplaceHolder1);
+        node.setTopR(newplaceHolder4);
+        assertEquals(newplaceHolder3, node.getBotL());
+        assertEquals(newplaceHolder1, node.getTopL());
+        assertEquals(newplaceHolder2, node.getBotR());
+        assertEquals(newplaceHolder4, node.getTopR());
+    }
 }

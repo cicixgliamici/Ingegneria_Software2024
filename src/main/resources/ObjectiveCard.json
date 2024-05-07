@@ -90,9 +90,9 @@
   {
     "id": 95,
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "FUNGI",
     "points": 2,
-    "objectivePoints" : "FUNGI",
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -101,9 +101,9 @@
   {
     "id": 96,
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "PLANT",
     "points": 2,
-    "objectivePoints" : "PLANT",
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -112,9 +112,9 @@
   {
     "id": 97,
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "ANIMAL",
     "points": 2,
-    "objectivePoints" : "ANIMAL",
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
@@ -123,9 +123,9 @@
   {
     "id": 98,
     "type": "OBJECT",
-    "cardres": "NULL",
+    "cardres": "INSECT",
     "points": 2,
-    "objectivePoints" : "INSECT",
+    "objectivePoints" : "RES",
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"

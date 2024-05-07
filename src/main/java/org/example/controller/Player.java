@@ -63,8 +63,6 @@ public class Player {
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
         Card chosencard= CheckChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
-        model.getPlayerCardArea(this).PlayACard(card, placeHolder);
-        model.getPlayerCardArea(this).getHand().remove(card);
         try {
             // Tentativo di giocare una carta
             model.getPlayerCardArea(this).PlayACard(card, placeHolder);
