@@ -3,6 +3,7 @@ package org.example.model;
 import org.example.controller.Player;
 import org.example.model.playarea.*;
 import org.example.enumeration.Type;
+import org.example.server.ModelChangeListener;
 import org.json.simple.parser.ParseException;
 import org.example.model.deck.*;
 import org.example.model.playarea.DrawingCardArea;
@@ -52,7 +53,7 @@ public class Model {
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         //todo il client riceve 5 carte: le tre della sua mano e le 2 carte obbiettivo--> dovrà ritornare due valori, uno indica la carta obbiettivo scelta e una indica il lato della carta starter
-        notifyModelChange("Card added to players' hands");
+        //notifyModelChange("Card added to players' hands");
     }
 
     /** Getter and Setter Area
@@ -128,29 +129,21 @@ public class Model {
         PublicObjective = publicObjective;
     }
 
-    public String tryConnection(){
-        return "Connection successful";
-    }
-
-
-
-
+    /** Listeners Zone
+     */
     public void addModelChangeListener(ModelChangeListener listener) {
         listeners.add(listener);
     }
 
     // Called when something changes in the Model from the methods like Draw and Play
-    public void notifyModelChange(String updateMessage) {
+    public void notifyModelChange(String username, String specificMessage, String generalMessage) {
         for (ModelChangeListener listener : listeners) {
-            listener.onModelChange(updateMessage);
+            listener.onModelChange(username, specificMessage, generalMessage);
         }
     }
-
-    // Esempio di un metodo che cambia lo stato del modello
-    public void changeSomethingInModel() {
-        // Logica per cambiare il modello
-        // ...
-        notifyModelChange("Model changed, update sent to all listeners.");
+    public void notifyModelSpecific(String username, String specificMessage) {
+        for (ModelChangeListener listener : listeners) {
+            listener.onModelSpecific(username, specificMessage);
+        }
     }
-
 }

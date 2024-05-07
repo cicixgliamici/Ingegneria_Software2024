@@ -1,10 +1,5 @@
 {
   "commands": {
-    "tryConnection": {
-      "className": "org.example.model.Model",
-      "methodName": "tryConnection",
-      "fileName": "Model.java"
-    },
     "draw": {
       "className": "org.example.controller.Player",
       "methodName": "Draw",

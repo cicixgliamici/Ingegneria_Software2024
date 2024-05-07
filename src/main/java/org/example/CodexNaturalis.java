@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.client.ClientPortSelection;
 import org.example.server.PortSelection;
+import org.example.view.View;
+import org.example.view.ViewTUI;
 
 
 import java.util.Scanner;
@@ -25,11 +27,10 @@ public class CodexNaturalis {
                 PortSelection.main(null);
                 break;
             case "2":
-                ClientPortSelection.main(null);
+                ClientPortSelection.main(null, 0);
                 break;
             case "3":
-                System.out.println("non valido ancora");
-                //ClientPortSelection.main(null);
+                ClientPortSelection.main(null, 1);
                 break;
             default:
                 System.out.println("invalid input!\n");

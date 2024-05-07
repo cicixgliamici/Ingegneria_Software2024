@@ -2,7 +2,7 @@ package org.example.server;
 
 import org.example.controller.Controller;
 import org.example.model.Model;
-import org.example.model.ModelChangeListener;
+import org.example.view.View;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -25,12 +25,12 @@ import java.util.concurrent.Executors;
 */
 
 public class Server implements ModelChangeListener {
-    private int port; 
+    private int port;
     private Model model;
     private Controller controller;
     private Map<String, JSONObject> commands = new HashMap<>();        // Map for the commands written by the Client and the commands in the JSON
-    private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates an username (unique, from client) to a PrintWriter object
-
+    private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username (unique, from client) to a PrintWriter object
+    private Map<String, View> clientView = new HashMap<>();
     public Server(int port) throws IOException, ParseException {
         this.port = port;
         this.model = new Model();
@@ -68,6 +68,7 @@ public class Server implements ModelChangeListener {
                         numMaxConnections = Integer.parseInt(in.readLine());
                     }
                     clientWriters.put(username, out);
+                    clientView.put(username, )
                     out.println("Connection successful");
                     executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
                     numConnections++;
@@ -85,9 +86,10 @@ public class Server implements ModelChangeListener {
         executor.shutdown();
     }
 
-    /** Load command from a JSON, where we can choose what parameters do we
-    *   need from a client and what we use from the server
-    */
+    /**
+     * Load command from a JSON, where we can choose what parameters do we
+     * need from a client and what we use from the server
+     */
     public void loadCommands() throws IOException {
         String path = "src/main/resources/Commands.json";
         String text = new String(Files.readAllBytes(Paths.get(path)));
@@ -98,14 +100,37 @@ public class Server implements ModelChangeListener {
         }
     }
 
-    /** For every client added, we send them a message when
-    * the listener tell us something in the model is changed
-    */
+    /**
+     * For every client added, we send them a message when
+     * the listener tell us something in the model is changed
+     */
+
+    //todo vanno modificati in modo tale che lancino delle stringhe
     @Override
-    public void onModelChange(String updateMessage) {
-        for (PrintWriter writer : clientWriters.values()) {
-            writer.println(updateMessage);
+    public void onModelChange(String username, String specificMessage, String generalMessage) {
+        for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
+            PrintWriter writer = entry.getValue();
+            if (entry.getKey().equals(username)) {
+                writer.println(specificMessage);  // Send specific message to the player who drew the card
+            } else {
+                writer.println(generalMessage);  // Send a generic message to all other players
+            }
             writer.flush();
         }
     }
-}
+    @Override
+    public void onModelSpecific(String username, String specificMessage) {
+        for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
+            PrintWriter writer = entry.getValue();
+            if (entry.getKey().equals(username)) {
+                writer.println(specificMessage);
+                writer.flush();
+            }
+        }
+    }
+
+        public Map<String, PrintWriter> getClientWriters() {
+            return clientWriters;
+        }
+    }
+

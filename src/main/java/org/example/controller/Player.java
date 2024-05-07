@@ -69,10 +69,10 @@ public class Player {
             // Tentativo di giocare una carta
             model.getPlayerCardArea(this).PlayACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
-            model.notifyModelChange("Card played by " + this + " at position (" + x + ", " + y + ")");
+            model.notifyModelChange(this.username, "You played: " + card, username + " has played :" + card);
         } catch (Exception e) {
-            model.notifyModelChange("Failed to play card by " + this + ": " + e.getMessage());
-            throw e; // Rilancia l'eccezione per ulteriore gestione degli errori
+            model.notifyModelSpecific(this.username, "You cannot play: " + card + "in:" + x + "," + y);
+            throw e; // Rilancia l'eccezione per ulteriore gestione degli errori
         }
 
     }
@@ -115,12 +115,16 @@ public class Player {
                 break;
         }
         assert card != null;
-        model.notifyModelChange("Card drawn by " + this + ": " + card);
+        model.notifyModelChange(this.username, "You drew: " + card, username + " has drawn a card.");
     }
 
     @Override
     public String toString() {
         return this.username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void updateScoreboardPoints(Model model){

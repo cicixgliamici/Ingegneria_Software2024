@@ -1,5 +1,7 @@
 package org.example.client;
 
+import org.example.view.View;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -10,10 +12,12 @@ import java.util.Scanner;
 public class Client {
     private String ip;
     private int port;
+    private View view;
 
-    public Client(String ip, int port) {
+    public Client(String ip, int port, View view) {
         this.ip = ip;
         this.port = port;
+        this.view = view;
     }
 
     public void startClient() {
@@ -23,7 +27,6 @@ public class Client {
             Scanner socketIn = new Scanner(socket.getInputStream());
             PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
             Scanner stdin = new Scanner(System.in);
-
             // Thread per la ricezione dei messaggi dal server
             Thread serverListener = new Thread(() -> {
                 try {
@@ -37,7 +40,6 @@ public class Client {
                 }
             });
             serverListener.start();
-
             // Thread per l'invio delle stringhe inserite dall'utente al server
             Thread userInputThread = new Thread(() -> {
                 try {
@@ -76,5 +78,17 @@ public class Client {
                 }
             }
         }
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public View getView() {
+        return view;
     }
 }
