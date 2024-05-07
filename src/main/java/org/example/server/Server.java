@@ -68,7 +68,6 @@ public class Server implements ModelChangeListener {
                         numMaxConnections = Integer.parseInt(in.readLine());
                     }
                     clientWriters.put(username, out);
-                    clientView.put(username, )
                     out.println("Connection successful");
                     executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
                     numConnections++;

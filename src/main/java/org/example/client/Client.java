@@ -32,7 +32,8 @@ public class Client {
                 try {
                     while (true) {
                         String socketLine = socketIn.nextLine();
-                        System.out.println(socketLine);
+                        view.Interpreter(socketLine);
+                        //System.out.println(socketLine);
 
                     }
                 } catch (NoSuchElementException e) {

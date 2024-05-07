@@ -1,0 +1,44 @@
+{
+  "interpreter": {
+    "drawnCard": {
+      "className": "org.example.view",
+      "methodName": "drawnCard",
+      "parameters": [
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "playedCard": {
+      "className": "org.example.view",
+      "methodName": "playedCard",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "firstHand": {
+      "className": "org.example.view",
+      "methodName": "firstHand",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "setHand": {
+      "className": "org.example.view",
+      "methodName": "setHand",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    }
+  }
+}

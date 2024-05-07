@@ -26,17 +26,6 @@ public class Player {
 
     }
 
-    /** Method for the TUI to see the Player's hand
-     *
-     */
-    public void SeeHand(Model model){
-        List<Card> hand= model.getPlayerCardArea(this).getHand();
-        //System.out.println("this is your hand: \n");
-        //for (Card c: hand){
-        //    System.out.println(c);
-        //}
-    }
-
     //metodo che verifica la validità di una carta scelta
     public Card CheckChosenCard(Model model, Card card) throws InvalidCardException {
         boolean isValidCard = model.getPlayerCardArea(this).CheckPlayForGold(card);
@@ -46,7 +35,6 @@ public class Player {
             return card;
         }
     }
-
 
     public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
