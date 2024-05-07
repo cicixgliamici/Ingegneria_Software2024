@@ -19,9 +19,9 @@ import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/** Server class that start the server and wait for the clients
-*   Subscribed to the listeners list of model (and actually the only one
-*   and tell the Clients when something changes
+/** Server class that starts the server and waits for the clients
+*   Subscribed to the list of listeners in the model (it's the only one
+*   and tells the Clients when something changes)
 */
 
 public class Server implements ModelChangeListener {
@@ -57,12 +57,12 @@ public class Server implements ModelChangeListener {
                     if (numConnections >= numMaxConnections) {
                         out.println("Connection failed: maximum number of players reached");
                         clientSocket.close(); // Close connection
-                        continue; // Re-start the while to add other clients
+                        continue; // Re-start the while cycle to add other clients
                     }
                     // Username from the client, must be unique for every Match
                     out.println("Enter your username:");
                     String username = in.readLine();
-                    // Only the first client set the number of players
+                    // Only the first client sets the number of players
                     if (clientWriters.isEmpty()) {
                         out.println("Enter the maximum number of players (1-4):");
                         numMaxConnections = Integer.parseInt(in.readLine());
@@ -85,8 +85,8 @@ public class Server implements ModelChangeListener {
         executor.shutdown();
     }
 
-    /** Load command from a JSON, where we can choose what parameters do we
-    *   need from a client and what we use from the server
+    /** Load commands from a JSON file, where we can choose which parameters
+     * are implemented from the client and which from the server
     */
     public void loadCommands() throws IOException {
         String path = "src/main/resources/Commands.json";
@@ -99,7 +99,7 @@ public class Server implements ModelChangeListener {
     }
 
     /** For every client added, we send them a message when
-    * the listener tell us something in the model is changed
+    * the listener tells us something in the model has changed
     */
     @Override
     public void onModelChange(String updateMessage) {

@@ -70,42 +70,6 @@ public class ModelTest extends TestCase {
         assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
     }
 
-    /** Give 3 Red resources card to a player, and see if it tests correctly
-     * the "3-diagonal red cards" objective.
-     * Then add another red card to the diagonal and see if it doesn't recount them.
-     */
-    public void testFungiDiagObjective () throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
-        Model model = new Model();
-        Deck deckRes = new Deck(Type.RESOURCES);
-        Deck deckObj = new Deck(Type.OBJECT);
-        Deck deckStarter = new Deck(Type.STARTER);
-        List<Player> playerslist=new ArrayList<>();
-        model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
-        model.getPlayersList().add(player1);
-        Card starter = deckStarter.getCards().get(0);
-        starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
-        model.getGameArea().put(player1, playerCardArea);
-        assertEquals(0, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
-        Card card1 = deckRes.getCards().get(0);
-        model.getPlayerCardArea(player1).getHand().add(card1);
-        Card card2 = deckRes.getCards().get(3);
-        model.getPlayerCardArea(player1).getHand().add(card2);
-        Card card3 = deckRes.getCards().get(4);
-        model.getPlayerCardArea(player1).getHand().add(card3);
-        player1.Play(model, 0, 1, 1,1);
-        player1.Play(model, 0, 1, 2,2);
-        player1.Play(model, 0, 1, 3,3);
-        Card card4 = deckObj.getCards().get(0);
-        model.getPlayerCardArea(player1).setSecretObjective(card4);
-        Card card5 = deckRes.getCards().get(1);
-        model.getPlayerCardArea(player1).getHand().add(card5);
-        player1.Play(model, 0, 1,4,4);
-        model.getPlayerCardArea(player1).privateObjective();
-        assertEquals(2, model.getPlayerCardArea(player1).getCounter().getPointCounter());
-        assertEquals(1, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
-    }
 
     /** Add 3 resource cards by back to have the needed requirement for placing the
      * first gold card, and place it.

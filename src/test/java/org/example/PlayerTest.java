@@ -7,6 +7,7 @@ import org.example.exception.InvalidCardException;
 import org.example.exception.PlaceholderNotValid;
 import org.example.model.deck.Card;
 import org.example.model.deck.Corner;
+import org.example.model.deck.Deck;
 import org.example.model.deck.SideCard;
 import org.example.model.playarea.*;
 import org.json.simple.parser.ParseException;
@@ -67,6 +68,32 @@ public class PlayerTest extends TestCase {
         scoreBoard.updatePlayerPoint(p1, 0);
         p1.updateScoreboardPoints(model);
         assertEquals(5, model.getScoreBoard().getPlayerPoint(p1));
+    }
+
+    public void testPlay() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
+        Model model = new Model();
+        Deck deckRes = new Deck(Type.RESOURCES);
+        Deck deckStarter = new Deck(Type.STARTER);
+        List<Player> playerslist=new ArrayList<>();
+        model.setPlayersList(playerslist);
+        Player player1 = new Player("al-Khwārizmī");
+        model.getPlayersList().add(player1);
+        Card starter = deckStarter.getCards().get(0);
+        starter.setSide(1);
+        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        model.getGameArea().put(player1, playerCardArea);
+        assertEquals(0, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
+        Card card1 = deckRes.getCards().get(0);
+        model.getPlayerCardArea(player1).getHand().add(card1);
+        int handSize = playerCardArea.getHand().size();
+        player1.Play(model, 0, 2, 1,1);
+        List<PlaceHolder> placeHolderList = playerCardArea.getPlaceHolders();
+        List<PlaceHolder> availableNodes = playerCardArea.getAvailableNodes();
+        List<PlaceHolder> allNodes = playerCardArea.getAllNodes();
+        PlaceHolder node1 = new Node(card1, 1, 1, placeHolderList, availableNodes, allNodes);
+        assertEquals(node1.getCard(), card1);
+        assertEquals(handSize-1, playerCardArea.getHand().size());
+        assertEquals(node1.getCard().getSide().getSide(), Side.BACK);
     }
 }
 
