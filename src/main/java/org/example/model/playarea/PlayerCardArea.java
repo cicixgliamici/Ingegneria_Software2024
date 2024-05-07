@@ -539,7 +539,7 @@ public class PlayerCardArea {
         for (PlaceHolder node1 : AllNodes) {
             if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && SameType(node,node1)){
                 for (PlaceHolder node2 : AllNodes) {
-                    if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && node2.getCard().getCardRes()==CardRes.PLANT){
+                    if(node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && node2.getCard().getCardRes()==CardRes.PLANT){
                         AlreadyUsed.add(node);
                         AlreadyUsed.add(node1);
                         AlreadyUsed.add(node2);
