@@ -4,6 +4,7 @@ import org.example.enumeration.Type;
 import org.example.exception.PlaceholderNotValid;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
+import org.example.model.playarea.PlayerCardArea;
 import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
 import org.example.model.playarea.PlaceHolder;
@@ -36,6 +37,30 @@ public class Player {
         }
     }
 
+    /** Associates to each player
+     * their own player area
+     */
+    public void setObjStarter(Model model, int choice, int obj) { //choice è il lato di starter e obj è l'obbiettivo segreto scelto
+        if (choice==1){
+            model.getPlayerCardArea(this).getCardStarter().setSide(1);
+        } else {
+            model.getPlayerCardArea(this).getCardStarter().setSide(2);
+        }
+        model.getPlayerCardArea(this).setStarterNode();
+        if(obj==1){
+            model.getPlayerCardArea(this).setSecretObjective(model.getPlayerCardArea(this).getTempSecretObjective().get(0));
+            model.getDrawingCardArea().getObjectDeck().getCards().add(model.getPlayerCardArea(this).getTempSecretObjective().get(1));
+            model.getPlayerCardArea(this).getTempSecretObjective().clear();
+        }
+        else {
+            model.getPlayerCardArea(this).setSecretObjective(model.getPlayerCardArea(this).getTempSecretObjective().get(1));
+            model.getDrawingCardArea().getObjectDeck().getCards().add(model.getPlayerCardArea(this).getTempSecretObjective().get(0));
+            model.getPlayerCardArea(this).getTempSecretObjective().clear();
+        }
+
+
+    }
+
     public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
@@ -55,19 +80,13 @@ public class Player {
             // Tentativo di giocare una carta
             model.getPlayerCardArea(this).PlayACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
-            model.notifyModelChange(this.username, "You played: " + card, username + " has played :" + card);
+            model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
+                                                    "hasPlayed:" + username + "," + card.getId());
         } catch (Exception e) {
-            model.notifyModelSpecific(this.username, "You cannot play: " + card + "in:" + x + "," + y);
+            model.notifyModelSpecific(this.username, "unplayable:" + username + "," + card.getId() + "," + x + "," + y);
             throw e; // Rilancia l'eccezione per ulteriore gestione degli errori
         }
 
-    }
-
-    public int ChooseStarterSide(){
-        /*System.out.println("Pick your starter card side 1 - front , 2 - back");
-        Scanner scanner= new Scanner(System.in);
-        return scanner.nextInt();*/
-        return 1;
     }
 
     public void Draw (Model model, int choice){
@@ -101,7 +120,8 @@ public class Player {
                 break;
         }
         assert card != null;
-        model.notifyModelChange(this.username, "You drew: " + card, username + " has drawn a card.");
+        model.notifyModelChange(this.username,  "drawnCard:" + card.getId(),
+                                                "hasDrawn:" + username + ","+ card.getId());
     }
 
     @Override

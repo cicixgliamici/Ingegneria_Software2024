@@ -8,6 +8,15 @@
       ],
       "fileName": "View.java"
     },
+    "hasDrawn": {
+      "className": "org.example.view",
+      "methodName": "drawnCard",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
     "playedCard": {
       "className": "org.example.view",
       "methodName": "playedCard",
@@ -18,14 +27,34 @@
       ],
       "fileName": "View.java"
     },
+    "hasPlayed": {
+      "className": "org.example.view",
+      "methodName": "hasPlayed",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "unplayable": {
+      "className": "org.example.view",
+      "methodName": "hasPlayed",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
     "firstHand": {
       "className": "org.example.view",
       "methodName": "firstHand",
       "parameters": [
-        {"type": "int", "source": "server"},
         {"type": "int", "source":  "server"},
         {"type": "int", "source":  "server"},
-        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
         {"type": "int", "source":  "server"},
         {"type": "int", "source":  "server"}
       ],
@@ -34,6 +63,15 @@
     "setHand": {
       "className": "org.example.view",
       "methodName": "setHand",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "pubObj": {
+      "className": "org.example.view",
+      "methodName": "pubObj",
       "parameters": [
         {"type": "int", "source": "server"},
         {"type": "int", "source":  "server"}

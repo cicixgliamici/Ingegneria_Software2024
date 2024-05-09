@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class PortSelection {
     public static void main( String[] args )
     {
-        System.out.println("insert port number or digit one casual letter for default (50000)");
+        System.out.println("Insert port number or digit one casual letter for default (50000)");
         Scanner in = new Scanner(System.in);
         int port;
         do{

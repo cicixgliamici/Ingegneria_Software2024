@@ -1,6 +1,7 @@
 package org.example.server;
 
 import org.example.controller.Controller;
+import org.example.controller.Player;
 import org.example.model.Model;
 import org.example.view.View;
 import org.json.JSONObject;
@@ -28,6 +29,7 @@ public class Server implements ModelChangeListener {
     private int port;
     private Model model;
     private Controller controller;
+    private List<Player> players ; // List of players for the controller
     private Map<String, JSONObject> commands = new HashMap<>();        // Map for the commands written by the Client and the commands in the JSON
     private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username (unique, from client) to a PrintWriter object
     private Map<String, View> clientView = new HashMap<>();
@@ -81,6 +83,8 @@ public class Server implements ModelChangeListener {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
         System.out.println("Server stopped with " + numConnections + " connections");
+        controller.setPlayers(players);
+        controller.InitializeController();
         for (String string : clientWriters.keySet()) {
             System.out.println(string);
         }
@@ -105,8 +109,6 @@ public class Server implements ModelChangeListener {
      * For every client added, we send them a message when
      * the listener tell us something in the model is changed
      */
-
-    //todo vanno modificati in modo tale che lancino delle stringhe
     @Override
     public void onModelChange(String username, String specificMessage, String generalMessage) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
@@ -123,7 +125,7 @@ public class Server implements ModelChangeListener {
     public void onModelSpecific(String username, String specificMessage) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
-            if (entry.getKey().equals(username)) {
+            if (entry.getKey().equals(username)) { // specific message only to one client
                 writer.println(specificMessage);
                 writer.flush();
             }
@@ -138,8 +140,8 @@ public class Server implements ModelChangeListener {
         }
     }
 
-        public Map<String, PrintWriter> getClientWriters() {
-            return clientWriters;
-        }
+    public Map<String, PrintWriter> getClientWriters() {
+        return clientWriters;
     }
+}
 

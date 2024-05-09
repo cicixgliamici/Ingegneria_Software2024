@@ -48,10 +48,16 @@ public class Model {
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
-            List<Card> ObjectiveCard= new ArrayList<>();
-            //todo chiedere al client quale carta obbiettivo sceglie
-            ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-            ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            playerCardArea.setCardStarter(drawingCardArea.drawCardFromDeck(Type.STARTER));
+            notifyModelSpecific(player.getUsername(), "firstHand:" +
+                    playerCardArea.getHand().get(0).getId() + "," +
+                    playerCardArea.getHand().get(1).getId() + "," +
+                    playerCardArea.getHand().get(2).getId() + "," +
+                    playerCardArea.getTempSecretObjective().get(0).getId()+ "," +
+                    playerCardArea.getTempSecretObjective().get(1).getId()+ "," +
+                    playerCardArea.getCardStarter().getId());
         }
     }
 
@@ -89,25 +95,6 @@ public class Model {
 
     public void setPlayersList(List<Player> playersList) {
         PlayersList = playersList;
-    }
-
-    /** Associates to each player
-     * their own player area
-     */
-    public void setPlayersAndGameArea(List<Player> playersList) {
-        PlayersList = playersList;
-        for (Player p : playersList){
-            //System.out.println(p + " this is your starter card:\n");
-            Card starter = drawingCardArea.drawCardFromDeck(Type.STARTER);
-            //System.out.println(starter);
-            if (p.ChooseStarterSide()==1){
-                starter.setSide(1);
-            } else {
-                starter.setSide(2);
-            }
-            PlayerCardArea playersCardArea = new PlayerCardArea(starter);
-            gameArea.put(p, playersCardArea);
-        }
     }
 
     /** Getter of the HashMap
@@ -153,4 +140,10 @@ public class Model {
             listener.onModelSpecific(username, specificMessage);
         }
     }
+    public void notifyModelGeneric(String generalMessage){
+        for(ModelChangeListener listener: listeners) {
+            listener.onModelGeneric(generalMessage);
+        }
+    }
 }
+

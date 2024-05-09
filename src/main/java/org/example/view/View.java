@@ -11,9 +11,13 @@ public abstract class View {
 
     // Interpreted messages from server
     public void drawnCard(int id){};
+    public void hasDrawn(String username, int id){};
     public void playedCard(int id, int x, int y){};
+    public void hasPlayed(String username, int id){};
+    public void unplayable(int id, int x, int y){};
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6){};
     public void setHand(int side, int choice){};
+    public void pubObj(int id1, int id2){};
 
 
     public void UpdateHand(String message) {
