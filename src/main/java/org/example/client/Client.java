@@ -23,6 +23,7 @@ public class Client {
     public void startClient() {
         Socket socket = null;
         try {
+            System.out.println("Attempting to connect to " + ip + ":" + port);
             socket = new Socket(ip, port);
             Scanner socketIn = new Scanner(socket.getInputStream());
             PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
@@ -33,8 +34,7 @@ public class Client {
                     while (true) {
                         String socketLine = socketIn.nextLine();
                         view.Interpreter(socketLine);
-                        //System.out.println(socketLine);
-
+                        System.out.println(socketLine);
                     }
                 } catch (NoSuchElementException e) {
                     System.out.println("Server closed the connection");
@@ -53,7 +53,6 @@ public class Client {
                 }
             });
             userInputThread.start();
-
             // Attende che entrambi i thread terminino prima di chiudere le risorse
             try {
                 userInputThread.join();

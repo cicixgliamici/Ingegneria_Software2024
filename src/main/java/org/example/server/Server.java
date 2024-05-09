@@ -132,6 +132,7 @@ public class Server implements ModelChangeListener {
         }
     }
 
+    @Override
     public void onModelGeneric(String generalMessage) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();

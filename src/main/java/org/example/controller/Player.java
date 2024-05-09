@@ -57,8 +57,6 @@ public class Player {
             model.getDrawingCardArea().getObjectDeck().getCards().add(model.getPlayerCardArea(this).getTempSecretObjective().get(0));
             model.getPlayerCardArea(this).getTempSecretObjective().clear();
         }
-
-
     }
 
     public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {

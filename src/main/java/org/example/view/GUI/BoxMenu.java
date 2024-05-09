@@ -26,7 +26,7 @@ public class BoxMenu extends JPanel {
         BufferedImage logo = ImageIO.read(new File("src/main/resources/logomini.jpg"));
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
-        labelTitle.setSize(300,400);
+        //labelTitle.setSize(300,400);
 
         labelUsr = new JLabel("Username:");
         textFieldUsr = new JTextField("Inserisci un username...", 15);

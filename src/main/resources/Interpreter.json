@@ -78,5 +78,12 @@
       ],
       "fileName": "View.java"
     }
+  },
+  "connectionSuc": {
+    "className": "org.example.client.Client",
+    "methodName": "connectionSuc",
+    "parameters": [{"type" : "string", "source": "server"}
+    ],
+    "fileName": "Client.java"
   }
 }
