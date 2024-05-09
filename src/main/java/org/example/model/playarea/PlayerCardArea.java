@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class PlayerCardArea {
     private final List<Card> hand = new ArrayList<>(); //non so se serve
+    private List<Card> tempSecretObjective;
     private Card SecretObjective;
     private final Counter counter = new Counter();
     private final List<PlaceHolder> AllNodes; //tutti i nodi inseriti
@@ -23,7 +24,9 @@ public class PlayerCardArea {
     private final List<PlaceHolder> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
     private final List<PlaceHolder> PlaceHolders;
     private List<PlaceHolder> AlreadyUsed;
+    private Card cardStarter;
 
+    /*
     public PlayerCardArea(Card cardStarter) {
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
@@ -33,11 +36,23 @@ public class PlayerCardArea {
         this.AlreadyUsed = new ArrayList<>();
     }
 
+     */
+
+
+
     public PlayerCardArea(){
         this.AvailableNodes =new ArrayList<>();
         this.AllNodes=new ArrayList<>();
         this.PlaceHolders=new ArrayList<>();
+        this.AlreadyUsed = new ArrayList<>();
+        this.tempSecretObjective=new ArrayList<>();
     }
+
+    public void setStarterNode(){
+        Node starter = new Node(this.cardStarter, 0, 0, PlaceHolders, AvailableNodes, AllNodes);
+        UpdateCounter(cardStarter);
+    }
+
 
     public void PlayACard (Card card, PlaceHolder placeHolder){
 
@@ -640,5 +655,17 @@ public class PlayerCardArea {
 
     public List<PlaceHolder> getAllNodes() {
         return AllNodes;
+    }
+
+    public List<Card> getTempSecretObjective() {
+        return tempSecretObjective;
+    }
+
+    public Card getCardStarter() {
+        return cardStarter;
+    }
+
+    public void setCardStarter(Card cardStarter) {
+        this.cardStarter = cardStarter;
     }
 }

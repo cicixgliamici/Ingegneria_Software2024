@@ -40,6 +40,9 @@ public class Model {
      * Then gives the player 3 cards.
      */
     public void DealCards(){
+        PublicObjective = new ArrayList<>();
+        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         for (Player player : PlayersList){
             PlayerCardArea playerCardArea = gameArea.get(player);
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
@@ -50,11 +53,14 @@ public class Model {
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             ObjectiveCard.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         }
-        PublicObjective = new ArrayList<>();
-        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-        PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-        //todo il client riceve 5 carte: le tre della sua mano e le 2 carte obbiettivo--> dovrà ritornare due valori, uno indica la carta obbiettivo scelta e una indica il lato della carta starter
-        //notifyModelChange("Card added to players' hands");
+    }
+
+    public void setPlayersAndGameArea(List<Player> playersList) {
+        PlayersList = playersList;
+        for (Player p : playersList){
+            PlayerCardArea playersCardArea = new PlayerCardArea();
+            gameArea.put(p, playersCardArea);
+        }
     }
 
     /** Getter and Setter Area

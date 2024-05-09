@@ -34,9 +34,10 @@ public class Server implements ModelChangeListener {
     public Server(int port) throws IOException, ParseException {
         this.port = port;
         this.model = new Model();
-        this.controller = new Controller(model);
-        this.model.addModelChangeListener(this);  //Subscribes the Server to the model listeners list
-        loadCommands();                           //Load the commands from resources->Commands.json
+        this.model.addModelChangeListener(this);
+        this.players=new ArrayList<>();
+        loadCommands();       //Load the commands from resources->Commands.json
+        this.controller = new Controller(model);  //Subscribes the Server to the model listeners list
 
     }
 
@@ -67,6 +68,7 @@ public class Server implements ModelChangeListener {
                         out.println("Enter the maximum number of players (1-4):");
                         numMaxConnections = Integer.parseInt(in.readLine());
                     }
+                    players.add(new Player(username));
                     clientWriters.put(username, out);
                     out.println("Connection successful");
                     executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
@@ -125,6 +127,14 @@ public class Server implements ModelChangeListener {
                 writer.println(specificMessage);
                 writer.flush();
             }
+        }
+    }
+
+    public void onModelGeneric(String generalMessage) {
+        for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
+            PrintWriter writer = entry.getValue();
+            writer.println(generalMessage);  // general message to everyone
+            writer.flush();
         }
     }
 
