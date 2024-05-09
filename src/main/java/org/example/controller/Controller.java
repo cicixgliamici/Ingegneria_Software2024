@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import org.example.model.Parameters;
 import org.example.model.Model;
 import org.json.simple.parser.ParseException;
 

@@ -137,7 +137,9 @@ public class NodePHTest extends TestCase {
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        PlayerCardArea playerCardArea=new PlayerCardArea();
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
         Card res= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res);
@@ -159,7 +161,9 @@ public class NodePHTest extends TestCase {
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        PlayerCardArea playerCardArea=new PlayerCardArea();
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
         Card res1= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);
@@ -181,7 +185,9 @@ public class NodePHTest extends TestCase {
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        PlayerCardArea playerCardArea=new PlayerCardArea();
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
         Card res1= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);

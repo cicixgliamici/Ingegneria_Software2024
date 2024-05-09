@@ -15,13 +15,13 @@ import java.util.List;
  *
  */
 public class PlayerCardArea {
-    private final List<Card> hand = new ArrayList<>(); //non so se serve
+    private final List<Card> hand = new ArrayList<>();
     private List<Card> tempSecretObjective;
     private Card SecretObjective;
     private final Counter counter = new Counter();
-    private final List<PlaceHolder> AllNodes; //tutti i nodi inseriti
+    private final List<PlaceHolder> AllNodes;
 
-    private final List<PlaceHolder> AvailableNodes; //tutti i nodi disponibili per ospitare una nuova carta (non contiene start ma topl topr etc di start)
+    private final List<PlaceHolder> AvailableNodes;
     private final List<PlaceHolder> PlaceHolders;
     private List<PlaceHolder> AlreadyUsed;
     private Card cardStarter;
@@ -53,7 +53,10 @@ public class PlayerCardArea {
         UpdateCounter(cardStarter);
     }
 
-
+    /**
+     * Places the card
+     *
+     */
     public void PlayACard (Card card, PlaceHolder placeHolder){
 
         //schiera la carta passata come parametro dal player in uno dei nodi che scegli il player

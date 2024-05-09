@@ -47,6 +47,10 @@ public class ScoreBoard {
         return tokens;
     }
 
+    /**
+     * Finds the winner of the game by calculating
+     * the player with the most points
+     */
     public Player Winner(){
         Player playerWithMaxPoints = null;
         int maxPoints = Integer.MIN_VALUE;

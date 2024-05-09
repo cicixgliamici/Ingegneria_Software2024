@@ -36,6 +36,7 @@ public class PlayerTest extends TestCase {
         model.setPlayersAndGameArea(playersList);
         PlayerCardArea playerCardArea = model.getPlayerCardArea(player);
         playerCardArea.getHand().add(validCard);
+        playerCardArea.getCounter().AddResource(PropertiesCorner.ANIMAL);
         Card returnedValidCard = player.CheckChosenCard(model, validCard);
         assertEquals(validCard, returnedValidCard);
     }
@@ -80,7 +81,9 @@ public class PlayerTest extends TestCase {
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        PlayerCardArea playerCardArea=new PlayerCardArea();
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
         assertEquals(0, model.getPlayerCardArea(player1).getCounter().getObjectiveCounter());
         Card card1 = deckRes.getCards().get(0);

@@ -25,11 +25,21 @@ public class ModelTest extends TestCase {
         Model model = new Model();
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
+        Deck deckStarter = new Deck(Type.STARTER);
+        Card starter1 = deckStarter.getCards().get(0);
+        starter1.setSide(1);
+        Card starter2 = deckStarter.getCards().get(1);
+        starter2.setSide(1);
         Player player1 = new Player("blur");
         Player player2 = new Player("manuxo");
         model.getPlayersList().add(player1);
         model.getPlayersList().add(player2);
         model.setPlayersAndGameArea(model.getPlayersList());
+        model.getPlayerCardArea(player1).setCardStarter(starter1);
+        model.getPlayerCardArea(player1).setStarterNode();
+        model.setPlayersAndGameArea(model.getPlayersList());
+        model.getPlayerCardArea(player2).setCardStarter(starter2);
+        model.getPlayerCardArea(player2).setStarterNode();
         model.DealCards();
         assertEquals(2, playerslist.size());
         for(Player player: playerslist) {
@@ -58,6 +68,12 @@ public class ModelTest extends TestCase {
         model.getPlayersList().add(player1);
         model.setPlayersAndGameArea(model.getPlayersList());
         model.DealCards();
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starter = starterDeck.getCards().get(0);
+        starter.setSide(1);
+        PlayerCardArea playerCardArea=model.getPlayerCardArea(player1);
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         player1.Play(model, 1, 1, 1,1);
         assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
         assertEquals(2, model.getPlayerCardArea(player1).getAllNodes().size());
@@ -65,7 +81,7 @@ public class ModelTest extends TestCase {
         assertEquals(3, model.getPlayerCardArea(player1).getHand().size());
         // 40 - 2*n - 2 - 1
         assertEquals(35, model.getDrawingCardArea().getResourceDeck().getCardNumbers());
-        player1.Play(model,1, 1, -1,1);
+        player1.Play(model,0, 1, -1,1);
         assertEquals(3, model.getPlayerCardArea(player1).getAllNodes().size());
         assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
     }
@@ -86,7 +102,9 @@ public class ModelTest extends TestCase {
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea(starter);
+        PlayerCardArea playerCardArea=new PlayerCardArea();
+        playerCardArea.setCardStarter(starter);
+        playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
         Card card1 = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(card1);
