@@ -1,7 +1,13 @@
 package org.example.view.GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
 
 public class BoxMenu extends JPanel {
     private JButton button;
@@ -13,11 +19,14 @@ public class BoxMenu extends JPanel {
     private JLabel labelPort;
     private JTextField textFieldPort;
 
-    public BoxMenu(){
+    public BoxMenu() throws IOException {
         setLayout(new GridBagLayout());
 
         // Components
-        labelTitle = new JLabel("Codex Naturalis");
+        BufferedImage logo = ImageIO.read(new File("src/main/resources/logo.jpg"));
+        Icon icon = new ImageIcon(logo);
+        labelTitle = new JLabel(icon);
+        labelTitle.setSize(300,400);
 
         labelUsr = new JLabel("Username:");
         textFieldUsr = new JTextField("Inserisci un username...", 15);

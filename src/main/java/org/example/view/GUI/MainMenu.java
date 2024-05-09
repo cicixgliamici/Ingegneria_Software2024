@@ -3,12 +3,13 @@ package org.example.view.GUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainMenu extends JFrame{
 
     BoxMenu boxMenu;
 
-    public MainMenu(){
+    public MainMenu() throws IOException {
         super("Codex Naturalis");
 
         boxMenu = new BoxMenu();
