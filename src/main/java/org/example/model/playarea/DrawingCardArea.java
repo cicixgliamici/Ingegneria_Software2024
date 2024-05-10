@@ -34,8 +34,8 @@ public class DrawingCardArea {
         initializeVReCard();
     }
 
-    /** Creates the 2 visible resource cards, taking them from the firsts two of the generated deck
-     *
+    /**
+     *  Creates the 2 visible resource cards, taking them from the firsts two of the generated deck
      */
     public void initializeVReCard(){
         for(int i=0; i<2 ; i++){
@@ -43,15 +43,16 @@ public class DrawingCardArea {
         }
     }
 
-    /** Creates the 2 visible gold cards, taking them from the firsts two of the generated deck
-     *
+    /**
+     *  Creates the 2 visible gold cards, taking them from the firsts two of the generated deck
      */
     public void initializeVGoCard(){
         for(int i=0; i<2; i++){
             visibleGoCard.add(goldDeck.drawCard());
         }
     }
-    /** Draw a card from the covered deck you choose
+    /**
+     * Draw a card from the covered deck you choose
      */
     public Card drawCardFromDeck(Type type) {
         switch(type) {
@@ -68,12 +69,11 @@ public class DrawingCardArea {
         }
     }
 
-    /** Draw from one of the 4 visible cards,
+    /**
+     * Draw from one of the 4 visible cards,
      * the player chooses which card to draw and
      * the type of the card that will replace the drawn card.
-     * The int is for which of the 2 cards you want.
-     * The index of the list is variable, because you can choose to get
-     * resource and replace with a gold.
+     * The int indicates which of the 2 cards he wants to draw.
      * */
     public Card drawCardFromVisible(Type type, int i) {
         Card drawnCard = null;
@@ -98,10 +98,10 @@ public class DrawingCardArea {
         return drawnCard;
     }
 
-    /** Method for the TUI so the player can choose the card.
-     *
+    /**
+     * Method for the TUI so the player can choose the card.
      */
-    public void DisplayVisibleCard (){
+    public void displayVisibleCard(){
         //System.out.println("There are these cards: \n");
         for (int i = 0; i < visibleReCard.size(); i++){
             //System.out.println((i + 1) + ":"+ visibleReCard.get(i));
@@ -111,7 +111,6 @@ public class DrawingCardArea {
         }
     }
 
-    //getter and setter
 
     public Deck getObjectDeck() {
         return objectDeck;

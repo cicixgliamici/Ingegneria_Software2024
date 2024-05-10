@@ -8,11 +8,11 @@ import org.example.controller.*;
 
 
 public class ScoreBoard {
-    private final HashMap<Player, Integer> Points;
+    private final HashMap<Player, Integer> points;
     private final HashMap<Color, Player> tokens; // Associate a Token to a specific color
     public ScoreBoard(){
         tokens = new HashMap<>();
-        Points = new HashMap<>();
+        points = new HashMap<>();
     }
 
     /**
@@ -33,14 +33,14 @@ public class ScoreBoard {
     }
 
     public int getPlayerPoint(Player p){
-        return Points.get(p);
+        return points.get(p);
     }
     public void updatePlayerPoint(Player p, int point){
-        Points.put(p,point);
+        points.put(p,point);
     }
 
     public HashMap<Player, Integer> getPoints() {
-        return Points;
+        return points;
     }
 
     public HashMap<Color, Player> getTokens() {
@@ -51,11 +51,11 @@ public class ScoreBoard {
      * Finds the winner of the game by calculating
      * the player with the most points
      */
-    public Player Winner(){
+    public Player winner(){
         Player playerWithMaxPoints = null;
         int maxPoints = Integer.MIN_VALUE;
 
-        for (Map.Entry<Player, Integer> entry : Points.entrySet()) {
+        for (Map.Entry<Player, Integer> entry : points.entrySet()) {
             if (entry.getValue() > maxPoints) {
                 maxPoints = entry.getValue();
                 playerWithMaxPoints = entry.getKey();

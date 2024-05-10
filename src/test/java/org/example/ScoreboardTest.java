@@ -44,7 +44,7 @@ public class ScoreboardTest extends TestCase {
         scoreboard.updatePlayerPoint(player2, 20);
         scoreboard.updatePlayerPoint(player3, 30);
         scoreboard.updatePlayerPoint(player4, 40);
-        assertEquals(player4, scoreboard.Winner());
+        assertEquals(player4, scoreboard.winner());
     }
 
     public void testScoreboardGeTSet(){

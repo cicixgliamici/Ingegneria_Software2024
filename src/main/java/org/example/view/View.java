@@ -20,16 +20,16 @@ public abstract class View {
     public void pubObj(int id1, int id2){};
 
 
-    public void UpdateHand(String message) {
+    public void updateHand(String message) {
         Hand.add(message);
     };
-    public void UpdatePlayerCardArea(String message){
+    public void updatePlayerCardArea(String message){
         PlayerCardArea.add(message);
     }
-    public void RemoveHand(String message) {
+    public void removeHand(String message) {
         Hand.remove(message);
     };
-    public void RemovePlayerCardArea(String message){
+    public void removePlayerCardArea(String message){
         PlayerCardArea.remove(message);
     }
 }

@@ -73,14 +73,14 @@ public class ModelTest extends TestCase {
         PlayerCardArea playerCardArea=model.getPlayerCardArea(player1);
         playerCardArea.setCardStarter(starter);
         playerCardArea.setStarterNode();
-        player1.Play(model, 1, 1, 1,1);
+        player1.play(model, 1, 1, 1,1);
         assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
         assertEquals(2, model.getPlayerCardArea(player1).getAllNodes().size());
-        player1.Draw(model, 0);
+        player1.draw(model, 0);
         assertEquals(3, model.getPlayerCardArea(player1).getHand().size());
         // 40 - 2*n - 2 - 1
         assertEquals(35, model.getDrawingCardArea().getResourceDeck().getCardNumbers());
-        player1.Play(model,0, 1, -1,1);
+        player1.play(model,0, 1, -1,1);
         assertEquals(3, model.getPlayerCardArea(player1).getAllNodes().size());
         assertEquals(2, model.getPlayerCardArea(player1).getHand().size());
     }
@@ -111,18 +111,18 @@ public class ModelTest extends TestCase {
         model.getPlayerCardArea(player1).getHand().add(card2);
         Card card3 = deckRes.getCards().get(21);
         model.getPlayerCardArea(player1).getHand().add(card3);
-        player1.Play(model, 0, 2, 1,1);
-        player1.Play(model, 0, 2, -1,1);
-        player1.Play(model, 0, 2, -1,-1);
+        player1.play(model, 0, 2, 1,1);
+        player1.play(model, 0, 2, -1,1);
+        player1.play(model, 0, 2, -1,-1);
         Card card4 = deckGold.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(card4);
-        player1.Play(model, 0, 1, 1, -1);
+        player1.play(model, 0, 1, 1, -1);
         assertEquals(card4, model.getPlayerCardArea(player1).getNodeByXY(1,-1).getCard());
         assertEquals(1, model.getPlayerCardArea(player1).getCounter().getPointCounter());
         try {
             Card card5 = deckGold.getCards().get(1);
             model.getPlayerCardArea(player1).getHand().add(card5);
-            player1.Play(model, 0, 1, 2, 2); // This is expected  InvalidCardException
+            player1.play(model, 0, 1, 2, 2); // This is expected  InvalidCardException
             fail("Expected an InvalidCardException to be thrown");
         } catch (InvalidCardException e) {
             assertEquals("La carta selezionata non è valida.", e.getMessage());

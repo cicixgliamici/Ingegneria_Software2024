@@ -4,12 +4,9 @@ import org.example.enumeration.Type;
 import org.example.exception.PlaceholderNotValid;
 import org.example.exception.InvalidCardException;
 import org.example.model.Model;
-import org.example.model.playarea.PlayerCardArea;
 import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
 import org.example.model.playarea.PlaceHolder;
-
-import java.util.List;
 
 /** All the attributes and methods for the management of the Player.
  *  The player is in the controller and talks to the PlayArea in the model.
@@ -27,9 +24,11 @@ public class Player {
 
     }
 
-    //metodo che verifica la validità di una carta scelta
-    public Card CheckChosenCard(Model model, Card card) throws InvalidCardException {
-        boolean isValidCard = model.getPlayerCardArea(this).CheckPlayForGold(card);
+    /**
+     * Checks the validity of a chosen card
+     */
+    public Card checkChosenCard(Model model, Card card) throws InvalidCardException {
+        boolean isValidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
         if (isValidCard) {
             throw new InvalidCardException("La carta selezionata non è valida.");
         } else {
@@ -37,10 +36,11 @@ public class Player {
         }
     }
 
-    /** Associates to each player
+    /**
+     * Associates to each player
      * their own player area
      */
-    public void setObjStarter(Model model, int choice, int obj) { //choice è il lato di starter e obj è l'obbiettivo segreto scelto
+    public void setObjStarter(Model model, int choice, int obj) { //Choice indicates the side of the started card and obj the chosen objective card
         if (choice==1){
             model.getPlayerCardArea(this).getCardStarter().setSide(1);
         } else {
@@ -59,7 +59,11 @@ public class Player {
         }
     }
 
-    public void Play (Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
+    /**
+     * Plays a card from the player's hand on the node with the passed coordinates
+     * on the chosen side
+     */
+    public void play(Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
         PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
@@ -73,24 +77,27 @@ public class Player {
             throw new RuntimeException(e);
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
-        Card chosencard= CheckChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
+        Card chosencard= checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
         try {
-            // Tentativo di giocare una carta
-            model.getPlayerCardArea(this).PlayACard(card, placeHolder);
+            model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
             model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
                                                     "hasPlayed:" + username + "," + card.getId());
         } catch (Exception e) {
             model.notifyModelSpecific(this.username, "unplayable:" + username + "," + card.getId() + "," + x + "," + y);
-            throw e; // Rilancia l'eccezione per ulteriore gestione degli errori
+            throw e;
         }
 
     }
 
-    public void Draw (Model model, int choice){
+    /**
+     * Draws a card. Choice indicates the Deck to draw from
+     *
+     */
+    public void draw(Model model, int choice){
         //todo gestire l'eccezione di un inserimento non valido
         Card card=null;
-        model.getDrawingCardArea().DisplayVisibleCard();
+        model.getDrawingCardArea().displayVisibleCard();
         switch (choice) {
             case 0:
                 card = model.getDrawingCardArea().drawCardFromDeck(Type.RESOURCES);

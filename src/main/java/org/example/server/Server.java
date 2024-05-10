@@ -84,7 +84,7 @@ public class Server implements ModelChangeListener {
         }
         System.out.println("Server stopped with " + numConnections + " connections");
         controller.setPlayers(players);
-        controller.InitializeController();
+        controller.initializeController();
         for (String string : clientWriters.keySet()) {
             System.out.println(string);
         }

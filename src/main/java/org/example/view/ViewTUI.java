@@ -38,18 +38,18 @@ public class ViewTUI extends View{
                             "\n"+ ".");
     }
 
-    public void PrintView(){
-        PrintHand();
-        PrintPlayerCardArea();
+    public void printView(){
+        printHand();
+        printPlayerCardArea();
     }
 
-    public void PrintHand(){
+    public void printHand(){
         for (String string : Hand){
             System.out.println(string);
         }
     };
 
-    public void PrintPlayerCardArea(){
+    public void printPlayerCardArea(){
         for (String string : PlayerCardArea){
             System.out.println(string);
         }

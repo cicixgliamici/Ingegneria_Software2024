@@ -20,8 +20,8 @@ public class Node extends PlaceHolder{
     public Node(Card card, int x, int y, List<PlaceHolder> placeHolderList, List<PlaceHolder> AvailableNodes, List<PlaceHolder> AllNodes ) {
         super (x,y);
         this.card = card;
-        this.SetPlaceHolderByCard(AvailableNodes, placeHolderList);
-        this.SetNullNode(AvailableNodes);
+        this.setPlaceHolderByCard(AvailableNodes, placeHolderList);
+        this.setNullNode(AvailableNodes);
         AllNodes.add(this);
     }
     public Node (Card card, PlaceHolder topL, PlaceHolder topR, PlaceHolder botL, PlaceHolder botR, int x, int y){
@@ -33,26 +33,26 @@ public class Node extends PlaceHolder{
         this.botR= botR;
     }
 
-    /**  The node that is created is positioned 
-     *    mirror-image of the original one
+    /**
+     * Creates an empty and unusable node
+     * for when the corner is hidden
      */
-
-    public Node NullNodeTopR(){
+    public Node nullNodeTopR(){
         int x = this.x+1;
         int y= this.y+1;
         return new Node(null, null, null, this, null,  x, y);
     }
-    public Node NullNodeTopL(){
+    public Node nullNodeTopL(){
         int x = this.x-1;
         int y= this.y+1;
         return new Node(null, null, null, null, this,  x, y);
     }
-    public Node NullNodeBotR(){
+    public Node nullNodeBotR(){
         int x = this.x+1;
         int y= this.y-1;
         return new Node(null, this, null, null, null,  x, y);
     }
-    public Node NullNodeBotL(){
+    public Node nullNodeBotL(){
         int x = this.x-1;
         int y= this.y-1;
         return new Node(null, null, this , null, null,  x, y);
@@ -61,41 +61,40 @@ public class Node extends PlaceHolder{
     /** CornerIsHidden return True if is Hidden
      *
      */
-    public void SetNullNode(List<PlaceHolder> AvailableNodes) {
+    public void setNullNode(List<PlaceHolder> AvailableNodes) {
         if(this.botR==null) {
-            this.botR = NullNodeBotR();
+            this.botR = nullNodeBotR();
             //todo metodo in placeholder a cui passi una lista e se è un nodo lo aggiunge alla lista oppure togliere nodi
             AvailableNodes.add((Node) this.botR);
         }
 
         if (this.botL == null) {
-            this.botL = NullNodeBotL();
+            this.botL = nullNodeBotL();
             AvailableNodes.add((Node) this.botL);
         }
 
         if (this.topL == null) {
-            this.topL = NullNodeTopL();
+            this.topL = nullNodeTopL();
             AvailableNodes.add((Node) this.topL);
         }
 
         if (this.topR == null) {
-            this.topR = NullNodeTopR();
+            this.topR = nullNodeTopR();
             AvailableNodes.add((Node) this.topR);
         }
     }
 
-    public void SetPlaceHolderByCard(List<PlaceHolder> AvailableNodes, List<PlaceHolder> PlaceHolders){
-        //controllo che l'angolo destro non sia hidden, se lo è devo:
+    public void setPlaceHolderByCard(List<PlaceHolder> AvailableNodes, List<PlaceHolder> PlaceHolders){
+        //Check whether the right corner isn't hidden, if so:
         if(this.getCard().BOTRCornerIsHidden()) {
-            //creo un nuovo placeholder da posizionare nella griglia di gioco alla posizione corretta e se cerano altri nodi vuoti li sostituisco con un placeholder
+            //create a new placeholder to be placed on the grid in the correct position and if there were other empty nodes they get replaced with a placeholder
             if(this.botR==null) {
                 this.botR = new PlaceHolder(this.x + 1, this.y - 1);
                 PlaceHolders.add(this.botR);
-                //controllo nella lista di tutti i nodi disponibili se ce n'è uno alla posizione del nuovo placeholder
+                //Check in the availableNodes list whether there is a node in the same position of the placeholder
                 if(AvailableNodes!=null && !AvailableNodes.isEmpty()) {
                     for (PlaceHolder node : AvailableNodes) {
                         if(node.x==this.x+1 && node.y==this.y-1){
-                            //se lo trovo devo andare a sostituire in tutti i nodi piazzati che hanno quel nodo il nuovo placeholder
                             if(node.getTopR()!= null){
                                 (node.getTopR()).setBotL(this.botR);
                             }
@@ -179,8 +178,11 @@ public class Node extends PlaceHolder{
         }
     }
 
-    //metodo che verifica che i 4 nuovi nodi che andrai a creare non vadano a sovrapporsi a un placeholder e nel casso gli assegna il place holder
-    public void SetNodePlaceHolder(List<PlaceHolder> placeHolderList) {
+    /**
+     * Checks whether the 4 new nodes don't overlap with any placeholders and
+     * if so assigns the placeholder
+     */
+    public void setNodePlaceHolder(List<PlaceHolder> placeHolderList) {
         if(this.botR==null) {
             for (PlaceHolder placeHolder : placeHolderList) {
                 if(placeHolder.x==this.x+1 && placeHolder.y==this.y-1) {
@@ -211,8 +213,11 @@ public class Node extends PlaceHolder{
         }
     }
 
-    // metodo che deve verificare che il nuovo nodo non vada a sovrapporsi con nessuna carta
-    public void SetNodeForExistingCard(List<PlaceHolder> AllNodes) {
+
+    /**
+     * Checks whether the new node doesn't overlap with any placed card
+     */
+    public void setNodeForExistingCard(List<PlaceHolder> AllNodes) {
         if(this.botR==null) {
             for (PlaceHolder node : AllNodes) {
                 if(node.x==this.x+1 && node.y==this.y-1) {
@@ -248,9 +253,11 @@ public class Node extends PlaceHolder{
 
     }
 
-    //metodo che verifica che il nuovo nodo non vada a sovrapporsi a nessun nodo libero gia esistente
-    public void SetNodeForNewCard(List<PlaceHolder> AvailableNodes){
-        // metodo che deve verificare che il nuovo nodo non vada a sovrapporsi con un nodo gia esistente
+    /**
+     * Checks whether the new node doesn't overlap with any
+     * already existing free node
+     */
+    public void setNodeForNewCard(List<PlaceHolder> AvailableNodes){
         if(this.botR==null) {
             for (PlaceHolder node : AvailableNodes) {
                 if(node.x==this.x+1 && node.y==this.y-1) {
@@ -281,16 +288,17 @@ public class Node extends PlaceHolder{
         }
     }
 
-    //ritorna 1 se la giocata non è andata a buon fine
-    public void SetCardNode(Card c, List<PlaceHolder> placeHolderList, List<PlaceHolder> AvailableNodes, List<PlaceHolder> AllNodes){
-        //Assegno la carta al nuovo nodo
+    /**
+     * Assigns the card to the new node
+     */
+    public void setCardNode(Card c, List<PlaceHolder> placeHolderList, List<PlaceHolder> AvailableNodes, List<PlaceHolder> AllNodes){
         this.card=c;
         this.card.setCoveredCornerByCard(1);
-        this.SetPlaceHolderByCard(AvailableNodes,placeHolderList);
-        this.SetNodePlaceHolder(placeHolderList);
-        this.SetNodeForExistingCard(AllNodes);
-        this.SetNodeForNewCard(AvailableNodes);
-        this.SetNullNode(AvailableNodes);
+        this.setPlaceHolderByCard(AvailableNodes,placeHolderList);
+        this.setNodePlaceHolder(placeHolderList);
+        this.setNodeForExistingCard(AllNodes);
+        this.setNodeForNewCard(AvailableNodes);
+        this.setNullNode(AvailableNodes);
         AllNodes.add(this);
     }
 

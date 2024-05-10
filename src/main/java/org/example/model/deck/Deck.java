@@ -21,13 +21,13 @@ import java.util.List;
 public class Deck {
 
     private Type typeDeck;
-    private int CardNumbers;
+    private int cardNumbers;
     List<Card> cards = new ArrayList<>();
     public Deck(Type typeDeck) throws IOException {
         this.typeDeck = typeDeck;
         switch (typeDeck) {
             case RESOURCES:
-                this.CardNumbers = 40;
+                this.cardNumbers = 40;
                 try {
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
@@ -51,7 +51,7 @@ public class Deck {
                 break;
 
             case GOLD:
-                this.CardNumbers = 40;
+                this.cardNumbers = 40;
                 try {
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
@@ -82,7 +82,7 @@ public class Deck {
                 break;
 
             case OBJECT:
-                this.CardNumbers = 16;
+                this.cardNumbers = 16;
                 try {
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
@@ -112,7 +112,7 @@ public class Deck {
                 break;
 
             case STARTER:
-                this.CardNumbers = 6;
+                this.cardNumbers = 6;
                 try {
                     JSONParser parser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
@@ -138,7 +138,7 @@ public class Deck {
                 break;
 
             default:
-                this.CardNumbers = 0;
+                this.cardNumbers = 0;
         }
 
     }
@@ -170,14 +170,17 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    /**
+     * Draws a card from a deck
+     */
     public Card drawCard () {
         Card card = this.cards.get(0);
         this.cards.remove(0);
-        this.CardNumbers--;
+        this.cardNumbers--;
         return card;
     }
 
-    public Card FakeDrawCard () {
+    public Card fakeDrawCard() {
         Card card = this.cards.get(0);
         return card;
     }
@@ -189,16 +192,16 @@ public class Deck {
     }
 
     public int getCardNumbers() {
-        return CardNumbers;
+        return cardNumbers;
     }
 
     public List<Card> getCards() {
         return cards;
     }
 
-    public void AddCard(Card card){
+    public void addCard(Card card){
         cards.add(card);
-        CardNumbers++;
+        cardNumbers++;
     }
 }
 

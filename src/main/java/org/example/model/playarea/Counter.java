@@ -10,150 +10,164 @@ import org.example.enumeration.cast.CastCardRes;
  */
 
 public class Counter {
-    private int AnimalCounter;
-    private int PlantCounter;
-    private int FungiCounter;
-    private int InsectCounter;
-    private int QuillCounter;
-    private int InkwellCounter;
-    private int ManuscriptCounter;
-    private int PointCounter;
-    private int ObjectiveCounter;
+    private int animalCounter;
+    private int plantCounter;
+    private int fungiCounter;
+    private int insectCounter;
+    private int quillCounter;
+    private int inkwellCounter;
+    private int manuscriptCounter;
+    private int pointCounter;
+    private int objectiveCounter;
 
     public Counter() {
-        this.AnimalCounter = 0;
-        this.PlantCounter = 0;
-        this.FungiCounter = 0;
-        this.InsectCounter = 0;
-        this.QuillCounter = 0;
-        this.InkwellCounter = 0;
-        this.ManuscriptCounter = 0;
-        this.PointCounter = 0;
-        this.ObjectiveCounter=0;
+        this.animalCounter = 0;
+        this.plantCounter = 0;
+        this.fungiCounter = 0;
+        this.insectCounter = 0;
+        this.quillCounter = 0;
+        this.inkwellCounter = 0;
+        this.manuscriptCounter = 0;
+        this.pointCounter = 0;
+        this.objectiveCounter =0;
     }
 
-    public void AddResource(PropertiesCorner propertiesCorner){     //increments counter for each corner resource
+    /**
+     * Increments the counter for each resource on the game area
+     */
+    public void addResource(PropertiesCorner propertiesCorner){
         if(propertiesCorner==PropertiesCorner.ANIMAL){
-            this.AnimalCounter++;
+            this.animalCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.FUNGI){
-            this.FungiCounter++;
+            this.fungiCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.PLANT){
-            this.PlantCounter++;
+            this.plantCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.QUILL){
-            this.QuillCounter++;
+            this.quillCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.INKWELL){
-            this.InkwellCounter++;
+            this.inkwellCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.INSECT){
-            this.InsectCounter++;
+            this.insectCounter++;
         }
         else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            this.ManuscriptCounter++;
-        }
-    }
-    public void RemoveResource(PropertiesCorner propertiesCorner){      //decrements counter whenever a resource gets covered
-        if(propertiesCorner==PropertiesCorner.ANIMAL){
-            this.AnimalCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.INSECT){
-            this.InsectCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.FUNGI){
-            this.FungiCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.PLANT){
-            this.PlantCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.QUILL){
-            this.QuillCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.INKWELL){
-            this.InkwellCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            this.ManuscriptCounter--;
-        }
-    }
-    public void AddPoint(int point){
-        this.PointCounter += point;
-        if(this.PointCounter>29){
-            this.PointCounter=29;
+            this.manuscriptCounter++;
         }
     }
 
-    public boolean IsPresent(CardRes cardRes){
+    /**
+     * Decrements the counter for each resource on the game area
+     */
+    public void removeResource(PropertiesCorner propertiesCorner){
+        if(propertiesCorner==PropertiesCorner.ANIMAL){
+            this.animalCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.INSECT){
+            this.insectCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.FUNGI){
+            this.fungiCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.PLANT){
+            this.plantCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.QUILL){
+            this.quillCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.INKWELL){
+            this.inkwellCounter--;
+        }
+        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
+            this.manuscriptCounter--;
+        }
+    }
+
+    /**
+     * Adds points to each player setting a cap of 29 points
+     */
+    public void addPoint(int point){
+        this.pointCounter += point;
+        if(this.pointCounter >29){
+            this.pointCounter =29;
+        }
+    }
+
+    /**
+     * Returns true if the passed resource is already present on the board
+     */
+    public boolean isPresent(CardRes cardRes){
         //ritorna true se il properties corner passato come parametro è presente
         CastCardRes cardRes1= new CastCardRes(cardRes);
         PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
         if(propertiesCorner==PropertiesCorner.ANIMAL){
-            return this.AnimalCounter > 0;
+            return this.animalCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.FUNGI){
-            return this.FungiCounter > 0;
+            return this.fungiCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.PLANT){
-            return this.PlantCounter > 0;
+            return this.plantCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.QUILL){
-            return this.QuillCounter > 0;
+            return this.quillCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.INKWELL){
-            return this.InkwellCounter > 0;
+            return this.inkwellCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.INSECT){
-            return this.InsectCounter > 0;
+            return this.insectCounter > 0;
         }
         else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            return this.ManuscriptCounter > 0;
+            return this.manuscriptCounter > 0;
         }
         return false;
     }
 
     //getter and setter
     public int getAnimalCounter() {
-        return AnimalCounter;
+        return animalCounter;
     }
 
     public int getPlantCounter() {
-        return PlantCounter;
+        return plantCounter;
     }
 
     public int getFungiCounter() {
-        return FungiCounter;
+        return fungiCounter;
     }
 
     public int getInsectCounter() {
-        return InsectCounter;
+        return insectCounter;
     }
 
     public int getQuillCounter() {
-        return QuillCounter;
+        return quillCounter;
     }
 
     public int getInkwellCounter() {
-        return InkwellCounter;
+        return inkwellCounter;
     }
 
     public int getManuscriptCounter() {
-        return ManuscriptCounter;
+        return manuscriptCounter;
     }
 
     public int getPointCounter() {
-        return PointCounter;
+        return pointCounter;
     }
     public void addObjectiveCounter(){
-        this.ObjectiveCounter++;
+        this.objectiveCounter++;
     }
 
     public int getObjectiveCounter() {
-        return ObjectiveCounter;
+        return objectiveCounter;
     }
 
     public void setPointCounter(int pointCounter) {
-        PointCounter = pointCounter;
+        this.pointCounter = pointCounter;
     }
 }

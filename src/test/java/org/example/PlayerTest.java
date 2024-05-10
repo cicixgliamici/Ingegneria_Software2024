@@ -6,15 +6,12 @@ import org.example.enumeration.*;
 import org.example.exception.InvalidCardException;
 import org.example.exception.PlaceholderNotValid;
 import org.example.model.deck.Card;
-import org.example.model.deck.Corner;
 import org.example.model.deck.Deck;
-import org.example.model.deck.SideCard;
 import org.example.model.playarea.*;
 import org.json.simple.parser.ParseException;
 import org.example.model.Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import java.io.IOException;
@@ -36,8 +33,8 @@ public class PlayerTest extends TestCase {
         model.setPlayersAndGameArea(playersList);
         PlayerCardArea playerCardArea = model.getPlayerCardArea(player);
         playerCardArea.getHand().add(validCard);
-        playerCardArea.getCounter().AddResource(PropertiesCorner.ANIMAL);
-        Card returnedValidCard = player.CheckChosenCard(model, validCard);
+        playerCardArea.getCounter().addResource(PropertiesCorner.ANIMAL);
+        Card returnedValidCard = player.checkChosenCard(model, validCard);
         assertEquals(validCard, returnedValidCard);
     }
 
@@ -52,7 +49,7 @@ public class PlayerTest extends TestCase {
         Card testCard = new Card();
         int initialHandSize = model.getPlayerCardArea(p1).getHand().size();
         for(int i=0; i<=5; i++) {
-            p1.Draw(model, i);
+            p1.draw(model, i);
             assertEquals(initialHandSize + 1 + i, model.getPlayerCardArea(p1).getHand().size());
         }
     }
@@ -89,7 +86,7 @@ public class PlayerTest extends TestCase {
         Card card1 = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(card1);
         int handSize = playerCardArea.getHand().size();
-        player1.Play(model, 0, 2, 1,1);
+        player1.play(model, 0, 2, 1,1);
         List<PlaceHolder> placeHolderList = playerCardArea.getPlaceHolders();
         List<PlaceHolder> availableNodes = playerCardArea.getAvailableNodes();
         List<PlaceHolder> allNodes = playerCardArea.getAllNodes();

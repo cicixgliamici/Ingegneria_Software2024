@@ -54,6 +54,6 @@ public class PlaceHolder {
         return y;
     }
 
-    public void SetCardNode(Card card, List<PlaceHolder> placeHolders, List<PlaceHolder> availableNodes, List<PlaceHolder> allNodes) {
+    public void setCardNode(Card card, List<PlaceHolder> placeHolders, List<PlaceHolder> availableNodes, List<PlaceHolder> allNodes) {
     }
 }

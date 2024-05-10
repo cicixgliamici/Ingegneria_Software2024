@@ -72,7 +72,7 @@ public class NodePHTest extends TestCase {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
         Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
-        Node topR = starterNode.NullNodeTopR();
+        Node topR = starterNode.nullNodeTopR();
         assertNull(topR.getCard());
         assertNull(topR.getTopL());
         assertNull(topR.getTopR());
@@ -83,7 +83,7 @@ public class NodePHTest extends TestCase {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
         Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
-        Node topL = starterNode.NullNodeTopL();
+        Node topL = starterNode.nullNodeTopL();
         assertNull(topL.getCard());
         assertNull(topL.getTopL());
         assertNull(topL.getTopR());
@@ -95,7 +95,7 @@ public class NodePHTest extends TestCase {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
         Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
-        Node botR = starterNode.NullNodeBotR();
+        Node botR = starterNode.nullNodeBotR();
         assertNull(botR.getCard());
         assertNotNull(botR.getTopL());
         assertNull(botR.getTopR());
@@ -107,7 +107,7 @@ public class NodePHTest extends TestCase {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
         Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
-        Node botL = starterNode.NullNodeBotL();
+        Node botL = starterNode.nullNodeBotL();
         assertNull(botL.getCard());
         assertNull(botL.getTopL());
         assertNotNull(botL.getTopR());
@@ -121,7 +121,7 @@ public class NodePHTest extends TestCase {
         Card starterCard= deck.getCards().get(5);
         starterCard.setSide(1);
         Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
-        starterNode.SetNullNode(availableNodes);
+        starterNode.setNullNode(availableNodes);
 
     }
 
@@ -143,7 +143,7 @@ public class NodePHTest extends TestCase {
         model.getGameArea().put(player1, playerCardArea);
         Card res= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res);
-        player1.Play(model, 0, 1,1,1);
+        player1.play(model, 0, 1,1,1);
         assertEquals(1, model.getPlayerCardArea(player1).getPlaceHolders().size());
         PlaceHolder placeHolder= model.getPlayerCardArea(player1).getPlaceHolders().get(0);
         assertEquals(2, placeHolder.getX());
@@ -167,10 +167,10 @@ public class NodePHTest extends TestCase {
         model.getGameArea().put(player1, playerCardArea);
         Card res1= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);
-        player1.Play(model, 0, 1,1,1);
+        player1.play(model, 0, 1,1,1);
         Card res2= deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(res2);
-        player1.Play(model, 0, 2,1,-1);
+        player1.play(model, 0, 2,1,-1);
         assertTrue(model.getPlayerCardArea(player1).getNodeByXY(1,-1).getTopR() instanceof PlaceHolder);
         assertEquals(1, model.getPlayerCardArea(player1).getPlaceHolders().size());
     }
@@ -191,13 +191,13 @@ public class NodePHTest extends TestCase {
         model.getGameArea().put(player1, playerCardArea);
         Card res1= deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);
-        player1.Play(model, 0, 2,1,1);
+        player1.play(model, 0, 2,1,1);
         Card res2= deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(res2);
-        player1.Play(model, 0, 2,-1,1);
+        player1.play(model, 0, 2,-1,1);
         Card res3= deckRes.getCards().get(2);
         model.getPlayerCardArea(player1).getHand().add(res3);
-        player1.Play(model, 0, 2,0,2);
+        player1.play(model, 0, 2,0,2);
         assertEquals(2, model.getPlayerCardArea(player1).getNodeByXY(0,2).getCard().getCoveredCornerByCard());
         assertEquals(8, model.getPlayerCardArea(player1).getAvailableNodes().size());
         assertEquals(4, model.getPlayerCardArea(player1).getAllNodes().size());

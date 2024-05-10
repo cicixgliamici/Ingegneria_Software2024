@@ -27,7 +27,7 @@ public class Controller {
         this.players = players;
     }
 
-    public void InitializeController(){
+    public void initializeController(){
         model.setPlayersAndGameArea(this.players);  //passes the list with all the players to the model
         model.DealCards();
     }

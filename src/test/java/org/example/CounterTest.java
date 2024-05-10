@@ -1,7 +1,6 @@
 package org.example;
 
 import junit.framework.TestCase;
-import org.example.enumeration.CardRes;
 import org.example.enumeration.PropertiesCorner;
 import org.example.enumeration.Type;
 import org.example.enumeration.cast.CastCardRes;
@@ -14,50 +13,50 @@ import java.io.IOException;
 public class CounterTest extends TestCase {
     public void testAddRes(){
         Counter counter = new Counter();
-        counter.AddResource(PropertiesCorner.ANIMAL);
+        counter.addResource(PropertiesCorner.ANIMAL);
         assertEquals(1,counter.getAnimalCounter());
-        counter.AddResource(PropertiesCorner.FUNGI);
+        counter.addResource(PropertiesCorner.FUNGI);
         assertEquals(1,counter.getFungiCounter());
-        counter.AddResource(PropertiesCorner.INSECT);
+        counter.addResource(PropertiesCorner.INSECT);
         assertEquals(1,counter.getInsectCounter());
-        counter.AddResource(PropertiesCorner.PLANT);
+        counter.addResource(PropertiesCorner.PLANT);
         assertEquals(1,counter.getPlantCounter());
-        counter.AddResource(PropertiesCorner.INKWELL);
+        counter.addResource(PropertiesCorner.INKWELL);
         assertEquals(1,counter.getInkwellCounter());
-        counter.AddResource(PropertiesCorner.MANUSCRIPT);
+        counter.addResource(PropertiesCorner.MANUSCRIPT);
         assertEquals(1,counter.getManuscriptCounter());
-        counter.AddResource(PropertiesCorner.QUILL);
+        counter.addResource(PropertiesCorner.QUILL);
         assertEquals(1,counter.getQuillCounter());
     }
 
     public void testRemoveRes(){
         Counter counter = new Counter();
-        counter.AddResource(PropertiesCorner.ANIMAL);
-        counter.RemoveResource(PropertiesCorner.ANIMAL);
+        counter.addResource(PropertiesCorner.ANIMAL);
+        counter.removeResource(PropertiesCorner.ANIMAL);
         assertEquals(0,counter.getAnimalCounter());
-        counter.AddResource(PropertiesCorner.FUNGI);
-        counter.RemoveResource(PropertiesCorner.FUNGI);
+        counter.addResource(PropertiesCorner.FUNGI);
+        counter.removeResource(PropertiesCorner.FUNGI);
         assertEquals(0,counter.getFungiCounter());
-        counter.AddResource(PropertiesCorner.INSECT);
-        counter.RemoveResource(PropertiesCorner.INSECT);
+        counter.addResource(PropertiesCorner.INSECT);
+        counter.removeResource(PropertiesCorner.INSECT);
         assertEquals(0,counter.getInsectCounter());
-        counter.AddResource(PropertiesCorner.PLANT);
-        counter.RemoveResource(PropertiesCorner.PLANT);
+        counter.addResource(PropertiesCorner.PLANT);
+        counter.removeResource(PropertiesCorner.PLANT);
         assertEquals(0,counter.getPlantCounter());
-        counter.AddResource(PropertiesCorner.INKWELL);
-        counter.RemoveResource(PropertiesCorner.INKWELL);
+        counter.addResource(PropertiesCorner.INKWELL);
+        counter.removeResource(PropertiesCorner.INKWELL);
         assertEquals(0,counter.getInkwellCounter());
-        counter.AddResource(PropertiesCorner.MANUSCRIPT);
-        counter.RemoveResource(PropertiesCorner.MANUSCRIPT);
+        counter.addResource(PropertiesCorner.MANUSCRIPT);
+        counter.removeResource(PropertiesCorner.MANUSCRIPT);
         assertEquals(0,counter.getManuscriptCounter());
-        counter.AddResource(PropertiesCorner.QUILL);
-        counter.RemoveResource(PropertiesCorner.QUILL);
+        counter.addResource(PropertiesCorner.QUILL);
+        counter.removeResource(PropertiesCorner.QUILL);
         assertEquals(0,counter.getQuillCounter());
     }
 
     public void testAddPoint(){
         Counter counter = new Counter();
-        counter.AddPoint(2);
+        counter.addPoint(2);
         assertEquals(2,counter.getPointCounter());
     }
 
@@ -68,8 +67,8 @@ public class CounterTest extends TestCase {
             Card card = deck.drawCard();
             CastCardRes cardRes1= new CastCardRes(card.getCardRes());
             PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
-            counter.AddResource(propertiesCorner);
-            assertTrue(counter.IsPresent(card.getCardRes()));
+            counter.addResource(propertiesCorner);
+            assertTrue(counter.isPresent(card.getCardRes()));
         }
     }
 

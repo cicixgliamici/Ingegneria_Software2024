@@ -61,10 +61,10 @@ public class DeckTest extends TestCase {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
             assertEquals(type, deck.getTypeDeck());
-            Card FirstShuffleCard = deck.FakeDrawCard();
+            Card FirstShuffleCard = deck.fakeDrawCard();
             assertNotNull(FirstShuffleCard);
             deck.shuffle();
-            Card SecondShuffleCard = deck.FakeDrawCard();
+            Card SecondShuffleCard = deck.fakeDrawCard();
             assertNotNull(SecondShuffleCard);
             assertNotSame(FirstShuffleCard, SecondShuffleCard);
         }
@@ -92,7 +92,7 @@ public class DeckTest extends TestCase {
             Deck deck = new Deck(type);
             int cardsNumber = deck.getCardNumbers();
             Card card = new Card();
-            deck.AddCard(card);
+            deck.addCard(card);
             assertEquals(cardsNumber + 1, deck.getCardNumbers());
         }
     }
