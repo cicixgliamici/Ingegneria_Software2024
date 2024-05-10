@@ -8,6 +8,7 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class BoxMenu extends JPanel {
     private JButton button;
@@ -26,7 +27,6 @@ public class BoxMenu extends JPanel {
         BufferedImage logo = ImageIO.read(new File("src/main/resources/logomini.jpg"));
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
-        //labelTitle.setSize(300,400);
 
         labelUsr = new JLabel("Username:");
         textFieldUsr = new JTextField("Inserisci un username...", 15);
@@ -71,7 +71,7 @@ public class BoxMenu extends JPanel {
         gbcUsrField.weightx = 0.0;
         gbcUsrField.weighty = 0.01;
 
-        gbcUsrField.insets = new Insets(0,10,0,10);
+        gbcUsrField.insets = new Insets(0, 10, 0, 10);
 
         add(textFieldUsr, gbcUsrField);
 
@@ -93,7 +93,7 @@ public class BoxMenu extends JPanel {
         gbcIpField.weightx = 0.0;
         gbcIpField.weighty = 0.01;
 
-        gbcIpField.insets = new Insets(0,10,0,10);
+        gbcIpField.insets = new Insets(0, 10, 0, 10);
 
         add(textFieldIp, gbcIpField);
 
@@ -115,7 +115,7 @@ public class BoxMenu extends JPanel {
         gbcPortField.weightx = 0.0;
         gbcPortField.weighty = 0.01;
 
-        gbcPortField.insets = new Insets(0,10,0,10);
+        gbcPortField.insets = new Insets(0, 10, 0, 10);
 
         add(textFieldPort, gbcPortField);
 
@@ -129,7 +129,6 @@ public class BoxMenu extends JPanel {
 
         gbcButton.gridheight = 1;
         gbcButton.gridwidth = 2;
-        //gbcButton.anchor = GridBagConstraints.PAGE_START;
 
         add(button, gbcButton);
     }

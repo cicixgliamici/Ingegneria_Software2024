@@ -6,13 +6,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class myDrawImage {
+//not working
+public class MyDrawImage {
     private Graphics graphics;
     private int x;
     private int y;
     private String fileName;
 
-    public myDrawImage(Graphics graphics, int x, int y, String fileName){
+    public MyDrawImage(Graphics graphics, int x, int y, String fileName){
         this.graphics = graphics;
         this.x = x;
         this.y = y;
