@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +53,15 @@ public class BoxMenu extends JPanel{
         textFieldPort = new TextField("Inserisci una porta...", 15);
         textFieldPort.addMouseListener(textFieldPort);
         textFieldPort.setForeground(Color.gray);
+        textFieldPort.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c  = e.getKeyChar();
+                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                    e.consume();
+                }
+            }
+        });
 
         button = new JButton("Connetti!");
 

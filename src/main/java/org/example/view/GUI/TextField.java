@@ -6,16 +6,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TextField extends JTextField implements MouseListener {
-    private boolean isFisrtTouch = true;
+    private boolean isFirstTouch = true;
     public TextField(String text, int columns) {
         super(text, columns);
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(isFisrtTouch){
+        if(isFirstTouch){
             this.setText("");
             this.setForeground(Color.black);
-            isFisrtTouch = false;
+            isFirstTouch = false;
         }
     }
 
