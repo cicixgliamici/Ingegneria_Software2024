@@ -30,10 +30,12 @@ public class BoxMenu extends JPanel{
         labelUsr.setForeground(Color.white);
         textFieldUsr = new TextField("Inserisci un username...", 15);
         textFieldUsr.addMouseListener(textFieldUsr);
+        textFieldUsr.setForeground(Color.gray);
 
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.white);
         textFieldIp = new TextField("Inserici un indirizzo ip...", 15);
+        textFieldIp.setForeground(Color.gray);
         textFieldIp.addMouseListener(textFieldIp);
         /*try {
             MaskFormatter formatter = new MaskFormatter("###.###.###.###");
@@ -48,6 +50,7 @@ public class BoxMenu extends JPanel{
         labelPort.setForeground(Color.white);
         textFieldPort = new TextField("Inserisci una porta...", 15);
         textFieldPort.addMouseListener(textFieldPort);
+        textFieldPort.setForeground(Color.gray);
 
         button = new JButton("Connetti!");
 

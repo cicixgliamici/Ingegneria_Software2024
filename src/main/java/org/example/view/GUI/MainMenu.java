@@ -14,8 +14,8 @@ public class MainMenu extends JFrame{
     public MainMenu() throws IOException {
         super("Codex Naturalis");
 
-        //Image icon = Toolkit.getDefaultToolkit().getImage("sound.png");
-        //setIconImage(icon);
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/iconamini.png");
+        setIconImage(icon);
 
         boxMenu = new BoxMenu(){
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/background.png")));
