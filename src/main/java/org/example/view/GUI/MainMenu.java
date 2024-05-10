@@ -32,7 +32,7 @@ public class MainMenu extends JFrame{
         add(boxMenu, BorderLayout.CENTER);
 
         pack();
-        setSize(800, 600);
+        setSize(810, 625);
         setLocationRelativeTo(null); // visualizzare la finestra al centro dello schermo
         setResizable(false); //non permette di ridimensionare la finestra
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
