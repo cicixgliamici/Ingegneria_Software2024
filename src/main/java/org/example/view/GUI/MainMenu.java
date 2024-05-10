@@ -14,14 +14,21 @@ public class MainMenu extends JFrame{
     public MainMenu() throws IOException {
         super("Codex Naturalis");
 
-        boxMenu = new BoxMenu();
-        JLabel background = new JLabel(new ImageIcon(ImageIO.read(new File("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\backround.png"))));
+        boxMenu = new BoxMenu(){
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/background.png")));
+            Image img = icon.getImage();
+            {setOpaque(false);}
+            public void paintComponent(Graphics graphics){
+                graphics.drawImage(img,0,0, this);
+                super.paintComponent(graphics);
+            }
+        };
 
         setLayout(new BorderLayout()); //layout manager che si occuperà di posizionare i componenti
 
         add(boxMenu, BorderLayout.CENTER);
-        add(background);
 
+        pack();
         setSize(800, 600);
         setLocationRelativeTo(null); // visualizzare la finestra al centro dello schermo
         setResizable(false); //non permette di ridimensionare la finestra

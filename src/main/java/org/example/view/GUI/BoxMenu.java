@@ -29,12 +29,15 @@ public class BoxMenu extends JPanel {
         labelTitle = new JLabel(icon);
 
         labelUsr = new JLabel("Username:");
+        labelUsr.setForeground(Color.white);
         textFieldUsr = new JTextField("Inserisci un username...", 15);
 
         labelIp = new JLabel("Ip:");
+        labelIp.setForeground(Color.white);
         textFieldIp = new JTextField("Inserici un indirizzo ip...", 15);
 
         labelPort = new JLabel("Porta:");
+        labelPort.setForeground(Color.white);
         textFieldPort = new JTextField("Inserisci una porta...", 15);
 
         button = new JButton("Connetti!");
