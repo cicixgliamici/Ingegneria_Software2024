@@ -2,25 +2,23 @@ package org.example.view.GUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
-public class BoxMenu extends JPanel {
+public class BoxMenu extends JPanel{
     private JButton button;
     private JLabel labelTitle;
     private JLabel labelUsr;
-    private JTextField textFieldUsr;
+    private TextField textFieldUsr;
     private JLabel labelIp;
-    private JTextField textFieldIp;
+    private TextField textFieldIp;
     private JLabel labelPort;
-    private JTextField textFieldPort;
+    private TextField textFieldPort;
 
-    public BoxMenu() throws IOException {
+    public BoxMenu() throws IOException{
         setLayout(new GridBagLayout());
 
         // Components
@@ -30,15 +28,26 @@ public class BoxMenu extends JPanel {
 
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.white);
-        textFieldUsr = new JTextField("Inserisci un username...", 15);
+        textFieldUsr = new TextField("Inserisci un username...", 15);
+        textFieldUsr.addMouseListener(textFieldUsr);
 
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.white);
-        textFieldIp = new JTextField("Inserici un indirizzo ip...", 15);
+        textFieldIp = new TextField("Inserici un indirizzo ip...", 15);
+        textFieldIp.addMouseListener(textFieldIp);
+        /*try {
+            MaskFormatter formatter = new MaskFormatter("###.###.###.###");
+            formatter.setPlaceholderCharacter('#');
+            textFieldIp = new JFormattedTextField(formatter);
+            textFieldIp.setColumns(15);
+        } catch(Exception e) {
+            e.printStackTrace();
+        } */
 
         labelPort = new JLabel("Porta:");
         labelPort.setForeground(Color.white);
-        textFieldPort = new JTextField("Inserisci una porta...", 15);
+        textFieldPort = new TextField("Inserisci una porta...", 15);
+        textFieldPort.addMouseListener(textFieldPort);
 
         button = new JButton("Connetti!");
 
