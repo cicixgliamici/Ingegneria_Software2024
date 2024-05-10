@@ -37,7 +37,6 @@ public class ModelTest extends TestCase {
         model.setPlayersAndGameArea(model.getPlayersList());
         model.getPlayerCardArea(player1).setCardStarter(starter1);
         model.getPlayerCardArea(player1).setStarterNode();
-        model.setPlayersAndGameArea(model.getPlayersList());
         model.getPlayerCardArea(player2).setCardStarter(starter2);
         model.getPlayerCardArea(player2).setStarterNode();
         model.DealCards();
