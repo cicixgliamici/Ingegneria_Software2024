@@ -15,7 +15,7 @@ public class TextField extends JTextField implements MouseListener {
         if(isFisrtTouch){
             this.setText("");
             this.setForeground(Color.black);
-            isFisrtTouch = false;
+            isFisrtTouch = false
         }
     }
 
