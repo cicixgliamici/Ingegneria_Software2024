@@ -2,10 +2,12 @@ package org.example.view.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class TextField extends JTextField implements MouseListener {
+public class TextField extends JTextField implements MouseListener, KeyListener {
     private boolean isFirstTouch = true;
     public TextField(String text, int columns) {
         super(text, columns);
@@ -40,4 +42,22 @@ public class TextField extends JTextField implements MouseListener {
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (isFirstTouch){
+            this.setText("");
+            this.setForeground(Color.black);
+            isFirstTouch = false;
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

@@ -30,14 +30,18 @@ public class BoxMenu extends JPanel{
 
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.darkGray);
+        labelUsr.setFont(new Font("Helvetica", Font.BOLD, 15));
         textFieldUsr = new TextField("Inserisci un username...", 15);
-        textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.setForeground(Color.gray);
+        textFieldUsr.addMouseListener(textFieldUsr);
+        textFieldUsr.addKeyListener(textFieldUsr);
 
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
+        labelIp.setFont(new Font("Helvetica", Font.BOLD, 15));
         textFieldIp = new TextField("Inserici un indirizzo ip...", 15);
         textFieldIp.setForeground(Color.gray);
+        textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
         /*try {
             MaskFormatter formatter = new MaskFormatter("###.###.###.###");
@@ -50,9 +54,11 @@ public class BoxMenu extends JPanel{
 
         labelPort = new JLabel("Porta:");
         labelPort.setForeground(Color.darkGray);
+        labelPort.setFont(new Font("Helvetica", Font.BOLD, 15));
         textFieldPort = new TextField("Inserisci una porta...", 15);
-        textFieldPort.addMouseListener(textFieldPort);
         textFieldPort.setForeground(Color.gray);
+        textFieldPort.addMouseListener(textFieldPort);
+        textFieldPort.addKeyListener(textFieldPort);
         textFieldPort.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
