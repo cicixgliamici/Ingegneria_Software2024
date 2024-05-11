@@ -29,13 +29,13 @@ public class BoxMenu extends JPanel{
         labelTitle = new JLabel(icon);
 
         labelUsr = new JLabel("Username:");
-        labelUsr.setForeground(Color.white);
+        labelUsr.setForeground(Color.darkGray);
         textFieldUsr = new TextField("Inserisci un username...", 15);
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.setForeground(Color.gray);
 
         labelIp = new JLabel("Ip:");
-        labelIp.setForeground(Color.white);
+        labelIp.setForeground(Color.darkGray);
         textFieldIp = new TextField("Inserici un indirizzo ip...", 15);
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addMouseListener(textFieldIp);
@@ -49,7 +49,7 @@ public class BoxMenu extends JPanel{
         } */
 
         labelPort = new JLabel("Porta:");
-        labelPort.setForeground(Color.white);
+        labelPort.setForeground(Color.darkGray);
         textFieldPort = new TextField("Inserisci una porta...", 15);
         textFieldPort.addMouseListener(textFieldPort);
         textFieldPort.setForeground(Color.gray);
@@ -85,7 +85,7 @@ public class BoxMenu extends JPanel{
         gbcUsrLabel.gridy = 1;
 
         gbcUsrLabel.weightx = 0.0;
-        gbcUsrLabel.weighty = 0.01;
+        gbcUsrLabel.weighty = 0.02;
 
         add(labelUsr, gbcUsrLabel);
 
@@ -95,7 +95,7 @@ public class BoxMenu extends JPanel{
         gbcUsrField.gridy = 1;
 
         gbcUsrField.weightx = 0.0;
-        gbcUsrField.weighty = 0.01;
+        gbcUsrField.weighty = 0.02;
 
         gbcUsrField.insets = new Insets(0, 10, 0, 10);
 
@@ -107,7 +107,7 @@ public class BoxMenu extends JPanel{
         gbcIpLabel.gridy = 2;
 
         gbcIpLabel.weightx = 0.0;
-        gbcIpLabel.weighty = 0.01;
+        gbcIpLabel.weighty = 0.02;
 
         add(labelIp, gbcIpLabel);
 
@@ -117,7 +117,7 @@ public class BoxMenu extends JPanel{
         gbcIpField.gridy = 2;
 
         gbcIpField.weightx = 0.0;
-        gbcIpField.weighty = 0.01;
+        gbcIpField.weighty = 0.02;
 
         gbcIpField.insets = new Insets(0, 10, 0, 10);
 
@@ -129,7 +129,7 @@ public class BoxMenu extends JPanel{
         gbcPortLabel.gridy = 3;
 
         gbcPortLabel.weightx = 0.0;
-        gbcPortLabel.weighty = 0.01;
+        gbcPortLabel.weighty = 0.02;
 
         add(labelPort, gbcPortLabel);
 
@@ -139,7 +139,7 @@ public class BoxMenu extends JPanel{
         gbcPortField.gridy = 3;
 
         gbcPortField.weightx = 0.0;
-        gbcPortField.weighty = 0.01;
+        gbcPortField.weighty = 0.02;
 
         gbcPortField.insets = new Insets(0, 10, 0, 10);
 
