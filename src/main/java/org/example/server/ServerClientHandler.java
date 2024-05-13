@@ -97,7 +97,7 @@ public class ServerClientHandler implements Runnable {
             Player player = controller.getPlayerByUsername(socketToUsername.get(socket)); // Assuming you have such a method and mapping
             Method method = cls.getDeclaredMethod(methodName, paramTypes);
             Object response = method.invoke(player, paramValues); // Ensure you are invoking on the correct object
-            out.println("Command executed successfully: ");
+            //out.println("Command executed successfully: ");
         } catch (Exception e) {
             out.println("Error executing command: " + e.getMessage());
             e.printStackTrace();

@@ -1,8 +1,8 @@
 package org.example.view;
 
-import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
@@ -40,7 +40,7 @@ public class ViewTUI extends View {
     }
 
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
-        System.out.println("In your hand:");
+        System.out.println("In your hand:\n");
         printCardDetails(getCardbyId(id1));
         printCardDetails(getCardbyId(id2));
         printCardDetails(getCardbyId(id3));
@@ -49,6 +49,9 @@ public class ViewTUI extends View {
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardbyId(id5));
         printCardDetails(getCardbyId(id6));
+        System.out.println("You should write 'setObjStarter:x,y', where " +
+                           "\nx is for the side of the starter card and " +
+                           "\ny is the objective card you want to keep ");
     }
 
     public void pubObj(int id1, int id2) {
@@ -86,7 +89,7 @@ public class ViewTUI extends View {
         }
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
-        if ("RESOURCES".equals(type)){
+        if ("RESOURCES".equals(type)) {
             System.out.println("Card Resource: " + card.get("cardres"));
             System.out.println("Points: " + card.get("points"));
             JSONObject side = (JSONObject) card.get("side");
@@ -102,12 +105,11 @@ public class ViewTUI extends View {
                 System.out.println("No front side details available.");
             }
             System.out.println("\n");
-        }
-        else if ("GOLD".equals(type)){
+        } else if ("GOLD".equals(type)) {
             System.out.println("Card Resource: " + card.get("cardres"));
             System.out.println("Points: " + card.get("points") + " for every " + card.get("goldenPoint"));
             JSONArray req = (JSONArray) card.get("requireGold");
-            for (Object CardRes : req ){
+            for (Object CardRes : req) {
                 System.out.println(CardRes);
             }
             JSONObject side = (JSONObject) card.get("side");
@@ -117,15 +119,13 @@ public class ViewTUI extends View {
                 for (Object corner : front) {
                     JSONObject cornerDetails = (JSONObject) corner;
                     System.out.println("Position: " + cornerDetails.get("Position") + ", Property: " + cornerDetails.get("PropertiesCorner"));
-
                 }
                 System.out.println("Back Side is empty");
             } else {
                 System.out.println("No front side details available.");
             }
             System.out.println("\n");
-        }
-        else if ("STARTER".equals(type)) {
+        } else if ("STARTER".equals(type)) {
             JSONObject side = (JSONObject) card.get("side");
             JSONArray back = (JSONArray) side.get("back");
             System.out.println("Front Side is empty");
@@ -137,47 +137,44 @@ public class ViewTUI extends View {
                 }
             } else {
                 System.out.println("Back side is empty by default.");
-
             }
             System.out.println("\n");
         } else if ("OBJECT".equals(type)) {
-            System.out.println(card.get("description"));
+            System.out.println("Achivement:");
+            System.out.println(card.get("description") + " for " + card.get("points") + " points");
             System.out.println("\n");
         }
     }
 
     public void Interpreter(String message) {
-        if (message.startsWith("[Server]")) {
-            message=message.substring(8);
-            String[] parts = message.split(":");
-            if (parts.length < 1) {
-                System.out.println("Invalid command received.");
-                return;
-            }
-            String command = parts[0];
-            String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
-            try {
-                Method[] methods = this.getClass().getDeclaredMethods();
-                for (Method method : methods) {
-                    if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
-                        Class<?>[] paramTypes = method.getParameterTypes();
-                        Object[] paramValues = new Object[parameters.length];
-                        for (int i = 0; i < parameters.length; i++) {
-                            if (paramTypes[i] == int.class) {
-                                paramValues[i] = Integer.parseInt(parameters[i]);
-                            } else if (paramTypes[i] == String.class) {
-                                paramValues[i] = parameters[i];
-                            }
+        String[] parts = message.split(":");
+        if (parts.length < 1) {
+            System.out.println("Invalid command received.");
+            return;
+        }
+        String command = parts[0];
+        String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
+        try {
+            Method[] methods = this.getClass().getDeclaredMethods();
+            for (Method method : methods) {
+                if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
+                    Class<?>[] paramTypes = method.getParameterTypes();
+                    Object[] paramValues = new Object[parameters.length];
+                    for (int i = 0; i < parameters.length; i++) {
+                        if (paramTypes[i] == int.class) {
+                            paramValues[i] = Integer.parseInt(parameters[i]);
+                        } else if (paramTypes[i] == String.class) {
+                            paramValues[i] = parameters[i];
                         }
-                        method.invoke(this, paramValues);
-                        return;
                     }
+                    method.invoke(this, paramValues);
+                    return;
                 }
-                System.out.println("No such method exists: " + command);
-            } catch (Exception e) {
-                System.out.println("Error executing command " + command + ": " + e.getMessage());
-                e.printStackTrace();
             }
+            System.out.println("No such method exists: " + command);
+        } catch (Exception e) {
+            System.out.println("Error executing command " + command + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
