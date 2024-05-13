@@ -18,7 +18,7 @@ public class GameRulesFrame extends JFrame {
     public GameRulesFrame() throws IOException {
 
         super("Game Rules");
-        setSize(810, 660);
+        setSize(780, 690);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/01.png");
         setIconImage(icon);
 

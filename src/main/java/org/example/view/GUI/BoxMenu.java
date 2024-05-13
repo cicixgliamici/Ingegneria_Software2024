@@ -77,7 +77,7 @@ public class BoxMenu extends JPanel{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameAreaFrame gameAreaFrame = new GameAreaFrame();
+                new GameAreaFrame();
                 Event event = new Event(this, "closeApp");
 
                 if (evListener != null){
