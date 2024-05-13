@@ -31,6 +31,7 @@ public class Server implements ModelChangeListener {
     private Map<String, JSONObject> commands = new HashMap<>();        // Map for the commands written by the Client and the commands in the JSON
     private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username (unique, from client) to a PrintWriter object
     private Map<String, View> clientView = new HashMap<>();
+    private Map<Socket, String> socketToUsername = new HashMap<>();
     public Server(int port) throws IOException, ParseException {
         this.port = port;
         this.model = new Model();
@@ -61,9 +62,10 @@ public class Server implements ModelChangeListener {
                         }
                         if (!clientWriters.containsKey(username)) {
                             clientWriters.put(username, out);
+                            socketToUsername.put(clientSocket, username);  // Memorizza il socket associato all'username
                             players.add(new Player(username));
                             out.println("Connection successful");
-                            executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
+                            executor.submit(new ServerClientHandler(clientSocket, commands, model, controller, socketToUsername)); // pass the map to the handler
                             numConnections++;
                             if (numConnections == numMaxConnections) {
                                 maxConnectionsReached = true;
@@ -99,15 +101,15 @@ public class Server implements ModelChangeListener {
      /*** Load command from a JSON, where we can choose what parameters do we
      * need from a client and what we use from the server
      */
-    public void loadCommands() throws IOException {
-        String path = "src/main/resources/Commands.json";
-        String text = new String(Files.readAllBytes(Paths.get(path)));
-        JSONObject obj = new JSONObject(text);
-        JSONObject jsonCommands = obj.getJSONObject("commands");
-        for (String key : jsonCommands.keySet()) {
-            commands.put(key, jsonCommands.getJSONObject(key));
-        }
-    }
+     public void loadCommands() throws IOException {
+         String path = "src/main/resources/Commands.json";
+         String text = new String(Files.readAllBytes(Paths.get(path)));
+         JSONObject obj = new JSONObject(text);
+         JSONObject jsonCommands = obj.getJSONObject("commands");
+         for (String key : jsonCommands.keySet()) {
+             commands.put(key, jsonCommands.getJSONObject(key));
+         }
+     }
 
     /**
      * For every client added, we send them a message when
@@ -118,9 +120,9 @@ public class Server implements ModelChangeListener {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
             if (entry.getKey().equals(username)) {
-                writer.println(specificMessage);  // Send specific message to the player who drew the card
+                writer.println("Server"+specificMessage);  // Send specific message to the player who drew the card
             } else {
-                writer.println(generalMessage);  // Send a generic message to all other players
+                writer.println("Server"+generalMessage);  // Send a generic message to all other players
             }
             writer.flush();
         }
@@ -130,7 +132,7 @@ public class Server implements ModelChangeListener {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
             if (entry.getKey().equals(username)) { // specific message only to one client
-                writer.println(specificMessage);
+                writer.println("Server"+ specificMessage);
                 writer.flush();
             }
         }
@@ -140,7 +142,7 @@ public class Server implements ModelChangeListener {
     public void onModelGeneric(String generalMessage) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
-            writer.println(generalMessage);  // general message to everyone
+            writer.println("Server"+ generalMessage);  // general message to everyone
             writer.flush();
         }
     }

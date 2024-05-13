@@ -7,20 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** The Controller is a traffic warden that calls the methods to initialize the players
- *  and the gameflow, and then gives it the control.
- */
-
 public class Controller {
-    public List<Player> players = new ArrayList<>();
-    Model model;
+    private List<Player> players;
+    private Model model;
 
-    /**
-     * Initializes the list of players and the gameflow, then it will
-     * give it the control.
-     */
     public Controller(Model model) throws IOException, ParseException {
         this.model = model;
+        this.players = new ArrayList<>();
     }
 
     public void setPlayers(List<Player> players) {
@@ -28,7 +21,17 @@ public class Controller {
     }
 
     public void initializeController(){
-        model.setPlayersAndGameArea(this.players);  //passes the list with all the players to the model
+        model.setPlayersAndGameArea(players);  // Passes the list with all the players to the model
         model.DealCards();
+    }
+
+    // Metodo per recuperare un giocatore tramite username
+    public Player getPlayerByUsername(String username) {
+        for (Player player : players) {
+            if (player.getUsername().equals(username)) {
+                return player;
+            }
+        }
+        return null;
     }
 }

@@ -146,36 +146,38 @@ public class ViewTUI extends View {
         }
     }
 
-
     public void Interpreter(String message) {
-        String[] parts = message.split(":");
-        if (parts.length < 1) {
-            System.out.println("Invalid command received.");
-            return;
-        }
-        String command = parts[0];
-        String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
-        try {
-            Method[] methods = this.getClass().getDeclaredMethods();
-            for (Method method : methods) {
-                if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
-                    Class<?>[] paramTypes = method.getParameterTypes();
-                    Object[] paramValues = new Object[parameters.length];
-                    for (int i = 0; i < parameters.length; i++) {
-                        if (paramTypes[i] == int.class) {
-                            paramValues[i] = Integer.parseInt(parameters[i]);
-                        } else if (paramTypes[i] == String.class) {
-                            paramValues[i] = parameters[i];
-                        }
-                    }
-                    method.invoke(this, paramValues);
-                    return;
-                }
+        if (message.startsWith("[Server]")) {
+            message=message.substring(8);
+            String[] parts = message.split(":");
+            if (parts.length < 1) {
+                System.out.println("Invalid command received.");
+                return;
             }
-            System.out.println("No such method exists: " + command);
-        } catch (Exception e) {
-            System.out.println("Error executing command " + command + ": " + e.getMessage());
-            e.printStackTrace();
+            String command = parts[0];
+            String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
+            try {
+                Method[] methods = this.getClass().getDeclaredMethods();
+                for (Method method : methods) {
+                    if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
+                        Class<?>[] paramTypes = method.getParameterTypes();
+                        Object[] paramValues = new Object[parameters.length];
+                        for (int i = 0; i < parameters.length; i++) {
+                            if (paramTypes[i] == int.class) {
+                                paramValues[i] = Integer.parseInt(parameters[i]);
+                            } else if (paramTypes[i] == String.class) {
+                                paramValues[i] = parameters[i];
+                            }
+                        }
+                        method.invoke(this, paramValues);
+                        return;
+                    }
+                }
+                System.out.println("No such method exists: " + command);
+            } catch (Exception e) {
+                System.out.println("Error executing command " + command + ": " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 }
