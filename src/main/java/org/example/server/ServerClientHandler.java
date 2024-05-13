@@ -1,6 +1,5 @@
 package org.example.server;
 
-
 import org.example.controller.Controller;
 import org.example.controller.Player;
 import org.example.model.Model;
@@ -13,17 +12,17 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.net.Socket;
-import java.util.*;
+import java.util.Map;
 
 /** Class for the interpretation of the commands written by the client
-*/
+ */
 
 public class ServerClientHandler implements Runnable {
     private Socket socket;
     private Model model;
     private Controller controller;
 
-    private Map<String, JSONObject> commands = new HashMap<>();
+    private Map<String, JSONObject> commands;
     private Map<Socket, String> socketToUsername;
 
     public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername) {
@@ -41,10 +40,12 @@ public class ServerClientHandler implements Runnable {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("Received command: " + inputLine);  // Aggiungi questa linea per debug
-                if (commands.containsKey(inputLine.split(":")[0])) {
-                    executeCommand(inputLine, out);
-                } else {
-                    out.println("Command not recognized.");
+                synchronized (this) {
+                    if (commands.containsKey(inputLine.split(":")[0])) {
+                        executeCommand(inputLine, out);
+                    } else {
+                        out.println("Command not recognized.");
+                    }
                 }
             }
             // Close stream and socket
@@ -57,10 +58,10 @@ public class ServerClientHandler implements Runnable {
     }
 
     /** Read a string written from the client which must have this format:  method:param1,param2,param3
-    *   If there is a method with the same name in the Commands.JSON, calls it with the parameters.
-    *   EX: draw:int
-    *       play:int,int,int,int
-    */
+     *   If there is a method with the same name in the Commands.JSON, calls it with the parameters.
+     *   EX: draw:int
+     *       play:int,int,int,int
+     */
     private void executeCommand(String inputLine, PrintWriter out) {
         try {
             String[] parts = inputLine.split(":");
@@ -103,5 +104,4 @@ public class ServerClientHandler implements Runnable {
             e.printStackTrace();
         }
     }
-
 }
