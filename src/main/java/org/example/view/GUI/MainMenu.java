@@ -52,9 +52,8 @@ public class MainMenu extends JFrame{
 
         JMenuItem menuItemExit = new JMenuItem("Exit");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
+        menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 
-
-        menuOption.addSeparator();
         menuOption.add(menuItemExit);
 
         menuItemExit.addActionListener(new ActionListener() {
@@ -68,13 +67,17 @@ public class MainMenu extends JFrame{
         });
 
         JMenu menuAbout = new JMenu("About");
+        menuAbout.setMnemonic(KeyEvent.VK_A);
 
         JMenuItem menuItemAbout = new JMenuItem("?");
+        menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
         JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+        menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
-        menuAbout.add(menuItemAbout);
         menuAbout.add(menuItemRuleBook);
+        menuAbout.addSeparator();
+        menuAbout.add(menuItemAbout);
 
         menuItemAbout.addActionListener(new ActionListener() {
             @Override

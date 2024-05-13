@@ -27,7 +27,6 @@ public class BoxMenu extends JPanel{
     private TextField textFieldPort;
 
     public BoxMenu() throws IOException{
-        //MainMenu mainMenu = new MainMenu();
         setLayout(new GridBagLayout());
 
         // Components
@@ -80,7 +79,6 @@ public class BoxMenu extends JPanel{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //mainMenu.dispose();
                 GameAreaFrame gameAreaFrame = new GameAreaFrame();
             }
         });
