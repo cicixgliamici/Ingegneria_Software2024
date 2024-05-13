@@ -35,6 +35,16 @@ public class MainMenu extends JFrame{
 
         add(boxMenu, BorderLayout.CENTER);
 
+        boxMenu.setEvListener(new EvListener() {
+            @Override
+            public void eventListener(Event ev) {
+                String event = ev.getEvent();
+                if(event.equals("closeApp")){
+                    dispose();
+                }
+            }
+        });
+
         pack();
         setSize(810, 660);
         setLocationRelativeTo(null); // visualizzare la finestra al centro dello schermo
@@ -69,7 +79,7 @@ public class MainMenu extends JFrame{
         JMenu menuAbout = new JMenu("About");
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
-        JMenuItem menuItemAbout = new JMenuItem("?");
+        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
         JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");

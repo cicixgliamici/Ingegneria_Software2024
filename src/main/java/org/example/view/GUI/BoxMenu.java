@@ -12,9 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-//import static sun.tools.jconsole.inspector.XDataViewer.dispose;
-
-
 public class BoxMenu extends JPanel{
     // monnezza
     private JButton button;
@@ -25,6 +22,7 @@ public class BoxMenu extends JPanel{
     private TextField textFieldIp;
     private JLabel labelPort;
     private TextField textFieldPort;
+    private EvListener evListener;
 
     public BoxMenu() throws IOException{
         setLayout(new GridBagLayout());
@@ -80,6 +78,11 @@ public class BoxMenu extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameAreaFrame gameAreaFrame = new GameAreaFrame();
+                Event event = new Event(this, "closeApp");
+
+                if (evListener != null){
+                    evListener.eventListener(event);
+                }
             }
         });
 
@@ -175,5 +178,9 @@ public class BoxMenu extends JPanel{
         gbcButton.gridwidth = 2;
 
         add(button, gbcButton);
+    }
+
+    public void setEvListener(EvListener evListener){
+        this.evListener = evListener;
     }
 }
