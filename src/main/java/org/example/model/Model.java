@@ -48,16 +48,16 @@ public class Model {
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.GOLD));
-            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             playerCardArea.setCardStarter(drawingCardArea.drawCardFromDeck(Type.STARTER));
-            notifyModelSpecific(player.getUsername(), "firstHand:" +
+            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
+            notifyModelSpecific(player.getUsername(),"firstHand:" +
                     playerCardArea.getHand().get(0).getId() + "," +
                     playerCardArea.getHand().get(1).getId() + "," +
                     playerCardArea.getHand().get(2).getId() + "," +
+                    playerCardArea.getCardStarter().getId() + "," +
                     playerCardArea.getTempSecretObjective().get(0).getId()+ "," +
-                    playerCardArea.getTempSecretObjective().get(1).getId()+ "," +
-                    playerCardArea.getCardStarter().getId());
+                    playerCardArea.getTempSecretObjective().get(1).getId());
         }
     }
 

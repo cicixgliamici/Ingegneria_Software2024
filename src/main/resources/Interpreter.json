@@ -10,7 +10,7 @@
     },
     "hasDrawn": {
       "className": "org.example.view",
-      "methodName": "drawnCard",
+      "methodName": "hasDrawn",
       "parameters": [
         {"type": "string", "source": "server"},
         {"type": "int", "source": "server"}
@@ -38,7 +38,7 @@
     },
     "unplayable": {
       "className": "org.example.view",
-      "methodName": "hasPlayed",
+      "methodName": "unplayable",
       "parameters": [
         {"type": "string", "source": "server"},
         {"type": "int", "source": "server"},

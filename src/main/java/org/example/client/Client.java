@@ -1,6 +1,7 @@
 package org.example.client;
 
 import org.example.view.View;
+import org.example.view.ViewTUI;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,14 +14,14 @@ public class Client {
     private String ip;
     private int port;
     private View view;
+    private boolean gameStarted = false;
 
     public Client(String ip, int port, View view) {
         this.ip = ip;
         this.port = port;
         this.view = view;
     }
-
-    public void startClient() {
+    public void startClientTUI() {
         Socket socket = null;
         try {
             System.out.println("Attempting to connect to " + ip + ":" + port);
@@ -33,8 +34,15 @@ public class Client {
                 try {
                     while (true) {
                         String socketLine = socketIn.nextLine();
-                        view.Interpreter(socketLine);
-                        System.out.println(socketLine);
+                        if (gameStarted) {
+                            view.Interpreter(socketLine);  // Use view to interpret messages once game has started
+                        } else {
+                            System.out.println(socketLine);  // Print directly until the game starts
+                            if (socketLine.contains("Match started")) {
+                                gameStarted = true;  // Change flag when the game starts
+                                view = new ViewTUI();  // Initialize or switch to the game-specific view
+                            }
+                        }
                     }
                 } catch (NoSuchElementException e) {
                     System.out.println("Server closed the connection");
@@ -53,6 +61,7 @@ public class Client {
                 }
             });
             userInputThread.start();
+
             // Attende che entrambi i thread terminino prima di chiudere le risorse
             try {
                 userInputThread.join();
@@ -92,3 +101,5 @@ public class Client {
         return view;
     }
 }
+
+

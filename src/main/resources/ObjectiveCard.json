@@ -8,7 +8,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
     "side": "BOTH"
-    }
+    },
+    "description": "You need to place 3 fungi in diagonal from BotL to TopR"
   },
   {
     "id": 88,
@@ -19,7 +20,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 3 plant in diagonal from TopL to BotpR"
   },
   {
     "id": 89,
@@ -30,7 +32,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 3 animal in diagonal from BotL to TopR"
   },
   {
     "id": 90,
@@ -41,7 +44,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 3 insect in diagonal from TopL to BotpR"
   },
   {
     "id": 91,
@@ -52,7 +56,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 2 fungi one above the other and a plant BotR"
   },
   {
     "id": 92,
@@ -63,7 +68,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 2 plant one above the other and a insect BotL"
   },
   {
     "id": 93,
@@ -74,7 +80,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 2 animal one above the other and a fungi TopR"
   },
   {
     "id": 94,
@@ -85,7 +92,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need to place 2 insect one above the other and a animal TopL"
   },
   {
     "id": 95,
@@ -96,7 +104,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 3 fungi"
   },
   {
     "id": 96,
@@ -107,7 +116,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 3 plant"
   },
   {
     "id": 97,
@@ -118,7 +128,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 3 animal"
   },
   {
     "id": 98,
@@ -129,7 +140,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 3 insect"
   },
   {
     "id": 99,
@@ -140,7 +152,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need a quill, a manuscript and a inkwell"
   },
   {
     "id": 100,
@@ -151,7 +164,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 2 manuscript"
   },
   {
     "id": 101,
@@ -162,7 +176,8 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 2 inkwell"
   },
   {
     "id": 102,
@@ -173,6 +188,7 @@
     "cardposition": "DECKHIDDEN",
     "side": {
       "side": "BOTH"
-    }
+    },
+    "description": "You need 2 quill"
   }
 ]

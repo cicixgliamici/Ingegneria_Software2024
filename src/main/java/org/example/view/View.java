@@ -17,6 +17,7 @@ public abstract class View {
     public JSONObject getCardById(int id) {
         return  null;
     };
+
     // Interpreted messages from server
     public void drawnCard(int id){};
     public void hasDrawn(String username, int id){};

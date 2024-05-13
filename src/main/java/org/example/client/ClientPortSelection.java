@@ -17,22 +17,18 @@ public class ClientPortSelection {
             ip = "127.0.0.1";
             port = 50000;
         }
-
-
         boolean first = true;
         while (port <= 1023 || port >= 65535){
             if(first){
                 System.out.println("PORT: ");
                 first = false;
             }
-
             String s = in.nextLine();
             try {
                 port = Integer.parseInt(s);
             } catch (NumberFormatException e) {
                 port = 50000;
             }
-
             if(port <= 1023 || port >= 65535)
                 System.out.println("Write a valid port number from 1024 to 65535");
 
@@ -44,7 +40,8 @@ public class ClientPortSelection {
         else {
             view = new ViewGUI();
         }
-        Client clientCLI = new Client(ip, port, view);
-        clientCLI.startClient();
+        Client clientCLI = null;
+        clientCLI = new Client(ip, port, view);
+        clientCLI.startClientTUI();
     }
 }

@@ -6,8 +6,6 @@ import org.example.model.Model;
 import org.example.view.View;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
-
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
@@ -40,59 +38,65 @@ public class Server implements ModelChangeListener {
         this.players=new ArrayList<>();
         loadCommands();       //Load the commands from resources->Commands.json
         this.controller = new Controller(model);  //Subscribes the Server to the model listeners list
-
     }
 
     public void startServer() {
-        //todo se un client si sconnette e si riconnette con lo stesso username bisogna ricollegarlo allo stesso PrintWriter
         int numConnections = 0;
-        int numMaxConnections = 1; // Default number of players
+        int numMaxConnections = 4; // Default maximum number of players
+        boolean maxConnectionsReached = false;
         ExecutorService executor = Executors.newFixedThreadPool(128);
-        ServerSocket serverSocket;
-        try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Server listening on port " + port);  //we choose the port from PortSelection
-            while (true) {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server listening on port " + port);
+            while (!maxConnectionsReached) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); //Reads text from a character-input stream
-                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);  //Prints formatted representations of objects to a text-output stream
-                    if (numConnections >= numMaxConnections) {
-                        out.println("Connection failed: maximum number of players reached");
-                        clientSocket.close(); // Close connection
-                        continue; // Re-start the while to add other clients
+                    if (numConnections < numMaxConnections) {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                        out.println("Enter your username:");
+                        String username = in.readLine();
+                        if (clientWriters.isEmpty()) {
+                            out.println("Enter the maximum number of players (1-4):");
+                            numMaxConnections = Integer.parseInt(in.readLine());
+                        }
+                        if (!clientWriters.containsKey(username)) {
+                            clientWriters.put(username, out);
+                            players.add(new Player(username));
+                            out.println("Connection successful");
+                            executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
+                            numConnections++;
+                            if (numConnections == numMaxConnections) {
+                                maxConnectionsReached = true;
+                            }
+                        } else {
+                            out.println("Username already taken. Please reconnect with a different username.");
+                            clientSocket.close();
+                        }
+                    } else {
+                        // Notify client and close socket
+                        try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                            out.println("Connection failed: maximum number of players reached.");
+                        }
+                        clientSocket.close();
                     }
-                    // Username from the client, must be unique for every Match
-                    out.println("Enter your username:");
-                    String username = in.readLine();
-                    // Only the first client set the number of players
-                    if (clientWriters.isEmpty()) {
-                        out.println("Enter the maximum number of players (1-4):");
-                        numMaxConnections = Integer.parseInt(in.readLine());
-                    }
-                    players.add(new Player(username));
-                    clientWriters.put(username, out);
-                    out.println("Connection successful");
-                    executor.submit(new ServerClientHandler(clientSocket, commands, model, controller));
-                    numConnections++;
                 } catch (IOException e) {
                     System.out.println("Error handling client: " + e.getMessage());
                 }
             }
+
+            // Notify all connected clients that the match is starting
+            for (PrintWriter writer : clientWriters.values()) {
+                onModelGeneric("Match started");
+            }
+            System.out.println("Match started with " + numConnections + " connections.");
+            controller.setPlayers(players);
+            controller.initializeController();
         } catch (IOException e) {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
-        System.out.println("Server stopped with " + numConnections + " connections");
-        controller.setPlayers(players);
-        controller.initializeController();
-        for (String string : clientWriters.keySet()) {
-            System.out.println(string);
-        }
-        executor.shutdown();
     }
 
-    /**
-     * Load command from a JSON, where we can choose what parameters do we
+     /*** Load command from a JSON, where we can choose what parameters do we
      * need from a client and what we use from the server
      */
     public void loadCommands() throws IOException {
