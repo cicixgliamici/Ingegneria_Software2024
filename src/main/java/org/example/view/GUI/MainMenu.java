@@ -49,12 +49,11 @@ public class MainMenu extends JFrame{
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
 
-        JMenuItem menuItemRules = new JMenuItem("Rules");
-        menuItemRules.setMnemonic(KeyEvent.VK_R);
+
         JMenuItem menuItemExit = new JMenuItem("Exit");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
 
-        menuOption.add(menuItemRules);
+
         menuOption.addSeparator();
         menuOption.add(menuItemExit);
 
@@ -72,7 +71,10 @@ public class MainMenu extends JFrame{
 
         JMenuItem menuItemAbout = new JMenuItem("?");
 
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+
         menuAbout.add(menuItemAbout);
+        menuAbout.add(menuItemRuleBook);
 
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
@@ -81,6 +83,17 @@ public class MainMenu extends JFrame{
                 aboutFrame.setSize(300,200);
                 aboutFrame.setLocationRelativeTo(null);
                 aboutFrame.setVisible(true);
+            }
+        });
+
+        menuItemRuleBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    GameRulesFrame gameRulesFrame = new GameRulesFrame();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

@@ -18,16 +18,26 @@ public class GameRulesFrame extends JFrame {
     public GameRulesFrame() throws IOException {
 
         super("Game Rules");
-        setSize(700, 700);
+        setSize(810, 660);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/01.png");
         setIconImage(icon);
 
-        images = new ImageIcon[3];
-        images[0] = new ImageIcon("src/main/resources/images/01.png"); // Imposta il percorso dell'immagine
+        images = new ImageIcon[12];
+        images[0] = new ImageIcon("src/main/resources/images/01.png");
         images[1] = new ImageIcon("src/main/resources/images/02.png");
         images[2] = new ImageIcon("src/main/resources/images/03.png");
+        images[3] = new ImageIcon("src/main/resources/images/04.png");
+        images[4] = new ImageIcon("src/main/resources/images/05.png");
+        images[5] = new ImageIcon("src/main/resources/images/06.png");
+        images[6] = new ImageIcon("src/main/resources/images/07.png");
+        images[7] = new ImageIcon("src/main/resources/images/08.png");
+        images[8] = new ImageIcon("src/main/resources/images/09.png");
+        images[9] = new ImageIcon("src/main/resources/images/10.png");
+        images[10] = new ImageIcon("src/main/resources/images/11.png");
+        images[11] = new ImageIcon("src/main/resources/images/12.png");
 
-        // JPanel per visualizzare le immagini
+
+
         imagePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -41,43 +51,37 @@ public class GameRulesFrame extends JFrame {
             }
         };
 
-        // JScrollPane per lo scorrimento
         scrollPane = new JScrollPane(imagePanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
-        // Aggiungi JScrollPane al JFrame
         getContentPane().add(scrollPane);
 
-        // Aggiungi ascoltatore delle frecce della tastiera
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_LEFT) {
-                    currentIndex = (currentIndex - 1 + images.length) % images.length;
-                    imagePanel.repaint();
-                } else if (keyCode == KeyEvent.VK_RIGHT) {
-                    currentIndex = (currentIndex + 1) % images.length;
-                    imagePanel.repaint();
+                    if(currentIndex != 0){
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        imagePanel.repaint();
+                    }
+                }  else if (keyCode == KeyEvent.VK_RIGHT) {
+                    if (currentIndex < images.length - 1) {
+                        currentIndex++;
+                        imagePanel.repaint();
+                    }
                 }
+
             }
         });
 
-        // Assicurati che il frame abbia il focus per catturare gli eventi della tastiera
+
         setFocusable(true);
         requestFocus();
 
-        // Visualizza il frame
         setVisible(true);
     }
-
-
-    //setLayout(new BorderLayout());
-
-        //gameRulesPanel = new GameRulesPanel();
-
-        //add(gameRulesPanel, BorderLayout.CENTER);
 
 
 }
