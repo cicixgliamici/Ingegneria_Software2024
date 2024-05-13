@@ -21,85 +21,67 @@ public class Client {
         this.port = port;
         this.view = view;
     }
+
     public void startClientTUI() {
         Socket socket = null;
         try {
-            System.out.println("Attempting to connect to " + ip + ":" + port);
             socket = new Socket(ip, port);
-            Scanner socketIn = new Scanner(socket.getInputStream());
-            PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
-            Scanner stdin = new Scanner(System.in);
-            // Thread per la ricezione dei messaggi dal server
-            Thread serverListener = new Thread(() -> {
-                try {
-                    while (true) {
-                        String socketLine = socketIn.nextLine();
-                        if (gameStarted) {
-                            view.Interpreter(socketLine);  // Use view to interpret messages once game has started
-                        } else {
-                            System.out.println(socketLine);  // Print directly until the game starts
-                            if (socketLine.contains("Match started")) {
-                                gameStarted = true;  // Change flag when the game starts
-                                view = new ViewTUI();  // Initialize or switch to the game-specific view
-                            }
-                        }
-                    }
-                } catch (NoSuchElementException e) {
-                    System.out.println("Server closed the connection");
-                }
-            });
-            serverListener.start();
-            // Thread per l'invio delle stringhe inserite dall'utente al server
-            Thread userInputThread = new Thread(() -> {
-                try {
-                    while (true) {
-                        String inputLine = stdin.nextLine();
-                        socketOut.println(inputLine);
-                    }
-                } catch (NoSuchElementException e) {
-                    System.out.println("Connection closed");
-                }
-            });
-            userInputThread.start();
-
-            // Attende che entrambi i thread terminino prima di chiudere le risorse
-            try {
-                userInputThread.join();
+            System.out.println("Attempting to connect to " + ip + ":" + port);
+            try (Scanner socketIn = new Scanner(socket.getInputStream());
+                 PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
+                 Scanner stdin = new Scanner(System.in)) {
+                Thread serverListener = new Thread(() -> handleServerMessages(socketIn));
+                Thread userInputThread = new Thread(() -> handleUserInput(stdin, socketOut));
+                serverListener.start();
+                userInputThread.start();
                 serverListener.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                stdin.close();
-                socketIn.close();
-                socketOut.close();
-                socket.close();
+                userInputThread.join();
             }
-        } catch (UnknownHostException e) {
-            System.out.println("Unknown host: " + ip);
-        } catch (IOException e) {
-            System.out.println("Connection refused: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error connecting or communicating: " + e.getMessage());
         } finally {
-            if (socket != null && !socket.isClosed()) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            closeSocket(socket);
+        }
+    }
+
+    private void handleServerMessages(Scanner socketIn) {
+        while (socketIn.hasNextLine()) {
+            String line = socketIn.nextLine();
+            if (line.contains("Match started")) {
+                System.out.println(line.substring(8)); // Process start message
+                synchronized (this) {
+                    gameStarted = true;
+                    this.view = new ViewTUI(); // Safely assign within synchronized block
                 }
+            } else if (gameStarted) {
+                synchronized (this) {
+                    if (this.view != null) {
+                        this.view.Interpreter(line.substring(8));
+                    }
+                }
+            } else {
+                System.out.println(line.substring(8)); // Print other messages
             }
         }
     }
 
-    public String getIp() {
-        return ip;
+    private void handleUserInput(Scanner stdin, PrintWriter socketOut) {
+        while (stdin.hasNextLine()) {
+            String input = stdin.nextLine();
+            socketOut.println(input);
+        }
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public View getView() {
-        return view;
+    private void closeSocket(Socket socket) {
+        if (socket != null && !socket.isClosed()) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                System.out.println("Error closing socket: " + e.getMessage());
+            }
+        }
     }
 }
+
 
 
