@@ -43,16 +43,17 @@ public class Server implements ModelChangeListener {
         this.controller = new Controller(model);  // Subscribes the Server to the model listeners list
     }
 
-    public void startServer() {
-        int numConnections = 0;
-        int numMaxConnections = 4; // Default maximum number of players
-        boolean maxConnectionsReached = false;
-        ExecutorService executor = Executors.newFixedThreadPool(128);
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server listening on port " + port);
-            while (!maxConnectionsReached) {
-                try {
-                    Socket clientSocket = serverSocket.accept();
+  public void startServer() {
+    int numConnections = 0;
+    int numMaxConnections = 4; // Default maximum number of players
+    boolean maxConnectionsReached = false;
+    ExecutorService executor = Executors.newFixedThreadPool(128);
+    try (ServerSocket serverSocket = new ServerSocket(port)) {
+        System.out.println("Server listening on port " + port);
+        while (!maxConnectionsReached) {
+            try {
+                Socket clientSocket = serverSocket.accept();
+                synchronized (this) {
                     if (numConnections < numMaxConnections) {
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -83,23 +84,24 @@ public class Server implements ModelChangeListener {
                         }
                         clientSocket.close();
                     }
-                } catch (IOException e) {
-                    System.out.println("Error handling client: " + e.getMessage());
                 }
+            } catch (IOException e) {
+                System.out.println("Error handling client: " + e.getMessage());
             }
-
-            // Notify all connected clients that the match is starting
-            for (PrintWriter writer : clientWriters.values()) {
-                writer.println("Match started");
-                writer.flush();
-            }
-            System.out.println("Match started with " + numConnections + " connections.");
-            controller.setPlayers(players);
-            controller.initializeController();
-        } catch (IOException e) {
-            System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
+
+        // Notify all connected clients that the match is starting
+        for (PrintWriter writer : clientWriters.values()) {
+            writer.println("Match started");
+            writer.flush();
+        }
+        System.out.println("Match started with " + numConnections + " connections.");
+        controller.setPlayers(players);
+        controller.initializeController();
+    } catch (IOException e) {
+        System.out.println("Could not listen on port " + port + ": " + e.getMessage());
     }
+}
 
     /*** Load command from a JSON, where we can choose what parameters do we
      * need from a client and what we use from the server
@@ -119,7 +121,9 @@ public class Server implements ModelChangeListener {
      * the listener tell us something in the model is changed
      */
     @Override
-    public void onModelChange(String username, String specificMessage, String generalMessage) {
+    @Override
+public void onModelChange(String username, String specificMessage, String generalMessage) {
+    synchronized (this) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
             if (entry.getKey().equals(username)) {
@@ -130,9 +134,11 @@ public class Server implements ModelChangeListener {
             writer.flush();
         }
     }
+}
 
-    @Override
-    public void onModelSpecific(String username, String specificMessage) {
+@Override
+public void onModelSpecific(String username, String specificMessage) {
+    synchronized (this) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
             if (entry.getKey().equals(username)) { // specific message only to one client
@@ -141,15 +147,18 @@ public class Server implements ModelChangeListener {
             }
         }
     }
+}
 
-    @Override
-    public void onModelGeneric(String generalMessage) {
+@Override
+public void onModelGeneric(String generalMessage) {
+    synchronized (this) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
             PrintWriter writer = entry.getValue();
             writer.println(generalMessage);  // general message to everyone
             writer.flush();
         }
     }
+}
 
     public Map<String, PrintWriter> getClientWriters() {
         return clientWriters;
