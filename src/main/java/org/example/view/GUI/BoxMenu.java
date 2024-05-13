@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -25,7 +27,7 @@ public class BoxMenu extends JPanel{
         setLayout(new GridBagLayout());
 
         // Components
-        BufferedImage logo = ImageIO.read(new File("src/main/resources/logomini.jpg"));
+        BufferedImage logo = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
 
@@ -71,6 +73,12 @@ public class BoxMenu extends JPanel{
         });
 
         button = new JButton("Connetti!");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+ ;           }
+        });
 
         // Layout
         GridBagConstraints gbcTitle = new GridBagConstraints();

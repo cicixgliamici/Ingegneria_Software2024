@@ -14,11 +14,11 @@ public class MainMenu extends JFrame{
     public MainMenu() throws IOException {
         super("Codex Naturalis");
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/iconamini.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
 
         boxMenu = new BoxMenu(){
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/background.png")));
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
             {setOpaque(false);}
             public void paintComponent(Graphics graphics){

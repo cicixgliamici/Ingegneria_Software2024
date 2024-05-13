@@ -74,7 +74,7 @@ public class PlayerTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("p");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);

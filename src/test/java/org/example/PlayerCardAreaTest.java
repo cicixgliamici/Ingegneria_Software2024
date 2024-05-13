@@ -93,7 +93,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Westside_Gunn");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -128,7 +128,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Freddie_Gibbs");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -163,7 +163,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Nas");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -198,7 +198,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Busta_Rhymes");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -233,7 +233,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Jay-z");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -268,7 +268,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Lauryn_Hill");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -303,7 +303,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Andrè_3000");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -338,7 +338,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Kanye_West");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -373,7 +373,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Ty_Dolla_$ign");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -408,7 +408,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Thugger");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -443,7 +443,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Gunna");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -478,7 +478,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Future");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -513,7 +513,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Kendrick_Lamar");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -545,7 +545,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Tupac");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -577,7 +577,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Biggie");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -609,7 +609,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Don_Toliver");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -641,7 +641,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Metro_Grooming");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -676,7 +676,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Rick_Ross");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -711,7 +711,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Mos_Def");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -746,7 +746,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Big_L");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -781,7 +781,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Cheif_Keef");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -816,7 +816,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Rocky");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -851,7 +851,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Tyler_the_Creator");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -886,7 +886,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("MF_Doom");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -921,7 +921,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Danny_Brown");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -956,7 +956,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Peggy");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -991,7 +991,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Schoolboy_Q");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1026,7 +1026,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Pusha_T");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1061,7 +1061,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Joey_Bada$$");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1093,7 +1093,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Snoop_Dogg");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1125,7 +1125,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Dr_Dre");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1157,7 +1157,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Ice_Cube");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1189,7 +1189,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Eazy-E");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1221,7 +1221,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("DJ_Yella");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1255,7 +1255,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("MC_Ren");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1287,7 +1287,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Arabian_Prince");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1319,7 +1319,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Talib_Kweli");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
@@ -1351,7 +1351,7 @@ public class PlayerCardAreaTest extends TestCase {
         Deck deckStarter = new Deck(Type.STARTER);
         List<Player> playerslist=new ArrayList<>();
         model.setPlayersList(playerslist);
-        Player player1 = new Player("al-Khwārizmī");
+        Player player1 = new Player("Quavo");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
