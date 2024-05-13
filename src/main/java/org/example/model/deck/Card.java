@@ -177,6 +177,8 @@ public class Card {
 
     /** Getter and Setter zone
      */
+
+
     public Type getType() {
         return type;
     }

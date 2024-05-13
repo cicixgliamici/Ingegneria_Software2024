@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class BoxMenu extends JPanel{
+    // monnezza
     private JButton button;
     private JLabel labelTitle;
     private JLabel labelUsr;
@@ -50,7 +51,7 @@ public class BoxMenu extends JPanel{
             textFieldIp.setColumns(15);
         } catch(Exception e) {
             e.printStackTrace();
-        } */
+        }*/
 
         labelPort = new JLabel("Porta:");
         labelPort.setForeground(Color.darkGray);
