@@ -1,13 +1,18 @@
-package org.example.view.GUI;
+package org.example.view.GUI.mainmenu;
+
+import org.example.view.GUI.listener.EvListener;
+import org.example.view.GUI.listener.Event;
+import org.example.view.GUI.gamerules.GameRulesFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainMenu extends JFrame{
 
@@ -89,11 +94,65 @@ public class MainMenu extends JFrame{
         menuAbout.addSeparator();
         menuAbout.add(menuItemAbout);
 
+        //AboutFrame
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame aboutFrame = new JFrame("About");
+                JPanel aboutPanel = new JPanel();
+
+                aboutPanel.setPreferredSize(new Dimension(300,200));
+                Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
+                Border outsideBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+                Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
+                aboutPanel.setBorder(finalBorder);
+                JTextArea creditsTextPane = new JTextArea();
+
+                creditsTextPane.addFocusListener(new FocusListener() {
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        List<String> strings = new ArrayList<>();
+                        strings.add("c");
+                        strings.add("u");
+                        strings.add("l");
+                        strings.add("o");
+                        /*Thread culo = new Thread(()-> {
+                            while (true) {
+                                try {
+
+                                    creditsTextPane.append(strings.remove(0));
+                                    wait(1000, 0);
+                                    i++;
+                                } catch (InterruptedException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            }
+                        }
+                        ).start();*/
+                    }
+
+                    @Override
+                    public void focusLost(FocusEvent e) {
+
+                    }
+                });
+
+                GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
+
+                gbcCreditsLabel.gridx = 0;
+                gbcCreditsLabel.gridy = 0;
+
+                gbcCreditsLabel.weightx = 0.0;
+                gbcCreditsLabel.weighty = 0.9;
+                aboutPanel.setLayout(new GridBagLayout());
+                aboutPanel.add(creditsTextPane, gbcCreditsLabel);
+
+                aboutFrame.setLayout(new BorderLayout());
+                aboutFrame.add(aboutPanel);
+
+                aboutFrame.pack();
                 aboutFrame.setSize(300,200);
+                aboutFrame.setResizable(false);
                 aboutFrame.setLocationRelativeTo(null);
                 aboutFrame.setVisible(true);
             }

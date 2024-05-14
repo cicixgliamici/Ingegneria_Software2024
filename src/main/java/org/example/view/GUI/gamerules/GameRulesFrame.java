@@ -1,11 +1,9 @@
-package org.example.view.GUI;
+package org.example.view.GUI.gamerules;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 
 public class GameRulesFrame extends JFrame {

@@ -1,8 +1,11 @@
-package org.example.view.GUI;
+package org.example.view.GUI.mainmenu;
+
+import org.example.view.GUI.listener.EvListener;
+import org.example.view.GUI.listener.Event;
+import org.example.view.GUI.GameAreaFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class BoxMenu extends JPanel{
-    // monnezza
     private JButton button;
     private JLabel labelTitle;
     private JLabel labelUsr;

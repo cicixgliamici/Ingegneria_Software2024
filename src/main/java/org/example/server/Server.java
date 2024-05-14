@@ -121,7 +121,6 @@ public class Server implements ModelChangeListener {
      * the listener tell us something in the model is changed
      */
     @Override
-    @Override
 public void onModelChange(String username, String specificMessage, String generalMessage) {
     synchronized (this) {
         for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
