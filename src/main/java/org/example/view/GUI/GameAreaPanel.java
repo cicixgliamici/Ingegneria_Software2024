@@ -16,8 +16,63 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameAreaPanel extends JPanel{
-    public GameAreaPanel(){
+    private JLabel token1;
+    private JLabel token2;
+    private JLabel token3;
+    private JLabel token4;
+
+    public GameAreaPanel() throws IOException {
         setLayout(new GridBagLayout());
+
+        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
+        Icon icon1 = new ImageIcon(logo1);
+        token1 = new JLabel(icon1);
+
+        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
+        Icon icon2 = new ImageIcon(logo2);
+        token2 = new JLabel(icon2);
+
+        BufferedImage logo3 = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
+        Icon icon3 = new ImageIcon(logo3);
+        token3 = new JLabel(icon3);
+
+        BufferedImage logo4 = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
+        Icon icon4 = new ImageIcon(logo4);
+        token4 = new JLabel(icon4);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+
+        gbc.weightx = 0.01;
+        gbc.weighty = 0.01;
+
+        add(token1, gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+
+        gbc.weightx = 0.01;
+        gbc.weighty = 0.01;
+
+        add(token2, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+
+        gbc.weightx = 0.01;
+        gbc.weighty = 0.01;
+
+        add(token3, gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+
+        gbc.weightx = 0.01;
+        gbc.weighty = 0.01;
+
+        add(token4, gbc);
     }
 
 }

@@ -20,19 +20,19 @@ public class GameAreaFrame extends JFrame {
 
     public GameAreaFrame() throws IOException {
         super("Codex Naturalis");
-        setSize(810, 660);
+        setSize(1300, 800);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
 
 
         gameAreaPanel = new GameAreaPanel(){
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/gamearea.jpg")));
-            Image img = icon.getImage();
-            {setOpaque(false);}
-            public void paintComponent(Graphics graphics){
-                graphics.drawImage(img,0,0, this);
-                super.paintComponent(graphics);
-            }
+            //ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/gamearea.jpg")));
+            //Image img = icon.getImage();
+            //{setOpaque(false);}
+            //public void paintComponent(Graphics graphics){
+              //  graphics.drawImage(img,0,0, this);
+              //  super.paintComponent(graphics);
+            //}
         };
 
         setLayout(new BorderLayout());

@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class GameRulesFrame extends JFrame {
 
-    GameRulesPanel gameRulesPanel;
     private JPanel imagePanel;
     private JScrollPane scrollPane;
     private ImageIcon[] images;
@@ -16,7 +15,7 @@ public class GameRulesFrame extends JFrame {
     public GameRulesFrame() throws IOException {
 
         super("Game Rules");
-        setSize(700, 700);
+        setSize(714, 740);
         setLayout(new BorderLayout());
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/01.png");
         setIconImage(icon);
