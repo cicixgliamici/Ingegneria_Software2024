@@ -6,6 +6,8 @@ import org.example.view.ViewTUI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -13,6 +15,9 @@ public class Client {
     private int port;
     private View view;
     private volatile boolean gameStarted = false;  // Use volatile to ensure visibility across threads
+    private String lastSentMessage = "";
+
+    private static final List<String> AVAILABLE_COLORS = Arrays.asList("Red", "Blue", "Green", "Yellow");
 
     public Client(String ip, int port, View view) {
         this.ip = ip;
@@ -48,6 +53,7 @@ public class Client {
         while (socketIn.hasNextLine()) {
             String line = socketIn.nextLine();
             synchronized (this) {
+                lastSentMessage = line;  // Aggiorna lastSentMessage con l'ultimo messaggio del server
                 if (line.equals("Match started")) {
                     System.out.println(line); // Process start message
                     gameStarted = true;
@@ -66,7 +72,27 @@ public class Client {
     private void handleUserInput(Scanner stdin, PrintWriter socketOut) {
         while (stdin.hasNextLine()) {
             String input = stdin.nextLine();
-            socketOut.println(input);
+            if (isValidInput(input)) {
+                socketOut.println(input);
+                lastSentMessage = input;
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
         }
+    }
+
+    private boolean isValidInput(String input) {
+        if (lastSentMessage.equals("Enter the maximum number of players (1-4):")) {
+            try {
+                int numPlayers = Integer.parseInt(input);
+                return numPlayers >= 1 && numPlayers <= 4;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        if (lastSentMessage.contains("Choose a color from the following list:")) {
+            return AVAILABLE_COLORS.contains(input);
+        }
+        return true;
     }
 }

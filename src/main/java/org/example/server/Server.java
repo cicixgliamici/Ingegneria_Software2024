@@ -18,6 +18,7 @@ import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Server class that start the server and wait for the clients
@@ -34,6 +35,8 @@ public class Server implements ModelChangeListener {
     private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username (unique, from client) to a PrintWriter object
     private Map<String, View> clientView = new HashMap<>();
     private Map<Socket, String> socketToUsername = new HashMap<>();
+    private List<String> availableColors;  // List of available colors
+    private AtomicInteger setObjStarterCount = new AtomicInteger(0);  // Synchronized counter
 
     public Server(int port) throws IOException, ParseException {
         this.port = port;
@@ -42,6 +45,7 @@ public class Server implements ModelChangeListener {
         this.players = new ArrayList<>();
         loadCommands();       // Load the commands from resources->Commands.json
         this.controller = new Controller(model);  // Subscribes the Server to the model listeners list
+        this.availableColors = new ArrayList<>(Arrays.asList("Red", "Blue", "Green", "Yellow")); // Initialize available colors
     }
 
     public void startServer() {
@@ -61,6 +65,7 @@ public class Server implements ModelChangeListener {
                             out.println("Enter your username:");
                             String username = in.readLine();
                             if (clientWriters.isEmpty()) {
+                                // IT MUST BE 1 UNLESS THE END OF THE DEVELOPMENT
                                 out.println("Enter the maximum number of players (1-4):");
                                 numMaxConnections = Integer.parseInt(in.readLine());
                             }
@@ -69,7 +74,16 @@ public class Server implements ModelChangeListener {
                                 socketToUsername.put(clientSocket, username);  // Memorizza il socket associato all'username
                                 players.add(new Player(username));
                                 out.println("Connection successful");
-                                executor.submit(new ServerClientHandler(clientSocket, commands, model, controller, socketToUsername)); // pass the map to the handler
+                                // Ask the player to choose a color
+                                out.println("Choose a color from the following list: " + String.join(", ", availableColors));
+                                String chosenColor = in.readLine();
+                                while (!availableColors.contains(chosenColor)) {
+                                    out.println("Color not available. Choose a color from the following list: " + String.join(", ", availableColors));
+                                    chosenColor = in.readLine();
+                                }
+                                availableColors.remove(chosenColor);  // Remove chosen color from the list
+                                out.println("You have chosen the color " + chosenColor);
+                                executor.submit(new ServerClientHandler(clientSocket, commands, model, controller, socketToUsername, this)); // pass the map to the handler
                                 numConnections++;
                                 if (numConnections == numMaxConnections) {
                                     maxConnectionsReached = true;
@@ -90,7 +104,6 @@ public class Server implements ModelChangeListener {
                     System.out.println("Error handling client: " + e.getMessage());
                 }
             }
-
             // Notify all connected clients that the match is starting
             for (PrintWriter writer : clientWriters.values()) {
                 writer.println("Match started");
@@ -99,9 +112,33 @@ public class Server implements ModelChangeListener {
             System.out.println("Match started with " + numConnections + " connections.");
             controller.setPlayers(players);
             controller.initializeController();
+            // Call the gameFlow method to handle the flow of the game
+            gameFlow(numConnections);
         } catch (IOException e) {
             System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
+    }
+
+    public void gameFlow(int numConnections) throws IOException {
+        // Wait for all setObjStarter commands
+        waitForSetObjStarter(numConnections);
+        // Proceed with the next steps of the game flow
+    }
+
+    private void waitForSetObjStarter(int numConnections) {
+        while (setObjStarterCount.get() < numConnections) {
+            try {
+                Thread.sleep(100);  // Check every 100ms
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println("All clients have set correctly");
+        onModelGeneric("message:3");
+    }
+
+    public void incrementSetObjStarterCount() {
+        setObjStarterCount.incrementAndGet();
     }
 
     /*** Load command from a JSON, where we can choose what parameters do we

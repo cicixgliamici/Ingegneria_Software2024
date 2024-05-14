@@ -50,19 +50,16 @@ public class ClientHandler implements Runnable {
             JSONArray jsonParams = (JSONArray) commandDetails.get("parameters");
             Class<?>[] paramTypes = new Class[jsonParams.size()];
             Object[] paramValues = new Object[jsonParams.size()];
-
             String[] params = parts[1].split(",");
             if (params.length != jsonParams.size()) {
                 throw new IllegalArgumentException("Parameter count mismatch for command " + commandKey);
             }
-
             for (int i = 0; i < jsonParams.size(); i++) {
                 JSONObject param = (JSONObject) jsonParams.get(i);
                 String type = (String) param.get("type");
                 paramTypes[i] = type.equals("int") ? int.class : String.class;
                 paramValues[i] = type.equals("int") ? Integer.parseInt(params[i]) : params[i];
             }
-
             java.lang.reflect.Method method = view.getClass().getMethod(methodName, paramTypes);
             method.invoke(view, paramValues);
         } catch (Exception e) {

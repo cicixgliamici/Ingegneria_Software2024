@@ -15,11 +15,18 @@ public class ViewTUI extends View {
     }
 
     public void message(int x) {
-        if(x==1){
-            System.out.println("Command successfully executed");
-        }
-        else if (x==2){
-            System.out.println("Command not executed");
+        switch (x) {
+            case 1:
+                System.out.println("Command successfully executed");
+                break;
+            case 2:
+                System.out.println("Command not executed");
+                break;
+            case 3:
+                System.out.println("Everyone as setted is Starter and Objective cards");
+                break;
+            default:
+                break;
         }
     }
 
@@ -65,6 +72,8 @@ public class ViewTUI extends View {
 
     public void pubObj(int id1, int id2) {
         System.out.println("These are the public objects:");
+        printCardDetails(getCardbyId(id1));
+        printCardDetails(getCardbyId(id2));
     }
 
     public JSONObject getCardbyId(int id) {

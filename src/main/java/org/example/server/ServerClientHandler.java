@@ -21,16 +21,17 @@ public class ServerClientHandler implements Runnable {
     private Socket socket;
     private Model model;
     private Controller controller;
-
     private Map<String, JSONObject> commands;
     private Map<Socket, String> socketToUsername;
+    private Server server;
 
-    public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername) {
+    public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername, Server server) {
         this.socket = socket;
         this.commands = commands;
         this.model = model;
         this.controller = controller;
         this.socketToUsername = socketToUsername;
+        this.server = server;
     }
 
     public void run() {
@@ -44,7 +45,7 @@ public class ServerClientHandler implements Runnable {
                     if (commands.containsKey(inputLine.split(":")[0])) {
                         executeCommand(inputLine, out);
                     } else {
-                       System.out.println("Command not recognized.");
+                        System.out.println("Command not recognized.");
                     }
                 }
             }
@@ -92,12 +93,14 @@ public class ServerClientHandler implements Runnable {
                     paramValues[i] = type.equals("int") ? Integer.parseInt(params[j++]) : params[j++];  // Increment j only for user-supplied params
                 }
             }
-            out.println("message:1");
             Player player = controller.getPlayerByUsername(socketToUsername.get(socket));
             Method method = cls.getDeclaredMethod(methodName, paramTypes);
-            Object response = method.invoke(player, paramValues); // Ensure you are invoking on the correct object
+            method.invoke(player, paramValues); // Ensure you are invoking on the correct object
+            // Check if the command is setObjStarter
+            if (commandKey.equals("setObjStarter")) {
+                server.incrementSetObjStarterCount();
+            }
         } catch (Exception e) {
-            out.println("message:2");
             e.printStackTrace();
         }
     }
