@@ -158,7 +158,7 @@ public class Server implements ModelChangeListener {
      * For every client added, we send them a message when
      * the listener tell us something in the model is changed
      */
-    @Override
+
     public void onModelChange(String username, String specificMessage, String generalMessage) {
         synchronized (this) {
             for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {

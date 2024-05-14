@@ -16,7 +16,8 @@ public class GameRulesFrame extends JFrame {
     public GameRulesFrame() throws IOException {
 
         super("Game Rules");
-        setSize(780, 690);
+        setSize(700, 700);
+        setLayout(new BorderLayout());
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/01.png");
         setIconImage(icon);
 
@@ -49,11 +50,12 @@ public class GameRulesFrame extends JFrame {
             }
         };
 
+
         scrollPane = new JScrollPane(imagePanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
-        getContentPane().add(scrollPane);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         addKeyListener(new KeyAdapter() {
             @Override
