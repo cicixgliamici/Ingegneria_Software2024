@@ -1,5 +1,7 @@
 package org.example.view.GUI;
 
+import org.example.view.GUI.mainmenu.MainMenu;
+
 import java.io.IOException;
 
 public class GuiClient {

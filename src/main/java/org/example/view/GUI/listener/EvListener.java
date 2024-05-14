@@ -1,4 +1,4 @@
-package org.example.view.GUI;
+package org.example.view.GUI.listener;
 
 import java.util.EventListener;
 
