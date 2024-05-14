@@ -44,7 +44,7 @@ public class ServerClientHandler implements Runnable {
                     if (commands.containsKey(inputLine.split(":")[0])) {
                         executeCommand(inputLine, out);
                     } else {
-                        out.println("Command not recognized.");
+                       System.out.println("Command not recognized.");
                     }
                 }
             }
@@ -67,7 +67,6 @@ public class ServerClientHandler implements Runnable {
             String[] parts = inputLine.split(":");
             String commandKey = parts[0];
             if (!commands.containsKey(commandKey)) {
-                out.println("Command not recognized: " + commandKey);
                 return;
             }
             JSONObject commandDetails = commands.get(commandKey);
@@ -79,7 +78,6 @@ public class ServerClientHandler implements Runnable {
             Object[] paramValues = new Object[jsonParams.length()];
             String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
             if (params.length != jsonParams.length() - 1) {  // Exclude the 'Model' type parameter
-                out.println("Parameter count mismatch for command: " + commandKey);
                 return;
             }
             int j = 0;
@@ -94,13 +92,12 @@ public class ServerClientHandler implements Runnable {
                     paramValues[i] = type.equals("int") ? Integer.parseInt(params[j++]) : params[j++];  // Increment j only for user-supplied params
                 }
             }
-            // Assume you have a method in your controller to get a Player by username.
-            Player player = controller.getPlayerByUsername(socketToUsername.get(socket)); // Assuming you have such a method and mapping
+            out.println("message:1");
+            Player player = controller.getPlayerByUsername(socketToUsername.get(socket));
             Method method = cls.getDeclaredMethod(methodName, paramTypes);
             Object response = method.invoke(player, paramValues); // Ensure you are invoking on the correct object
-            //out.println("Command executed successfully: ");
         } catch (Exception e) {
-            out.println("Error executing command: " + e.getMessage());
+            out.println("message:2");
             e.printStackTrace();
         }
     }

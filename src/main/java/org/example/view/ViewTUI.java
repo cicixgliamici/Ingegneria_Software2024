@@ -14,6 +14,15 @@ public class ViewTUI extends View {
     public ViewTUI() {
     }
 
+    public void message(int x) {
+        if(x==1){
+            System.out.println("Command successfully executed");
+        }
+        else if (x==2){
+            System.out.println("Command not executed");
+        }
+    }
+
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
         printCardDetails(getCardbyId(id));

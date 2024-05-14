@@ -79,11 +79,12 @@
       "fileName": "View.java"
     }
   },
-  "connectionSuc": {
-    "className": "org.example.client.Client",
-    "methodName": "connectionSuc",
-    "parameters": [{"type" : "string", "source": "server"}
-    ],
-    "fileName": "Client.java"
+  "message": {
+    "className": "org.example.view",
+    "methodName": "message",
+    "parameters": [
+      {"type": "int", "source": "server"}
+      ],
+    "fileName": "View.java"
   }
 }

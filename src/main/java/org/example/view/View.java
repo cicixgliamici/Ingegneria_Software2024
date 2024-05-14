@@ -41,4 +41,8 @@ public abstract class View {
     public void removePlayerCardArea(String message){
         PlayerCardArea.remove(message);
     }
+
+    /** Messages of success and fail from the server
+     */
+    public void message(int x){};
 }
