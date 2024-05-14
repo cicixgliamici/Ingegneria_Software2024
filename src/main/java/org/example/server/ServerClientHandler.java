@@ -40,7 +40,6 @@ public class ServerClientHandler implements Runnable {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                System.out.println("Received command: " + inputLine);  // Aggiungi questa linea per debug
                 synchronized (this) {
                     if (commands.containsKey(inputLine.split(":")[0])) {
                         executeCommand(inputLine, out);

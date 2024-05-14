@@ -7,19 +7,21 @@ import org.example.view.ViewTUI;
 import java.util.Scanner;
 
 public class ClientPortSelection {
+    private String ip;
+    private int port;
 
-    public static void main(String[] args, int choice) {
+    public void main(String[] args, int mode) {
         System.out.println("IP: digit one casual letter for local ip");
         Scanner in = new Scanner(System.in);
-        String ip = in.nextLine();
-        int port = -1;
-        if(!ip.contains(".")){
+        ip = in.nextLine();
+        port = -1;
+        if (!ip.contains(".")) {
             ip = "127.0.0.1";
             port = 50000;
         }
         boolean first = true;
-        while (port <= 1023 || port >= 65535){
-            if(first){
+        while (port <= 1023 || port >= 65535) {
+            if (first) {
                 System.out.println("PORT: ");
                 first = false;
             }
@@ -29,19 +31,26 @@ public class ClientPortSelection {
             } catch (NumberFormatException e) {
                 port = 50000;
             }
-            if(port <= 1023 || port >= 65535)
+            if (port <= 1023 || port >= 65535)
                 System.out.println("Write a valid port number from 1024 to 65535");
+        }
 
-        }
-        View view = null;
-        if (choice==0){
+        View view;
+        if (mode == 0) {
             view = new ViewTUI();
-        }
-        else {
+        } else {
             view = new ViewGUI();
         }
-        Client clientCLI = null;
-        clientCLI = new Client(ip, port, view);
-        clientCLI.startClientTUI();
+
+        Client client = new Client(ip, port, view);
+        client.startClientTUI(mode);
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
     }
 }
