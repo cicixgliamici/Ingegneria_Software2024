@@ -11,6 +11,7 @@ import java.util.Scanner;
  * This class handles the selection of TCP and RMI ports for the server to listen on.
  */
 public class PortSelection {
+    //Called from CodexNaturalis, go to startServer
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int tcpPort;

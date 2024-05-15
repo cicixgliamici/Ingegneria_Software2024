@@ -32,7 +32,7 @@ public class RMIServerImpl extends UnicastRemoteObject implements RMIServerInter
     /**
      * Handles a new client connection.
      * Adds the client to the server, manages the number of connections, and handles color selection.
-     *
+     * It's the same for the TCP
      * @param username The username of the connecting client.
      * @param clientCallback The callback interface for communicating with the client.
      * @return A message indicating the connection status.
@@ -55,7 +55,6 @@ public class RMIServerImpl extends UnicastRemoteObject implements RMIServerInter
                 clientCallbacks.put(username, clientCallback);  // Add the client callback to the map
                 numConnections++;  // Increment the number of connections
                 clientCallback.receiveMessage("Connection successful");
-
                 // Handle the color selection process
                 String chosenColor;
                 do {
@@ -64,10 +63,8 @@ public class RMIServerImpl extends UnicastRemoteObject implements RMIServerInter
                         clientCallback.receiveMessage("Color not available. Choose a color from the following list: " + String.join(", ", server.getAvailableColors()));
                     }
                 } while (!server.getAvailableColors().contains(chosenColor));
-
                 server.chooseColor(username, chosenColor);  // Assign the chosen color to the player
                 clientCallback.receiveMessage("You have chosen the color " + chosenColor);
-
                 // If the number of connections reaches the maximum, start the game
                 if (numConnections == server.numMaxConnections) {
                     server.onModelGeneric("Match started");

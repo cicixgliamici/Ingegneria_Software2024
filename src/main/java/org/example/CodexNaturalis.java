@@ -27,6 +27,7 @@ public class CodexNaturalis {
             input = scanner.nextLine();
             switch (input) {
                 case "1":
+                    //called from Codex Naturalis, go to PortSelection
                     PortSelection.main(null);
                     break;
                 case "2":
