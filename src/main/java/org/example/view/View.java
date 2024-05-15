@@ -1,11 +1,7 @@
 package org.example.view;
 
-import org.example.model.deck.Card;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.simple.JSONObject;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 

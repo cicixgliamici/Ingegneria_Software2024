@@ -9,6 +9,7 @@ import org.example.model.deck.*;
 import org.example.model.playarea.DrawingCardArea;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,13 +52,17 @@ public class Model {
             playerCardArea.setCardStarter(drawingCardArea.drawCardFromDeck(Type.STARTER));
             playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-            notifyModelSpecific(player.getUsername(),"firstHand:" +
-                    playerCardArea.getHand().get(0).getId() + "," +
-                    playerCardArea.getHand().get(1).getId() + "," +
-                    playerCardArea.getHand().get(2).getId() + "," +
-                    playerCardArea.getCardStarter().getId() + "," +
-                    playerCardArea.getTempSecretObjective().get(0).getId()+ "," +
-                    playerCardArea.getTempSecretObjective().get(1).getId());
+            try {
+                notifyModelSpecific(player.getUsername(),"firstHand:" +
+                        playerCardArea.getHand().get(0).getId() + "," +
+                        playerCardArea.getHand().get(1).getId() + "," +
+                        playerCardArea.getHand().get(2).getId() + "," +
+                        playerCardArea.getCardStarter().getId() + "," +
+                        playerCardArea.getTempSecretObjective().get(0).getId()+ "," +
+                        playerCardArea.getTempSecretObjective().get(1).getId());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -130,20 +135,21 @@ public class Model {
     }
 
     // Called when something changes in the Model from the methods like Draw and Play
-    public void notifyModelChange(String username, String specificMessage, String generalMessage) {
+    public void notifyModelChange(String username, String specificMessage, String generalMessage) throws RemoteException {
         for (ModelChangeListener listener : listeners) {
             listener.onModelChange(username, specificMessage, generalMessage);
         }
     }
-    public void notifyModelSpecific(String username, String specificMessage) {
+
+    public void notifyModelSpecific(String username, String specificMessage) throws RemoteException {
         for (ModelChangeListener listener : listeners) {
             listener.onModelSpecific(username, specificMessage);
         }
     }
-    public void notifyModelGeneric(String generalMessage){
+
+    public void notifyModelGeneric(String generalMessage) throws RemoteException {
         for(ModelChangeListener listener: listeners) {
             listener.onModelGeneric(generalMessage);
         }
     }
 }
-

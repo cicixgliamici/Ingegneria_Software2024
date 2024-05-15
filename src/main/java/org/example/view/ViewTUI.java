@@ -23,7 +23,7 @@ public class ViewTUI extends View {
                 System.out.println("Command not executed");
                 break;
             case 3:
-                System.out.println("Everyone as setted is Starter and Objective cards");
+                System.out.println("Everyone has set their Starter and Objective cards");
                 break;
             default:
                 break;
@@ -32,51 +32,51 @@ public class ViewTUI extends View {
 
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
-        printCardDetails(getCardbyId(id));
+        printCardDetails(getCardById(id));
     }
 
     public void hasDrawn(String username, int id) {
         System.out.println("Player: " + username + " has drawn");
-        printCardDetails(getCardbyId(id));
+        printCardDetails(getCardById(id));
     }
 
     public void playedCard(int id, int x, int y) {
         System.out.println("You played card at position: (" + x + "," + y + ")");
-        printCardDetails(getCardbyId(id));
+        printCardDetails(getCardById(id));
     }
 
     public void hasPlayed(String username, int id) {
         System.out.println("Player: " + username + " has played");
-        printCardDetails(getCardbyId(id));
+        printCardDetails(getCardById(id));
     }
 
     public void unplayable(int id, int x, int y) {
         System.out.println("The card is unplayable at position: (" + x + "," + y + ")");
-        printCardDetails(getCardbyId(id));
+        printCardDetails(getCardById(id));
     }
 
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         System.out.println("In your hand:\n");
-        printCardDetails(getCardbyId(id1));
-        printCardDetails(getCardbyId(id2));
-        printCardDetails(getCardbyId(id3));
+        printCardDetails(getCardById(id1));
+        printCardDetails(getCardById(id2));
+        printCardDetails(getCardById(id3));
         System.out.println("Now please choose the side of the starter card:");
-        printCardDetails(getCardbyId(id4));
+        printCardDetails(getCardById(id4));
         System.out.println("And what Objective Card you want to keep:");
-        printCardDetails(getCardbyId(id5));
-        printCardDetails(getCardbyId(id6));
+        printCardDetails(getCardById(id5));
+        printCardDetails(getCardById(id6));
         System.out.println("You should write 'setObjStarter:x,y', where " +
-                           "\nx is for the side of the starter card and " +
-                           "\ny is the objective card you want to keep ");
+                "\nx is for the side of the starter card and " +
+                "\ny is the objective card you want to keep ");
     }
 
     public void pubObj(int id1, int id2) {
         System.out.println("These are the public objects:");
-        printCardDetails(getCardbyId(id1));
-        printCardDetails(getCardbyId(id2));
+        printCardDetails(getCardById(id1));
+        printCardDetails(getCardById(id2));
     }
 
-    public JSONObject getCardbyId(int id) {
+    public JSONObject getCardById(int id) {
         JSONParser parser = new JSONParser();
         String[] filePaths = {
                 "src/main/resources/Card.json",
@@ -158,7 +158,7 @@ public class ViewTUI extends View {
             }
             System.out.println("\n");
         } else if ("OBJECT".equals(type)) {
-            System.out.println("Achivement:");
+            System.out.println("Achievement:");
             System.out.println(card.get("description") + " for " + card.get("points") + " points");
             System.out.println("\n");
         }

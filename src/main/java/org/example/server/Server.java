@@ -3,47 +3,54 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.Player;
 import org.example.model.Model;
-import org.example.view.View;
-import org.example.server.rmi.RMIServerImpl;
+import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Server class that starts the server and waits for the clients
- * Subscribed to the listeners list of model (and actually the only one)
- * and tells the Clients when something changes
+ * Main server class that handles TCP and RMI client connections,
+ * manages game state, and communicates with clients.
  */
 public class Server implements ModelChangeListener {
-    private int port;  // Port number for the server
-    private Model model;  // The game model
-    private Controller controller;  // The game controller
+    private int tcpPort;  // Port number for the TCP server
+    private int rmiPort;  // Port number for the RMI server
+    protected Model model;  // The game model
+    protected Controller controller;  // The game controller
     private List<Player> players;  // List of players for the controller
-    private Map<String, JSONObject> commands = new HashMap<>();  // Map for the commands written by the Client and the commands in the JSON
-    private Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username (unique, from client) to a PrintWriter object
-    private Map<String, View> clientView = new HashMap<>();  // Map of client views
-    private Map<Socket, String> socketToUsername = new HashMap<>();  // Map to associate sockets with usernames
+    protected Map<String, JSONObject> commands = new HashMap<>();  // Map for the commands from the Client and the commands in the JSON
+    protected Map<String, PrintWriter> clientWriters = new HashMap<>();  // Map that associates a username to a PrintWriter object
+    protected Map<Socket, String> socketToUsername = new HashMap<>();  // Map to associate sockets with usernames
+    protected Map<String, RMIClientCallbackInterface> rmiClientCallbacks = new HashMap<>();  // Map to associate RMI clients with usernames
     private List<String> availableColors;  // List of available colors
     private AtomicInteger setObjStarterCount = new AtomicInteger(0);  // Synchronized counter
-    private ExecutorService executor;  // Thread pool for handling client connections
-    private RMIServerImpl rmiServer;  // RMI server implementation
+    protected ExecutorService executor;  // Thread pool for handling client connections
+    private TCPServer tcpServer;  // TCP server implementation
+    private RMIServer rmiServer;  // RMI server implementation
+    private int numConnections = 0;  // Number of active connections
+    public int numMaxConnections = 4;  // Default maximum number of players
 
-    public Server(int port) throws IOException, ParseException {
-        this.port = port;
+    /**
+     * Constructor to initialize the server with TCP and RMI ports.
+     *
+     * @param tcpPort The TCP port number.
+     * @param rmiPort The RMI port number.
+     * @throws IOException if an I/O error occurs.
+     * @throws ParseException if a parsing error occurs.
+     */
+    public Server(int tcpPort, int rmiPort) throws IOException, ParseException {
+        this.tcpPort = tcpPort;
+        this.rmiPort = rmiPort;
         this.model = new Model();
         this.model.addModelChangeListener(this);
         this.players = new ArrayList<>();
@@ -52,86 +59,98 @@ public class Server implements ModelChangeListener {
         this.availableColors = new ArrayList<>(Arrays.asList("Red", "Blue", "Green", "Yellow"));  // Initialize available colors
     }
 
+    /**
+     * Starts the server by initializing the TCP and RMI servers.
+     */
     public void startServer() {
         executor = Executors.newFixedThreadPool(128);  // Create a thread pool with a fixed number of threads
-        executor.submit(this::startTCPServer);  // Start the TCP server
-        executor.submit(this::startRMIServer);  // Start the RMI server
+        tcpServer = new TCPServer(tcpPort, this);
+        rmiServer = new RMIServer(rmiPort, this);
+        executor.submit(tcpServer::start);  // Start the TCP server
+        executor.submit(rmiServer::start);  // Start the RMI server
     }
 
     /**
-     * TCP ZONE
-     * Starts the TCP server to accept client connections
+     * Handles new TCP client connections.
+     *
+     * @param username The username of the client.
+     * @param out The PrintWriter for the client.
+     * @throws RemoteException if a remote communication error occurs.
      */
-    private void startTCPServer() {
-        int numConnections = 0;
-        int numMaxConnections = 4;  // Default maximum number of players
-        boolean maxConnectionsReached = false;
-        try (ServerSocket serverSocket = new ServerSocket(port)) {  // Create a server socket on the specified port
-            System.out.println("TCP server listening on port " + port);
-            while (!maxConnectionsReached) {
+    public void handleNewClient(String username, PrintWriter out) throws RemoteException {
+        synchronized (this) {
+            clientWriters.put(username, out);  // Add client writer to map
+            players.add(new Player(username));  // Add player to list
+            numConnections++;
+            if (numConnections == numMaxConnections) {  // If maximum number of connections is reached
+                onModelGeneric("Match started");  // Notify all clients
+                controller.setPlayers(players);
+                controller.initializeController();
                 try {
-                    Socket clientSocket = serverSocket.accept();  // Accept incoming client connections
-                    synchronized (this) {
-                        if (numConnections < numMaxConnections) {
-                            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                            out.println("Enter your username:");
-                            String username = in.readLine();
-                            if (clientWriters.isEmpty()) {
-                                out.println("Enter the maximum number of players (1-4):");
-                                numMaxConnections = Integer.parseInt(in.readLine());
-                            }
-                            if (!clientWriters.containsKey(username)) {
-                                clientWriters.put(username, out);
-                                socketToUsername.put(clientSocket, username);  // Associate the socket with the username
-                                players.add(new Player(username));
-                                out.println("Connection successful");
-                                out.println("Choose a color from the following list: " + String.join(", ", availableColors));
-                                String chosenColor = in.readLine();
-                                while (!availableColors.contains(chosenColor)) {
-                                    out.println("Color not available. Choose a color from the following list: " + String.join(", ", availableColors));
-                                    chosenColor = in.readLine();
-                                }
-                                availableColors.remove(chosenColor);  // Remove chosen color from the list
-                                out.println("You have chosen the color " + chosenColor);
-                                executor.submit(new ServerClientHandler(clientSocket, commands, model, controller, socketToUsername, this));  // Handle the client connection
-                                numConnections++;
-                                if (numConnections == numMaxConnections) {
-                                    maxConnectionsReached = true;
-                                    onModelGeneric("Match started");
-                                    controller.setPlayers(players);
-                                    controller.initializeController();
-                                    gameFlow(numConnections);  // Start the game flow
-                                }
-                            } else {
-                                out.println("Username already taken. Please reconnect with a different username.");
-                                clientSocket.close();
-                            }
-                        } else {
-                            try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-                                out.println("Connection failed: maximum number of players reached.");
-                            }
-                            clientSocket.close();
-                        }
-                    }
+                    gameFlow(numConnections);  // Start the game
                 } catch (IOException e) {
-                    System.out.println("Error handling client: " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Could not listen on port " + port + ": " + e.getMessage());
         }
     }
 
     /**
-     * Game flow logic
+     * Handles new RMI client connections.
+     *
+     * @param username The username of the client.
+     * @param clientCallback The RMI client callback interface.
+     * @throws RemoteException if a remote communication error occurs.
+     */
+    public void handleNewRMIClient(String username, RMIClientCallbackInterface clientCallback) throws RemoteException {
+        synchronized (this) {
+            rmiClientCallbacks.put(username, clientCallback);  // Add RMI client callback to map
+            players.add(new Player(username));  // Add player to list
+            numConnections++;
+            if (numConnections == numMaxConnections) {  // If maximum number of connections is reached
+                onModelGeneric("Match started");  // Notify all clients
+                controller.setPlayers(players);
+                controller.initializeController();
+                try {
+                    gameFlow(numConnections);  // Start the game
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles the color choice from the client.
+     *
+     * @param username The username of the client.
+     * @param chosenColor The chosen color.
+     */
+    public void handleClientColorChoice(String username, String chosenColor) {
+        synchronized (this) {
+            if (availableColors.contains(chosenColor)) {
+                availableColors.remove(chosenColor);
+                System.out.println(username + " has chosen the color " + chosenColor);
+            } else {
+                System.out.println("Color " + chosenColor + " not available.");
+            }
+        }
+    }
+
+    /**
+     * Game flow logic.
+     *
+     * @param numConnections The number of active connections.
+     * @throws IOException if an I/O error occurs.
      */
     public void gameFlow(int numConnections) throws IOException {
         waitForSetObjStarter(numConnections);  // Wait for all players to set their starter objects
     }
 
     /**
-     * Wait for all players to set their starter objects
+     * Waits for all players to set their starter objects.
+     *
+     * @param numConnections The number of active connections.
      */
     private void waitForSetObjStarter(int numConnections) {
         while (setObjStarterCount.get() < numConnections) {
@@ -142,15 +161,24 @@ public class Server implements ModelChangeListener {
             }
         }
         System.out.println("All clients have set correctly");
-        onModelGeneric("message:3");
+        try {
+            onModelGeneric("message:3");  // Notify all clients
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Increments the setObjStarterCount.
+     */
     public void incrementSetObjStarterCount() {
         setObjStarterCount.incrementAndGet();
     }
 
     /**
-     * Load commands from a JSON file
+     * Loads commands from a JSON file.
+     *
+     * @throws IOException if an I/O error occurs.
      */
     public void loadCommands() throws IOException {
         String path = "src/main/resources/Commands.json";
@@ -163,10 +191,16 @@ public class Server implements ModelChangeListener {
     }
 
     /**
-     * Send messages to clients when the model changes
+     * Sends messages to clients when the model changes.
+     *
+     * @param username The username of the player who triggered the change.
+     * @param specificMessage The specific message for the player.
+     * @param generalMessage The general message for all other players.
+     * @throws RemoteException if a remote communication error occurs.
      */
-    public void onModelChange(String username, String specificMessage, String generalMessage) {
+    public void onModelChange(String username, String specificMessage, String generalMessage) throws RemoteException {
         synchronized (this) {
+            // Send messages to TCP clients
             for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
                 PrintWriter writer = entry.getValue();
                 if (entry.getKey().equals(username)) {
@@ -176,52 +210,80 @@ public class Server implements ModelChangeListener {
                 }
                 writer.flush();
             }
-        }
-    }
-
-    @Override
-    public void onModelSpecific(String username, String specificMessage) {
-        synchronized (this) {
-            for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
-                PrintWriter writer = entry.getValue();
-                if (entry.getKey().equals(username)) {
-                    writer.println(specificMessage);  // Send specific message to the specified player
-                    writer.flush();
+            // Send messages to RMI clients
+            for (Map.Entry<String, RMIClientCallbackInterface> entry : rmiClientCallbacks.entrySet()) {
+                try {
+                    if (entry.getKey().equals(username)) {
+                        entry.getValue().receiveMessage(specificMessage);  // Send specific message to the player who triggered the change
+                    } else {
+                        entry.getValue().receiveMessage(generalMessage);  // Send a general message to all other players
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
             }
         }
     }
 
+    /**
+     * Sends a specific message to a specific player.
+     *
+     * @param username The username of the player.
+     * @param specificMessage The specific message.
+     */
     @Override
-    public void onModelGeneric(String generalMessage) {
+    public void onModelSpecific(String username, String specificMessage) {
         synchronized (this) {
+            // Send specific message to the specified TCP client
+            for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
+                PrintWriter writer = entry.getValue();
+                if (entry.getKey().equals(username)) {
+                    writer.println(specificMessage);
+                    writer.flush();
+                }
+            }
+            // Send specific message to the specified RMI client
+            for (Map.Entry<String, RMIClientCallbackInterface> entry : rmiClientCallbacks.entrySet()) {
+                try {
+                    if (entry.getKey().equals(username)) {
+                        entry.getValue().receiveMessage(specificMessage);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Sends a general message to all players.
+     *
+     * @param generalMessage The general message.
+     * @throws RemoteException if a remote communication error occurs.
+     */
+    @Override
+    public void onModelGeneric(String generalMessage) throws RemoteException {
+        synchronized (this) {
+            // Send a general message to all TCP clients
             for (PrintWriter writer : clientWriters.values()) {
-                writer.println(generalMessage);  // Send a general message to all players
+                writer.println(generalMessage);
                 writer.flush();
             }
-            if (rmiServer != null) {
-                rmiServer.sendToAllClients(generalMessage);  // Send a general message to all RMI clients
+            // Send a general message to all RMI clients
+            for (RMIClientCallbackInterface callback : rmiClientCallbacks.values()) {
+                try {
+                    callback.receiveMessage(generalMessage);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     /**
-     * RMI ZONE
-     * Starts the RMI server to accept client connections
-     */
-    private void startRMIServer() {
-        try {
-            rmiServer = new RMIServerImpl(this);
-            Registry registry = LocateRegistry.createRegistry(port + 1);  // Create a registry on a different port for RMI
-            registry.bind("RMIServer", rmiServer);  // Bind the RMI server
-            System.out.println("RMI server started on port " + (port + 1));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Add a player to the game
+     * Adds a player to the game.
+     *
+     * @param username The username of the player.
      */
     public void addPlayer(String username) {
         synchronized (this) {
@@ -230,7 +292,10 @@ public class Server implements ModelChangeListener {
     }
 
     /**
-     * Player chooses a color
+     * Handles a player's color choice.
+     *
+     * @param username The username of the player.
+     * @param color The chosen color.
      */
     public void chooseColor(String username, String color) {
         synchronized (this) {
@@ -241,5 +306,32 @@ public class Server implements ModelChangeListener {
                 System.out.println("Color " + color + " not available.");
             }
         }
+    }
+
+    /**
+     * Gets the controller instance.
+     *
+     * @return The controller instance.
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /**
+     * Gets the list of players.
+     *
+     * @return The list of players.
+     */
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    /**
+     * Gets the list of available colors.
+     *
+     * @return The list of available colors.
+     */
+    public List<String> getAvailableColors() {
+        return availableColors;
     }
 }

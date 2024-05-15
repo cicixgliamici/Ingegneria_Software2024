@@ -8,6 +8,8 @@ import org.example.model.playarea.ScoreBoard;
 import org.example.model.deck.*;
 import org.example.model.playarea.PlaceHolder;
 
+import java.rmi.RemoteException;
+
 /** All the attributes and methods for the management of the Player.
  *  The player is in the controller and talks to the PlayArea in the model.
  *  It doesn't have any data saved (Hand, Decks and his PlayArea)
@@ -63,7 +65,7 @@ public class Player {
      * Plays a card from the player's hand on the node with the passed coordinates
      * on the chosen side
      */
-    public void play(Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException {
+    public void play(Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException, RemoteException {
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
         PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
@@ -94,7 +96,7 @@ public class Player {
      * Draws a card. Choice indicates the Deck to draw from
      *
      */
-    public void draw(Model model, int choice){
+    public void draw(Model model, int choice) throws RemoteException {
         //todo gestire l'eccezione di un inserimento non valido
         Card card=null;
         model.getDrawingCardArea().displayVisibleCard();
