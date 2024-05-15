@@ -52,7 +52,7 @@ public class Server implements ModelChangeListener {
         this.tcpPort = tcpPort;
         this.rmiPort = rmiPort;
         this.model = new Model();
-        this.model.addModelChangeListener(this);
+        this.model.addModelChangeListener(this);  // Add the server as a listener to the model
         this.players = new ArrayList<>();
         loadCommands();  // Load the commands from resources->Commands.json
         this.controller = new Controller(model);  // Subscribes the Server to the model listeners list
@@ -64,8 +64,8 @@ public class Server implements ModelChangeListener {
      */
     public void startServer() {
         executor = Executors.newFixedThreadPool(128);  // Create a thread pool with a fixed number of threads
-        tcpServer = new TCPServer(tcpPort, this);
-        rmiServer = new RMIServer(rmiPort, this);
+        tcpServer = new TCPServer(tcpPort, this);  // Initialize the TCP server
+        rmiServer = new RMIServer(rmiPort, this);  // Initialize the RMI server
         executor.submit(tcpServer::start);  // Start the TCP server
         executor.submit(rmiServer::start);  // Start the RMI server
     }
@@ -84,8 +84,8 @@ public class Server implements ModelChangeListener {
             numConnections++;
             if (numConnections == numMaxConnections) {  // If maximum number of connections is reached
                 onModelGeneric("Match started");  // Notify all clients
-                controller.setPlayers(players);
-                controller.initializeController();
+                controller.setPlayers(players);  // Set the players in the controller
+                controller.initializeController();  // Initialize the controller
                 try {
                     gameFlow(numConnections);  // Start the game
                 } catch (IOException e) {
@@ -109,8 +109,8 @@ public class Server implements ModelChangeListener {
             numConnections++;
             if (numConnections == numMaxConnections) {  // If maximum number of connections is reached
                 onModelGeneric("Match started");  // Notify all clients
-                controller.setPlayers(players);
-                controller.initializeController();
+                controller.setPlayers(players);  // Set the players in the controller
+                controller.initializeController();  // Initialize the controller
                 try {
                     gameFlow(numConnections);  // Start the game
                 } catch (IOException e) {
@@ -129,7 +129,7 @@ public class Server implements ModelChangeListener {
     public void handleClientColorChoice(String username, String chosenColor) {
         synchronized (this) {
             if (availableColors.contains(chosenColor)) {
-                availableColors.remove(chosenColor);
+                availableColors.remove(chosenColor);  // Remove the chosen color from available colors
                 System.out.println(username + " has chosen the color " + chosenColor);
             } else {
                 System.out.println("Color " + chosenColor + " not available.");
@@ -153,7 +153,7 @@ public class Server implements ModelChangeListener {
      * @param numConnections The number of active connections.
      */
     private void waitForSetObjStarter(int numConnections) {
-        while (setObjStarterCount.get() < numConnections) {
+        while (setObjStarterCount.get() < numConnections) {  // Wait until all players have set their starter objects
             try {
                 Thread.sleep(100);  // Check every 100ms
             } catch (InterruptedException e) {
@@ -186,7 +186,7 @@ public class Server implements ModelChangeListener {
         JSONObject obj = new JSONObject(text);
         JSONObject jsonCommands = obj.getJSONObject("commands");
         for (String key : jsonCommands.keySet()) {
-            commands.put(key, jsonCommands.getJSONObject(key));
+            commands.put(key, jsonCommands.getJSONObject(key));  // Load commands into the map
         }
     }
 
