@@ -81,14 +81,15 @@ public class BoxMenu extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 try {
                     new GameAreaFrame();
-                    String[] values = {"Red", "Blue", "Green", "Yellow"};
+                    new ChooseColor();
+                    /*String[] values = {"Red", "Blue", "Green", "Yellow"};
 
                     Object selected = JOptionPane.showInputDialog(null, "Pick a color", "Color", JOptionPane.INFORMATION_MESSAGE, null, values, values[0]);
                     if ( selected != null ){
                         String selectedString = selected.toString();
                     }else{
                         System.out.println("User cancelled");
-                    }
+                    } */
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
