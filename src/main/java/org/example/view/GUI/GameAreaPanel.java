@@ -20,6 +20,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel token2;
     private JLabel token3;
     private JLabel token4;
+    private JButton gamearea;
 
     public GameAreaPanel() throws IOException {
         setLayout(new GridBagLayout());
@@ -40,6 +41,8 @@ public class GameAreaPanel extends JPanel{
         BufferedImage logo4 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_vert.png"));
         Icon icon4 = new ImageIcon(logo4);
         token4 = new JLabel(icon4);
+
+        gamearea = new JButton("ebreo");
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -73,7 +76,21 @@ public class GameAreaPanel extends JPanel{
         gbc.weightx = 0.01;
         gbc.weighty = 0.01;
 
+
+
         add(token4, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+
+        gbc.weightx = 0.9;
+        gbc.weighty = 0.9;
+
+        gbc.fill = GridBagConstraints.BOTH;
+
+        gbc.anchor = GridBagConstraints.LINE_START;
+
+        add(gamearea, gbc);
     }
 
 }

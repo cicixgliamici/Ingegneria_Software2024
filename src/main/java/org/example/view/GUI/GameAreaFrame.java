@@ -35,7 +35,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridy = 0;
         gbc.weighty = 0.0;
         gbc.weightx=0.2;
-
+        gbc.fill = GridBagConstraints.BOTH;
         add(button1, gbc);
 
         gameAreaPanel = new GameAreaPanel(){
@@ -50,7 +50,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
-        gbc.weightx=0.8;
+        gbc.weightx=0.53;
         gbc.fill = GridBagConstraints.BOTH;
 
         add(gameAreaPanel, gbc);
@@ -59,11 +59,11 @@ public class GameAreaFrame extends JFrame {
         gbc.gridy = 0;
         gbc.weighty = 0.0;
         gbc.weightx=0.2;
-        gbc.fill = GridBagConstraints.NONE;
+        gbc.fill = GridBagConstraints.BOTH;
         add(button2, gbc);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    }
+}
