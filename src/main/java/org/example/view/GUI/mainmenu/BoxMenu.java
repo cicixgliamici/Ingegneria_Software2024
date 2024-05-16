@@ -30,7 +30,7 @@ public class BoxMenu extends JPanel{
         setLayout(new GridBagLayout());
 
         // Components
-        BufferedImage logo = ImageIO.read(new File("src/main/resources/images/logomini.jpg"));
+        BufferedImage logo = ImageIO.read(new File("src/main/resources/images/logo.png"));
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
 
@@ -107,7 +107,7 @@ public class BoxMenu extends JPanel{
         gbcTitle.gridy = 0;
 
         gbcTitle.weightx = 0.0;
-        gbcTitle.weighty = 0.4;
+        gbcTitle.weighty = 0.3;
 
         gbcTitle.gridheight = 1;
         gbcTitle.gridwidth = 2;
