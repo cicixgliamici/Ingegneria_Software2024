@@ -2,7 +2,6 @@ package org.example.view.GUI.mainmenu;
 
 import org.example.view.GUI.listener.EvListener;
 import org.example.view.GUI.listener.Event;
-import org.example.view.GUI.GameAreaFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
