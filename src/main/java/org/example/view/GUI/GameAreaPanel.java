@@ -85,8 +85,8 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        gbc.weightx = 0.999;
-        gbc.weighty = 0.999;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.LINE_START;
