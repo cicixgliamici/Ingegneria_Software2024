@@ -47,6 +47,9 @@ public class MainMenu extends JFrame{
                 if(event.equals("closeApp")){
                     dispose();
                 }
+                else if(event.equals("notValidUsr")){
+                    JOptionPane.showMessageDialog(null, "Error! Please put a valid Username.", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

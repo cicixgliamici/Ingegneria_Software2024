@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class BoxMenu extends JPanel{
     private JButton button;
@@ -79,24 +80,18 @@ public class BoxMenu extends JPanel{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new GameAreaFrame();
-                    new SetInitialGame();
-                    /*String[] values = {"Red", "Blue", "Green", "Yellow"};
-
-                    Object selected = JOptionPane.showInputDialog(null, "Pick a color", "Color", JOptionPane.INFORMATION_MESSAGE, null, values, values[0]);
-                    if ( selected != null ){
-                        String selectedString = selected.toString();
-                    }else{
-                        System.out.println("User cancelled");
-                    } */
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                if((Objects.equals(textFieldUsr.getText(), "Inserisci un username...")) || textFieldUsr.getText().isEmpty()){
+                    Event event = new Event(this, "notValidUsr");
+                    if(evListener != null){
+                        evListener.eventListener(event);
+                    }
                 }
-                Event event = new Event(this, "closeApp");
-
-                if (evListener != null){
-                    evListener.eventListener(event);
+                else {
+                    new SetInitialGame();
+                    Event event = new Event(this, "closeApp");
+                    if (evListener != null) {
+                        evListener.eventListener(event);
+                    }
                 }
             }
         });
