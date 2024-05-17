@@ -24,12 +24,12 @@ public class GameAreaFrame extends JFrame {
 
     public GameAreaFrame() throws IOException {
         super("Codex Naturalis");
-        setSize(1300, 830);
+        setSize(1300, 860);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
 
-        //setJMenuBar(createMenuBar());
+        setJMenuBar(createMenuBar());
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -81,7 +81,7 @@ public class GameAreaFrame extends JFrame {
         setVisible(true);
     }
 
-    /*private JMenuBar createMenuBar(){
+    private JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menuOption = new JMenu("Option");
@@ -152,7 +152,7 @@ public class GameAreaFrame extends JFrame {
                             }
                         }
                         ).start();*/
-                    /*}
+                    }
 
                     @Override
                     public void focusLost(FocusEvent e) {
@@ -196,5 +196,5 @@ public class GameAreaFrame extends JFrame {
         menuBar.add(menuAbout);
 
         return menuBar;
-    }*/
+    }
 }
