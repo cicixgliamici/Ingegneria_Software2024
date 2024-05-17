@@ -11,6 +11,10 @@ public class SetInitialGame extends JFrame {
         setLayout(new GridBagLayout());
 
         //Components
+        JPanel chooseColorPanel = new JPanel(new GridBagLayout());
+        JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
+
+        //Setting chooseColorPanel
         JRadioButton redRadioButton = new JRadioButton("Red");
         JRadioButton greenRadioButton = new JRadioButton("Green");
         JRadioButton yellowRadioButton = new JRadioButton("Yellow");
@@ -25,11 +29,11 @@ public class SetInitialGame extends JFrame {
         Border insideChooseColorBorder = BorderFactory.createTitledBorder("ChooseColor");
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
-
+        chooseColorPanel.setBorder(finalChooseColorBorder);
 
         JButton confirmButton = new JButton("Confirm!");
 
-        //Layout
+        //Layout of chooseColorPanel
         GridBagConstraints gbcRed = new GridBagConstraints();
 
         gbcRed.gridy = 0;
@@ -38,7 +42,7 @@ public class SetInitialGame extends JFrame {
         gbcRed.weighty = 0.2;
         gbcRed.weightx = 0.0;
 
-        add(redRadioButton, gbcRed);
+        chooseColorPanel.add(redRadioButton, gbcRed);
 
         GridBagConstraints gbcGreen = new GridBagConstraints();
 
@@ -48,7 +52,7 @@ public class SetInitialGame extends JFrame {
         gbcGreen.weighty = 0.2;
         gbcGreen.weightx = 0.0;
 
-        add(greenRadioButton, gbcGreen);
+        chooseColorPanel.add(greenRadioButton, gbcGreen);
 
         GridBagConstraints gbcYellow = new GridBagConstraints();
 
@@ -58,7 +62,7 @@ public class SetInitialGame extends JFrame {
         gbcYellow.weighty = 0.2;
         gbcYellow.weightx = 0.0;
 
-        add(yellowRadioButton, gbcYellow);
+        chooseColorPanel.add(yellowRadioButton, gbcYellow);
 
         GridBagConstraints gbcBlue = new GridBagConstraints();
 
@@ -68,7 +72,7 @@ public class SetInitialGame extends JFrame {
         gbcBlue.weighty = 0.2;
         gbcBlue.weightx = 0.0;
 
-        add(blueRadioButton, gbcBlue);
+        chooseColorPanel.add(blueRadioButton, gbcBlue);
 
         GridBagConstraints gbcConfirmButton = new GridBagConstraints();
 
@@ -81,11 +85,50 @@ public class SetInitialGame extends JFrame {
         gbcConfirmButton.gridheight = 1;
         gbcConfirmButton.gridwidth = 2;
 
-        add(confirmButton, gbcConfirmButton);
+        chooseColorPanel.add(confirmButton, gbcConfirmButton);
+
+        //Setting setNumberPlayerPanel
+        JLabel labelNumPlayer = new JLabel("Numero Giocatori: ");
+        String[] optionsNumPlayer = {"1", "2", "3", "4"};
+        JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
+        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Number of player");
+        Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
+        Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
+        setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
+
+        GridBagConstraints gbcLabelNumPlayer = new GridBagConstraints();
+
+        gbcLabelNumPlayer.gridy = 0;
+        gbcLabelNumPlayer.gridx = 0;
+
+        setNumberPlayerPanel.add(labelNumPlayer, gbcLabelNumPlayer);
+
+        GridBagConstraints gbcMenuNumPlayer = new GridBagConstraints();
+
+        gbcMenuNumPlayer.gridy = 0;
+        gbcMenuNumPlayer.gridx = 1;
+
+        setNumberPlayerPanel.add(menuNumPlayer, gbcMenuNumPlayer);
+
+
+        //Layout
+        GridBagConstraints gbcChooseColor = new GridBagConstraints();
+
+        gbcChooseColor.gridy = 0;
+        gbcChooseColor.gridx = 0;
+
+        add(chooseColorPanel, gbcChooseColor);
+
+        GridBagConstraints gbcSetNumberPlayer = new GridBagConstraints();
+
+        gbcSetNumberPlayer.gridy = 1;
+        gbcSetNumberPlayer.gridx = 0;
+
+        add(setNumberPlayerPanel, gbcSetNumberPlayer);
 
         //Frame Engine
         setVisible(true);
-        setSize(new Dimension(300, 250));
+        setSize(new Dimension(300, 500));
         setLocationRelativeTo(null);
         setResizable(false);
     }
