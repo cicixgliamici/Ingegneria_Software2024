@@ -49,45 +49,46 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.01;
-        gbc.weighty = 0.01;
+        gbc.weightx = 0.001;
+        gbc.weighty = 0.001;
+
+
 
         add(token1, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.01;
-        gbc.weighty = 0.01;
+        gbc.weightx = 0.001;
+        gbc.weighty = 0.001;
+
+
 
         add(token2, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.01;
-        gbc.weighty = 0.01;
+        gbc.weightx = 0.001;
+        gbc.weighty = 0.001;
 
         add(token3, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.01;
-        gbc.weighty = 0.01;
-
-
+        gbc.weightx = 0.001;
+        gbc.weighty = 0.001;
 
         add(token4, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        gbc.weightx = 0.9;
-        gbc.weighty = 0.9;
+        gbc.weightx = 0.999;
+        gbc.weighty = 0.999;
 
         gbc.fill = GridBagConstraints.BOTH;
-
         gbc.anchor = GridBagConstraints.LINE_START;
 
         add(gamearea, gbc);
