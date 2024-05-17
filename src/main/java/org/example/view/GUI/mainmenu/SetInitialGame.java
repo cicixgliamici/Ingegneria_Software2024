@@ -89,11 +89,11 @@ public class SetInitialGame extends JFrame {
 
         //Setting setNumberPlayerPanel
         JLabel labelNumPlayer = new JLabel("Numero Giocatori: ");
-        String[] optionsNumPlayer = {"1", "2", "3", "4"};
+        String[] optionsNumPlayer = {"2", "3", "4"};
         JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
-        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Number of player");
+        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Number of players");
         Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
-        Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
+        Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
 
         GridBagConstraints gbcLabelNumPlayer = new GridBagConstraints();
