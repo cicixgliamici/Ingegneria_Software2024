@@ -58,6 +58,8 @@ public class SetInitialGame extends JFrame {
         gbcRed.weighty = 0.2;
         gbcRed.weightx = 0.0;
 
+        gbcRed.anchor = GridBagConstraints.LINE_START;
+
         chooseColorPanel.add(redRadioButton, gbcRed);
 
         GridBagConstraints gbcGreen = new GridBagConstraints();
@@ -67,6 +69,8 @@ public class SetInitialGame extends JFrame {
 
         gbcGreen.weighty = 0.2;
         gbcGreen.weightx = 0.0;
+
+        gbcGreen.anchor = GridBagConstraints.LINE_START;
 
         chooseColorPanel.add(greenRadioButton, gbcGreen);
 
@@ -78,6 +82,8 @@ public class SetInitialGame extends JFrame {
         gbcYellow.weighty = 0.2;
         gbcYellow.weightx = 0.0;
 
+        gbcYellow.anchor = GridBagConstraints.LINE_START;
+
         chooseColorPanel.add(yellowRadioButton, gbcYellow);
 
         GridBagConstraints gbcBlue = new GridBagConstraints();
@@ -87,6 +93,8 @@ public class SetInitialGame extends JFrame {
 
         gbcBlue.weighty = 0.2;
         gbcBlue.weightx = 0.0;
+
+        gbcBlue.anchor = GridBagConstraints.LINE_START;
 
         chooseColorPanel.add(blueRadioButton, gbcBlue);
 
