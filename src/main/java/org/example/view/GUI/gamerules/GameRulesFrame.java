@@ -34,8 +34,6 @@ public class GameRulesFrame extends JFrame {
         images[10] = new ImageIcon("src/main/resources/images/11.png");
         images[11] = new ImageIcon("src/main/resources/images/12.png");
 
-
-
         imagePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -78,8 +76,10 @@ public class GameRulesFrame extends JFrame {
 
         setFocusable(true);
         requestFocus();
-
+        setResizable(false);
         setVisible(true);
+        String information = "Please use arrows key to navigate"; //TODO jima controlla la forma di questa frase
+        JOptionPane.showMessageDialog(null, information, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
 

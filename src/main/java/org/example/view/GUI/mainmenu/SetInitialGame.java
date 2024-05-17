@@ -1,11 +1,12 @@
 package org.example.view.GUI.mainmenu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
-public class ChooseColor extends JFrame {
-    public ChooseColor(){
-        super ("ChooseColor");
+public class SetInitialGame extends JFrame {
+    public SetInitialGame(){
+        super ("SetInitialGame");
 
         setLayout(new GridBagLayout());
 
@@ -20,6 +21,11 @@ public class ChooseColor extends JFrame {
         buttonGroup.add(greenRadioButton);
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
+
+        Border insideChooseColorBorder = BorderFactory.createTitledBorder("ChooseColor");
+        Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
+        Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
+
 
         JButton confirmButton = new JButton("Confirm!");
 
