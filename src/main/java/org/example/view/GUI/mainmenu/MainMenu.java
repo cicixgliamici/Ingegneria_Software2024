@@ -54,7 +54,7 @@ public class MainMenu extends JFrame{
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid IP address.", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(event.equals("notValidPort")){
-                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid Port.", "Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

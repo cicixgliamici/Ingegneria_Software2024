@@ -90,7 +90,7 @@ public class BoxMenu extends JPanel{
                     if(evListener != null){
                         evListener.eventListener(event);
                     }
-                } else if ((Objects.equals(textFieldPort.getText(), "Enter a port...")) || textFieldPort.getText().isEmpty()) {
+                } else if ((Objects.equals(textFieldPort.getText(), "Enter a port number...")) || textFieldPort.getText().isEmpty()) {
                     Event event = new Event(this, "notValidPort");
                     if(evListener != null){
                         evListener.eventListener(event);
