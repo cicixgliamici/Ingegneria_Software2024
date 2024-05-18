@@ -21,47 +21,45 @@ public class ClientPortSelection {
      * @param mode The mode of the client: 0 for TUI (Text User Interface), 1 for GUI (Graphical User Interface).
      */
     public void main(String[] args, int mode) {
-        System.out.println("IP: digit one casual letter for local ip");
-        Scanner in = new Scanner(System.in);
-        ip = in.nextLine();  // Read the IP address input
-        port = -1;  // Initialize the port to an invalid value
-
-        // If the IP address does not contain a dot, assume it's a local connection
-        if (!ip.contains(".")) {
-            ip = "127.0.0.1";  // Default to localhost
-            port = 50000;  // Default port for localhost
-        }
-
-        boolean first = true;
-        // Loop until a valid port number is provided
-        while (port <= 1023 || port >= 65535) {
-            if (first) {
-                System.out.println("PORT: ");  // Prompt for port input
-                first = false;
-            }
-            String s = in.nextLine();
-            try {
-                port = Integer.parseInt(s);  // Try to parse the port number
-            } catch (NumberFormatException e) {
-                port = 50000;  // Default port if parsing fails
-            }
-            // Check if the port is within the valid range
-            if (port <= 1023 || port >= 65535) {
-                System.out.println("Write a valid port number from 1024 to 65535");
-            }
-        }
-
-        // Initialize the view based on the mode
         View view;
         if (mode == 0) {
-            view = new ViewTUI();  // Text User Interface
-        } else {
-            view = new ViewGUI();  // Graphical User Interface
-        }
+            view = new ViewTUI();
+            System.out.println("IP: digit one casual letter for local ip");
+            Scanner in = new Scanner(System.in);
+            ip = in.nextLine();  // Read the IP address input
+            port = -1;  // Initialize the port to an invalid value
 
-        // Create a new client instance with the selected IP, port, and view
-        Client client = new Client(ip, port, view);
-        client.startClientTUI(mode);  // Start the client with the specified mode
+            // If the IP address does not contain a dot, assume it's a local connection
+            if (!ip.contains(".")) {
+                ip = "127.0.0.1";  // Default to localhost
+                port = 50000;  // Default port for localhost
+            }
+
+            boolean first = true;
+            // Loop until a valid port number is provided
+            while (port <= 1023 || port >= 65535) {
+                if (first) {
+                    System.out.println("PORT: ");  // Prompt for port input
+                    first = false;
+                }
+                String s = in.nextLine();
+                try {
+                    port = Integer.parseInt(s);  // Try to parse the port number
+                } catch (NumberFormatException e) {
+                    port = 50000;  // Default port if parsing fails
+                }
+                // Check if the port is within the valid range
+                if (port <= 1023 || port >= 65535) {
+                    System.out.println("Write a valid port number from 1024 to 65535");
+                }
+            }
+            // Create a new client instance with the selected IP, port, and view
+            Client client = new Client(ip, port, view);
+            client.startClientTUI(mode);  // Start the client with the specified mode
+        } else {
+            view = new ViewGUI();
+            //todo gestione del client GUI
+        }
     }
 
     /**
