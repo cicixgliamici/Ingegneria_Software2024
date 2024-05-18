@@ -62,7 +62,7 @@ public class BoxMenu extends JPanel{
         labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
         labelPort.setFont(new Font("Helvetica", Font.BOLD, 15));
-        textFieldPort = new TextField("Enter a port...", 15);
+        textFieldPort = new TextField("Enter a port number...", 15);
         textFieldPort.setForeground(Color.gray);
         textFieldPort.addMouseListener(textFieldPort);
         textFieldPort.addKeyListener(textFieldPort);
