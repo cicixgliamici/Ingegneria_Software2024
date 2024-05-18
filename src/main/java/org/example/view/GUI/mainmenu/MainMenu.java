@@ -48,8 +48,15 @@ public class MainMenu extends JFrame{
                     dispose();
                 }
                 else if(event.equals("notValidUsr")){
-                    JOptionPane.showMessageDialog(null, "Error! Please put a valid Username.", "Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid Username.", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
+                else if(event.equals("notValidIp")){
+                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid IP address.", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(event.equals("notValidPort")){
+                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid Port.", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 

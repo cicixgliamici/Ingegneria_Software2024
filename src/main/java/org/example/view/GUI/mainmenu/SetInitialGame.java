@@ -10,11 +10,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class SetInitialGame extends JFrame {
-    public SetInitialGame(){
+    public SetInitialGame(String username){
         super ("SetInitialGame");
 
         setLayout(new GridBagLayout());
-
         //Components
         JPanel chooseColorPanel = new JPanel(new GridBagLayout());
         JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
@@ -24,7 +23,7 @@ public class SetInitialGame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new GameAreaFrame();
+                    new GameAreaFrame(username);
                     dispose();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -44,7 +43,7 @@ public class SetInitialGame extends JFrame {
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
 
-        Border insideChooseColorBorder = BorderFactory.createTitledBorder("ChooseColor");
+        Border insideChooseColorBorder = BorderFactory.createTitledBorder("Choose a Color");
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
@@ -99,10 +98,10 @@ public class SetInitialGame extends JFrame {
         chooseColorPanel.add(blueRadioButton, gbcBlue);
 
         //Setting setNumberPlayerPanel
-        JLabel labelNumPlayer = new JLabel("Numero Giocatori: ");
+        JLabel labelNumPlayer = new JLabel("Number of players");
         String[] optionsNumPlayer = {"1", "2", "3", "4"};
         JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
-        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Number of players");
+        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose the number of players");
         Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);

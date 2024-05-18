@@ -5,13 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Chat extends JPanel {
     private JButton button;
     private JTextArea textArea;
     private JTextField textField;
 
-    public Chat(){
+    public Chat(String username){
         setLayout(new BorderLayout());
 
         textArea = new JTextArea();
@@ -30,14 +31,22 @@ public class Chat extends JPanel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendMessage();
+                String message = textField.getText();
+                if (!message.isEmpty()) {
+                    textArea.append(username + ": " + message + "\n");
+                    textField.setText("");
+                }
             }
         });
 
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendMessage();
+                String message = textField.getText();
+                if (!message.isEmpty()) {
+                    textArea.append(username + ": " + message + "\n");
+                    textField.setText("");
+                }
             }
         });
 
@@ -65,10 +74,10 @@ public class Chat extends JPanel {
 
     }
 
-    private void sendMessage() {
+    private void sendMessage() throws IOException {
         String message = textField.getText();
         if (!message.isEmpty()) {
-            textArea.append(message + "\n");
+            textArea.append(": " + message + "\n");
             textField.setText("");
         }
     }

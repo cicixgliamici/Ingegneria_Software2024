@@ -37,15 +37,16 @@ public class BoxMenu extends JPanel{
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.darkGray);
         labelUsr.setFont(new Font("Helvetica", Font.BOLD, 15));
-        textFieldUsr = new TextField("Inserisci un username...", 15);
+        textFieldUsr = new TextField("Enter a username...", 15);
         textFieldUsr.setForeground(Color.gray);
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
+        String username = textFieldUsr.getText();
 
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
         labelIp.setFont(new Font("Helvetica", Font.BOLD, 15));
-        textFieldIp = new TextField("Inserici un indirizzo ip...", 15);
+        textFieldIp = new TextField("Enter a IP address...", 15);
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
@@ -58,10 +59,10 @@ public class BoxMenu extends JPanel{
             e.printStackTrace();
         }*/
 
-        labelPort = new JLabel("Porta:");
+        labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
         labelPort.setFont(new Font("Helvetica", Font.BOLD, 15));
-        textFieldPort = new TextField("Inserisci una porta...", 15);
+        textFieldPort = new TextField("Enter a port...", 15);
         textFieldPort.setForeground(Color.gray);
         textFieldPort.addMouseListener(textFieldPort);
         textFieldPort.addKeyListener(textFieldPort);
@@ -75,18 +76,27 @@ public class BoxMenu extends JPanel{
             }
         });
 
-        button = new JButton("Connetti!");
+        button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if((Objects.equals(textFieldUsr.getText(), "Inserisci un username...")) || textFieldUsr.getText().isEmpty()){
+                if((Objects.equals(textFieldUsr.getText(), "Enter a username...")) || textFieldUsr.getText().isEmpty()){
                     Event event = new Event(this, "notValidUsr");
                     if(evListener != null){
                         evListener.eventListener(event);
                     }
-                }
-                else {
-                    new SetInitialGame();
+                } else if ((Objects.equals(textFieldIp.getText(), "Enter a IP address...")) || textFieldIp.getText().isEmpty()) {
+                    Event event = new Event(this, "notValidIp");
+                    if(evListener != null){
+                        evListener.eventListener(event);
+                    }
+                } else if ((Objects.equals(textFieldPort.getText(), "Enter a port...")) || textFieldPort.getText().isEmpty()) {
+                    Event event = new Event(this, "notValidPort");
+                    if(evListener != null){
+                        evListener.eventListener(event);
+                    }
+                }  else {
+                    new SetInitialGame(username);
                     Event event = new Event(this, "closeApp");
                     if (evListener != null) {
                         evListener.eventListener(event);
@@ -192,4 +202,5 @@ public class BoxMenu extends JPanel{
     public void setEvListener(EvListener evListener){
         this.evListener = evListener;
     }
+
 }

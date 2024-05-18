@@ -3,15 +3,12 @@ package org.example.view.GUI;
 
 
 import org.example.view.GUI.gamerules.GameRulesFrame;
-import org.example.view.GUI.mainmenu.BoxMenu;
-import org.example.view.GUI.mainmenu.MainMenu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ public class GameAreaFrame extends JFrame {
     ScoreboardPanel scoreboardPanel;
     Chat chat;
 
-    public GameAreaFrame() throws IOException {
+    public GameAreaFrame(String username) throws IOException {
         super("Codex Naturalis");
         setSize(1300, 860);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
@@ -72,7 +69,7 @@ public class GameAreaFrame extends JFrame {
         gbc.weighty = 0.0;
         gbc.weightx=0.15;
         gbc.fill = GridBagConstraints.BOTH;
-        chat = new Chat();
+        chat = new Chat(username);
         add(chat, gbc);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
