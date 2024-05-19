@@ -31,22 +31,14 @@ public class Chat extends JPanel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = textField.getText();
-                if (!message.isEmpty()) {
-                    textArea.append(username + ": " + message + "\n");
-                    textField.setText("");
-                }
+                sendMessage(username);
             }
         });
 
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String message = textField.getText();
-                if (!message.isEmpty()) {
-                    textArea.append(username + ": " + message + "\n");
-                    textField.setText("");
-                }
+                sendMessage(username);
             }
         });
 
@@ -74,10 +66,10 @@ public class Chat extends JPanel {
 
     }
 
-    private void sendMessage() throws IOException {
+    private void sendMessage(String username){
         String message = textField.getText();
         if (!message.isEmpty()) {
-            textArea.append(": " + message + "\n");
+            textArea.append(username + ": " + message + "\n");
             textField.setText("");
         }
     }

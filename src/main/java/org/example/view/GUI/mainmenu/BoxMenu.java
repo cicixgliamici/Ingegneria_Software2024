@@ -41,7 +41,7 @@ public class BoxMenu extends JPanel{
         textFieldUsr.setForeground(Color.gray);
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
-        String username = textFieldUsr.getText();
+
 
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
@@ -96,6 +96,7 @@ public class BoxMenu extends JPanel{
                         evListener.eventListener(event);
                     }
                 }  else {
+                    String username = textFieldUsr.getText();
                     new SetInitialGame(username);
                     Event event = new Event(this, "closeApp");
                     if (evListener != null) {
