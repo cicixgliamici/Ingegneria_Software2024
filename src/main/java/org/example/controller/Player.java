@@ -29,10 +29,10 @@ public class Player {
     /**
      * Checks the validity of a chosen card
      */
-    public void checkChosenCard(Model model, Card card) throws InvalidCardException {
+    public void checkChosenCard(Model model, Card card, PlaceHolder placeHolder) throws InvalidCardException {
         boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
         if (isInvalidCard) {
-            throw new InvalidCardException("La carta selezionata non è valida.", card.getId());
+            throw new InvalidCardException("La carta selezionata non è valida.", card.getId(), placeHolder.getX(), placeHolder.getY());
         }
     }
 
@@ -42,9 +42,9 @@ public class Player {
      */
     public void setObjStarter(Model model, int choice, int obj) { //Choice indicates the side of the started card and obj the chosen objective card
         if (choice==1){
-            model.getPlayerCardArea(this).getCardStarter().setSide(1);
+            model.getPlayerCardArea(this).getCardStarter().setSide(1); //front
         } else {
-            model.getPlayerCardArea(this).getCardStarter().setSide(2);
+            model.getPlayerCardArea(this).getCardStarter().setSide(2); //back
         }
         model.getPlayerCardArea(this).setStarterNode();
         if(obj==1){
@@ -77,16 +77,11 @@ public class Player {
             throw new RuntimeException(e);
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
-        try {
-            checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
-            model.getPlayerCardArea(this).playACard(card, placeHolder);
-            model.getPlayerCardArea(this).getHand().remove(card);
-            model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
-                                                    "hasPlayed:" + username + "," + card.getId());
-        } catch (InvalidCardException e) {
-            model.notifyModelSpecific(this.username, "unplayable:" + username + "," + card.getId() + "," + x + "," + y);
-            throw e;
-            }
+        checkChosenCard(model, card, placeHolder); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
+        model.getPlayerCardArea(this).playACard(card, placeHolder);
+        model.getPlayerCardArea(this).getHand().remove(card);
+        model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
+                                                "hasPlayed:" + username + "," + card.getId());
 
     }
 

@@ -62,13 +62,11 @@ public class GameFlow {
                     case 0:
                        if(Objects.equals(command, "play")) {
                            if (turn.get() == 1) {
-                               incrementTurn();
                                return true;
                            }
                        }
                        else if(command.equals("draw")) {
                         if (turn.get() == 2) {
-                            incrementTurn();
                             return true;
                             }
                         }
@@ -76,39 +74,33 @@ public class GameFlow {
                     case 1:
                         if(Objects.equals(command, "play")) {
                             if (turn.get() == 3) {
-                                incrementTurn();
                                 return true;
                             }
                         }
                         else if(command.equals("draw")) {
                             if (turn.get() == 4) {
-                                incrementTurn();
                                 return true;
                             }
                         }
                     case 2:
                         if(Objects.equals(command, "play")) {
                             if (turn.get() == 5) {
-                                incrementTurn();
                                 return true;
                             }
                         }
                         else if(command.equals("draw")){
                             if (turn.get() == 6) {
-                                incrementTurn();
                                 return true;
                             }
                         }
                     case 3:
                         if(Objects.equals(command, "play")) {
                             if (turn.get() == 7) {
-                                incrementTurn();
                                 return true;
                             }
                         }
                         else if(command.equals("draw")) {
                             if (turn.get() == 8) {
-                                incrementTurn();
                                 return true;
                             }
                         }

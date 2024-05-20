@@ -148,6 +148,9 @@ public class ServerClientHandler implements Runnable {
                 if (commandKey.equals("setObjStarter")) {
                     server.incrementSetObjStarterCount();
                 }
+                if(server.getGameFlow()!=null){
+                    server.getGameFlow().incrementTurn();
+                }
             } else {
                 server.onModelSpecific(username, "message:4");
 
@@ -158,7 +161,7 @@ public class ServerClientHandler implements Runnable {
             if (targetException instanceof InvalidCardException) {
                 InvalidCardException invalidCardException = (InvalidCardException) targetException;
                 System.err.println("InvalidCardException: " + invalidCardException.getMessage());
-                server.onModelSpecific(username, "unplayable:" + username + "," + invalidCardException.getCardId() + ",x,y");
+                server.onModelSpecific(username, "unplayable:"+invalidCardException.getCardId()+","+invalidCardException.getX() +","+ invalidCardException.getY());
             } else {
                 e.printStackTrace();
             }

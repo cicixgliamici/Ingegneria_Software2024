@@ -180,13 +180,13 @@ public class ViewTUI extends View {
 
         return
                 "+ - - - - - - - - - - - - - - - - +\n" +
-                        "| " + topL + "                                 " + topR + " |\n" +
-                        "|                                               |\n" +
-                        "|                     " + colorCenter + resourceCenter + RESET_COLOR + "                     |\n" +
-                        "|                                               |\n" +
-                        "| " + bottomL + "                                 " + bottomR + " |\n" +
+                        "| " + topL + "                             " + topR + " |\n" +
+                        "|                                 |\n" +
+                        "|                 " + colorCenter + resourceCenter + RESET_COLOR + "               |\n" +
+                        "|                                 |\n" +
+                        "| " + bottomL + "                             " + bottomR + " |\n" +
                         "+ - - - - - - - - - - - - - - - - +\n" +
-                        "                  ID: " + id + "\n";
+                        "              ID: " + id + "\n";
     }
 
     private String generateStarterCardDisplay(JSONObject card) {
@@ -203,8 +203,9 @@ public class ViewTUI extends View {
         for (Object centerResource : back) {
             JSONObject centerDetails = (JSONObject) centerResource;
             String property = (String) centerDetails.get("PropertiesCorner");
-            colorCenter.append(getResourceColor(property));
-            resourceCenter.append(getResourceInitial(property)).append(" ");
+            String color = getResourceColor(property);
+            String initial = getResourceInitial(property);
+            colorCenter.append(color).append(initial).append(RESET_COLOR).append(" ");
         }
 
         String resourcesCentered = resourceCenter.toString().trim();
@@ -239,13 +240,13 @@ public class ViewTUI extends View {
 
         return
                 "+ - - - - - - - - - - - - - - - - +\n" +
-                        "| " + topL + "                                 " + topR + " |\n" +
-                        "|                                               |\n" +
-                        "|                " + colorsCentered + resourcesCentered + RESET_COLOR + "                |\n" +
-                        "|                                               |\n" +
-                        "| " + bottomL + "                                 " + bottomR + " |\n" +
+                        "| " + topL + "                             " + topR + " |\n" +
+                        "|                                 |\n" +
+                        "|           " + colorsCentered + "           |\n" +
+                        "|                                 |\n" +
+                        "| " + bottomL + "                             " + bottomR + " |\n" +
                         "+ - - - - - - - - - - - - - - - - +\n" +
-                        "                  ID: " + id + "\n";
+                        "               ID: " + id + "\n";
     }
 
     public void printCardDetails(JSONObject card) {
