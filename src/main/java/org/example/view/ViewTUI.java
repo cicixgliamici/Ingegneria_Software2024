@@ -25,7 +25,6 @@ public class ViewTUI extends View {
         resourceColors.put("INKWELL", "\u001B[33m"); // Oro
         resourceColors.put("QUILL", "\u001B[33m"); // Oro
         resourceColors.put("MANUSCRIPT", "\u001B[33m"); // Oro
-
         resourceInitials.put("FUNGI", "F");
         resourceInitials.put("PLANT", "P");
         resourceInitials.put("ANIMAL", "A");
@@ -65,8 +64,7 @@ public class ViewTUI extends View {
 
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
-        //printCardDetails(getCardById(id));
-
+        printCardDetails(getCardById(id));
     }
 
     public void hasDrawn(String username, int id) {
@@ -142,7 +140,7 @@ public class ViewTUI extends View {
         return resourceInitials.getOrDefault(resource, "?");
     }
 
-    private String generateCardDisplay(JSONObject card) {
+    private String generateStandardCardDisplay(JSONObject card) {
         JSONObject side = (JSONObject) card.get("side");
         JSONArray front = (JSONArray) side.get("front");
 
@@ -181,14 +179,73 @@ public class ViewTUI extends View {
         Long id = (Long) card.get("id");
 
         return
+                "+ - - - - - - - - - - - - - - - - +\n" +
+                        "| " + topL + "                                 " + topR + " |\n" +
+                        "|                                               |\n" +
+                        "|                     " + colorCenter + resourceCenter + RESET_COLOR + "                     |\n" +
+                        "|                                               |\n" +
+                        "| " + bottomL + "                                 " + bottomR + " |\n" +
                         "+ - - - - - - - - - - - - - - - - +\n" +
-                        "| " + topL + "                             " + topR + " |\n" +
-                        "|                                 |\n" +
-                        "|                " + colorCenter + resourceCenter + RESET_COLOR + "                |\n" +
-                        "|                                 |\n" +
-                        "| " + bottomL + "                             " + bottomR + " |\n" +
+                        "                  ID: " + id + "\n";
+    }
+
+    private String generateStarterCardDisplay(JSONObject card) {
+        JSONObject side = (JSONObject) card.get("side");
+        JSONArray back = (JSONArray) side.get("back");
+
+        String topL = " ";
+        String topR = " ";
+        String bottomR = " ";
+        String bottomL = " ";
+        StringBuilder resourceCenter = new StringBuilder();
+        StringBuilder colorCenter = new StringBuilder();
+
+        for (Object centerResource : back) {
+            JSONObject centerDetails = (JSONObject) centerResource;
+            String property = (String) centerDetails.get("PropertiesCorner");
+            colorCenter.append(getResourceColor(property));
+            resourceCenter.append(getResourceInitial(property)).append(" ");
+        }
+
+        String resourcesCentered = resourceCenter.toString().trim();
+        String colorsCentered = colorCenter.toString().trim();
+
+        for (Object corner : back) {
+            JSONObject cornerDetails = (JSONObject) corner;
+            String position = (String) cornerDetails.get("Position");
+            String property = (String) cornerDetails.get("PropertiesCorner");
+            String color = getResourceColor(property);
+            String initial = getResourceInitial(property);
+
+            switch (position) {
+                case "TOPL":
+                    topL = color + initial + RESET_COLOR;
+                    break;
+                case "TOPR":
+                    topR = color + initial + RESET_COLOR;
+                    break;
+                case "BOTTOMR":
+                    bottomR = color + initial + RESET_COLOR;
+                    break;
+                case "BOTTOML":
+                    bottomL = color + initial + RESET_COLOR;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Long id = (Long) card.get("id");
+
+        return
+                "+ - - - - - - - - - - - - - - - - +\n" +
+                        "| " + topL + "                                 " + topR + " |\n" +
+                        "|                                               |\n" +
+                        "|                " + colorsCentered + resourcesCentered + RESET_COLOR + "                |\n" +
+                        "|                                               |\n" +
+                        "| " + bottomL + "                                 " + bottomR + " |\n" +
                         "+ - - - - - - - - - - - - - - - - +\n" +
-                        "              ID: " + id + "\n";
+                        "                  ID: " + id + "\n";
     }
 
     public void printCardDetails(JSONObject card) {
@@ -200,32 +257,19 @@ public class ViewTUI extends View {
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
 
-        if ("RESOURCES".equals(type) || "GOLD".equals(type) || "STARTER".equals(type)) {
-            System.out.println(generateCardDisplay(card));
+        if ("RESOURCES".equals(type) || "GOLD".equals(type)) {
+            System.out.println(generateStandardCardDisplay(card));
+        } else if ("STARTER".equals(type)) {
+            System.out.println(generateStarterCardDisplay(card));
         } else if ("OBJECT".equals(type)) {
             System.out.println("Achievement:");
             System.out.println(card.get("description") + " for " + card.get("points") + " points");
             System.out.println("\n");
         }
 
-
-        // Additional details for different card types
         if ("RESOURCES".equals(type)) {
-            String cardRes = (String) card.get("cardres");
-            System.out.println("Card Resource: " + cardRes);
             System.out.println("Points: " + card.get("points"));
-            JSONObject side = (JSONObject) card.get("side");
-            JSONArray front = (JSONArray) side.get("front");
-            if (front != null) {
-                System.out.println("Front Side Details:");
-                for (Object corner : front) {
-                    JSONObject cornerDetails = (JSONObject) corner;
-                    System.out.println("Position: " + cornerDetails.get("Position") + ", Property: " + cornerDetails.get("PropertiesCorner"));
-                }
-                System.out.println("Back Side is empty");
-            } else {
-                System.out.println("No front side details available.");
-            }
+            System.out.println("Back Side is empty");
             System.out.println("\n");
         } else if ("GOLD".equals(type)) {
             String cardRes = (String) card.get("cardres");
@@ -233,42 +277,23 @@ public class ViewTUI extends View {
             System.out.println("Points: " + card.get("points") + " for every " + card.get("goldenPoint"));
             System.out.println("Requires:");
             JSONArray req = (JSONArray) card.get("requireGold");
+            StringBuilder reqString = new StringBuilder();
             for (Object CardRes : req) {
                 String resource = (String) CardRes;
                 String color = getResourceColor(resource);
                 String initial = getResourceInitial(resource);
-                System.out.println(color + initial + RESET_COLOR);
+                reqString.append(color).append(initial).append(RESET_COLOR).append("-");
             }
-            JSONObject side = (JSONObject) card.get("side");
-            JSONArray front = (JSONArray) side.get("front");
-            if (front != null) {
-                System.out.println("Front Side Details:");
-                for (Object corner : front) {
-                    JSONObject cornerDetails = (JSONObject) corner;
-                    System.out.println("Position: " + cornerDetails.get("Position") + ", Property: " + cornerDetails.get("PropertiesCorner"));
-                }
-                System.out.println("Back Side is empty");
-            } else {
-                System.out.println("No front side details available.");
+            if (reqString.length() > 0) {
+                reqString.setLength(reqString.length() - 1); // Rimuove l'ultimo trattino
             }
+            System.out.println(reqString.toString());
+            System.out.println("Back Side is empty");
             System.out.println("\n");
         } else if ("STARTER".equals(type)) {
-            JSONObject side = (JSONObject) card.get("side");
-            JSONArray back = (JSONArray) side.get("back");
-            System.out.println("Front Side is empty");
-            if (back != null && !back.isEmpty()) {
-                System.out.println("Back Side Details:");
-                for (Object corner : back) {
-                    JSONObject cornerDetails = (JSONObject) corner;
-                    System.out.println("Position: " + cornerDetails.get("Position") + ", Property: " + cornerDetails.get("PropertiesCorner"));
-                }
-            } else {
-                System.out.println("Back side is empty by default.");
-            }
+            System.out.println("Back side is empty by default.");
             System.out.println("\n");
         }
-
-
     }
 
     public void Interpreter(String message) {
@@ -285,7 +310,7 @@ public class ViewTUI extends View {
                 if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
                     Class<?>[] paramTypes = method.getParameterTypes();
                     Object[] paramValues = new Object[parameters.length];
-                    for (int i = 0; i < parameters.length; i++) {
+                    for (int i = 0; parameters != null && i < parameters.length; i++) {
                         if (paramTypes[i] == int.class) {
                             paramValues[i] = Integer.parseInt(parameters[i]);
                         } else if (paramTypes[i] == String.class) {
