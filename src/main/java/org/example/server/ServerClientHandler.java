@@ -2,6 +2,8 @@ package org.example.server;
 
 import org.example.controller.Controller;
 import org.example.controller.Player;
+
+import org.example.exception.InvalidCardException;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONArray;
@@ -10,6 +12,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.Map;
@@ -148,6 +151,16 @@ public class ServerClientHandler implements Runnable {
             } else {
                 server.onModelSpecific(username, "message:4");
 
+            }
+        } catch (InvocationTargetException e) {
+            // Handle the InvalidCardException if wrapped in InvocationTargetException
+            Throwable targetException = e.getTargetException();
+            if (targetException instanceof InvalidCardException) {
+                InvalidCardException invalidCardException = (InvalidCardException) targetException;
+                System.err.println("InvalidCardException: " + invalidCardException.getMessage());
+                server.onModelSpecific(username, "unplayable:" + username + "," + invalidCardException.getCardId() + ",x,y");
+            } else {
+                e.printStackTrace();
             }
         } catch(Exception e){
             e.printStackTrace();

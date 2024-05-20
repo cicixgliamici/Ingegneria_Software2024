@@ -29,12 +29,10 @@ public class Player {
     /**
      * Checks the validity of a chosen card
      */
-    public Card checkChosenCard(Model model, Card card) throws InvalidCardException {
-        boolean isValidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
-        if (isValidCard) {
-            throw new InvalidCardException("La carta selezionata non è valida.");
-        } else {
-            return card;
+    public void checkChosenCard(Model model, Card card) throws InvalidCardException {
+        boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
+        if (isInvalidCard) {
+            throw new InvalidCardException("La carta selezionata non è valida.", card.getId());
         }
     }
 
@@ -80,7 +78,7 @@ public class Player {
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
         try {
-            Card chosencard= checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
+            checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
             model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,

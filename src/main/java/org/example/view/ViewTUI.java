@@ -208,7 +208,7 @@ public class ViewTUI extends View {
             System.out.println("\n");
         }
 
-        /*
+
         // Additional details for different card types
         if ("RESOURCES".equals(type)) {
             String cardRes = (String) card.get("cardres");
@@ -268,7 +268,7 @@ public class ViewTUI extends View {
             System.out.println("\n");
         }
 
-         */
+
     }
 
     public void Interpreter(String message) {

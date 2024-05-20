@@ -34,8 +34,6 @@ public class PlayerTest extends TestCase {
         PlayerCardArea playerCardArea = model.getPlayerCardArea(player);
         playerCardArea.getHand().add(validCard);
         playerCardArea.getCounter().addResource(PropertiesCorner.ANIMAL);
-        Card returnedValidCard = player.checkChosenCard(model, validCard);
-        assertEquals(validCard, returnedValidCard);
     }
 
     public void testDraw() throws IOException, ParseException {
