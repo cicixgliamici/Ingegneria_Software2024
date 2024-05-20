@@ -8,8 +8,26 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 public class ViewTUI extends View {
+
+    private static final HashMap<String, String> resourceColors = new HashMap<>();
+    private static final HashMap<String, String> resourceInitials = new HashMap<>();
+
+    static {
+        resourceColors.put("FUNGI", "\u001B[31m"); // Rosso
+        resourceColors.put("PLANT", "\u001B[32m"); // Verde
+        resourceColors.put("ANIMAL", "\u001B[36m"); // Celeste
+        resourceColors.put("INSECT", "\u001B[35m"); // Viola
+
+        resourceInitials.put("FUNGI", "F");
+        resourceInitials.put("PLANT", "P");
+        resourceInitials.put("ANIMAL", "A");
+        resourceInitials.put("INSECT", "I");
+    }
+
+    private static final String RESET_COLOR = "\u001B[0m";
 
     public ViewTUI() {
     }
@@ -105,16 +123,43 @@ public class ViewTUI extends View {
         return null;
     }
 
+    private String getResourceColor(String resource) {
+        return resourceColors.getOrDefault(resource, RESET_COLOR);
+    }
+
+    private String getResourceInitial(String resource) {
+        return resourceInitials.getOrDefault(resource, "?");
+    }
+
     public void printCardDetails(JSONObject card) {
         if (card == null) {
             System.out.println("Card not found.");
             return;
         }
+
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
+
+        String cardRes = (String) card.get("cardres");
+        String color = getResourceColor(cardRes);
+        String initial = getResourceInitial(cardRes);
+        Long id = (Long) card.get("id");
+
+        // Print card in a rectangle with resource initials at the corners and center
+        System.out.println(color);
+        System.out.println("  +--------+  ");
+        System.out.println("  | " + initial + "      " + initial + " |  ");
+        System.out.println("  |        |  ");
+        System.out.println("  |    " + initial + "   |  ");
+        System.out.println("  |        |  ");
+        System.out.println("  | " + initial + "      " + initial + " |  ");
+        System.out.println("  +--------+  ");
+        System.out.println("     ID: " + id);
+        System.out.println(RESET_COLOR);
+
+        // Additional details for different card types
         if ("RESOURCES".equals(type)) {
-            System.out.println("ID:" + card.get("id"));
-            System.out.println("Card Resource: " + card.get("cardres"));
+            System.out.println("Card Resource: " + cardRes);
             System.out.println("Points: " + card.get("points"));
             JSONObject side = (JSONObject) card.get("side");
             JSONArray front = (JSONArray) side.get("front");
@@ -130,8 +175,7 @@ public class ViewTUI extends View {
             }
             System.out.println("\n");
         } else if ("GOLD".equals(type)) {
-            System.out.println("ID:" + card.get("id"));
-            System.out.println("Card Resource: " + card.get("cardres"));
+            System.out.println("Card Resource: " + cardRes);
             System.out.println("Points: " + card.get("points") + " for every " + card.get("goldenPoint"));
             JSONArray req = (JSONArray) card.get("requireGold");
             for (Object CardRes : req) {
