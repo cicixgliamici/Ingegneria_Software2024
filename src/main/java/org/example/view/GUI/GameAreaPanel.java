@@ -22,13 +22,26 @@ public class GameAreaPanel extends JPanel{
     private JLabel token4;
     private JButton gamearea;
 
-    public GameAreaPanel() throws IOException {
+    public GameAreaPanel(String color) throws IOException {
         setLayout(new GridBagLayout());
 
-
-        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
-        Icon icon1 = new ImageIcon(logo1);
-        token1 = new JLabel(icon1);
+        if(color == "Blue"){
+            BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
+            Icon icon1 = new ImageIcon(logo1);
+            token1 = new JLabel(icon1);
+        } else if (color == "Yellow") {
+            BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
+            Icon icon1 = new ImageIcon(logo1);
+            token1 = new JLabel(icon1);
+        } else if (color == "Red") {
+            BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/red.png"));
+            Icon icon1 = new ImageIcon(logo1);
+            token1 = new JLabel(icon1);
+        } else {
+            BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_vert.png"));
+            Icon icon1 = new ImageIcon(logo1);
+            token1 = new JLabel(icon1);
+        }
 
         BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
         Icon icon2 = new ImageIcon(logo2);

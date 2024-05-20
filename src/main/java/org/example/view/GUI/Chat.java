@@ -16,12 +16,17 @@ public class Chat extends JPanel {
         setLayout(new BorderLayout());
 
         textArea = new JTextArea();
-        button = new JButton("Invio");
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+
+        button = new JButton("Send");
         textField = new JTextField();
 
         textArea.setEditable(false);
 
-        add(new JScrollPane(textArea), BorderLayout.CENTER);
+        JScrollPane sp = new JScrollPane(textArea);
+        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(sp, BorderLayout.CENTER);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(textField, BorderLayout.CENTER);
@@ -41,28 +46,6 @@ public class Chat extends JPanel {
                 sendMessage(username);
             }
         });
-
-
-        /*GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridy = 0;
-        gbc.weighty = 0.9;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(textArea, gbc);
-
-        gbc.gridy = 1;
-        gbc.weighty = 0.05;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(textField, gbc);
-
-        gbc.gridy = 2;
-        gbc.weighty = 0.05;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        add(button, gbc);*/
-
 
     }
 

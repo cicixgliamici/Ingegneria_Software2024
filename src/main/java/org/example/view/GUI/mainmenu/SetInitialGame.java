@@ -19,23 +19,17 @@ public class SetInitialGame extends JFrame {
         JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
 
         JButton confirmButton = new JButton("Confirm!");
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new GameAreaFrame(username);
-                    dispose();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
+
 
         //Setting chooseColorPanel
         JRadioButton redRadioButton = new JRadioButton("Red");
+        redRadioButton.setActionCommand("Red");
         JRadioButton greenRadioButton = new JRadioButton("Green");
+        greenRadioButton.setActionCommand("Green");
         JRadioButton yellowRadioButton = new JRadioButton("Yellow");
+        yellowRadioButton.setActionCommand("Yellow");
         JRadioButton blueRadioButton = new JRadioButton("Blue");
+        blueRadioButton.setActionCommand("Blue");
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(redRadioButton);
@@ -47,7 +41,18 @@ public class SetInitialGame extends JFrame {
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
-
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String color = buttonGroup.getSelection().getActionCommand();
+                    new GameAreaFrame(username, color);
+                    dispose();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         //Layout of chooseColorPanel
         GridBagConstraints gbcRed = new GridBagConstraints();
 
