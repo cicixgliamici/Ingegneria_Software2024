@@ -65,7 +65,8 @@ public class ViewTUI extends View {
 
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
-        printCardDetails(getCardById(id));
+        //printCardDetails(getCardById(id));
+
     }
 
     public void hasDrawn(String username, int id) {
@@ -180,14 +181,14 @@ public class ViewTUI extends View {
         Long id = (Long) card.get("id");
 
         return
-                "+ - - - - - - - - - - - - - - - - +\n" +
-                        "| " + topL + "                                 " + topR + " |\n" +
-                        "|                                               |\n" +
-                        "|                     " + colorCenter + resourceCenter + RESET_COLOR + "                     |\n" +
-                        "|                                               |\n" +
-                        "| " + bottomL + "                                 " + bottomR + " |\n" +
                         "+ - - - - - - - - - - - - - - - - +\n" +
-                        "                  ID: " + id + "\n";
+                        "| " + topL + "                             " + topR + " |\n" +
+                        "|                                 |\n" +
+                        "|                " + colorCenter + resourceCenter + RESET_COLOR + "                |\n" +
+                        "|                                 |\n" +
+                        "| " + bottomL + "                             " + bottomR + " |\n" +
+                        "+ - - - - - - - - - - - - - - - - +\n" +
+                        "              ID: " + id + "\n";
     }
 
     public void printCardDetails(JSONObject card) {
@@ -207,6 +208,7 @@ public class ViewTUI extends View {
             System.out.println("\n");
         }
 
+        /*
         // Additional details for different card types
         if ("RESOURCES".equals(type)) {
             String cardRes = (String) card.get("cardres");
@@ -265,6 +267,8 @@ public class ViewTUI extends View {
             }
             System.out.println("\n");
         }
+
+         */
     }
 
     public void Interpreter(String message) {

@@ -79,16 +79,16 @@ public class Player {
             throw new RuntimeException(e);
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
-        Card chosencard= checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
         try {
+            Card chosencard= checkChosenCard(model, card); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
             model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
                                                     "hasPlayed:" + username + "," + card.getId());
-        } catch (Exception e) {
+        } catch (InvalidCardException e) {
             model.notifyModelSpecific(this.username, "unplayable:" + username + "," + card.getId() + "," + x + "," + y);
             throw e;
-        }
+            }
 
     }
 
