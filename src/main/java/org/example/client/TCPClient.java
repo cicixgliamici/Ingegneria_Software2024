@@ -101,6 +101,40 @@ public class TCPClient {
             } catch (NumberFormatException e) {
                 return false;
             }
+        } else if (input.startsWith("setObjStarter:")){
+            try {
+                String[] parts = input.substring(14).split(",");
+                if (parts.length != 2) {
+                    return false;
+                }
+                int StartSide = Integer.parseInt(parts[0]);
+                int NumObj = Integer.parseInt(parts[1]);
+                return (StartSide == 1 || StartSide == 2) && (NumObj == 1 || NumObj == 2);
+
+            } catch (NumberFormatException e){
+                return false;
+            }
+
+        }
+        else if (input.startsWith("draw:")) {
+            try {
+                int drawNumber = Integer.parseInt(input.substring(5));
+                return drawNumber >= 0 && drawNumber <= 5;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else if (input.startsWith("play:")) {
+            try {
+                String[] parts = input.substring(5).split(",");
+                if (parts.length != 4) {
+                    return false;
+                }
+                int cardNumber = Integer.parseInt(parts[0]);
+                int side = Integer.parseInt(parts[1]);
+                return (cardNumber >= 0 && cardNumber <= 5) && (side == 1 || side == 2);
+            } catch (NumberFormatException e) {
+                return false;
+            }
         }
         return true;
     }

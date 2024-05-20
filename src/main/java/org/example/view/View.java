@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class View {
     protected List<String> Hand= new ArrayList<>();
     protected List<String> PlayerCardArea =new ArrayList<>();
+    protected String[][] grid =new String[5][5];
     // Interpreter of the Server's messages
     public void Interpreter(String message){};
     public JSONObject getCardById(int id) {
@@ -36,6 +37,41 @@ public abstract class View {
     };
     public void removePlayerCardArea(String message){
         PlayerCardArea.remove(message);
+    }
+
+    public void playCardInGrid(int x, int y) {
+        if (isValidPosition(x, y)) {
+            grid[x][y] = "x";
+        } else {
+            System.out.println("Invalid position: (" + x + "," + y + ")");
+        }
+    }
+
+    public void removeCardFromGrid(int x, int y) {
+        if (isValidPosition(x, y)) {
+            grid[x][y] = "";
+        } else {
+            System.out.println("Invalid position: (" + x + "," + y + ")");
+        }
+    }
+
+    private boolean isValidPosition(int x, int y) {
+        return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length;
+    }
+    public void printGrid() {
+        System.out.println("Current grid state:");
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                System.out.print(grid[i][j].isEmpty() ? " " : "x");
+                if (j < grid[i].length - 1) {
+                    System.out.print(" | ");
+                }
+            }
+            System.out.println();
+            if (i < grid.length - 1) {
+                System.out.println("---+---+---+---+---");
+            }
+        }
     }
 
     /** Messages of success and fail from the server

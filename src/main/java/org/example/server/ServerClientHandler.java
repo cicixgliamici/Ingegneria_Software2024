@@ -151,9 +151,6 @@ public class ServerClientHandler implements Runnable {
                 if(server.getGameFlow()!=null){
                     server.getGameFlow().incrementTurn();
                 }
-            } else {
-                server.onModelSpecific(username, "message:4");
-
             }
         } catch (InvocationTargetException e) {
             // Handle the InvalidCardException if wrapped in InvocationTargetException

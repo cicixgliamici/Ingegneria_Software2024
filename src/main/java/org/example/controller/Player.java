@@ -43,7 +43,7 @@ public class Player {
     public void setObjStarter(Model model, int choice, int obj) { //Choice indicates the side of the started card and obj the chosen objective card
         if (choice==1){
             model.getPlayerCardArea(this).getCardStarter().setSide(1); //front
-        } else {
+        } else if (choice==2) {
             model.getPlayerCardArea(this).getCardStarter().setSide(2); //back
         }
         model.getPlayerCardArea(this).setStarterNode();
@@ -52,7 +52,7 @@ public class Player {
             model.getDrawingCardArea().getObjectDeck().getCards().add(model.getPlayerCardArea(this).getTempSecretObjective().get(1));
             model.getPlayerCardArea(this).getTempSecretObjective().clear();
         }
-        else {
+        else if(obj==2) {
             model.getPlayerCardArea(this).setSecretObjective(model.getPlayerCardArea(this).getTempSecretObjective().get(1));
             model.getDrawingCardArea().getObjectDeck().getCards().add(model.getPlayerCardArea(this).getTempSecretObjective().get(0));
             model.getPlayerCardArea(this).getTempSecretObjective().clear();
