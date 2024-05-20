@@ -105,44 +105,54 @@ public class ServerClientHandler implements Runnable {
      * @param username The username of the client.
      */
     private void executeCommand(String inputLine, String username) {
+        System.out.println("Eseguendo "+ inputLine);
         try {
             String[] parts = inputLine.split(":");
             String commandKey = parts[0];  // Command key
             if (!commands.containsKey(commandKey)) {
+                System.out.println("Comando non riconosciuto");
                 return;  // Command not recognized
             }
-            JSONObject commandDetails = commands.get(commandKey);  // Command details from the map
-            String className = commandDetails.getString("className");
-            String methodName = commandDetails.getString("methodName");
-            JSONArray jsonParams = commandDetails.getJSONArray("parameters");
-            Class<?> cls = Class.forName(className);  // Load the class
-            Class<?>[] paramTypes = new Class[jsonParams.length()];  // Parameter types
-            Object[] paramValues = new Object[jsonParams.length()];  // Parameter values
-            String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
-            if (params.length != jsonParams.length() - 1) {  // Exclude the 'Model' type parameter
-                return;
-            }
-            int j = 0;
-            for (int i = 0; i < jsonParams.length(); i++) {
-                JSONObject param = jsonParams.getJSONObject(i);
-                String type = param.getString("type");
-                if (type.equals("Model") && "server".equals(param.getString("source"))) {
-                    paramTypes[i] = Model.class;
-                    paramValues[i] = model;
-                } else {
-                    paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
-                    paramValues[i] = type.equals("int") ? Integer.parseInt(params[j++]) : params[j++];  // Increment j only for user-supplied params
+            System.out.println(server.gameFlow);
+            if ( server.gameFlow==null || server.getGameFlow().isYourTurn(username, commandKey)) {
+                JSONObject commandDetails = commands.get(commandKey);  // Command details from the map
+                String className = commandDetails.getString("className");
+                String methodName = commandDetails.getString("methodName");
+                JSONArray jsonParams = commandDetails.getJSONArray("parameters");
+                Class<?> cls = Class.forName(className);  // Load the class
+                Class<?>[] paramTypes = new Class[jsonParams.length()];  // Parameter types
+                Object[] paramValues = new Object[jsonParams.length()];  // Parameter values
+                String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
+                if (params.length != jsonParams.length() - 1) {  // Exclude the 'Model' type parameter
+                    return;
                 }
+                int j = 0;
+                for (int i = 0; i < jsonParams.length(); i++) {
+                    JSONObject param = jsonParams.getJSONObject(i);
+                    String type = param.getString("type");
+                    if (type.equals("Model") && "server".equals(param.getString("source"))) {
+                        paramTypes[i] = Model.class;
+                        paramValues[i] = model;
+                    } else {
+                        paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
+                        paramValues[i] = type.equals("int") ? Integer.parseInt(params[j++]) : params[j++];  // Increment j only for user-supplied params
+                    }
+                }
+                Player player = controller.getPlayerByUsername(username);
+                Method method = cls.getDeclaredMethod(methodName, paramTypes);
+                method.invoke(player, paramValues);  // Invoke the method on the player
+                // Check if the command is setObjStarter
+                if (commandKey.equals("setObjStarter")) {
+                    server.incrementSetObjStarterCount();
+                }
+            } else {
+                server.onModelSpecific(username, "message:4");
+
             }
-            Player player = controller.getPlayerByUsername(username);
-            Method method = cls.getDeclaredMethod(methodName, paramTypes);
-            method.invoke(player, paramValues);  // Invoke the method on the player
-            // Check if the command is setObjStarter
-            if (commandKey.equals("setObjStarter")) {
-                server.incrementSetObjStarterCount();
-            }
-        } catch (Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
+
     }
+
 }

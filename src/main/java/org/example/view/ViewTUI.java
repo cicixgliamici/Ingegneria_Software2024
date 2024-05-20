@@ -24,7 +24,12 @@ public class ViewTUI extends View {
                 break;
             case 3:
                 System.out.println("Everyone has set their Starter and Objective cards");
+                System.out.println("If is your turn, now write play:choice,side,x,y");
+                System.out.println("Where choice is the number of the card of your hand (1-3)");
+                System.out.println("If you want to draw you need to draw:x (1-5)");
                 break;
+            case 4:
+                System.out.println("Not your turn!");
             default:
                 break;
         }
@@ -108,6 +113,7 @@ public class ViewTUI extends View {
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
         if ("RESOURCES".equals(type)) {
+            System.out.println("ID:" + card.get("id"));
             System.out.println("Card Resource: " + card.get("cardres"));
             System.out.println("Points: " + card.get("points"));
             JSONObject side = (JSONObject) card.get("side");
@@ -124,6 +130,7 @@ public class ViewTUI extends View {
             }
             System.out.println("\n");
         } else if ("GOLD".equals(type)) {
+            System.out.println("ID:" + card.get("id"));
             System.out.println("Card Resource: " + card.get("cardres"));
             System.out.println("Points: " + card.get("points") + " for every " + card.get("goldenPoint"));
             JSONArray req = (JSONArray) card.get("requireGold");

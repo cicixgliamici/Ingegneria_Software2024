@@ -70,11 +70,7 @@ public class RMIServerImpl extends UnicastRemoteObject implements RMIServerInter
                     server.onModelGeneric("Match started");
                     server.getController().setPlayers(server.getPlayers());
                     server.getController().initializeController();
-                    try {
-                        server.gameFlow(numConnections);  // Start the game flow
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    server.waitForSetObjStarter(numConnections);  // Start the game flow
                 }
                 return "Connection successful";
             } else {

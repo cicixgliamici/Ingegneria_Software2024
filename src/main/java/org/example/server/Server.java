@@ -1,6 +1,7 @@
 package org.example.server;
 
 import org.example.controller.Controller;
+import org.example.controller.GameFlow;
 import org.example.controller.Player;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
@@ -27,7 +28,7 @@ public class Server implements ModelChangeListener {
     private int rmiPort;
     protected Model model;
     protected Controller controller;
-    private List<Player> players;
+    private List<Player> players; //list that contains all the players, both rmi and tcp
     protected Map<String, JSONObject> commands = new HashMap<>();
     protected Map<String, PrintWriter> clientWriters = new HashMap<>();
     protected Map<Socket, String> socketToUsername = new HashMap<>();
@@ -39,6 +40,7 @@ public class Server implements ModelChangeListener {
     private RMIServer rmiServer;
     private int numConnections = 0;
     public int numMaxConnections = 4;
+    public GameFlow gameFlow;
 
     // Called from PortSelection main
     public Server(int tcpPort, int rmiPort) throws IOException, ParseException {
@@ -50,6 +52,7 @@ public class Server implements ModelChangeListener {
         loadCommands();
         this.controller = new Controller(model);
         this.availableColors = new ArrayList<>(Arrays.asList("Red", "Blue", "Green", "Yellow"));
+
     }
 
     //Called from PortSelection main, go to TCP/RMI start
@@ -80,20 +83,14 @@ public class Server implements ModelChangeListener {
             onModelGeneric("Match started");
             controller.setPlayers(players);
             controller.initializeController();
-            try {
-                gameFlow(numConnections);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            waitForSetObjStarter(numConnections);
+            System.out.println("Iniziando con " + numConnections +"giocatori");
+            gameFlow = new GameFlow(players, model,this);
+            gameFlow.setMaxTurn(new AtomicInteger(numConnections*2));
         }
     }
 
-    //Called from checkForGameStart, go to todo
-    public void gameFlow(int numConnections) throws IOException {
-        waitForSetObjStarter(numConnections);
-    }
-
-    private void waitForSetObjStarter(int numConnections) {
+    public void waitForSetObjStarter(int numConnections) {
         while (setObjStarterCount.get() < numConnections) {
             try {
                 Thread.sleep(100);
@@ -215,5 +212,9 @@ public class Server implements ModelChangeListener {
 
     public List<String> getAvailableColors() {
         return availableColors;
+    }
+
+    public GameFlow getGameFlow() {
+        return gameFlow;
     }
 }

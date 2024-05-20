@@ -2,7 +2,7 @@
   "commands": {
     "draw": {
       "className": "org.example.controller.Player",
-      "methodName": "Draw",
+      "methodName": "draw",
       "parameters": [
         {"type": "Model", "source": "server"},
         {"type": "int", "source": "user"}
@@ -11,7 +11,7 @@
     },
     "play": {
       "className": "org.example.controller.Player",
-      "methodName": "Play",
+      "methodName": "play",
       "parameters": [
         {"type": "Model", "source": "server"},
         {"type": "int", "source": "user"},

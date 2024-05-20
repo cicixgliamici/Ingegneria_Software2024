@@ -42,10 +42,10 @@ public class RMIClient {
 
             // Create an instance of RMIClientCallbackImpl to handle server callbacks
             rmiClientCallback = new RMIClientCallbackImpl(this);
-
+            System.out.println("ciao");
             // Lookup the RMIServerInterface in the registry
             RMIServerInterface rmiServer = (RMIServerInterface) registry.lookup("RMIServer");
-
+            System.out.println("ciao1");
             // Scanner to read user input from the console
             Scanner stdin = new Scanner(System.in);
 

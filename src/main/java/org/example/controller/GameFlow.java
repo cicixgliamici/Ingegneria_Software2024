@@ -2,6 +2,8 @@ package org.example.controller;
 import org.example.server.Server;
 import org.example.model.Model;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /** The Gameflow is a controller of the status of the match, it depends on the Controller and allows the players only to Draw and Play
  * then calculates at the end of each turn the points of the player.
@@ -11,32 +13,21 @@ public class GameFlow {
     List<Player> players;
     Model model;
     Server server;
-    /*
+
+    int counter=1;
+    private AtomicInteger turn = new AtomicInteger(1);
+    private AtomicInteger maxTurn=new AtomicInteger(0);
+
     public GameFlow(List<Player> players, Model model, Server server) {
         this.players=players;
         this.model= model;
         this.server=server;
-        Rounds();
-        Player Winnner = EndGame();
+        //Player Winnner = EndGame();
         //System.out.println("the winner is : " + Winnner);
     }
-    /*
-    public void Rounds () {
-        boolean IsEnd = false;
-        while (!IsEnd) {
-            for (Player p : players) {
-                //System.out.println("Player: " + p + " Play phase");
-                p.Play(model, server);
-                //System.out.println("Player: "+ p+ " Update Scoreboard Points");
-                p.UpdateScoreboardPoints(model, server);
-                //System.out.println("Player: " + p + " Draw phase");
-                p.Draw(model, server);
-            }
-            IsEnd = model.Checkpoints();
-        }
-    }
 
-     */
+
+
     /*
     public Player EndGame(){
         for (Player p : players) {
@@ -46,7 +37,101 @@ public class GameFlow {
         }
         return model.getScoreBoard().Winner();
     }
-    */
+     */
 
+
+    public void incrementTurn() {
+        int currentTurn = turn.get();
+        int maxTurnValue = maxTurn.get();
+        if (currentTurn == maxTurnValue) {
+            turn.set(1);
+        } else {
+            turn.incrementAndGet();
+        }
+    }
+
+    public boolean isYourTurn(String username, String command) {
+        if (command.equals("setObjStarter")){
+            return true;
+        }
+        System.out.println("turn "+ turn);
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getUsername().equals(username)) {
+                System.out.println(i);
+                switch (i){
+                    case 0:
+                       if(Objects.equals(command, "play")) {
+                           if (turn.get() == 1) {
+                               incrementTurn();
+                               return true;
+                           }
+                       }
+                       else if(command.equals("draw")) {
+                        if (turn.get() == 2) {
+                            incrementTurn();
+                            return true;
+                            }
+                        }
+                       break;
+                    case 1:
+                        if(Objects.equals(command, "play")) {
+                            if (turn.get() == 3) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                        else if(command.equals("draw")) {
+                            if (turn.get() == 4) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                    case 2:
+                        if(Objects.equals(command, "play")) {
+                            if (turn.get() == 5) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                        else if(command.equals("draw")){
+                            if (turn.get() == 6) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                    case 3:
+                        if(Objects.equals(command, "play")) {
+                            if (turn.get() == 7) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                        else if(command.equals("draw")) {
+                            if (turn.get() == 8) {
+                                incrementTurn();
+                                return true;
+                            }
+                        }
+                }
+            }
+        }
+      return false;
+    }
+
+    public AtomicInteger getTurn() {
+        return turn;
+    }
+
+    public AtomicInteger getMaxTurn() {
+        return maxTurn;
+    }
+
+    public void setTurn(AtomicInteger turn) {
+        this.turn = turn;
+    }
+
+    public void setMaxTurn(AtomicInteger maxTurn) {
+        this.maxTurn = maxTurn;
+    }
 }
 
