@@ -8,7 +8,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ViewTUI extends View {
 
@@ -39,6 +41,10 @@ public class ViewTUI extends View {
     private static final String RESET_COLOR = "\u001B[0m";
 
     public ViewTUI() {
+        // Initialize the grid with empty strings
+        for (int i = 0; i < grid.length; i++) {
+            Arrays.fill(grid[i], "");
+        }
     }
 
     public void message(int x) {
@@ -77,6 +83,7 @@ public class ViewTUI extends View {
         printCardDetails(getCardById(id));
     }
 
+
     @Override
     public void playedCard(int id, int x, int y) {
         super.playCardInGrid(x, y);
@@ -91,13 +98,19 @@ public class ViewTUI extends View {
         printCardDetails(getCardById(id));
         printGrid();
     }
+
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         System.out.println("In your hand:\n");
-        printCardDetails(getCardById(id1));
-        printCardDetails(getCardById(id2));
-        printCardDetails(getCardById(id3));
+        //printCardDetails(getCardById(id1));
+        Hand.add(id1);
+        //printCardDetails(getCardById(id2));
+        Hand.add(id2);
+        //printCardDetails(getCardById(id3));
+        Hand.add(id3);
+        printHand();
         System.out.println("Now please choose the side of the starter card:");
         printCardDetails(getCardById(id4));
+        PlayerCardArea.add(id4);
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardById(id5));
         printCardDetails(getCardById(id6));
@@ -105,6 +118,13 @@ public class ViewTUI extends View {
                 "\nx is for the side of the starter card and " +
                 "\ny è la carta obiettivo che vuoi mantenere");
     }
+
+    public void printHand () {
+        for(int i = 0; i < Hand.size(); i++) {
+            printCardDetails(getCardById(Hand.get(i)));
+        }
+    }
+
 
     public void pubObj(int id1, int id2) {
         System.out.println("These are the public objects:");
@@ -272,6 +292,7 @@ public class ViewTUI extends View {
             e.printStackTrace();
         }
     }
+
 
 
 

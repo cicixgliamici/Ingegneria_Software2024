@@ -66,7 +66,7 @@ public class Player {
     public void play(Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException, RemoteException {
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
-        PlaceHolder placeHolder=null; //todo il nodo su cui giocare viene scelto dal client
+        PlaceHolder placeHolder=null;
         try {
             for(PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()){
                 if(p.x==x && p.y==y){
@@ -77,7 +77,7 @@ public class Player {
             throw new RuntimeException(e);
         }
         if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
-        checkChosenCard(model, card, placeHolder); //todo se lancia eccezione il server deve dire al client che la carta oro scelta non è posizionabile
+        checkChosenCard(model, card, placeHolder);
         model.getPlayerCardArea(this).playACard(card, placeHolder);
         model.getPlayerCardArea(this).getHand().remove(card);
         model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
@@ -90,7 +90,6 @@ public class Player {
      *
      */
     public void draw(Model model, int choice) throws RemoteException {
-        //todo gestire l'eccezione di un inserimento non valido
         Card card=null;
         model.getDrawingCardArea().displayVisibleCard();
         switch (choice) {

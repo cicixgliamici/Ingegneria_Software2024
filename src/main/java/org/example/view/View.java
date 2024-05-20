@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class View {
-    protected List<String> Hand= new ArrayList<>();
-    protected List<String> PlayerCardArea =new ArrayList<>();
-    protected String[][] grid =new String[5][5];
+    protected List<Integer> Hand= new ArrayList<>();
+    protected List<Integer> PlayerCardArea =new ArrayList<>();
+    protected Integer SecretObjective;
+    final int N=9;
+    final int M=(N-1)/2;
+    protected String[][] grid = new String[N][N];
     // Interpreter of the Server's messages
     public void Interpreter(String message){};
     public JSONObject getCardById(int id) {
@@ -26,22 +29,22 @@ public abstract class View {
     public void pubObj(int id1, int id2){};
 
 
-    public void updateHand(String message) {
-        Hand.add(message);
+    public void updateHand(int id ) {
+        Hand.add(id);
     };
-    public void updatePlayerCardArea(String message){
-        PlayerCardArea.add(message);
+    public void updatePlayerCardArea(int id ){
+        PlayerCardArea.add(id);
     }
-    public void removeHand(String message) {
-        Hand.remove(message);
+    public void removeHand(int id) {
+        Hand.remove(id);
     };
-    public void removePlayerCardArea(String message){
-        PlayerCardArea.remove(message);
+    public void removePlayerCardArea(int id ){
+        PlayerCardArea.remove(id);
     }
 
     public void playCardInGrid(int x, int y) {
         if (isValidPosition(x, y)) {
-            grid[x][y] = "x";
+            grid[x + M][y + M] = "x";  // Offset by 4 to center [0][0] in a 9x9 grid
         } else {
             System.out.println("Invalid position: (" + x + "," + y + ")");
         }
@@ -49,27 +52,40 @@ public abstract class View {
 
     public void removeCardFromGrid(int x, int y) {
         if (isValidPosition(x, y)) {
-            grid[x][y] = "";
+            grid[x + M][y + M] = "";  // Offset by 4 to center [0][0] in a 9x9 grid
         } else {
             System.out.println("Invalid position: (" + x + "," + y + ")");
         }
     }
 
     private boolean isValidPosition(int x, int y) {
-        return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length;
+        return x >= -4 && x <= 4 && y >= -4 && y <= 4;
     }
+
+
     public void printGrid() {
         System.out.println("Current grid state:");
+        System.out.println("    -4  -3  -2  -1   0   1   2   3   4  ");
+
         for (int i = 0; i < grid.length; i++) {
+            System.out.printf("%3d", i - 4);
+            System.out.print(" ");
             for (int j = 0; j < grid[i].length; j++) {
-                System.out.print(grid[i][j].isEmpty() ? " " : "x");
+                System.out.print(grid[i][j].isEmpty() ? "   " : " x ");
                 if (j < grid[i].length - 1) {
-                    System.out.print(" | ");
+                    System.out.print("|");
                 }
             }
             System.out.println();
             if (i < grid.length - 1) {
-                System.out.println("---+---+---+---+---");
+                System.out.print("    ");
+                for (int j = 0; j < grid[i].length; j++) {
+                    System.out.print("---");
+                    if (j < grid[i].length - 1) {
+                        System.out.print("+");
+                    }
+                }
+                System.out.println();
             }
         }
     }
