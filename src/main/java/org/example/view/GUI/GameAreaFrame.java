@@ -7,6 +7,8 @@ import org.example.view.GUI.gamerules.GameRulesFrame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -43,7 +45,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=0;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
-        gbc.weightx=0.385;
+        gbc.weightx=0.221;
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
 
@@ -59,7 +61,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
-        gbc.weightx=0.58;
+        gbc.weightx=0.37;
         gbc.fill = GridBagConstraints.BOTH;
 
         add(gameAreaPanel, gbc);
@@ -67,7 +69,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=2;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
-        gbc.weightx=0.035;
+        gbc.weightx = 0.085;
         gbc.fill = GridBagConstraints.BOTH;
         chat = new Chat(username);
         add(chat, gbc);
@@ -132,23 +134,6 @@ public class GameAreaFrame extends JFrame {
                     @Override
                     public void focusGained(FocusEvent e) {
                         List<String> strings = new ArrayList<>();
-                        strings.add("c");
-                        strings.add("u");
-                        strings.add("l");
-                        strings.add("o");
-                        /*Thread culo = new Thread(()-> {
-                            while (true) {
-                                try {
-
-                                    creditsTextPane.append(strings.remove(0));
-                                    wait(1000, 0);
-                                    i++;
-                                } catch (InterruptedException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-                            }
-                        }
-                        ).start();*/
                     }
 
                     @Override

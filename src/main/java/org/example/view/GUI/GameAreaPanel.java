@@ -21,6 +21,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel token3;
     private JLabel token4;
     private JButton gamearea;
+    private PlayCardArea playCardArea;
 
     public GameAreaPanel(String color, String num) throws IOException {
         setLayout(new GridBagLayout());
@@ -149,7 +150,19 @@ public class GameAreaPanel extends JPanel{
                 break;
         }
 
-        gamearea = new JButton("ebreo");
+        gamearea = new JButton("prova");
+
+        //PlayCardArea
+
+        playCardArea = new PlayCardArea(){
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("C:\\Users\\acall\\Downloads\\metroanddrake.jpg")));
+            Image img = icon.getImage();
+            {setOpaque(false);}
+            public void paintComponent(Graphics graphics){
+                graphics.drawImage(img,0,0, this);
+                super.paintComponent(graphics);
+            }
+        };
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -188,13 +201,13 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        gbc.weightx = 1;
-        gbc.weighty = 1;
+        gbc.weightx = 0.8;
+        gbc.weighty = 0.8;
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.LINE_START;
 
-        add(gamearea, gbc);
+        add(playCardArea, gbc);
     }
 
 }
