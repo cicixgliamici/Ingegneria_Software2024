@@ -2,6 +2,7 @@ package org.example.view.GUI;
 
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ public class Chat extends JPanel {
 
         JScrollPane sp = new JScrollPane(textArea);
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         add(sp, BorderLayout.CENTER);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
