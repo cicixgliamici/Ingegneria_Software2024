@@ -281,4 +281,11 @@ public class Server implements ModelChangeListener {
     public GameFlow getGameFlow() {
         return gameFlow;
     }
+    public int getTcpPort() {
+        return tcpPort;
+    }
+
+    public int getRmiPort() {
+        return rmiPort;
+    }
 }

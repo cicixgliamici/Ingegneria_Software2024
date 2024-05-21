@@ -97,6 +97,9 @@ public class ViewTUI extends View {
         printHand();
     }
 
+    /**
+     * Prints the details of all cards currently in the player's hand.
+     */
     private void printHand() {
         for (Integer id:Hand){
             printCardDetails(getCardById(id));
@@ -134,13 +137,15 @@ public class ViewTUI extends View {
         PlayerCardArea.add(id);
         removeHand(id);
         super.playCardInGrid(x, y, id);
-        System.out.println("You played card at position: (" + x + ", " + y + ")");
-        printCardDetailsFormatted(getCardById(id));
         printGrid();
+        System.out.println("\n");
         printPlayerCardArea();
         message(5);
     }
 
+    /**
+     * Prints all cards that have been played by the player in a specific area.
+     */
     private void printPlayerCardArea() {
         for(Integer id: PlayerCardArea){
             printCardDetailsFormatted(getCardById(id));
@@ -177,7 +182,7 @@ public class ViewTUI extends View {
         printHand();
         System.out.println("Now please choose the side of the starter card:");
         PlayerCardArea.add(id4);
-        printPlayerCardArea();
+        printCardDetails(getCardById(id4));
         playCardInGrid(0, 0, id4);  // Assume the card is placed at the center of the grid initially.
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardById(id5));
@@ -202,8 +207,8 @@ public class ViewTUI extends View {
      * It checks each username and prints only non-null usernames.
      * @param us1 Username of the first player or null
      * @param us2 Username of the second player or null
-     * @param us3 Username of the third player or nul
-     *            * @param us4 Username of the fourth player or null
+     * @param us3 Username of the third player or null
+     * @param us4 Username of the fourth player or null
      */
     public void order(String us1, String us2, String us3, String us4) {
         List<String> users = Arrays.asList(us1, us2, us3, us4);
@@ -228,11 +233,19 @@ public class ViewTUI extends View {
         }
     }
 
+    /**
+     * Displays the current points for each player, ensuring to only include non-null usernames.
+     * @param us1 Username and points of the first player or null
+     * @param us2 Username and points of the second player or null
+     * @param us3 Username and points of the third player or null
+     * @param us4 Username and points of the fourth player or null
+     */
     public void points(String us1, int points1, String us2, int points2, String us3, int points3, String us4, int points4) {
         List<String> users = Arrays.asList(us1, us2, us3, us4);
         List<Integer> points = Arrays.asList(points1, points2, points3, points4);
         StringBuilder pointsBuilder = new StringBuilder("Player points: ");
         boolean isFirst = true; // Flag to handle commas correctly.
+
         for (int i = 0; i < users.size(); i++) {
             String user = users.get(i);
             int point = points.get(i);
@@ -328,15 +341,29 @@ public class ViewTUI extends View {
             }
         }
         Long id = (Long) card.get("id");
-        return
-                "+ - - - - - - - - - - - - - - - - +\n" +
-                        "| " + topL + "                             " + topR + " |\n" +
-                        "|                                 |\n" +
-                        "|               " + colorCenter + resourceCenter + RESET_COLOR + "                 |\n" +
-                        "|                                 |\n" +
-                        "| " + bottomL + "                             " + bottomR + " |\n" +
-                        "+ - - - - - - - - - - - - - - - - +\n";
+        String type = (String) card.get("type");
+        if ("STARTER".equals(type)) {
+            return
+                    "+ - - - - - - - - - - - - - - - - +\n" +
+                            "| " + topL + "                             " + topR + " |\n" +
+                            "|                                 |\n" +
+                            "|                                 |\n" +
+                            "|                                 |\n" +
+                            "| " + bottomL + "                             " + bottomR + " |\n" +
+                            "+ - - - - - - - - - - - - - - - - +\n";
+        }
+        else {
+            return
+                    "+ - - - - - - - - - - - - - - - - +\n" +
+                            "| " + topL + "                             " + topR + " |\n" +
+                            "|                                 |\n" +
+                            "|               " + colorCenter + resourceCenter + RESET_COLOR + "                 |\n" +
+                            "|                                 |\n" +
+                            "| " + bottomL + "                             " + bottomR + " |\n" +
+                            "+ - - - - - - - - - - - - - - - - +\n";
+        }
     }
+
 
     /**
      * Retrieves the ANSI color code associated with a specific resource.
@@ -421,7 +448,7 @@ public class ViewTUI extends View {
     }
 
     public void printCardDetailsFormatted(JSONObject card) {
-
+        // Provides detailed formatted output of a card including type, ID, front and back details, and handles special cases for GOLD and STARTER cards.
         if (card == null) {
             System.out.println("Card not found.");
             return;
@@ -456,6 +483,7 @@ public class ViewTUI extends View {
     }
 
     private void setCornerDetails(JSONArray corners, String[] cornerDetails) {
+        // Helper method to set corner details for both front and back of the card based on the JSON data.
         for (Object corner : corners) {
             JSONObject cornerDetail = (JSONObject) corner;
             String position = (String) cornerDetail.get("Position");
@@ -481,19 +509,26 @@ public class ViewTUI extends View {
     }
 
     private void printGoldCardDetails(JSONObject card) {
+        // Prints additional details for gold cards, including points and required resources.
         int points = ((Long) card.get("points")).intValue();
         JSONArray requireGold = (JSONArray) card.get("requireGold");
-        StringBuilder reqString = new StringBuilder();
+
+        // Prepare to output the points and required resources with correct formatting.
+        System.out.printf("Points: %d    RequireGold: ", points);
         for (Object resource : requireGold) {
             String res = (String) resource;
             String color = getResourceColor(res);
             String initial = getResourceInitial(res);
-            reqString.append(color).append(initial).append(RESET_COLOR).append(" ");
+            // Print each resource directly with its color coding, followed by a reset.
+            System.out.print(color + initial + RESET_COLOR + " ");
         }
-        System.out.printf("Points: %d    RequireGold: %s\n", points, reqString.toString().trim());
+        System.out.println(); // Move to the next line after listing all resources.
     }
 
+
+
     private void printStarterCardDetails(JSONObject card) {
+        // Prints details specific to starter cards, highlighting permanent resources.
         JSONArray requireGold = (JSONArray) card.get("requireGold");
         StringBuilder reqString = new StringBuilder("Permanent res: ");
         for (Object resource : requireGold) {
@@ -505,13 +540,12 @@ public class ViewTUI extends View {
         System.out.println(reqString.toString().trim());
     }
 
-
-
     /**
      * Interprets commands received from the server and invokes the corresponding methods.
      * @param message The command message from the server.
      */
     public void Interpreter(String message) {
+        // Parses and executes commands received from the server by reflecting the corresponding methods.
         String[] parts = message.split(":");
         if (parts.length < 1) {
             System.out.println("Invalid command received.");

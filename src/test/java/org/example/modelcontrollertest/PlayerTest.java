@@ -1,4 +1,4 @@
-package org.example;
+package org.example.modelcontrollertest;
 
 import junit.framework.TestCase;
 import org.example.controller.Player;
