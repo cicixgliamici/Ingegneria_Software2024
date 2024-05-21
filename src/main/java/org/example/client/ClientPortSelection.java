@@ -1,9 +1,11 @@
 package org.example.client;
 
+import org.example.view.GUI.GuiClient;
 import org.example.view.View;
 import org.example.view.ViewGUI;
 import org.example.view.ViewTUI;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -20,21 +22,19 @@ public class ClientPortSelection {
      * @param args Command-line arguments (not used in this method).
      * @param mode The mode of the client: 0 for TUI (Text User Interface), 1 for GUI (Graphical User Interface).
      */
-    public void main(String[] args, int mode) {
+    public void main(String[] args, int mode,int ChosenView) throws IOException {
         View view;
-        if (mode == 0) {
+        if(ChosenView==2){
             view = new ViewTUI();
             System.out.println("IP: digit one casual letter for local ip");
             Scanner in = new Scanner(System.in);
             ip = in.nextLine();  // Read the IP address input
             port = -1;  // Initialize the port to an invalid value
-
             // If the IP address does not contain a dot, assume it's a local connection
             if (!ip.contains(".")) {
                 ip = "127.0.0.1";  // Default to localhost
                 port = 50000;  // Default port for localhost
             }
-
             boolean first = true;
             // Loop until a valid port number is provided
             while (port <= 1023 || port >= 65535) {
@@ -55,9 +55,10 @@ public class ClientPortSelection {
             }
             // Create a new client instance with the selected IP, port, and view
             Client client = new Client(ip, port, view);
-            client.startClientTUI(mode);  // Start the client with the specified mode
-        } else {
-            view = new ViewGUI();
+            client.startClient(mode);  // Start the client with the specified mode
+        }
+        else if(ChosenView==3){
+            GuiClient.main(null);
             //todo gestione del client GUI
         }
     }

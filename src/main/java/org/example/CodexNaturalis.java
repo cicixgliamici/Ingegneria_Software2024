@@ -31,10 +31,10 @@ public class CodexNaturalis {
                     PortSelection.main(null);
                     break;
                 case "2":
-                    selectClientMode();
+                    selectClientMode(2);
                     break;
                 case "3":
-                    GuiClient.main(null);
+                    selectClientMode(3);
                     break;
                 default:
                     System.out.println("Insert a valid number!");
@@ -43,7 +43,7 @@ public class CodexNaturalis {
         } while (!(input.equals("1") || input.equals("2") || input.equals("3")));
     }
 
-    private static void selectClientMode() throws IOException {
+    private static void selectClientMode(int view) throws IOException {
         Scanner in = new Scanner(System.in);
         System.out.println("Select connection mode: 0 for TCP, 1 for RMI");
         int mode;
@@ -62,6 +62,6 @@ public class CodexNaturalis {
         }
 
         ClientPortSelection clientPortSelection = new ClientPortSelection();
-        clientPortSelection.main(null, mode);  // This will set IP and port and start the client
+        clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client
     }
 }

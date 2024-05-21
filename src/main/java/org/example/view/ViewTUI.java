@@ -11,7 +11,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Text User Interface (TUI) version of the game view.
@@ -92,7 +91,7 @@ public class ViewTUI extends View {
      */
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
-        printCardDetails(getCardById(id));
+        printCardDetailsFormatted(getCardById(id));
         Hand.add(id);
         System.out.println("Now your hand is: ");
         printHand();
@@ -111,7 +110,7 @@ public class ViewTUI extends View {
      */
     public void hasDrawn(String username, int id) {
         System.out.println("Player: " + username + " has drawn");
-        printCardDetails(getCardById(id));
+        printCardDetailsFormatted(getCardById(id));
     }
 
     /**
@@ -121,7 +120,7 @@ public class ViewTUI extends View {
      */
     public void hasPlayed(String username, int id) {
         System.out.println("Player: " + username + " has played");
-        printCardDetails(getCardById(id));
+        printCardDetailsFormatted(getCardById(id));
     }
 
     /**
@@ -136,7 +135,7 @@ public class ViewTUI extends View {
         removeHand(id);
         super.playCardInGrid(x, y, id);
         System.out.println("You played card at position: (" + x + ", " + y + ")");
-        printCardDetails(getCardById(id));
+        printCardDetailsFormatted(getCardById(id));
         printGrid();
         printPlayerCardArea();
         message(5);
@@ -144,7 +143,7 @@ public class ViewTUI extends View {
 
     private void printPlayerCardArea() {
         for(Integer id: PlayerCardArea){
-            printCardDetails(getCardById(id));
+            printCardDetailsFormatted(getCardById(id));
         }
     }
 
@@ -157,7 +156,7 @@ public class ViewTUI extends View {
     @Override
     public void unplayable(int id, int x, int y) {
         System.out.println("The card is unplayable at position: (" + x + ", " + y + ")");
-        printCardDetails(getCardById(id));
+        printCardDetailsFormatted(getCardById(id));
         printGrid();
     }
 
@@ -234,7 +233,6 @@ public class ViewTUI extends View {
         List<Integer> points = Arrays.asList(points1, points2, points3, points4);
         StringBuilder pointsBuilder = new StringBuilder("Player points: ");
         boolean isFirst = true; // Flag to handle commas correctly.
-
         for (int i = 0; i < users.size(); i++) {
             String user = users.get(i);
             int point = points.get(i);
@@ -246,7 +244,6 @@ public class ViewTUI extends View {
                 isFirst = false;
             }
         }
-
         // Print the constructed points if at least one username was added.
         if (!isFirst) {
             System.out.println(pointsBuilder.toString());
@@ -422,6 +419,93 @@ public class ViewTUI extends View {
             System.out.println("\n");
         }
     }
+
+    public void printCardDetailsFormatted(JSONObject card) {
+
+        if (card == null) {
+            System.out.println("Card not found.");
+            return;
+        }
+
+        String type = (String) card.get("type");
+        Long id = (Long) card.get("id");
+        JSONObject side = (JSONObject) card.get("side");
+        JSONArray front = (JSONArray) side.get("front");
+        JSONArray back = (JSONArray) side.get("back");
+
+        // Define the variables for resource initials and colors for both front and back
+        String[] cornersFront = new String[]{" ", " ", " ", " "};
+        String[] cornersBack = new String[]{" ", " ", " ", " "};
+        setCornerDetails(front, cornersFront);
+        setCornerDetails(back, cornersBack);
+
+        // Printing the basic card details for front and back
+        System.out.printf("Type: %s    ID: %d\n", type, id);
+        System.out.printf("Front: TL: %s, TR: %s, BR: %s, BL: %s\n",
+                cornersFront[0], cornersFront[1], cornersFront[2], cornersFront[3]);
+        System.out.printf("Back: TL: %s, TR: %s, BR: %s, BL: %s\n",
+                cornersBack[0], cornersBack[1], cornersBack[2], cornersBack[3]);
+
+        // Additional details for GOLD and STARTER cards
+        if ("GOLD".equals(type)) {
+            printGoldCardDetails(card);
+        } else if ("STARTER".equals(type)) {
+            printStarterCardDetails(card);
+        }
+        System.out.println("\n");
+    }
+
+    private void setCornerDetails(JSONArray corners, String[] cornerDetails) {
+        for (Object corner : corners) {
+            JSONObject cornerDetail = (JSONObject) corner;
+            String position = (String) cornerDetail.get("Position");
+            String property = (String) cornerDetail.get("PropertiesCorner");
+            String color = getResourceColor(property);
+            String initial = getResourceInitial(property);
+
+            switch (position) {
+                case "TOPL":
+                    cornerDetails[0] = color + initial + RESET_COLOR;
+                    break;
+                case "TOPR":
+                    cornerDetails[1] = color + initial + RESET_COLOR;
+                    break;
+                case "BOTTOMR":
+                    cornerDetails[2] = color + initial + RESET_COLOR;
+                    break;
+                case "BOTTOML":
+                    cornerDetails[3] = color + initial + RESET_COLOR;
+                    break;
+            }
+        }
+    }
+
+    private void printGoldCardDetails(JSONObject card) {
+        int points = ((Long) card.get("points")).intValue();
+        JSONArray requireGold = (JSONArray) card.get("requireGold");
+        StringBuilder reqString = new StringBuilder();
+        for (Object resource : requireGold) {
+            String res = (String) resource;
+            String color = getResourceColor(res);
+            String initial = getResourceInitial(res);
+            reqString.append(color).append(initial).append(RESET_COLOR).append(" ");
+        }
+        System.out.printf("Points: %d    RequireGold: %s\n", points, reqString.toString().trim());
+    }
+
+    private void printStarterCardDetails(JSONObject card) {
+        JSONArray requireGold = (JSONArray) card.get("requireGold");
+        StringBuilder reqString = new StringBuilder("Permanent res: ");
+        for (Object resource : requireGold) {
+            String res = (String) resource;
+            String color = getResourceColor(res);
+            String initial = getResourceInitial(res);
+            reqString.append(color).append(initial).append(RESET_COLOR).append(" ");
+        }
+        System.out.println(reqString.toString().trim());
+    }
+
+
 
     /**
      * Interprets commands received from the server and invokes the corresponding methods.

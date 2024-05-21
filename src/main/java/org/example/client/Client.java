@@ -30,7 +30,7 @@ public class Client {
      *
      * @param mode The connection mode selected by the user.
      */
-    public void startClientTUI(int mode) {
+    public void startClient(int mode) {
         if (mode == 0) {
             // If the mode is 0, start the TCP client.
             // A new instance of TCPClient is created, initialized with the server's IP, port, and view.
