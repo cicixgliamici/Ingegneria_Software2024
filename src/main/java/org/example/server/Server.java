@@ -20,96 +20,157 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Main server class that handles TCP and RMI client connections,
- * manages game state, and communicates with clients.
+ * Classe principale del server che gestisce le connessioni client TCP e RMI,
+ * amministra lo stato del gioco, e comunica con i clienti.
  */
 public class Server implements ModelChangeListener {
-    private int tcpPort;
-    private int rmiPort;
-    protected Model model;
-    protected Controller controller;
-    private List<Player> players; //list that contains all the players, both rmi and tcp
-    protected Map<String, JSONObject> commands = new HashMap<>();
-    protected Map<String, PrintWriter> clientWriters = new HashMap<>();
-    protected Map<Socket, String> socketToUsername = new HashMap<>();
-    protected Map<String, RMIClientCallbackInterface> rmiClientCallbacks = new HashMap<>();
-    private List<String> availableColors;
-    private AtomicInteger setObjStarterCount = new AtomicInteger(0);
-    protected ExecutorService executor;
-    private TCPServer tcpServer;
-    private RMIServer rmiServer;
-    private int numConnections = 0;
-    public int numMaxConnections = 4;
-    public GameFlow gameFlow;
+    private int tcpPort; // Porta TCP per le connessioni dei client.
+    private int rmiPort; // Porta RMI per le connessioni dei client.
+    protected Model model; // Modello del gioco che mantiene lo stato.
+    protected Controller controller; // Controller che gestisce la logica di gioco.
+    private List<Player> players; // Lista dei giocatori, sia RMI che TCP.
+    protected Map<String, JSONObject> commands = new HashMap<>(); // Comandi supportati dal server.
+    protected Map<String, PrintWriter> clientWriters = new HashMap<>(); // Mappa per gestire gli output verso i client TCP.
+    protected Map<Socket, String> socketToUsername = new HashMap<>(); // Mappa socket a username per identificazione.
+    protected Map<String, RMIClientCallbackInterface> rmiClientCallbacks = new HashMap<>(); // Callbacks per i client RMI.
+    private List<String> availableColors; // Colori disponibili per la selezione da parte dei giocatori.
+    private AtomicInteger setObjStarterCount = new AtomicInteger(0); // Contatore per tracciare quanti giocatori hanno scelto la carta iniziale.
+    protected ExecutorService executor; // Executor per gestire thread multipli.
+    private TCPServer tcpServer; // Server TCP.
+    private RMIServer rmiServer; // Server RMI.
+    private int numConnections = 0; // Contatore delle connessioni attive.
+    public int numMaxConnections = 4; // Numero massimo di connessioni.
+    public GameFlow gameFlow; // Flusso di gioco che gestisce le fasi del gioco.
 
-    // Called from PortSelection main
+    /**
+     * Costruttore della classe Server.
+     * @param tcpPort Porta TCP.
+     * @param rmiPort Porta RMI.
+     */
     public Server(int tcpPort, int rmiPort) throws IOException, ParseException {
         this.tcpPort = tcpPort;
         this.rmiPort = rmiPort;
         this.model = new Model();
         this.model.addModelChangeListener(this);
         this.players = new ArrayList<>();
-        loadCommands();
+        loadCommands(); // Carica i comandi dal file JSON.
         this.controller = new Controller(model);
         this.availableColors = new ArrayList<>(Arrays.asList("Red", "Blue", "Green", "Yellow"));
-
     }
 
-    //Called from PortSelection main, go to TCP/RMI start
+    /**
+     * Avvia il server, sia TCP che RMI.
+     */
     public void startServer() {
-        executor = Executors.newFixedThreadPool(128);
-        tcpServer = new TCPServer(tcpPort, this);
-        rmiServer = new RMIServer(rmiPort, this);
-        executor.submit(tcpServer::start);
-        executor.submit(rmiServer::start);
+        executor = Executors.newFixedThreadPool(128); // Crea un pool di thread.
+        tcpServer = new TCPServer(tcpPort, this); // Inizializza il server TCP.
+        rmiServer = new RMIServer(rmiPort, this); // Inizializza il server RMI.
+        executor.submit(tcpServer::start); // Avvia il server TCP.
+        executor.submit(rmiServer::start); // Avvia il server RMI.
     }
 
-    //Called from handleConnection, go to checkForGameStarter
+    /**
+     * Gestisce l'arrivo di un nuovo client TCP.
+     */
     public void handleNewTCPClient(String username, PrintWriter out) throws RemoteException {
-        addPlayer(username);
-        clientWriters.put(username, out);
-        checkForGameStart();
+        addPlayer(username); // Aggiunge il giocatore alla lista.
+        clientWriters.put(username, out); // Registra il PrintWriter per il client.
+        checkForGameStart(); // Controlla se il gioco può iniziare.
     }
 
+    /**
+     * Gestisce l'arrivo di un nuovo client RMI.
+     */
     public void handleNewRMIClient(String username, RMIClientCallbackInterface clientCallback) throws RemoteException {
-        addPlayer(username);
-        rmiClientCallbacks.put(username, clientCallback);
-        checkForGameStart();
+        addPlayer(username); // Aggiunge il giocatore alla lista.
+        rmiClientCallbacks.put(username, clientCallback); // Registra il callback RMI per il client.
+        checkForGameStart(); // Controlla se il gioco può iniziare.
     }
 
-    //Called from handleNewTCPClient, go to gameFlow
+    /**
+     * Verifica se il gioco può iniziare, basato sul numero di connessioni.
+     */
     private void checkForGameStart() throws RemoteException {
         if (numConnections == numMaxConnections) {
-            onModelGeneric("Match started");
-            controller.setPlayers(players);
-            controller.initializeController();
-            waitForSetObjStarter(numConnections);
-            System.out.println("Iniziando con " + numConnections +"giocatori");
-            gameFlow = new GameFlow(players, model,this);
-            gameFlow.setMaxTurn(new AtomicInteger(numConnections*2));
+            onModelGeneric("Match started"); // Notifica i clienti che il match è iniziato.
+            controller.setPlayers(players); // Imposta i giocatori nel controller.
+            controller.initializeController(); // Inizializza il controller.
+            waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
+            gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
+            gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
         }
     }
 
+    /**
+     * Aspetta che tutti i giocatori abbiano scelto la carta iniziale.
+     */
     public void waitForSetObjStarter(int numConnections) {
         while (setObjStarterCount.get() < numConnections) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(100); // Pause briefly to reduce CPU load while waiting.
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                Thread.currentThread().interrupt(); // Properly handle thread interruption.
             }
         }
         System.out.println("All clients have set correctly");
         try {
-            onModelGeneric("message:3");
+            // Generate the order message with usernames in the order they connected.
+            String orderMessage = generatePlayerOrderMessage();
+            onModelGeneric(orderMessage); // Send the order of players.
+            onModelGeneric("message:3"); // Notify clients that all have set their starter cards.
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
+    private String generatePlayerOrderMessage() {
+        String[] playerOrder = new String[4]; // Array to hold up to four usernames or "null".
+
+        // Fill the array with usernames or "null" based on the number of connected players.
+        for (int i = 0; i < playerOrder.length; i++) {
+            if (i < players.size()) {
+                playerOrder[i] = players.get(i).getUsername();
+            } else {
+                playerOrder[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
+            }
+        }
+
+        // Join the player names (or "nulls") with commas to create the final message.
+        return "order:" + String.join(",", playerOrder);
+    }
+
+    public void notifyPlayerPoints() {
+        StringBuilder message = new StringBuilder("points:");
+        for (int i = 0; i < 4; i++) {
+            if (i < players.size()) {
+                Player player = players.get(i);
+                int points = model.getScoreBoard().getPlayerPoint(player);
+                message.append(player.getUsername()).append(",").append(points);
+            } else {
+                message.append("null,0");
+            }
+            if (i < 3) {
+                message.append(",");
+            }
+        }
+        try {
+            onModelGeneric(message.toString());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * Incrementa il contatore delle scelte delle carte iniziali.
+     */
     public void incrementSetObjStarterCount() {
         setObjStarterCount.incrementAndGet();
     }
 
+    /**
+     * Carica i comandi disponibili dal file JSON.
+     */
     public void loadCommands() throws IOException {
         String path = "src/main/resources/Commands.json";
         String text = new String(Files.readAllBytes(Paths.get(path)));
@@ -120,6 +181,9 @@ public class Server implements ModelChangeListener {
         }
     }
 
+    /**
+     * Gestisce i cambiamenti del modello e notifica i clienti.
+     */
     public void onModelChange(String username, String specificMessage, String generalMessage) throws RemoteException {
         synchronized (this) {
             for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {

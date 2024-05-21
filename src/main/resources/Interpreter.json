@@ -86,5 +86,31 @@
       {"type": "int", "source": "server"}
       ],
     "fileName": "View.java"
+  },
+  "order": {
+    "className": "org.example.view",
+    "methodName": "order",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "points": {
+    "className": "org.example.view",
+    "methodName": "points",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
   }
 }

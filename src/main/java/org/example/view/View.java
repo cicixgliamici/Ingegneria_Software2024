@@ -1,96 +1,145 @@
 package org.example.view;
 
-import org.json.simple.JSONObject;
-
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.JSONObject;
 
+/**
+ * Abstract base class for views in the application.
+ * This class defines the common structure and behavior for different types of views
+ * that display the game state and interact with the user.
+ */
 public abstract class View {
-    protected List<Integer> Hand= new ArrayList<>();
-    protected List<Integer> PlayerCardArea =new ArrayList<>();
-    protected Integer SecretObjective;
-    final int N=9;
-    final int M=(N-1)/2;
-    protected String[][] grid = new String[N][N];
-    // Interpreter of the Server's messages
-    public void Interpreter(String message){};
-    public JSONObject getCardById(int id) {
-        return  null;
-    };
+    protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
+    protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
+    protected Integer SecretObjective;  // Variable to store secret objectives if any.
+    protected Integer[][] grid;  // 2D array to represent the spatial layout of cards on the game board.
+    final int N = 9;  // Size of the grid.
+    final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
 
-    // Interpreted messages from server
-    public void drawnCard(int id){};
-    public void hasDrawn(String username, int id){};
-    public void playedCard(int id, int x, int y){};
-    public void hasPlayed(String username, int id){};
-    public void unplayable(int id, int x, int y){};
-    public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6){};
-    public void setHand(int side, int choice){};
-    public void pubObj(int id1, int id2){};
+    /**
+     * Constructor that initializes the grid.
+     * Each cell of the grid is initialized to null indicating no card is placed.
+     */
 
+    public View() {
+        grid = new Integer[N][N];
+        for (int i = 0; i < N; i++) {
+            Arrays.fill(grid[i], null);  // Fill each row of the grid with null.
+        }
+    }
 
-    public void updateHand(int id ) {
+    // Server message interpreter, to be implemented by subclasses.
+    public abstract void Interpreter(String message);
+
+    // Retrieves a card by its ID, to be implemented by subclasses.
+    public abstract JSONObject getCardById(int id);
+
+    // Methods to be implemented for handling messages from the server.
+    public abstract void drawnCard(int id);
+    public abstract void hasDrawn(String username, int id);
+    public abstract void playedCard(int id, int x, int y);
+    public abstract void hasPlayed(String username, int id);
+    public abstract void unplayable(int id, int x, int y);
+    public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void setHand(int side, int choice);
+    public abstract void pubObj(int id1, int id2);
+    public abstract void order(String us1, String us2, String us3, String us4);
+    public abstract void points(String us1, int p1, String us2, int p2, String us3, int p3, String us4, int p4);
+
+    /**
+     * Adds a card to the player's hand.
+     * @param id Card identifier.
+     */
+    public void updateHand(int id) {
         Hand.add(id);
-    };
-    public void updatePlayerCardArea(int id ){
+    }
+
+    /**
+     * Adds a card to the play area.
+     * @param id Card identifier.
+     */
+    public void updatePlayerCardArea(int id) {
         PlayerCardArea.add(id);
     }
+
+    /**
+     * Removes a card from the player's hand.
+     * @param id Card identifier.
+     */
     public void removeHand(int id) {
-        Hand.remove(id);
-    };
-    public void removePlayerCardArea(int id ){
+        Hand.removeIf(id1 -> id1.equals(id));
+    }
+
+    /**
+     * Removes a card from the play area.
+     * @param id Card identifier.
+     */
+    public void removePlayerCardArea(int id) {
         PlayerCardArea.remove(id);
     }
 
-    public void playCardInGrid(int x, int y) {
-        if (isValidPosition(x, y)) {
-            grid[x + M][y + M] = "x";  // Offset by 4 to center [0][0] in a 9x9 grid
+    /**
+     * Places a card in the grid.
+     * @param x Horizontal position of the card.
+     * @param y Vertical position of the card.
+     * @param cardId Identifier of the card to place.
+     */
+    public void playCardInGrid(int x, int y, int cardId) {
+        int gridX =M-y;
+        int gridY = x+M;
+        if (isValidPosition(gridX, gridY)) {
+            grid[gridX][gridY] = cardId;
+            System.out.println("Card " + cardId + " played at grid position: (" + x + ", " + y + ")");
         } else {
-            System.out.println("Invalid position: (" + x + "," + y + ")");
+            System.out.println("Invalid grid position: (" + x + ", " + y + ")");
         }
     }
 
+    /**
+     * Removes a card from the grid.
+     * @param x Horizontal position of the card.
+     * @param y Vertical position of the card.
+     */
     public void removeCardFromGrid(int x, int y) {
-        if (isValidPosition(x, y)) {
-            grid[x + M][y + M] = "";  // Offset by 4 to center [0][0] in a 9x9 grid
+        int gridX = x + M;
+        int gridY = y + M;
+        if (isValidPosition(gridX, gridY)) {
+            grid[gridX][gridY] = null;
+            System.out.println("Card removed from grid position: (" + x + ", " + y + ")");
         } else {
-            System.out.println("Invalid position: (" + x + "," + y + ")");
+            System.out.println("Invalid grid position: (" + x + ", " + y + ")");
         }
     }
 
-    private boolean isValidPosition(int x, int y) {
-        return x >= -4 && x <= 4 && y >= -4 && y <= 4;
+    /**
+     * Checks if a given position is valid within the grid boundaries.
+     * @param gridX Horizontal position index.
+     * @param gridY Vertical position index.
+     * @return true if the position is valid, false otherwise.
+     */
+    private boolean isValidPosition(int gridX, int gridY) {
+        return gridX >= 0 && gridX < N && gridY >= 0 && gridY < N;
     }
 
-
+    /**
+     * Prints the current state of the grid, showing the placement of cards.
+     */
     public void printGrid() {
-        System.out.println("Current grid state:");
-        System.out.println("    -4  -3  -2  -1   0   1   2   3   4  ");
-
-        for (int i = 0; i < grid.length; i++) {
-            System.out.printf("%3d", i - 4);
-            System.out.print(" ");
-            for (int j = 0; j < grid[i].length; j++) {
-                System.out.print(grid[i][j].isEmpty() ? "   " : " x ");
-                if (j < grid[i].length - 1) {
-                    System.out.print("|");
+        System.out.println("Current grid state (0,0 is center):");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (grid[i][j] != null) {
+                    System.out.printf(" %4d ", grid[i][j]);
+                } else {
+                    System.out.print("   .  ");
                 }
             }
             System.out.println();
-            if (i < grid.length - 1) {
-                System.out.print("    ");
-                for (int j = 0; j < grid[i].length; j++) {
-                    System.out.print("---");
-                    if (j < grid[i].length - 1) {
-                        System.out.print("+");
-                    }
-                }
-                System.out.println();
-            }
         }
     }
 
-    /** Messages of success and fail from the server
-     */
-    public void message(int x){};
+    // Method to handle generic server messages, to be implemented by subclasses.
+    public abstract void message(int x);
 }

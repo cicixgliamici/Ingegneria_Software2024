@@ -10,23 +10,30 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Text User Interface (TUI) version of the game view.
+ * This class handles displaying the game state and interacting with the user via the console.
+ */
 public class ViewTUI extends View {
 
+    // Map to associate resource names with their ANSI color codes for colored console output.
     private static final HashMap<String, String> resourceColors = new HashMap<>();
     private static final HashMap<String, String> resourceInitials = new HashMap<>();
 
     static {
-        resourceColors.put("FUNGI", "\u001B[31m"); // Rosso
-        resourceColors.put("PLANT", "\u001B[32m"); // Verde
-        resourceColors.put("ANIMAL", "\u001B[36m"); // Celeste
-        resourceColors.put("INSECT", "\u001B[35m"); // Viola
-        resourceColors.put("EMPTY", "\u001B[34m"); // Blu
-        resourceColors.put("HIDDEN", "\u001B[33m"); // Giallo
-        resourceColors.put("INKWELL", "\u001B[33m"); // Oro
-        resourceColors.put("QUILL", "\u001B[33m"); // Oro
-        resourceColors.put("MANUSCRIPT", "\u001B[33m"); // Oro
+        // Initialize color and initial mappings for resources.
+        resourceColors.put("FUNGI", "\u001B[31m"); // Red
+        resourceColors.put("PLANT", "\u001B[32m"); // Green
+        resourceColors.put("ANIMAL", "\u001B[36m"); // Cyan
+        resourceColors.put("INSECT", "\u001B[35m"); // Purple
+        resourceColors.put("EMPTY", "\u001B[34m"); // Blue
+        resourceColors.put("HIDDEN", "\u001B[33m"); // Yellow
+        resourceColors.put("INKWELL", "\u001B[33m"); // Gold
+        resourceColors.put("QUILL", "\u001B[33m"); // Gold
+        resourceColors.put("MANUSCRIPT", "\u001B[33m"); // Gold
         resourceInitials.put("FUNGI", "F");
         resourceInitials.put("PLANT", "P");
         resourceInitials.put("ANIMAL", "A");
@@ -38,15 +45,17 @@ public class ViewTUI extends View {
         resourceInitials.put("MANUSCRIPT", "M");
     }
 
-    private static final String RESET_COLOR = "\u001B[0m";
+    private static final String RESET_COLOR = "\u001B[0m"; // ANSI reset code to clear previous coloring.
 
     public ViewTUI() {
-        // Initialize the grid with empty strings
-        for (int i = 0; i < grid.length; i++) {
-            Arrays.fill(grid[i], "");
-        }
+        // Initialize the grid in the constructor of the superclass.
+        super();
     }
 
+    /**
+     * Handles message outputs based on a message code input.
+     * @param x The message code determining output behavior.
+     */
     public void message(int x) {
         switch (x) {
             case 1:
@@ -59,79 +68,198 @@ public class ViewTUI extends View {
                 System.out.println("Everyone has set their Starter and Objective cards");
                 System.out.println("play:choice,side,x,y");
                 System.out.println("Where choice is the number of the card of your hand (1-3), side (1-2), and x-y are the coordinates");
-                System.out.println("draw:x (1-5)");
                 break;
             case 4:
                 System.out.println("Not your turn!");
+                break;
+            case 5:
+                System.out.println("draw:x (0-5)");
+                System.out.println("0: Deck Res - 1: Deck Gold - 2/3: Res from Vis. - 4/5: Gold from Vis.");
+                break;
+            case 6:
+                System.out.println("play:choice,side,x,y");
+                System.out.println("Where choice is the number of the card of your hand (1-3), side (1-2), and x-y are the coordinates");
+                break;
             default:
+                System.out.println("Unknown message code.");
                 break;
         }
     }
 
+    /**
+     * Processes actions to take when a new card is drawn.
+     * @param id The card identifier.
+     */
     public void drawnCard(int id) {
         System.out.println("You have drawn:");
         printCardDetails(getCardById(id));
+        Hand.add(id);
+        System.out.println("Now your hand is: ");
+        printHand();
     }
 
+    private void printHand() {
+        for (Integer id:Hand){
+            printCardDetails(getCardById(id));
+        }
+    }
+
+    /**
+     * Outputs information when another player has drawn a card.
+     * @param username The player's username.
+     * @param id The card identifier.
+     */
     public void hasDrawn(String username, int id) {
         System.out.println("Player: " + username + " has drawn");
         printCardDetails(getCardById(id));
     }
 
+    /**
+     * Outputs information when another player has played a card.
+     * @param username The player's username.
+     * @param id The card identifier.
+     */
     public void hasPlayed(String username, int id) {
         System.out.println("Player: " + username + " has played");
         printCardDetails(getCardById(id));
     }
 
-
+    /**
+     * Handles the placement of a card on the game grid by a player.
+     * @param id The card identifier.
+     * @param x The x-coordinate on the grid.
+     * @param y The y-coordinate on the grid.
+     */
     @Override
     public void playedCard(int id, int x, int y) {
-        super.playCardInGrid(x, y);
-        System.out.println("You played card at position: (" + x + "," + y + ")");
+        PlayerCardArea.add(id);
+        removeHand(id);
+        super.playCardInGrid(x, y, id);
+        System.out.println("You played card at position: (" + x + ", " + y + ")");
         printCardDetails(getCardById(id));
         printGrid();
+        printPlayerCardArea();
+        message(5);
     }
 
+    private void printPlayerCardArea() {
+        for(Integer id: PlayerCardArea){
+            printCardDetails(getCardById(id));
+        }
+    }
+
+    /**
+     * Handles the scenario where a card cannot be played at the specified grid position.
+     * @param id The card identifier.
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     */
     @Override
     public void unplayable(int id, int x, int y) {
-        System.out.println("The card is unplayable at position: (" + x + "," + y + ")");
+        System.out.println("The card is unplayable at position: (" + x + ", " + y + ")");
         printCardDetails(getCardById(id));
         printGrid();
     }
 
+    /**
+     * Processes the initial set of cards received by the player.
+     * @param id1 Card ID 1.
+     * @param id2 Card ID 2.
+     * @param id3 Card ID 3.
+     * @param id4 Card ID 4.
+     * @param id5 Card ID 5.
+     * @param id6 Card ID 6.
+     */
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         System.out.println("In your hand:\n");
-        //printCardDetails(getCardById(id1));
         Hand.add(id1);
-        //printCardDetails(getCardById(id2));
         Hand.add(id2);
-        //printCardDetails(getCardById(id3));
         Hand.add(id3);
         printHand();
         System.out.println("Now please choose the side of the starter card:");
-        printCardDetails(getCardById(id4));
         PlayerCardArea.add(id4);
+        printPlayerCardArea();
+        playCardInGrid(0, 0, id4);  // Assume the card is placed at the center of the grid initially.
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardById(id5));
         printCardDetails(getCardById(id6));
         System.out.println("You should write 'setObjStarter:x,y', where " +
                 "\nx is for the side of the starter card and " +
-                "\ny è la carta obiettivo che vuoi mantenere");
+                "\ny is the objective card you want to keep.");
     }
 
-    public void printHand () {
-        for(int i = 0; i < Hand.size(); i++) {
-            printCardDetails(getCardById(Hand.get(i)));
+    @Override
+    public void pubObj(int id1, int id2) {
+
+    }
+
+    @Override
+    public void setHand(int side, int choice) {
+
+    }
+
+    /**
+     * Sends a list of player usernames to the client to indicate player turn order.
+     * It checks each username and prints only non-null usernames.
+     * @param us1 Username of the first player or null
+     * @param us2 Username of the second player or null
+     * @param us3 Username of the third player or nul
+     *            * @param us4 Username of the fourth player or null
+     */
+    public void order(String us1, String us2, String us3, String us4) {
+        List<String> users = Arrays.asList(us1, us2, us3, us4);
+        StringBuilder orderBuilder = new StringBuilder("Player order: ");
+        boolean isFirst = true; // Flag to handle commas correctly.
+
+        for (String user : users) {
+            if (!user.equals("null")) { // Check if the username is not "null".
+                if (!isFirst) {
+                    orderBuilder.append(", ");
+                }
+                orderBuilder.append(user);
+                isFirst = false;
+            }
+        }
+
+        // Print the constructed order if at least one username was added.
+        if (!isFirst) {
+            System.out.println(orderBuilder.toString());
+        } else {
+            System.out.println("No players are currently connected.");
         }
     }
 
+    public void points(String us1, int points1, String us2, int points2, String us3, int points3, String us4, int points4) {
+        List<String> users = Arrays.asList(us1, us2, us3, us4);
+        List<Integer> points = Arrays.asList(points1, points2, points3, points4);
+        StringBuilder pointsBuilder = new StringBuilder("Player points: ");
+        boolean isFirst = true; // Flag to handle commas correctly.
 
-    public void pubObj(int id1, int id2) {
-        System.out.println("These are the public objects:");
-        printCardDetails(getCardById(id1));
-        printCardDetails(getCardById(id2));
+        for (int i = 0; i < users.size(); i++) {
+            String user = users.get(i);
+            int point = points.get(i);
+            if (!user.equals("null")) { // Check if the username is not "null".
+                if (!isFirst) {
+                    pointsBuilder.append(", ");
+                }
+                pointsBuilder.append(user).append(": ").append(point);
+                isFirst = false;
+            }
+        }
+
+        // Print the constructed points if at least one username was added.
+        if (!isFirst) {
+            System.out.println(pointsBuilder.toString());
+        } else {
+            System.out.println("No players have points.");
+        }
     }
 
+    /**
+     * Retrieves card details from the JSON data source based on the card ID.
+     * @param id The card identifier.
+     * @return JSONObject containing card details.
+     */
     public JSONObject getCardById(int id) {
         JSONParser parser = new JSONParser();
         String[] filePaths = {
@@ -156,24 +284,35 @@ public class ViewTUI extends View {
         return null;
     }
 
-    private String generateStandardCardDisplay(JSONObject card) {
+    /**
+     * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
+     * @param card The card as a JSONObject.
+     * @param sides The number of sides to display (1 for front, 2 for back).
+     * @return A string representing the card's display.
+     */
+    private String generateStandardCardDisplay(JSONObject card, int sides) {
         JSONObject side = (JSONObject) card.get("side");
-        JSONArray front = (JSONArray) side.get("front");
-
+        JSONArray front = null;
+        if (sides == 1) {
+            front = (JSONArray) side.get("front");
+        } else if (sides == 2) {
+            front = (JSONArray) side.get("back");
+        }
+        if (front == null) {
+            return "Invalid side configuration";
+        }
         String topL = " ";
         String topR = " ";
         String bottomR = " ";
         String bottomL = " ";
         String resourceCenter = getResourceInitial((String) card.get("cardres"));
         String colorCenter = getResourceColor((String) card.get("cardres"));
-
         for (Object corner : front) {
             JSONObject cornerDetails = (JSONObject) corner;
             String position = (String) cornerDetails.get("Position");
             String property = (String) cornerDetails.get("PropertiesCorner");
             String color = getResourceColor(property);
             String initial = getResourceInitial(property);
-
             switch (position) {
                 case "TOPL":
                     topL = color + initial + RESET_COLOR;
@@ -191,9 +330,7 @@ public class ViewTUI extends View {
                     break;
             }
         }
-
         Long id = (Long) card.get("id");
-
         return
                 "+ - - - - - - - - - - - - - - - - +\n" +
                         "| " + topL + "                             " + topR + " |\n" +
@@ -201,18 +338,31 @@ public class ViewTUI extends View {
                         "|               " + colorCenter + resourceCenter + RESET_COLOR + "                 |\n" +
                         "|                                 |\n" +
                         "| " + bottomL + "                             " + bottomR + " |\n" +
-                        "+ - - - - - - - - - - - - - - - - +\n" +
-                        "              ID: " + id + "\n";
+                        "+ - - - - - - - - - - - - - - - - +\n";
     }
 
+    /**
+     * Retrieves the ANSI color code associated with a specific resource.
+     * @param resource The resource name.
+     * @return The ANSI color code as a string.
+     */
     private String getResourceColor(String resource) {
         return resourceColors.getOrDefault(resource, RESET_COLOR);
     }
 
+    /**
+     * Retrieves the initial character of a resource for display purposes.
+     * @param resource The resource name.
+     * @return The initial character of the resource.
+     */
     private String getResourceInitial(String resource) {
-        return resourceInitials.getOrDefault(resource,"?");
+        return resourceInitials.getOrDefault(resource, "?");
     }
 
+    /**
+     * Prints detailed information about a card based on its JSON representation.
+     * @param card The JSONObject representing the card.
+     */
     public void printCardDetails(JSONObject card) {
         if (card == null) {
             System.out.println("Card not found.");
@@ -221,20 +371,21 @@ public class ViewTUI extends View {
 
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
-
         if ("RESOURCES".equals(type) || "GOLD".equals(type)) {
-            System.out.println(generateStandardCardDisplay(card));
+            System.out.println(generateStandardCardDisplay(card, 1));
+            System.out.println(generateStandardCardDisplay(card, 2));
+            System.out.println("ID:" + card.get("id"));
         } else if ("STARTER".equals(type)) {
-            System.out.println(generateStandardCardDisplay(card));
+            System.out.println(generateStandardCardDisplay(card, 1));
+            System.out.println(generateStandardCardDisplay(card, 2));
+            System.out.println("ID:" + card.get("id"));
         } else if ("OBJECT".equals(type)) {
             System.out.println("Achievement:");
             System.out.println(card.get("description") + " for " + card.get("points") + " points");
             System.out.println("\n");
         }
-
         if ("RESOURCES".equals(type)) {
             System.out.println("Points: " + card.get("points"));
-            System.out.println("Back Side is empty");
             System.out.println("\n");
         } else if ("GOLD".equals(type)) {
             String cardRes = (String) card.get("cardres");
@@ -250,17 +401,32 @@ public class ViewTUI extends View {
                 reqString.append(color).append(initial).append(RESET_COLOR).append("-");
             }
             if (reqString.length() > 0) {
-                reqString.setLength(reqString.length() - 1); // Rimuove l'ultimo trattino
+                reqString.setLength(reqString.length() - 1); // Remove the last hyphen
             }
             System.out.println(reqString.toString());
-            System.out.println("Back Side is empty");
             System.out.println("\n");
         } else if ("STARTER".equals(type)) {
-            System.out.println("Back side is empty by default.");
+            System.out.println("Permanent Resources on the front:");
+            JSONArray req = (JSONArray) card.get("requireGold");
+            StringBuilder reqString = new StringBuilder();
+            for (Object CardRes : req) {
+                String resource = (String) CardRes;
+                String color = getResourceColor(resource);
+                String initial = getResourceInitial(resource);
+                reqString.append(color).append(initial).append(RESET_COLOR).append("-");
+            }
+            if (reqString.length() > 0) {
+                reqString.setLength(reqString.length() - 1); // Remove the last hyphen
+            }
+            System.out.println(reqString.toString());
             System.out.println("\n");
         }
     }
 
+    /**
+     * Interprets commands received from the server and invokes the corresponding methods.
+     * @param message The command message from the server.
+     */
     public void Interpreter(String message) {
         String[] parts = message.split(":");
         if (parts.length < 1) {
@@ -292,8 +458,4 @@ public class ViewTUI extends View {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

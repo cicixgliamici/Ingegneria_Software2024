@@ -88,12 +88,14 @@ public class TCPClient {
     }
 
     /**
-     * Validates the user input based on the last sent message.
+     * Validates the user input based on the last sent message or on the message present in the input.
      *
      * @param input The user input to validate.
      * @return true if the input is valid, false otherwise.
      */
     private boolean isValidInput(String input) {
+        // Various checks based on the type of input and last sent message
+        // This function prevents sending invalid data to the server
         if (lastSentMessage.equals("Enter the maximum number of players (1-4):")) {
             try {
                 int numPlayers = Integer.parseInt(input);
