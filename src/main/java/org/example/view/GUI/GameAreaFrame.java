@@ -19,7 +19,7 @@ public class GameAreaFrame extends JFrame {
     ScoreboardPanel scoreboardPanel;
     Chat chat;
 
-    public GameAreaFrame(String username, String color) throws IOException {
+    public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
         setSize(1300, 860);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
@@ -47,7 +47,7 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
 
-        gameAreaPanel = new GameAreaPanel(color){
+        gameAreaPanel = new GameAreaPanel(color, num){
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/gamearea.png")));
             Image img = icon.getImage();
             {setOpaque(false);}

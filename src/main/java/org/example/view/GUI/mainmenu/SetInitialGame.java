@@ -41,18 +41,7 @@ public class SetInitialGame extends JFrame {
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String color = buttonGroup.getSelection().getActionCommand();
-                    new GameAreaFrame(username, color);
-                    dispose();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
+
         //Layout of chooseColorPanel
         GridBagConstraints gbcRed = new GridBagConstraints();
 
@@ -110,6 +99,25 @@ public class SetInitialGame extends JFrame {
         Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
+
+
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if(buttonGroup.getSelection() != null){
+                        String num = menuNumPlayer.getSelectedItem().toString();
+                        String color = buttonGroup.getSelection().getActionCommand();
+                        new GameAreaFrame(username, color, num);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error! Please pick a color.", "Error!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
 
         GridBagConstraints gbcLabelNumPlayer = new GridBagConstraints();
 

@@ -62,8 +62,8 @@ public class MainMenu extends JFrame{
 
         pack();
         setSize(810, 660);
-        setLocationRelativeTo(null); // visualizzare la finestra al centro dello schermo
-        setResizable(false); //non permette di ridimensionare la finestra
+        setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
