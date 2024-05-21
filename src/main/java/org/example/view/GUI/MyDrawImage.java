@@ -30,9 +30,8 @@ public class MyDrawImage extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+   protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Disegna l'immagine alle coordinate specificate
         g.drawImage(image, x, y, this);
     }
 
