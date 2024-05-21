@@ -32,7 +32,7 @@ public class GameAreaFrame extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        scoreboardPanel = new ScoreboardPanel(){
+        scoreboardPanel = new ScoreboardPanel()/*{
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/plateau.png")));
             Image img = icon.getImage();
             {setOpaque(false);}
@@ -40,7 +40,7 @@ public class GameAreaFrame extends JFrame {
                 graphics.drawImage(img,0,0, this);
                 super.paintComponent(graphics);
             }
-        };
+        }*/;
 
         gbc.gridx=0;
         gbc.gridy = 0;
@@ -73,6 +73,9 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         chat = new Chat(username);
         add(chat, gbc);
+
+
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

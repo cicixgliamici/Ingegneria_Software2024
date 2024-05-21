@@ -154,15 +154,7 @@ public class GameAreaPanel extends JPanel{
 
         //PlayCardArea
 
-        playCardArea = new PlayCardArea(){
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("C:\\Users\\acall\\Downloads\\metroanddrake.jpg")));
-            Image img = icon.getImage();
-            {setOpaque(false);}
-            public void paintComponent(Graphics graphics){
-                graphics.drawImage(img,0,0, this);
-                super.paintComponent(graphics);
-            }
-        };
+        playCardArea = new PlayCardArea(){};
 
         GridBagConstraints gbc = new GridBagConstraints();
 

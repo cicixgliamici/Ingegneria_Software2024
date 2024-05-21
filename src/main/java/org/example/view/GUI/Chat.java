@@ -35,6 +35,7 @@ public class Chat extends JPanel {
         panel.add(button, BorderLayout.EAST);
         add(panel, BorderLayout.SOUTH);
 
+
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
