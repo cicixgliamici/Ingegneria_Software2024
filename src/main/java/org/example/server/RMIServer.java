@@ -3,6 +3,7 @@ package org.example.server;
 import org.example.server.rmi.RMIServerImpl;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Classe RMIServer che gestisce l'inizializzazione e la gestione del server RMI.
@@ -11,6 +12,7 @@ public class RMIServer {
     private int port; // Porta su cui il server RMI sarà in ascolto.
     private Server mainServer; // Riferimento al server principale per la logica di business.
     private RMIServerImpl rmiServerImpl; // Implementazione del server RMI.
+    private Registry registry; // RMI Registry instance
 
     /**
      * Costruttore della classe RMIServer.
@@ -31,11 +33,17 @@ public class RMIServer {
             // Crea un'istanza dell'implementazione del server RMI.
             rmiServerImpl = new RMIServerImpl(mainServer);
 
-            // Crea un registro RMI sulla porta specificata dove gli oggetti remoti possono essere registrati.
-            Registry registry = LocateRegistry.createRegistry(port);
+            // Prova a ottenere un registro RMI esistente
+            try {
+                registry = LocateRegistry.getRegistry(port);
+                registry.list(); // Prova a comunicare con il registro
+            } catch (Exception e) {
+                // Se non esiste, crea un nuovo registro RMI
+                registry = LocateRegistry.createRegistry(port);
+            }
 
             // Registra l'oggetto remoto (rmiServerImpl) nel registro RMI con il nome "RMIServer".
-            registry.bind("RMIServer", rmiServerImpl);
+            registry.rebind("RMIServer", rmiServerImpl);
 
             System.out.println("RMI server started on port " + port);
         } catch (Exception e) {
@@ -45,11 +53,17 @@ public class RMIServer {
     }
 
     /**
-     * Metodo per inviare un messaggio a tutti i client connessi tramite RMI.
-     * @param message Il messaggio da inviare.
+     * Arresta il server RMI disassociando e annullando l'esportazione dell'oggetto remoto.
      */
-    public void sendToAllClients(String message) {
-        // Delega l'azione all'implementazione del server RMI che mantiene la lista dei client connessi.
-        rmiServerImpl.sendToAllClients(message);
+    public void stop() {
+        try {
+            if (registry != null) {
+                registry.unbind("RMIServer");
+                UnicastRemoteObject.unexportObject(rmiServerImpl, true);
+                System.out.println("RMI server stopped.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,7 +15,7 @@ public class ScoreboardPanel extends JPanel {
         //setPreferredSize(new Dimension(382, 1000));
         MyDrawImage scoreboard = new MyDrawImage("src/main/resources/images/plateau.png", 0,0);
 
-        MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 600);
+        //MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 600);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -26,7 +26,7 @@ public class ScoreboardPanel extends JPanel {
         gbc.weightx = 0.05;
         gbc.fill = GridBagConstraints.BOTH;
 
-        add(myDrawImage, gbc);
+        //add(myDrawImage, gbc);
 
         GridBagConstraints gbca = new GridBagConstraints();
 

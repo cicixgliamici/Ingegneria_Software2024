@@ -1,5 +1,7 @@
 package org.example.view.GUI.mainmenu;
 
+import org.example.client.Client;
+import org.example.view.ViewGUI;
 import org.example.view.GUI.listener.EvListener;
 import org.example.view.GUI.listener.Event;
 
@@ -15,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class BoxMenu extends JPanel{
+public class BoxMenu extends JPanel {
     private JButton button;
     private JLabel labelTitle;
     private JLabel labelUsr;
@@ -26,11 +28,19 @@ public class BoxMenu extends JPanel{
     private TextField textFieldPort;
     private EvListener evListener;
 
-    public BoxMenu() throws IOException{
+    public BoxMenu() throws IOException {
         setLayout(new GridBagLayout());
 
         // Components
-        BufferedImage logo = ImageIO.read(new File("src/main/resources/images/logo.png"));
+        BufferedImage logo = null;
+        try {
+            logo = ImageIO.read(getClass().getResource("/images/logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
 
@@ -42,7 +52,6 @@ public class BoxMenu extends JPanel{
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
 
-
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
         labelIp.setFont(new Font("Helvetica", Font.BOLD, 15));
@@ -50,14 +59,6 @@ public class BoxMenu extends JPanel{
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
-        /*try {
-            MaskFormatter formatter = new MaskFormatter("###.###.###.###");
-            formatter.setPlaceholderCharacter('#');
-            textFieldIp = new JFormattedTextField(formatter);
-            textFieldIp.setColumns(15);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }*/
 
         labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
@@ -69,8 +70,8 @@ public class BoxMenu extends JPanel{
         textFieldPort.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                char c  = e.getKeyChar();
-                if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                char c = e.getKeyChar();
+                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
             }
@@ -80,128 +81,110 @@ public class BoxMenu extends JPanel{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if((Objects.equals(textFieldUsr.getText(), "Enter a username...")) || textFieldUsr.getText().isEmpty()){
+                if ((Objects.equals(textFieldUsr.getText(), "Enter a username...")) || textFieldUsr.getText().isEmpty()) {
                     Event event = new Event(this, "notValidUsr");
-                    if(evListener != null){
+                    if (evListener != null) {
                         evListener.eventListener(event);
                     }
                 } else if ((Objects.equals(textFieldIp.getText(), "Enter a IP address...")) || textFieldIp.getText().isEmpty()) {
                     Event event = new Event(this, "notValidIp");
-                    if(evListener != null){
+                    if (evListener != null) {
                         evListener.eventListener(event);
                     }
                 } else if ((Objects.equals(textFieldPort.getText(), "Enter a port number...")) || textFieldPort.getText().isEmpty()) {
                     Event event = new Event(this, "notValidPort");
-                    if(evListener != null){
-                        evListener.eventListener(event);
-                    }
-                }  else {
-                    String username = textFieldUsr.getText();
-                    new SetInitialGame(username);
-                    Event event = new Event(this, "closeApp");
                     if (evListener != null) {
                         evListener.eventListener(event);
                     }
+                } else {
+                    String ip = textFieldIp.getText();
+                    int port;
+                    try {
+                        port = Integer.parseInt(textFieldPort.getText());
+                    } catch (NumberFormatException ex) {
+                        Event event = new Event(this, "notValidPort");
+                        if (evListener != null) {
+                            evListener.eventListener(event);
+                        }
+                        return;
+                    }
+                    connectToServer(ip, port);
                 }
             }
         });
 
         // Layout
         GridBagConstraints gbcTitle = new GridBagConstraints();
-
         gbcTitle.gridx = 0;
         gbcTitle.gridy = 0;
-
         gbcTitle.weightx = 0.0;
         gbcTitle.weighty = 0.3;
-
         gbcTitle.gridheight = 1;
         gbcTitle.gridwidth = 2;
-
         add(labelTitle, gbcTitle);
 
         GridBagConstraints gbcUsrLabel = new GridBagConstraints();
-
         gbcUsrLabel.gridx = 0;
         gbcUsrLabel.gridy = 1;
-
         gbcUsrLabel.weightx = 0.0;
         gbcUsrLabel.weighty = 0.02;
-
         add(labelUsr, gbcUsrLabel);
 
         GridBagConstraints gbcUsrField = new GridBagConstraints();
-
         gbcUsrField.gridx = 1;
         gbcUsrField.gridy = 1;
-
         gbcUsrField.weightx = 0.0;
         gbcUsrField.weighty = 0.02;
-
         gbcUsrField.insets = new Insets(0, 10, 0, 10);
-
         add(textFieldUsr, gbcUsrField);
 
         GridBagConstraints gbcIpLabel = new GridBagConstraints();
-
         gbcIpLabel.gridx = 0;
         gbcIpLabel.gridy = 2;
-
         gbcIpLabel.weightx = 0.0;
         gbcIpLabel.weighty = 0.02;
-
         add(labelIp, gbcIpLabel);
 
         GridBagConstraints gbcIpField = new GridBagConstraints();
-
         gbcIpField.gridx = 1;
         gbcIpField.gridy = 2;
-
         gbcIpField.weightx = 0.0;
         gbcIpField.weighty = 0.02;
-
         gbcIpField.insets = new Insets(0, 10, 0, 10);
-
         add(textFieldIp, gbcIpField);
 
         GridBagConstraints gbcPortLabel = new GridBagConstraints();
-
         gbcPortLabel.gridx = 0;
         gbcPortLabel.gridy = 3;
-
         gbcPortLabel.weightx = 0.0;
         gbcPortLabel.weighty = 0.02;
-
         add(labelPort, gbcPortLabel);
 
         GridBagConstraints gbcPortField = new GridBagConstraints();
-
         gbcPortField.gridx = 1;
         gbcPortField.gridy = 3;
-
         gbcPortField.weightx = 0.0;
         gbcPortField.weighty = 0.02;
-
         gbcPortField.insets = new Insets(0, 10, 0, 10);
-
         add(textFieldPort, gbcPortField);
 
         GridBagConstraints gbcButton = new GridBagConstraints();
-
         gbcButton.gridx = 0;
         gbcButton.gridy = 4;
-
         gbcButton.weightx = 0.0;
         gbcButton.weighty = 0.5;
-
         gbcButton.gridheight = 1;
         gbcButton.gridwidth = 2;
-
         add(button, gbcButton);
     }
 
-    public void setEvListener(EvListener evListener){
+    public void setEvListener(EvListener evListener) {
         this.evListener = evListener;
     }
 
+    private void connectToServer(String ip, int port) {
+        Client client = new Client(ip, port, new ViewGUI());
+        client.startClient(0); // Assuming 0 for TCP mode, change as needed
+        JOptionPane.showMessageDialog(this, "Connected successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

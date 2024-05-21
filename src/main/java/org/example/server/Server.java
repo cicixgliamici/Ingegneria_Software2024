@@ -13,7 +13,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -68,6 +72,23 @@ public class Server implements ModelChangeListener {
         executor.submit(tcpServer::start); // Avvia il server TCP.
         executor.submit(rmiServer::start); // Avvia il server RMI.
     }
+
+    public void stopServer() {
+        // Stop TCP server
+        if (tcpServer != null) {
+            tcpServer.stop();
+        }
+        // Stop RMI server
+        if (rmiServer != null) {
+            rmiServer.stop();
+        }
+        // Shutdown executor service
+        if (executor != null && !executor.isShutdown()) {
+            executor.shutdownNow();
+        }
+        System.out.println("Server stopped.");
+    }
+
 
     /**
      * Gestisce l'arrivo di un nuovo client TCP.
@@ -287,5 +308,9 @@ public class Server implements ModelChangeListener {
 
     public int getRmiPort() {
         return rmiPort;
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

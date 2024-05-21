@@ -10,6 +10,7 @@ import java.net.Socket;
 public class TCPServer {
     private int port;
     private Server mainServer;
+    private ServerSocket serverSocket; // Make serverSocket an instance variable
 
     /**
      * Constructor to initialize the TCP server.
@@ -26,13 +27,18 @@ public class TCPServer {
      * This method continuously listens and accepts new client connections.
      */
     public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try {
+            serverSocket = new ServerSocket(port); // Initialize serverSocket here
             System.out.println("TCP server listening on port " + port);
-            while (true) {
+            while (!serverSocket.isClosed()) {
                 try {
                     Socket clientSocket = serverSocket.accept(); // Accept a new client connection
                     handleConnection(clientSocket); // Handle the newly accepted connection
                 } catch (IOException e) {
+                    if (serverSocket.isClosed()) {
+                        System.out.println("Server socket closed, stopping server.");
+                        break;
+                    }
                     System.out.println("Error handling client: " + e.getMessage());
                 }
             }
@@ -95,6 +101,19 @@ public class TCPServer {
                 out.println("Username already taken. Please reconnect with a different username.");
                 clientSocket.close();
             }
+        }
+    }
+
+    /**
+     * Stops the TCP server by closing the server socket.
+     */
+    public void stop() {
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
