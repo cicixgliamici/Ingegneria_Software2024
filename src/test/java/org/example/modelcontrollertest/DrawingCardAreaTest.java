@@ -1,10 +1,9 @@
-package org.example;
+package org.example.modelcontrollertest;
 
 import junit.framework.TestCase;
 import org.example.model.playarea.DrawingCardArea;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
-import java.util.List;
 
 import org.example.model.deck.*;
 import org.example.enumeration.*;
