@@ -18,7 +18,7 @@ public class PlayCardArea extends JPanel {
     public PlayCardArea() throws IOException {
 
         setLayout(new BorderLayout());
-        BufferedImage logo = ImageIO.read(new File(""));
+        BufferedImage logo = ImageIO.read(new File("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\Pannotavolo.jpg"));
         Icon icon = new ImageIcon(logo);
         JLabel labelnigga = new JLabel(icon);
         JScrollPane scrollPane = new JScrollPane(labelnigga);

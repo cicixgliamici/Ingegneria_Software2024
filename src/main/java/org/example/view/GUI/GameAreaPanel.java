@@ -169,8 +169,8 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.001;
-        gbc.weighty = 0.001;
+        gbc.weightx = 0.00025;
+        gbc.weighty = 0.00025;
 
         add(token1, gbc);
 
@@ -185,8 +185,8 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.001;
-        gbc.weighty = 0.001;
+        gbc.weightx = 0.00025;
+        gbc.weighty = 0.00025;
 
         add(token3, gbc);
 
@@ -201,11 +201,11 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        gbc.weightx = 0.8;
-        gbc.weighty = 0.8;
+        gbc.weightx = 0.75;
+        gbc.weighty = 0.75;
 
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.LINE_START;
+        //gbc.anchor = GridBagConstraints.LINE_START;
 
         add(playCardArea, gbc);
     }
