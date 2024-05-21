@@ -20,8 +20,8 @@ public class PlayCardArea extends JPanel {
         setLayout(new BorderLayout());
         BufferedImage logo = ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg"));
         Icon icon = new ImageIcon(logo);
-        JLabel labelnigga = new JLabel(icon);
-        JScrollPane scrollPane = new JScrollPane(labelnigga);
+        JLabel labelprova = new JLabel(icon);
+        JScrollPane scrollPane = new JScrollPane(labelprova);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane,BorderLayout.CENTER);

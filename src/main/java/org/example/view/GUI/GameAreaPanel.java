@@ -154,7 +154,7 @@ public class GameAreaPanel extends JPanel{
 
         //PlayCardArea
 
-        playCardArea = new PlayCardArea(){};
+        playCardArea = new PlayCardArea();
 
         GridBagConstraints gbc = new GridBagConstraints();
 
