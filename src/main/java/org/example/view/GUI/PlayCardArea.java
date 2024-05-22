@@ -24,7 +24,7 @@ public class PlayCardArea extends JPanel {
         JScrollPane scrollPane = new JScrollPane(labelprova);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        add(scrollPane,BorderLayout.CENTER);
+        add(labelprova,BorderLayout.CENTER);
 
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override
