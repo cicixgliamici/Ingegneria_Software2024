@@ -22,7 +22,7 @@ public class ClientPortSelection {
      * @param args Command-line arguments (not used in this method).
      * @param mode The mode of the client: 0 for TUI (Text User Interface), 1 for GUI (Graphical User Interface).
      */
-    public void main(String[] args, int mode,int ChosenView) throws IOException {
+    public void main(String[] args, int mode,int ChosenView) throws Exception {
         View view;
         if(ChosenView==2){
             view = new ViewTUI();
@@ -58,7 +58,7 @@ public class ClientPortSelection {
             client.startClient(mode);  // Start the client with the specified mode
         }
         else if(ChosenView==3){
-            GuiClient.main(null);
+            GuiClient.main(null, mode);
             //todo gestione del client GUI
         }
     }

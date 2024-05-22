@@ -13,10 +13,13 @@ import java.util.Scanner;
  */
 public class TCPClient {
     private String ip;  // IP address of the server
-    private int port;  // Port number for the server
+    private int port;  // Port number of the server
     private View view;  // View interface for interacting with the user
     private volatile boolean gameStarted = false;  // Use volatile to ensure visibility across threads
     private String lastSentMessage = "";  // Last message sent by the client
+
+    private Socket socket;
+    private PrintWriter socketOut;
 
     /**
      * Constructor for TCPClient.
@@ -32,29 +35,32 @@ public class TCPClient {
     }
 
     /**
+     * Establishes a connection to the server.
+     */
+    public void connect() throws Exception {
+        socket = new Socket(ip, port);  // Connect to the server using TCP
+        System.out.println("Connected to " + ip + ":" + port);
+        Scanner socketIn = new Scanner(socket.getInputStream());  // Scanner for server input
+        socketOut = new PrintWriter(socket.getOutputStream(), true);  // PrintWriter for server output
+        // Thread to handle server messages
+        Thread serverListener = new Thread(() -> handleServerMessages(socketIn));
+        serverListener.start();
+    }
+
+    /**
      * Starts the TCP client and manages the connection to the server.
      */
-    public void startTCPClient() {
-        try (Socket socket = new Socket(ip, port)) {  // Connect to the server using TCP
-            System.out.println("Attempting to connect to " + ip + ":" + port);
-            Scanner socketIn = new Scanner(socket.getInputStream());  // Scanner for server input
-            PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);  // PrintWriter for server output
-            Scanner stdin = new Scanner(System.in);  // Scanner for user input
+    public void startTCPClient() throws Exception {
+        connect();
 
-            // Thread to handle server messages
-            Thread serverListener = new Thread(() -> handleServerMessages(socketIn));
-            serverListener.start();
+        Scanner stdin = new Scanner(System.in);  // Scanner for user input
 
-            // Thread to handle user input
-            Thread userInputThread = new Thread(() -> handleUserInput(stdin, socketOut));
-            userInputThread.start();
+        // Thread to handle user input
+        Thread userInputThread = new Thread(() -> handleUserInput(stdin, socketOut));
+        userInputThread.start();
 
-            // Join threads to ensure the main thread waits for them to finish
-            serverListener.join();
-            userInputThread.join();
-        } catch (Exception e) {
-            System.out.println("Error connecting or communicating: " + e.getMessage());
-        }
+        // Join threads to ensure the main thread waits for them to finish
+        userInputThread.join();
     }
 
     /**
@@ -160,6 +166,18 @@ public class TCPClient {
             } else {
                 System.out.println(message);  // Print the message if the game has not started
             }
+        }
+    }
+
+    /**
+     * Sends the username to the server after the connection is established.
+     *
+     * @param username The username to send.
+     */
+    public void sendUsername(String username) {
+        if (socketOut != null) {
+            socketOut.println(username);
+            socketOut.flush();
         }
     }
 }

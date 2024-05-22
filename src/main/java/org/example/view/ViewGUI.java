@@ -8,6 +8,46 @@ public class ViewGUI extends View{
     }
 
     @Override
+    public void updateHand(int id) {
+
+    }
+
+    @Override
+    public void updatePlayerCardArea(int id) {
+
+    }
+
+    @Override
+    public void removeHand(int id) {
+
+    }
+
+    @Override
+    public void removePlayerCardArea(int id) {
+
+    }
+
+    @Override
+    public void playCardInGrid(int x, int y, int cardId) {
+
+    }
+
+    @Override
+    public void printPlayerCardArea() {
+
+    }
+
+    @Override
+    public void printHand() {
+
+    }
+
+    @Override
+    public void printGrid() {
+
+    }
+
+    @Override
     public void Interpreter(String message) {
 
     }

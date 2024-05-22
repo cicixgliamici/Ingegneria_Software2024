@@ -65,28 +65,23 @@ public class ClientHandler implements Runnable {
             JSONParser parser = new JSONParser();
             String[] parts = inputLine.split(":");
             String commandKey = parts[0];
-
             // Check if the command is recognized and has the necessary parameters
             if (parts.length < 2 || !commands.containsKey(commandKey)) {
                 System.out.println("Command not recognized or parameters missing.");
                 return;
             }
-
             // Retrieve the command details from the commands map
             JSONObject commandDetails = commands.get(commandKey);
             String methodName = (String) commandDetails.get("methodName");
             JSONArray jsonParams = (JSONArray) commandDetails.get("parameters");
-
             // Prepare the parameter types and values for method invocation
             Class<?>[] paramTypes = new Class[jsonParams.size()];
             Object[] paramValues = new Object[jsonParams.size()];
             String[] params = parts[1].split(",");
-
             // Ensure the parameter count matches the expected count
             if (params.length != jsonParams.size()) {
                 throw new IllegalArgumentException("Parameter count mismatch for command " + commandKey);
             }
-
             // Parse and convert the parameters to the appropriate types
             for (int i = 0; i < jsonParams.size(); i++) {
                 JSONObject param = (JSONObject) jsonParams.get(i);
@@ -94,7 +89,6 @@ public class ClientHandler implements Runnable {
                 paramTypes[i] = type.equals("int") ? int.class : String.class;
                 paramValues[i] = type.equals("int") ? Integer.parseInt(params[i]) : params[i];
             }
-
             // Use reflection to find and invoke the corresponding method in the view
             java.lang.reflect.Method method = view.getClass().getMethod(methodName, paramTypes);
             method.invoke(view, paramValues);

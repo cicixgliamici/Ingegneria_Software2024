@@ -16,12 +16,11 @@ import java.util.Scanner;
  */
 
 public class CodexNaturalis {
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws Exception {
         System.out.println("WELCOME! What do you want to launch?");
         System.out.println("1. SERVER\n2. CLIENT (TUI INTERFACE)\n3. CLIENT (GUI INTERFACE)");
         Scanner scanner = new Scanner(System.in);
         String input;
-
         do {
             System.out.println("Insert your choice: ");
             input = scanner.nextLine();
@@ -43,7 +42,7 @@ public class CodexNaturalis {
         } while (!(input.equals("1") || input.equals("2") || input.equals("3")));
     }
 
-    private static void selectClientMode(int view) throws IOException {
+    private static void selectClientMode(int view) throws Exception {
         Scanner in = new Scanner(System.in);
         System.out.println("Select connection mode: 0 for TCP, 1 for RMI");
         int mode;

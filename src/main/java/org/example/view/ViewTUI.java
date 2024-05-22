@@ -100,9 +100,22 @@ public class ViewTUI extends View {
     /**
      * Prints the details of all cards currently in the player's hand.
      */
-    private void printHand() {
+    public void printHand() {
         for (Integer id:Hand){
             printCardDetails(getCardById(id));
+        }
+    }
+    public void printGrid() {
+        System.out.println("Current grid state:");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (grid[i][j] != null) {
+                    System.out.printf(" %4d ", grid[i][j]);
+                } else {
+                    System.out.print("   .  ");
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -146,7 +159,7 @@ public class ViewTUI extends View {
     /**
      * Prints all cards that have been played by the player in a specific area.
      */
-    private void printPlayerCardArea() {
+    public void printPlayerCardArea() {
         for(Integer id: PlayerCardArea){
             printCardDetailsFormatted(getCardById(id));
         }

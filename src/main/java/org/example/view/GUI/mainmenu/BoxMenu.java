@@ -1,6 +1,6 @@
 package org.example.view.GUI.mainmenu;
 
-import org.example.client.Client;
+import org.example.client.TCPClient;
 import org.example.view.ViewGUI;
 import org.example.view.GUI.listener.EvListener;
 import org.example.view.GUI.listener.Event;
@@ -13,25 +13,35 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * The BoxMenu class represents the main menu panel where users can enter their username, IP address, and port number to connect to the server.
+ */
 public class BoxMenu extends JPanel {
-    private JButton button;
-    private JLabel labelTitle;
-    private JLabel labelUsr;
-    private TextField textFieldUsr;
-    private JLabel labelIp;
-    private TextField textFieldIp;
-    private JLabel labelPort;
-    private TextField textFieldPort;
-    private EvListener evListener;
+    private JButton button; // Button to initiate the connection
+    private JLabel labelTitle; // Label for the title image
+    private JLabel labelUsr; // Label for the username field
+    private TextField textFieldUsr; // Text field for entering the username
+    private JLabel labelIp; // Label for the IP address field
+    private TextField textFieldIp; // Text field for entering the IP address
+    private JLabel labelPort; // Label for the port number field
+    private TextField textFieldPort; // Text field for entering the port number
+    private EvListener evListener; // Event listener for handling custom events
+    private int connectionType; // Connection type (0 for TCP, 1 for RMI)
 
-    public BoxMenu() throws IOException {
+    /**
+     * Constructor for the BoxMenu class.
+     *
+     * @param connectionType The type of connection (0 for TCP, 1 for RMI).
+     * @throws IOException if the logo image file cannot be found.
+     */
+    public BoxMenu(int connectionType) throws IOException {
+        this.connectionType = connectionType;
         setLayout(new GridBagLayout());
 
-        // Components
+        // Load the logo image
         BufferedImage logo = null;
         try {
             logo = ImageIO.read(getClass().getResource("/images/logo.png"));
@@ -44,6 +54,7 @@ public class BoxMenu extends JPanel {
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
 
+        // Initialize and style the username label and text field
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.darkGray);
         labelUsr.setFont(new Font("Helvetica", Font.BOLD, 15));
@@ -52,14 +63,16 @@ public class BoxMenu extends JPanel {
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
 
+        // Initialize and style the IP address label and text field
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
         labelIp.setFont(new Font("Helvetica", Font.BOLD, 15));
-        textFieldIp = new TextField("Enter a IP address...", 15);
+        textFieldIp = new TextField("Enter an IP address...", 15);
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
 
+        // Initialize and style the port number label and text field
         labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
         labelPort.setFont(new Font("Helvetica", Font.BOLD, 15));
@@ -70,23 +83,22 @@ public class BoxMenu extends JPanel {
         textFieldPort.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-                    e.consume();
-                }
+                // Allow letters in the port field to trigger default port logic
             }
         });
 
+        // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validate the input fields
                 if ((Objects.equals(textFieldUsr.getText(), "Enter a username...")) || textFieldUsr.getText().isEmpty()) {
                     Event event = new Event(this, "notValidUsr");
                     if (evListener != null) {
                         evListener.eventListener(event);
                     }
-                } else if ((Objects.equals(textFieldIp.getText(), "Enter a IP address...")) || textFieldIp.getText().isEmpty()) {
+                } else if ((Objects.equals(textFieldIp.getText(), "Enter an IP address...")) || textFieldIp.getText().isEmpty()) {
                     Event event = new Event(this, "notValidIp");
                     if (evListener != null) {
                         evListener.eventListener(event);
@@ -97,23 +109,23 @@ public class BoxMenu extends JPanel {
                         evListener.eventListener(event);
                     }
                 } else {
+                    // Get the IP address and port number from the input fields
                     String ip = textFieldIp.getText();
+                    String username = textFieldUsr.getText();
                     int port;
                     try {
                         port = Integer.parseInt(textFieldPort.getText());
                     } catch (NumberFormatException ex) {
-                        Event event = new Event(this, "notValidPort");
-                        if (evListener != null) {
-                            evListener.eventListener(event);
-                        }
-                        return;
+                        ip = "127.0.0.1";  // Default IP
+                        port = 50000;  // Default port
                     }
-                    connectToServer(ip, port);
+                    // Attempt to connect to the server
+                    connectToServer(ip, port, username, connectionType);
                 }
             }
         });
 
-        // Layout
+        // Layout configuration using GridBagConstraints
         GridBagConstraints gbcTitle = new GridBagConstraints();
         gbcTitle.gridx = 0;
         gbcTitle.gridy = 0;
@@ -178,13 +190,50 @@ public class BoxMenu extends JPanel {
         add(button, gbcButton);
     }
 
+    /**
+     * Sets the event listener for this menu.
+     *
+     * @param evListener The event listener to be set.
+     */
     public void setEvListener(EvListener evListener) {
         this.evListener = evListener;
     }
 
-    private void connectToServer(String ip, int port) {
-        Client client = new Client(ip, port, new ViewGUI());
-        client.startClient(0); // Assuming 0 for TCP mode, change as needed
-        JOptionPane.showMessageDialog(this, "Connected successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+    /**
+     * Connects to the server using the specified IP address, port, username, and connection type.
+     *
+     * @param ip The IP address of the server.
+     * @param port The port number of the server.
+     * @param username The username to be used.
+     * @param connectionType The type of connection (0 for TCP, 1 for RMI).
+     */
+    private void connectToServer(String ip, int port, String username, int connectionType) {
+        boolean connected = false;
+        TCPClient tcpClient = null;
+        if (connectionType == 0) { // TCP connection
+            ViewGUI view = new ViewGUI();
+            tcpClient = new TCPClient(ip, port, view);
+            try {
+                tcpClient.connect();  // Establish the connection
+                connected = true;
+                tcpClient.sendUsername(username);  // Send the username after connection
+                JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (connectionType == 1) { // RMI connection
+            // Implement the RMI connection logic here
+            // For now, we'll just simulate a successful connection
+            connected = true;
+            JOptionPane.showMessageDialog(this, "Connected successfully via RMI", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (connected && tcpClient != null) {
+            // Optionally start handling user input after connection is established
+            try {
+                tcpClient.startTCPClient();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

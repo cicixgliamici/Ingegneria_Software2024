@@ -97,22 +97,9 @@ public abstract class View {
         }
     }
 
-    /**
-     * Removes a card from the grid.
-     * @param x Horizontal position of the card.
-     * @param y Vertical position of the card.
-     */
-    public void removeCardFromGrid(int x, int y) {
-        int gridX = x + M;
-        int gridY = y + M;
-        if (isValidPosition(gridX, gridY)) {
-            grid[gridX][gridY] = null;
-            System.out.println("Card removed from grid position: (" + x + ", " + y + ")");
-        } else {
-            System.out.println("Invalid grid position: (" + x + ", " + y + ")");
-        }
-    }
+    public abstract void printPlayerCardArea();
 
+    public abstract void printHand();
     /**
      * Checks if a given position is valid within the grid boundaries.
      * @param gridX Horizontal position index.
@@ -126,19 +113,7 @@ public abstract class View {
     /**
      * Prints the current state of the grid, showing the placement of cards.
      */
-    public void printGrid() {
-        System.out.println("Current grid state (0,0 is center):");
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (grid[i][j] != null) {
-                    System.out.printf(" %4d ", grid[i][j]);
-                } else {
-                    System.out.print("   .  ");
-                }
-            }
-            System.out.println();
-        }
-    }
+    public abstract void printGrid();
 
     // Method to handle generic server messages, to be implemented by subclasses.
     public abstract void message(int x);

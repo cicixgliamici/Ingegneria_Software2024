@@ -14,49 +14,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame {
 
     BoxMenu boxMenu;
+    private int connectionType;
 
-    public MainMenu() throws IOException {
+    public MainMenu(int connectionType) throws IOException {
         super("Codex Naturalis");
+        this.connectionType = connectionType;
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
 
-        boxMenu = new BoxMenu(){
+        boxMenu = new BoxMenu(connectionType) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
-            {setOpaque(false);}
-            public void paintComponent(Graphics graphics){
-                graphics.drawImage(img,0,0, this);
+            {
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
                 super.paintComponent(graphics);
             }
         };
 
-        setLayout(new BorderLayout()); //layout manager che si occuperà di posizionare i componenti
-
+        setLayout(new BorderLayout());
         setJMenuBar(createMenuBar());
-
         add(boxMenu, BorderLayout.CENTER);
-
         boxMenu.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) {
                 String event = ev.getEvent();
-                if(event.equals("closeApp")){
+                if (event.equals("closeApp")) {
                     dispose();
-                }
-                else if(event.equals("notValidUsr")){
+                } else if (event.equals("notValidUsr")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid Username.", "Error!", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(event.equals("notValidIp")){
+                } else if (event.equals("notValidIp")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid IP address.", "Error!", JOptionPane.ERROR_MESSAGE);
-                }
-                else if(event.equals("notValidPort")){
+                } else if (event.equals("notValidPort")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
 
@@ -68,12 +66,11 @@ public class MainMenu extends JFrame{
         setVisible(true);
     }
 
-    private JMenuBar createMenuBar(){
+    private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
-
 
         JMenuItem menuItemExit = new JMenuItem("Exit");
         menuItemExit.setMnemonic(KeyEvent.VK_E);
@@ -85,7 +82,7 @@ public class MainMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int action = JOptionPane.showConfirmDialog(MainMenu.this, "Vuoi uscire dall'applicazione?", "Chiusura Applicazione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if(action == JOptionPane.OK_OPTION){
+                if (action == JOptionPane.OK_OPTION) {
                     System.exit(0);
                 }
             }
@@ -104,16 +101,16 @@ public class MainMenu extends JFrame{
         menuAbout.addSeparator();
         menuAbout.add(menuItemAbout);
 
-        //AboutFrame
+        // AboutFrame
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame aboutFrame = new JFrame("About");
                 JPanel aboutPanel = new JPanel();
 
-                aboutPanel.setPreferredSize(new Dimension(300,200));
+                aboutPanel.setPreferredSize(new Dimension(300, 200));
                 Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-                Border outsideBorder = BorderFactory.createEmptyBorder(10,10,10,10);
+                Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
                 Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
                 aboutPanel.setBorder(finalBorder);
                 JTextArea creditsTextPane = new JTextArea();
@@ -126,19 +123,6 @@ public class MainMenu extends JFrame{
                         strings.add("u");
                         strings.add("l");
                         strings.add("o");
-                        /*Thread culo = new Thread(()-> {
-                            while (true) {
-                                try {
-
-                                    creditsTextPane.append(strings.remove(0));
-                                    wait(1000, 0);
-                                    i++;
-                                } catch (InterruptedException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-                            }
-                        }
-                        ).start();*/
                     }
 
                     @Override
@@ -161,7 +145,7 @@ public class MainMenu extends JFrame{
                 aboutFrame.add(aboutPanel);
 
                 aboutFrame.pack();
-                aboutFrame.setSize(300,200);
+                aboutFrame.setSize(300, 200);
                 aboutFrame.setResizable(false);
                 aboutFrame.setLocationRelativeTo(null);
                 aboutFrame.setVisible(true);
