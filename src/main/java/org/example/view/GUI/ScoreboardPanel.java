@@ -17,6 +17,8 @@ public class ScoreboardPanel extends JPanel {
 
         MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 600);
 
+
+        //Layout
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridy = 1;
@@ -28,16 +30,16 @@ public class ScoreboardPanel extends JPanel {
 
         add(myDrawImage, gbc);
 
-        GridBagConstraints gbca = new GridBagConstraints();
+        GridBagConstraints gbcScoreboard = new GridBagConstraints();
 
-        gbca.gridy = 0;
-        gbca.gridx = 0;
+        gbcScoreboard.gridy = 0;
+        gbcScoreboard.gridx = 0;
 
-        gbca.weighty = 0.9;
-        gbca.weightx = 1;
+        gbcScoreboard.weighty = 0.9;
+        gbcScoreboard.weightx = 1;
 
-        gbca.fill = GridBagConstraints.BOTH;
+        gbcScoreboard.fill = GridBagConstraints.BOTH;
 
-        add(scoreboard, gbca);
+        add(scoreboard, gbcScoreboard);
     }
 }
