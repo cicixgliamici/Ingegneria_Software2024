@@ -111,4 +111,9 @@ public class ViewGUI extends View{
     public void message(int x) {
 
     }
+
+    @Override
+    public void updateSetupUI(String[] colors, boolean isFirst) {
+
+    }
 }

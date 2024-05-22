@@ -1,8 +1,8 @@
-package org.example.view.GUI.mainmenu;
+package org.example.view.gui.mainmenu;
 
-import org.example.view.GUI.GameAreaFrame;
-import org.example.view.GUI.listener.EvListener;
-import org.example.view.GUI.listener.Event;
+import org.example.view.gui.GameAreaFrame;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 
 import javax.swing.*;
 import javax.swing.border.Border;

@@ -85,6 +85,11 @@ public class ViewTUI extends View {
         }
     }
 
+    @Override
+    public void updateSetupUI(String[] colors, boolean isFirst) {
+
+    }
+
     /**
      * Processes actions to take when a new card is drawn.
      * @param id The card identifier.

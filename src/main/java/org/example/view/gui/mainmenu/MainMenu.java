@@ -1,8 +1,8 @@
-package org.example.view.GUI.mainmenu;
+package org.example.view.gui.mainmenu;
 
-import org.example.view.GUI.listener.EvListener;
-import org.example.view.GUI.listener.Event;
-import org.example.view.GUI.gamerules.GameRulesFrame;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
+import org.example.view.gui.gamerules.GameRulesFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,6 +40,23 @@ public class MainMenu extends JFrame {
                 super.paintComponent(graphics);
             }
         };
+
+        boxMenu.setEvListener(new EvListener() {
+            @Override
+            public void eventListener(Event ev) {
+                String event = ev.getEvent();
+                if (event.equals("closeApp")) {
+                    dispose();
+                } else if (event.equals("notValidUsr") || event.equals("notValidIp") || event.equals("notValidPort")) {
+                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid input.", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else if (event.equals("setInitialGame")) {
+                    getContentPane().removeAll();
+                    getContentPane().add(setInitialGame, BorderLayout.CENTER);
+                    validate();
+                    repaint();
+                }
+            }
+        });
 
         setInitialGame = new SetInitialGame(username) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));

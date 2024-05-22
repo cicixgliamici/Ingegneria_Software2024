@@ -1,11 +1,9 @@
 package org.example.client;
 
-import org.example.view.GUI.GuiClient;
+import org.example.view.gui.GuiClient;
 import org.example.view.View;
-import org.example.view.ViewGUI;
 import org.example.view.ViewTUI;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**

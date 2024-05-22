@@ -3,6 +3,7 @@ package org.example.client;
 import org.example.view.View;
 import org.example.view.ViewTUI;
 
+import javax.swing.*;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -71,10 +72,21 @@ public class TCPClient {
     private void handleServerMessages(Scanner socketIn) {
         while (socketIn.hasNextLine()) {
             String line = socketIn.nextLine();
-            handleMessage(line);  // Handle the message received from the server
+            if (line.startsWith("setup:")) {
+                processSetup(line);
+            } else {
+                handleMessage(line);
+            }
         }
     }
 
+    private void processSetup(String setupMsg) {
+        // Expected format: "setup:colors=Red,Blue;first=true"
+        String[] parts = setupMsg.substring(6).split(";");
+        String[] colors = parts[0].split("=")[1].split(",");
+        boolean isFirst = Boolean.parseBoolean(parts[1].split("=")[1]);
+        SwingUtilities.invokeLater(() -> view.updateSetupUI(colors, isFirst));
+    }
     /**
      * Handles user input and sends it to the server.
      *
@@ -179,5 +191,9 @@ public class TCPClient {
             socketOut.println(username);
             socketOut.flush();
         }
+    }
+
+    public boolean isConnected() {
+        return socket != null && socket.isConnected() && !socket.isClosed();
     }
 }

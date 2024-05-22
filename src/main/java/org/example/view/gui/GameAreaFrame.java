@@ -1,14 +1,12 @@
-package org.example.view.GUI;
+package org.example.view.gui;
 
 
 
-import org.example.view.GUI.gamerules.GameRulesFrame;
+import org.example.view.gui.gamerules.GameRulesFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;

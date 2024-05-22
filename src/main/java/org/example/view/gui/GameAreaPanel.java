@@ -1,4 +1,4 @@
-package org.example.view.GUI;
+package org.example.view.gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

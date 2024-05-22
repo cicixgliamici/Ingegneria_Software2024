@@ -117,4 +117,6 @@ public abstract class View {
 
     // Method to handle generic server messages, to be implemented by subclasses.
     public abstract void message(int x);
+
+    public abstract void updateSetupUI(String[] colors, boolean isFirst);
 }

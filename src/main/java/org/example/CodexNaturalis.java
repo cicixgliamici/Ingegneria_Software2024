@@ -1,14 +1,8 @@
 package org.example;
 
-import org.example.client.Client;
 import org.example.client.ClientPortSelection;
 import org.example.server.PortSelection;
-import org.example.view.GUI.GuiClient;
-import org.example.view.View;
-import org.example.view.ViewTUI;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /** First class run when you start the CodexNaturalis.jar

@@ -1,4 +1,4 @@
-package org.example.view.GUI.gamerules;
+package org.example.view.gui.gamerules;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,9 +1,9 @@
-package org.example.view.GUI.mainmenu;
+package org.example.view.gui.mainmenu;
 
 import org.example.client.TCPClient;
 import org.example.view.ViewGUI;
-import org.example.view.GUI.listener.EvListener;
-import org.example.view.GUI.listener.Event;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,6 +30,7 @@ public class BoxMenu extends JPanel {
     private TextField textFieldPort; // Text field for entering the port number
     private EvListener evListener; // Event listener for handling custom events
     private int connectionType; // Connection type (0 for TCP, 1 for RMI)
+    private TCPClient tcpClient;
 
     /**
      * Constructor for the BoxMenu class.
@@ -112,10 +113,6 @@ public class BoxMenu extends JPanel {
                     // Get the IP address and port number from the input fields
                     String ip = textFieldIp.getText();
                     String username = textFieldUsr.getText();
-                    Event event = new Event(this, "setInitialGame", username);
-                    if (evListener != null) {
-                        evListener.eventListener(event);
-                    }
                     int port;
                     try {
                         port = Integer.parseInt(textFieldPort.getText());
@@ -206,38 +203,44 @@ public class BoxMenu extends JPanel {
     /**
      * Connects to the server using the specified IP address, port, username, and connection type.
      *
-     * @param ip The IP address of the server.
-     * @param port The port number of the server.
-     * @param username The username to be used.
+     * @param ip             The IP address of the server.
+     * @param port           The port number of the server.
+     * @param username       The username to be used.
      * @param connectionType The type of connection (0 for TCP, 1 for RMI).
      */
     private void connectToServer(String ip, int port, String username, int connectionType) {
-        boolean connected = false;
-        TCPClient tcpClient = null;
-        if (connectionType == 0) { // TCP connection
-            ViewGUI view = new ViewGUI();
-            tcpClient = new TCPClient(ip, port, view);
-            try {
-                tcpClient.connect();  // Establish the connection
-                connected = true;
-                tcpClient.sendUsername(username);  // Send the username after connection
-                JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (connectionType == 1) { // RMI connection
-            // Implement the RMI connection logic here
-            // For now, we'll just simulate a successful connection
-            connected = true;
-            JOptionPane.showMessageDialog(this, "Connected successfully via RMI", "Success", JOptionPane.INFORMATION_MESSAGE);
+        if (tcpClient != null && tcpClient.isConnected()) {
+            JOptionPane.showMessageDialog(this, "You are already connected.", "Connection Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if (connected && tcpClient != null) {
-            // Optionally start handling user input after connection is established
-            try {
-                tcpClient.startTCPClient();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        boolean connected = false;
+        ViewGUI view = new ViewGUI();
+        tcpClient = new TCPClient(ip, port, view);
+        try {
+            tcpClient.connect();
+            connected = true;
+            tcpClient.sendUsername(username);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Mostra il messaggio di successo e poi passa alla prossima schermata
+        JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
+        switchToPlayerSetupPanel(); // Cambio di schermata solo dopo il messaggio di successo
+        try {
+            tcpClient.startTCPClient(); // Avvia il client TCP solo dopo la transizione di schermata
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    private void switchToPlayerSetupPanel() {
+        if (evListener != null) {
+            evListener.eventListener(new Event(this, "setInitialGame"));
         }
     }
 }

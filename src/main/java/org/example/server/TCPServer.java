@@ -10,7 +10,7 @@ import java.net.Socket;
 public class TCPServer {
     private int port;
     private Server mainServer;
-    private ServerSocket serverSocket; // Make serverSocket an instance variable
+    private ServerSocket serverSocket; // ServerSocket as an instance variable
 
     /**
      * Constructor to initialize the TCP server.
@@ -28,12 +28,12 @@ public class TCPServer {
      */
     public void start() {
         try {
-            serverSocket = new ServerSocket(port); // Initialize serverSocket here
+            serverSocket = new ServerSocket(port);
             System.out.println("TCP server listening on port " + port);
             while (!serverSocket.isClosed()) {
                 try {
-                    Socket clientSocket = serverSocket.accept(); // Accept a new client connection
-                    handleConnection(clientSocket); // Handle the newly accepted connection
+                    Socket clientSocket = serverSocket.accept();
+                    handleConnection(clientSocket);
                 } catch (IOException e) {
                     if (serverSocket.isClosed()) {
                         System.out.println("Server socket closed, stopping server.");
@@ -56,50 +56,40 @@ public class TCPServer {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        // Ensure that the server does not exceed the maximum number of connections
         synchronized (mainServer) {
             if (mainServer.clientWriters.keySet().size() >= mainServer.numMaxConnections) {
                 out.println("Server is actually full");
+                clientSocket.close();
                 return;
             }
-        }
 
-        // Prompt for and receive the username
-        out.println("Enter your username:");
-        String username = in.readLine();
-        System.out.println("Received username: " + username);
+            out.println("Enter your username:");
+            String username = in.readLine();
+            System.out.println("Received username: " + username);
 
-        synchronized (mainServer) {
-            // Set maximum number of players if this is the first client
-            if (mainServer.clientWriters.isEmpty()) {
-                out.println("Enter the maximum number of players (1-4):");
-                mainServer.numMaxConnections = Integer.parseInt(in.readLine());
-                System.out.println("Max players set to: " + mainServer.numMaxConnections);
-            }
+            if (mainServer.clientWriters.containsKey(username)) {
+                out.println("Username already taken. Please reconnect with a different username.");
+                clientSocket.close();
+            } else {
+                boolean isFirst = mainServer.getPlayers().isEmpty();
+                mainServer.addPlayer(username); // Add player early to synchronize player list and first check
 
-            // Check if username is already taken
-            if (!mainServer.clientWriters.containsKey(username)) {
                 out.println("Connection successful");
                 out.println("Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
                 String chosenColor = in.readLine();
-                System.out.println("Received color: " + chosenColor);
 
-                // Ensure chosen color is available
                 while (!mainServer.getAvailableColors().contains(chosenColor)) {
                     out.println("Color not available. Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
                     chosenColor = in.readLine();
-                    System.out.println("Received color: " + chosenColor);
                 }
 
-                // Set the chosen color for the player
                 mainServer.chooseColor(username, chosenColor);
+                out.println("setup:colors=" + String.join(",", mainServer.getAvailableColors()) + ";first=" + isFirst);
+
                 mainServer.socketToUsername.put(clientSocket, username);
-                // Handle the new TCP client in a separate thread
+                mainServer.clientWriters.put(username, out);
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
                 mainServer.handleNewTCPClient(username, out);
-            } else {
-                out.println("Username already taken. Please reconnect with a different username.");
-                clientSocket.close();
             }
         }
     }
