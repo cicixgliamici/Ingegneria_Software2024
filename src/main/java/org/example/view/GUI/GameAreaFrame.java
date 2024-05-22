@@ -20,10 +20,10 @@ public class GameAreaFrame extends JFrame {
     GameAreaPanel gameAreaPanel;
     ScoreboardPanel scoreboardPanel;
     Chat chat;
-
+    DrawingCardPanel drawingCardPanel;
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
-        //setSize(1600, 850);
+        setSize(1600, 860);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
@@ -45,7 +45,7 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=0;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
-        gbc.weightx=0.221;
+        gbc.weightx=0.03;
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
 
@@ -61,15 +61,20 @@ public class GameAreaFrame extends JFrame {
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
-        gbc.weightx=0.37;
+        gbc.weightx=0.75;
         gbc.fill = GridBagConstraints.BOTH;
 
         add(gameAreaPanel, gbc);
 
-        gbc.gridx=2;
+        gbc.gridx = 2;
+        gbc.weightx = 0.05;
+        drawingCardPanel = new DrawingCardPanel();
+        add(drawingCardPanel, gbc);
+
+        gbc.gridx=3;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
-        gbc.weightx = 0.085;
+        gbc.weightx = 0.17;
         gbc.fill = GridBagConstraints.BOTH;
         chat = new Chat(username);
         add(chat, gbc);
@@ -81,6 +86,8 @@ public class GameAreaFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+
+
     }
 
     private JMenuBar createMenuBar(){

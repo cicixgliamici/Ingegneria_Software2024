@@ -19,6 +19,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel token4;
     private PlayCardArea playCardArea;
     private JLabel card;
+    private static Point mouseDownCompCoords;
 
     public GameAreaPanel(String color, String num) throws IOException {
         setLayout(new GridBagLayout());
@@ -157,21 +158,48 @@ public class GameAreaPanel extends JPanel{
                 graphics.drawImage(img,0,0, this);
                 super.paintComponent(graphics);}
         };
+
+
+        MouseAdapter ma = new MouseAdapter() {
+
+            private Point origin;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                origin = new Point(e.getPoint());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (origin != null) {
+                    JViewport viewPort = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, playCardArea);
+                    if (viewPort != null) {
+                        int deltaX = origin.x - e.getX();
+                        int deltaY = origin.y - e.getY();
+
+                        Rectangle view = viewPort.getViewRect();
+                        view.x += deltaX;
+                        view.y += deltaY;
+
+                        playCardArea.scrollRectToVisible(view);
+                    }
+                }
+            }
+
+        };
+
+        playCardArea.addMouseListener(ma);
+        playCardArea.addMouseMotionListener(ma);
+
         JScrollPane jScrollPane = new JScrollPane(playCardArea);
 
-        jScrollPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-                jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            }
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-                jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            }
-        });
 
         playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
 
@@ -190,7 +218,7 @@ public class GameAreaPanel extends JPanel{
 
         gbc.fill = GridBagConstraints.BOTH;
 
-        add(card, gbc);
+        //add(card, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -203,8 +231,8 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 2;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.001;
-        gbc.weighty = 0.001;
+        gbc.weightx = 0.00025;
+        gbc.weighty = 0.00025;
 
         add(token2, gbc);
 
@@ -219,8 +247,8 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 2;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.001;
-        gbc.weighty = 0.001;
+        gbc.weightx = 0.00025;
+        gbc.weighty = 0.00025;
 
         add(token4, gbc);
 
@@ -228,7 +256,7 @@ public class GameAreaPanel extends JPanel{
         gbc.gridy = 1;
 
         gbc.weightx = 0.75;
-        gbc.weighty = 0.75;
+        gbc.weighty = 0.9;
 
         gbc.fill = GridBagConstraints.BOTH;
         //gbc.anchor = GridBagConstraints.LINE_START;

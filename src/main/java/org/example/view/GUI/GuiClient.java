@@ -11,5 +11,8 @@ public class GuiClient {
 
     public static void main(String[] args, int mode) throws IOException {
         startClient(mode);
+        new GameAreaFrame("jima", "Red", "2");
     }
+
+
 }
