@@ -112,6 +112,10 @@ public class BoxMenu extends JPanel {
                     // Get the IP address and port number from the input fields
                     String ip = textFieldIp.getText();
                     String username = textFieldUsr.getText();
+                    Event event = new Event(this, "setInitialGame", username);
+                    if (evListener != null) {
+                        evListener.eventListener(event);
+                    }
                     int port;
                     try {
                         port = Integer.parseInt(textFieldPort.getText());

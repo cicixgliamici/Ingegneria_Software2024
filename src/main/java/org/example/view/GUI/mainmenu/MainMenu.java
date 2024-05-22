@@ -17,7 +17,9 @@ import java.util.List;
 public class MainMenu extends JFrame {
 
     BoxMenu boxMenu;
+    SetInitialGame setInitialGame;
     private int connectionType;
+    private String username = "culo";
 
     public MainMenu(int connectionType) throws IOException {
         super("Codex Naturalis");
@@ -27,6 +29,19 @@ public class MainMenu extends JFrame {
         setIconImage(icon);
 
         boxMenu = new BoxMenu(connectionType) {
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+            Image img = icon.getImage();
+            {
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
+
+        setInitialGame = new SetInitialGame(username) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
             {
@@ -54,6 +69,9 @@ public class MainMenu extends JFrame {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid IP address.", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else if (event.equals("notValidPort")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
+                } else if (event.equals("setInitialGame")) {
+                    remove(boxMenu);
+                    add(setInitialGame, BorderLayout.CENTER);
                 }
             }
         });

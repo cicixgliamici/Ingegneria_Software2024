@@ -1,6 +1,8 @@
 package org.example.view.GUI.mainmenu;
 
 import org.example.view.GUI.GameAreaFrame;
+import org.example.view.GUI.listener.EvListener;
+import org.example.view.GUI.listener.Event;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,9 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class SetInitialGame extends JFrame {
+public class SetInitialGame extends JPanel {
+    private EvListener evListener;
     public SetInitialGame(String username){
-        super ("SetInitialGame");
 
         setLayout(new GridBagLayout());
         //Components
@@ -109,7 +111,11 @@ public class SetInitialGame extends JFrame {
                         String num = menuNumPlayer.getSelectedItem().toString();
                         String color = buttonGroup.getSelection().getActionCommand();
                         new GameAreaFrame(username, color, num);
-                        dispose();
+                        // todo inviare la richiesta di chiuudere la pagina;
+                        Event event = new Event(this, "closeApp");
+                        if (evListener != null) {
+                            evListener.eventListener(event);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Error! Please pick a color.", "Error!", JOptionPane.ERROR_MESSAGE);
                     }
@@ -168,11 +174,5 @@ public class SetInitialGame extends JFrame {
 
         add(confirmButton, gbcConfirmButton);
 
-        //Frame Engine
-        setVisible(true);
-        setSize(new Dimension(300, 400));
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
