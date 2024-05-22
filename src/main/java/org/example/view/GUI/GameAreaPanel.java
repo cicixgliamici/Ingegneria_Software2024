@@ -19,6 +19,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel token4;
     private JButton gamearea;
     private PlayCardArea playCardArea;
+    private JLabel card;
 
     public GameAreaPanel(String color, String num) throws IOException {
         setLayout(new GridBagLayout());
@@ -175,11 +176,22 @@ public class GameAreaPanel extends JPanel{
             }
         });
 
-        MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 0);
-
-
+        //MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 0);
+        BufferedImage logo1 = ImageIO.read(new File("C:\\\\Users\\\\jamie\\\\OneDrive\\\\Desktop\\\\001.png"));
+        Icon icon1 = new ImageIcon(logo1);
+        card = new JLabel(icon1);
 
         GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+
+        gbc.weightx = 0.000001;
+        gbc.weighty = 0.0001;
+
+        gbc.fill = GridBagConstraints.BOTH;
+
+        add(card, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;

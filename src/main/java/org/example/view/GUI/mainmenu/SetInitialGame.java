@@ -108,7 +108,8 @@ public class SetInitialGame extends JFrame {
                     if(buttonGroup.getSelection() != null){
                         String num = menuNumPlayer.getSelectedItem().toString();
                         String color = buttonGroup.getSelection().getActionCommand();
-                        new GameAreaFrame(username, color, num);
+                        GameAreaFrame gameAreaFrame = new GameAreaFrame(username, color, num);
+                        gameAreaFrame.setFullScreen();
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error! Please pick a color.", "Error!", JOptionPane.ERROR_MESSAGE);

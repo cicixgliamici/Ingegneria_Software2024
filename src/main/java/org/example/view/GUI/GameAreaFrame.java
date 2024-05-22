@@ -23,7 +23,7 @@ public class GameAreaFrame extends JFrame {
 
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
-        setSize(1300, 860);
+        //setSize(1600, 850);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
@@ -181,5 +181,19 @@ public class GameAreaFrame extends JFrame {
         menuBar.add(menuAbout);
 
         return menuBar;
+    }
+
+    public void setFullScreen() {
+        // Ottiene l'oggetto GraphicsDevice per il dispositivo di visualizzazione corrente
+        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = graphics.getDefaultScreenDevice();
+
+        // Imposta la finestra in modalità a schermo intero
+        if (device.isFullScreenSupported()) {
+            device.setFullScreenWindow(this);
+        } else {
+            setSize(800, 600); // Imposta una dimensione di fallback
+            setVisible(true);
+        }
     }
 }
