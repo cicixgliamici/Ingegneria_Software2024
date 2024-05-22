@@ -17,7 +17,6 @@ public class GameAreaPanel extends JPanel{
     private JLabel token2;
     private JLabel token3;
     private JLabel token4;
-    private JButton gamearea;
     private PlayCardArea playCardArea;
     private JLabel card;
 
@@ -148,8 +147,6 @@ public class GameAreaPanel extends JPanel{
                 break;
         }
 
-        //gamearea = new JButton("prova");
-
         //PlayCardArea
 
         playCardArea = new PlayCardArea() {
@@ -176,8 +173,10 @@ public class GameAreaPanel extends JPanel{
             }
         });
 
-        //MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 0);
-        BufferedImage logo1 = ImageIO.read(new File("C:\\\\Users\\\\jamie\\\\OneDrive\\\\Desktop\\\\001.png"));
+        playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
+
+        //DrawingCardArea
+        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/001.png"));
         Icon icon1 = new ImageIcon(logo1);
         card = new JLabel(icon1);
 

@@ -16,11 +16,6 @@ public class MyDrawImage extends JPanel {
 
     // Costruttore per inizializzare l'immagine e le coordinate
     public MyDrawImage(String imagePath, int x, int y) throws IOException {
-        //ImageIcon icon = new ImageIcon(ImageIO.read(new File(imagePath)));
-        //this.image = icon.getImage();
-        //this.x = x;
-        //this.y = y;
-
         Toolkit tk = Toolkit.getDefaultToolkit();
         image = tk.getImage(imagePath);
         MediaTracker mt = new MediaTracker(this);
