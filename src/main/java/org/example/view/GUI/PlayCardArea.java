@@ -17,14 +17,14 @@ public class PlayCardArea extends JPanel {
 
     public PlayCardArea() throws IOException {
 
-        setLayout(null);
+        setLayout(new BorderLayout());
         BufferedImage logo = ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg"));
         Icon icon = new ImageIcon(logo);
         JLabel labelprova = new JLabel(icon);
         JScrollPane scrollPane = new JScrollPane(labelprova);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        add(scrollPane);
+        add(labelprova,BorderLayout.CENTER);
 
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override

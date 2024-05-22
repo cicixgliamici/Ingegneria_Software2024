@@ -7,10 +7,7 @@ import org.example.view.GUI.GameAreaFrame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -150,11 +147,37 @@ public class GameAreaPanel extends JPanel{
                 break;
         }
 
-        gamearea = new JButton("prova");
+        //gamearea = new JButton("prova");
 
         //PlayCardArea
 
-        playCardArea = new PlayCardArea();
+        playCardArea = new PlayCardArea() {
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
+            Image img = icon.getImage();
+            {setOpaque(false);}
+            public void paintComponent(Graphics graphics){
+                graphics.drawImage(img,0,0, this);
+                super.paintComponent(graphics);}
+        };
+        JScrollPane jScrollPane = new JScrollPane(playCardArea);
+
+        jScrollPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+                jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+                jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            }
+        });
+
+        MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 0);
+
+
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -199,7 +222,9 @@ public class GameAreaPanel extends JPanel{
         gbc.fill = GridBagConstraints.BOTH;
         //gbc.anchor = GridBagConstraints.LINE_START;
 
-        add(playCardArea, gbc);
+        add(jScrollPane, gbc);
+
+
     }
 
 }
