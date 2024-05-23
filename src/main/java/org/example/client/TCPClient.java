@@ -36,33 +36,43 @@ public class TCPClient {
     }
 
     /**
-     * Establishes a connection to the server.
-     */
-    public void connect() throws Exception {
-        socket = new Socket(ip, port);  // Connect to the server using TCP
-        System.out.println("Connected to " + ip + ":" + port);
-        Scanner socketIn = new Scanner(socket.getInputStream());  // Scanner for server input
-        socketOut = new PrintWriter(socket.getOutputStream(), true);  // PrintWriter for server output
-        // Thread to handle server messages
-        Thread serverListener = new Thread(() -> handleServerMessages(socketIn));
-        serverListener.start();
-    }
-
-    /**
-     * Starts the TCP client and manages the connection to the server.
+     * Starts the TCP client, establishes a connection to the server, and manages input/output.
      */
     public void startTCPClient() throws Exception {
-        connect();
+        // Establish a connection to the server.
+        socket = new Socket(ip, port);
+        System.out.println("Connected to " + ip + ":" + port);
 
-        Scanner stdin = new Scanner(System.in);  // Scanner for user input
+        // Set up I/O streams.
+        Scanner socketIn = new Scanner(socket.getInputStream());
+        PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 
-        // Thread to handle user input
-        Thread userInputThread = new Thread(() -> handleUserInput(stdin, socketOut));
+        // Thread to handle server messages.
+        Thread serverListener = new Thread(() -> {
+            while (socketIn.hasNextLine()) {
+                handleServerMessages(socketIn);
+            }
+        });
+        serverListener.start();
+        // Thread to handle user input.
+        Scanner stdin = new Scanner(System.in);
+        Thread userInputThread = new Thread(() -> {
+            while (stdin.hasNextLine()) {
+                String input = stdin.nextLine();
+                if (isValidInput(input)) {
+                    socketOut.println(input);  // Send valid input to the server
+                    lastSentMessage = input;
+                } else {
+                    System.out.println("Invalid input. Please try again.");
+                }
+            }
+        });
         userInputThread.start();
 
         // Join threads to ensure the main thread waits for them to finish
         userInputThread.join();
     }
+
 
     /**
      * Handles messages received from the server.
@@ -74,11 +84,16 @@ public class TCPClient {
             String line = socketIn.nextLine();
             if (line.startsWith("setup:")) {
                 processSetup(line);
-            } else {
-                handleMessage(line);
+            } else if(line.equals("Enter your username:")){
+                System.out.println("Enter your username:");
+            }
+            else {
+                this.view.Interpreter(line);
             }
         }
     }
+
+
 
     private void processSetup(String setupMsg) {
         // Expected format: "setup:colors=Red,Blue;first=true"
@@ -157,28 +172,6 @@ public class TCPClient {
             }
         }
         return true;
-    }
-
-    /**
-     * Handles a message received from the server.
-     *
-     * @param message The message received from the server.
-     */
-    public void handleMessage(String message) {
-        synchronized (this) {
-            lastSentMessage = message;
-            if (message.equals("Match started")) {
-                System.out.println(message);
-                gameStarted = true;
-                this.view = new ViewTUI();  // Initialize the view as TUI when the game starts
-            } else if (gameStarted) {
-                if (this.view != null) {
-                    this.view.Interpreter(message);  // Interpret the message using the view
-                }
-            } else {
-                System.out.println(message);  // Print the message if the game has not started
-            }
-        }
     }
 
     /**

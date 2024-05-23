@@ -257,7 +257,7 @@ public class BoxMenu extends JPanel {
         ViewGUI view = new ViewGUI();
         tcpClient = new TCPClient(ip, port, view);
         try {
-            tcpClient.connect();
+            tcpClient.startTCPClient();
             connected = true;
             tcpClient.sendUsername(username);
         } catch (Exception e) {

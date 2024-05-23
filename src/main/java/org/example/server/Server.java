@@ -96,8 +96,6 @@ public class Server implements ModelChangeListener {
      * Gestisce l'arrivo di un nuovo client TCP.
      */
     public void handleNewTCPClient(String username, PrintWriter out) throws RemoteException {
-        addPlayer(username); // Aggiunge il giocatore alla lista.
-        clientWriters.put(username, out); // Registra il PrintWriter per il client.
         checkForGameStart(); // Controlla se il gioco può iniziare.
     }
 
@@ -174,7 +172,7 @@ public class Server implements ModelChangeListener {
         }
 
         // Join the player names (or "nulls") with commas to create the final message.
-        return "color:" + String.join(",", colors);
+        return String.join(",", colors);
     }
 
     public void notifyPlayerPoints() {
@@ -333,6 +331,7 @@ public class Server implements ModelChangeListener {
         return model;
     }
     public void setNumMaxConnections(int numConnections){
+        System.out.println("Con max:" + numConnections);
         this.numMaxConnections=numConnections;
     }
 }
