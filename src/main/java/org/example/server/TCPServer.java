@@ -72,15 +72,7 @@ public class TCPServer {
             } else {
                 boolean isFirst = mainServer.getPlayers().isEmpty();
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
-                out.println("Connection successful");
-                mainServer.onModelGeneric("color:"  + String.join(", ", mainServer.generateColor()));
-                String chosenColor = in.readLine();
-                while (!mainServer.getAvailableColors().contains(chosenColor)) {
-                    out.println("Color not available. Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
-                    chosenColor = in.readLine();
-                }
-                mainServer.chooseColor(username, chosenColor);
-                out.println("setup:colors=" + String.join(",", mainServer.getAvailableColors()) + ";first=" + isFirst);
+                mainServer.onModelSpecific(username,"message:8");
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));

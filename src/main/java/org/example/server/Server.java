@@ -113,7 +113,7 @@ public class Server implements ModelChangeListener {
     /**
      * Verifica se il gioco può iniziare, basato sul numero di connessioni.
      */
-    private void checkForGameStart() throws RemoteException {
+    public void checkForGameStart() throws RemoteException {
         if (numConnections == numMaxConnections) {
             onModelGeneric("Match started"); // Notifica i clienti che il match è iniziato.
             controller.setPlayers(players); // Imposta i giocatori nel controller.
@@ -162,7 +162,7 @@ public class Server implements ModelChangeListener {
         return "order:" + String.join(",", playerOrder);
     }
 
-    String generateColor() {
+    public String generateColor() {
         String[] colors = new String[4]; // Array to hold up to four usernames or "null".
         // Fill the array with usernames or "null" based on the number of connected players.
         for (int i = 0; i < colors.length; i++) {
@@ -329,5 +329,8 @@ public class Server implements ModelChangeListener {
 
     public Model getModel() {
         return model;
+    }
+    public void setNumMaxConnections(int numConnections){
+        this.numMaxConnections=numConnections;
     }
 }

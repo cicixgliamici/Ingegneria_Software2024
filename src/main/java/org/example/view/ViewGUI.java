@@ -121,4 +121,7 @@ public class ViewGUI extends View{
     public void color(String color1, String color2, String color3, String color4) {
 
     }
+    public void setPlayers(){
+
+    }
 }
