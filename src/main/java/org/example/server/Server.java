@@ -174,7 +174,7 @@ public class Server implements ModelChangeListener {
         }
 
         // Join the player names (or "nulls") with commas to create the final message.
-        return "order:" + String.join(",", colors);
+        return "color:" + String.join(",", colors);
     }
 
     public void notifyPlayerPoints() {
@@ -311,6 +311,8 @@ public class Server implements ModelChangeListener {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public List<String> getColor() {return availableColors;}
 
     public List<String> getAvailableColors() {
         return availableColors;

@@ -56,7 +56,6 @@ public class TCPServer {
     private void handleConnection(Socket clientSocket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
         synchronized (mainServer) {
             if (mainServer.clientWriters.keySet().size() >= mainServer.numMaxConnections) {
                 out.println("Server is actually full");
@@ -67,7 +66,7 @@ public class TCPServer {
             String username = in.readLine();
             System.out.println("Received username: " + username);
             if (mainServer.clientWriters.containsKey(username)) {
-                out.println("Username already taken. Please reconnect with a different username.");
+                mainServer.onModelSpecific(username,"message:7");
                 clientSocket.close();
             } else {
                 boolean isFirst = mainServer.getPlayers().isEmpty();
@@ -76,6 +75,19 @@ public class TCPServer {
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
+                mainServer.onModelGeneric("color:" + String.join(",", mainServer.generateColor()));
+                String chosenColor = in.readLine();
+                while (!mainServer.getAvailableColors().contains(chosenColor)) {
+                    out.println("Color not available. Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
+                    chosenColor = in.readLine();
+                }
+                mainServer.chooseColor(username, chosenColor);
+                if(isFirst) {
+                    mainServer.onModelSpecific(username, "setPlayers");
+                    String numPLayer = in.readLine();
+                    int num = Integer.parseInt(numPLayer);
+                    mainServer.setNumMaxConnections(num);
+                }
                 mainServer.handleNewTCPClient(username, out);
             }
         }

@@ -79,6 +79,12 @@ public class ViewTUI extends View {
                 System.out.println("play:choice,side,x,y");
                 System.out.println("Where choice is the number of the card of your hand (1-3), side (1-2), and x-y are the coordinates");
                 break;
+            case 7:
+                System.out.println("Username already taken. Please reconnect with a different username.");
+                break;
+            case 8:
+                System.out.println("Connection successful");
+                break;
             default:
                 System.out.println("Unknown message code.");
                 break;
@@ -251,7 +257,7 @@ public class ViewTUI extends View {
 
     public void color(String c1, String c2, String c3, String c4) {
         List<String> users = Arrays.asList(c1, c2, c3, c4);
-        StringBuilder orderBuilder = new StringBuilder("Color available: ");
+        StringBuilder orderBuilder = new StringBuilder("Colors available:");
         boolean isFirst = true; // Flag to handle commas correctly.
         for (String user : users) {
             if (!user.equals("null")) { // Check if the username is not "null".
@@ -268,6 +274,10 @@ public class ViewTUI extends View {
         } else {
             System.out.println("No colors are currently available.");
         }
+    }
+
+    public void setPlayers(){
+        System.out.println("Enter the maximum number of players (1-4):");
     }
 
     /**

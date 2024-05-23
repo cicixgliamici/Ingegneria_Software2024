@@ -123,5 +123,10 @@
       {"type": "string", "source": "server"}
     ],
     "fileName": "View.java"
+  },
+  "setPlayers": {
+    "className": "org.example.view",
+    "methodName": "setPlayers",
+    "fileName": "View.java"
   }
 }
