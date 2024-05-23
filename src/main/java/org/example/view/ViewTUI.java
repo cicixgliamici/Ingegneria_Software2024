@@ -232,7 +232,6 @@ public class ViewTUI extends View {
         List<String> users = Arrays.asList(us1, us2, us3, us4);
         StringBuilder orderBuilder = new StringBuilder("Player order: ");
         boolean isFirst = true; // Flag to handle commas correctly.
-
         for (String user : users) {
             if (!user.equals("null")) { // Check if the username is not "null".
                 if (!isFirst) {
@@ -242,12 +241,32 @@ public class ViewTUI extends View {
                 isFirst = false;
             }
         }
-
         // Print the constructed order if at least one username was added.
         if (!isFirst) {
             System.out.println(orderBuilder.toString());
         } else {
             System.out.println("No players are currently connected.");
+        }
+    }
+
+    public void color(String c1, String c2, String c3, String c4) {
+        List<String> users = Arrays.asList(c1, c2, c3, c4);
+        StringBuilder orderBuilder = new StringBuilder("Color available: ");
+        boolean isFirst = true; // Flag to handle commas correctly.
+        for (String user : users) {
+            if (!user.equals("null")) { // Check if the username is not "null".
+                if (!isFirst) {
+                    orderBuilder.append(", ");
+                }
+                orderBuilder.append(user);
+                isFirst = false;
+            }
+        }
+        // Print the constructed order if at least one color was added.
+        if (!isFirst) {
+            System.out.println(orderBuilder.toString());
+        } else {
+            System.out.println("No colors are currently available.");
         }
     }
 

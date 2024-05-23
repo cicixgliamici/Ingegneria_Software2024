@@ -4,6 +4,7 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.GameFlow;
 import org.example.controller.Player;
+import org.example.enumeration.Color;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
@@ -159,6 +160,21 @@ public class Server implements ModelChangeListener {
 
         // Join the player names (or "nulls") with commas to create the final message.
         return "order:" + String.join(",", playerOrder);
+    }
+
+    String generateColor() {
+        String[] colors = new String[4]; // Array to hold up to four usernames or "null".
+        // Fill the array with usernames or "null" based on the number of connected players.
+        for (int i = 0; i < colors.length; i++) {
+            if (i < availableColors.size()) {
+                colors[i] = availableColors.get(i);
+            } else {
+                colors[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
+            }
+        }
+
+        // Join the player names (or "nulls") with commas to create the final message.
+        return "order:" + String.join(",", colors);
     }
 
     public void notifyPlayerPoints() {

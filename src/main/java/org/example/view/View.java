@@ -119,4 +119,6 @@ public abstract class View {
     public abstract void message(int x);
 
     public abstract void updateSetupUI(String[] colors, boolean isFirst);
+
+    public abstract void color(String color1, String color2, String color3, String color4);
 }

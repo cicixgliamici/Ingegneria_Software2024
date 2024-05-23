@@ -63,30 +63,24 @@ public class TCPServer {
                 clientSocket.close();
                 return;
             }
-
             out.println("Enter your username:");
             String username = in.readLine();
             System.out.println("Received username: " + username);
-
             if (mainServer.clientWriters.containsKey(username)) {
                 out.println("Username already taken. Please reconnect with a different username.");
                 clientSocket.close();
             } else {
                 boolean isFirst = mainServer.getPlayers().isEmpty();
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
-
                 out.println("Connection successful");
-                out.println("Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
+                mainServer.onModelGeneric("color:"  + String.join(", ", mainServer.generateColor()));
                 String chosenColor = in.readLine();
-
                 while (!mainServer.getAvailableColors().contains(chosenColor)) {
                     out.println("Color not available. Choose a color from the following list: " + String.join(", ", mainServer.getAvailableColors()));
                     chosenColor = in.readLine();
                 }
-
                 mainServer.chooseColor(username, chosenColor);
                 out.println("setup:colors=" + String.join(",", mainServer.getAvailableColors()) + ";first=" + isFirst);
-
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));

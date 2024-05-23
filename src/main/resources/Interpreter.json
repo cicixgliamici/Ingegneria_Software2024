@@ -112,5 +112,16 @@
       {"type": "int", "source": "server"}
     ],
     "fileName": "View.java"
+  },
+  "color": {
+    "className": "org.example.view",
+    "methodName": "color",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
   }
 }

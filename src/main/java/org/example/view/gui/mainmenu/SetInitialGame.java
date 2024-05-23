@@ -22,8 +22,6 @@ public class SetInitialGame extends JPanel {
         JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
 
         JButton confirmButton = new JButton("Confirm!");
-
-
         //Setting chooseColorPanel
         JRadioButton redRadioButton = new JRadioButton("Red");
         redRadioButton.setActionCommand("Red");
