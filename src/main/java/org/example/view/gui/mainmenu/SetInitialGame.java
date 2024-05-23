@@ -1,3 +1,4 @@
+
 package org.example.view.gui.mainmenu;
 
 import org.example.view.gui.GameAreaFrame;

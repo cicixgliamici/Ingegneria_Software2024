@@ -1,3 +1,4 @@
+
 package org.example.view.gui;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class MyDrawImage extends JPanel {
     }
 
     @Override
-   protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, x, y, this);
     }

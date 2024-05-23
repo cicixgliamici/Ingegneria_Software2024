@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class BoxMenu extends JPanel {
     private int connectionType; // Connection type (0 for TCP, 1 for RMI)
     private TCPClient tcpClient;
 
+    public SetInitialGame setInitialGame;
     /**
      * Constructor for the BoxMenu class.
      *
@@ -41,7 +43,19 @@ public class BoxMenu extends JPanel {
     public BoxMenu(int connectionType) throws IOException {
         this.connectionType = connectionType;
         setLayout(new GridBagLayout());
+        setInitialGame=new SetInitialGame("culo") {
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+            Image img = icon.getImage();
 
+            {
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
         // Load the logo image
         BufferedImage logo = null;
         try {
@@ -90,7 +104,7 @@ public class BoxMenu extends JPanel {
 
         setEvListener(new EvListener() {
             @Override
-            public void eventListener(Event event) {
+            public void eventListener(Event event) throws IOException {
                 if (event.getEvent().equals("setInitialGame")) {
                     switchToPlayerSetupPanel();
                 }
@@ -106,17 +120,29 @@ public class BoxMenu extends JPanel {
                 if ((Objects.equals(textFieldUsr.getText(), "Enter a username...")) || textFieldUsr.getText().isEmpty()) {
                     Event event = new Event(this, "notValidUsr");
                     if (evListener != null) {
-                        evListener.eventListener(event);
+                        try {
+                            evListener.eventListener(event);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 } else if ((Objects.equals(textFieldIp.getText(), "Enter an IP address...")) || textFieldIp.getText().isEmpty()) {
                     Event event = new Event(this, "notValidIp");
                     if (evListener != null) {
-                        evListener.eventListener(event);
+                        try {
+                            evListener.eventListener(event);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 } else if ((Objects.equals(textFieldPort.getText(), "Enter a port number...")) || textFieldPort.getText().isEmpty()) {
                     Event event = new Event(this, "notValidPort");
                     if (evListener != null) {
-                        evListener.eventListener(event);
+                        try {
+                            evListener.eventListener(event);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 } else {
                     // Get the IP address and port number from the input fields
@@ -130,7 +156,11 @@ public class BoxMenu extends JPanel {
                         port = 50000;  // Default port
                     }
                     // Attempt to connect to the server
-                    connectToServer(ip, port, username, connectionType);
+                    try {
+                        connectToServer(ip, port, username, connectionType);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         });
@@ -217,7 +247,7 @@ public class BoxMenu extends JPanel {
      * @param username       The username to be used.
      * @param connectionType The type of connection (0 for TCP, 1 for RMI).
      */
-    private void connectToServer(String ip, int port, String username, int connectionType) {
+    private void connectToServer(String ip, int port, String username, int connectionType) throws IOException {
         if (tcpClient != null && tcpClient.isConnected()) {
             JOptionPane.showMessageDialog(this, "You are already connected.", "Connection Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -238,6 +268,7 @@ public class BoxMenu extends JPanel {
         // Mostra il messaggio di successo e poi passa alla prossima schermata
         JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
         switchToPlayerSetupPanel(); // Cambio di schermata solo dopo il messaggio di successo
+
     }
 
 
@@ -245,10 +276,10 @@ public class BoxMenu extends JPanel {
      * Switches to the player setup panel within the application.
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
-    private void switchToPlayerSetupPanel() {
+    private void switchToPlayerSetupPanel() throws IOException {
         // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setContentPane(new PlayerSetupPanel());
+        frame.setContentPane(setInitialGame);
         frame.validate();
         frame.repaint();
     }

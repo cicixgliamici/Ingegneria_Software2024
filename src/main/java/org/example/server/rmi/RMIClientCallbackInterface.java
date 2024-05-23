@@ -1,3 +1,4 @@
+
 package org.example.server.rmi;
 
 import java.rmi.Remote;

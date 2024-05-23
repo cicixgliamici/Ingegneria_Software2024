@@ -3,7 +3,7 @@ package org.example.view.gui;
 
 
 import org.example.view.gui.gamerules.GameRulesFrame;
-
+import org.example.view.gui.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
