@@ -31,6 +31,7 @@ public class MainMenu extends JFrame {
         boxMenu = new BoxMenu(connectionType) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
+
             {
                 setOpaque(false);
             }
@@ -61,6 +62,7 @@ public class MainMenu extends JFrame {
         setInitialGame = new SetInitialGame(username) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
+
             {
                 setOpaque(false);
             }

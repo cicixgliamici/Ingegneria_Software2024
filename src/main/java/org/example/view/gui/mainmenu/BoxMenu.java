@@ -88,6 +88,15 @@ public class BoxMenu extends JPanel {
             }
         });
 
+        setEvListener(new EvListener() {
+            @Override
+            public void eventListener(Event event) {
+                if (event.getEvent().equals("setInitialGame")) {
+                    switchToPlayerSetupPanel();
+                }
+            }
+        });
+
         // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {
@@ -229,11 +238,6 @@ public class BoxMenu extends JPanel {
         // Mostra il messaggio di successo e poi passa alla prossima schermata
         JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
         switchToPlayerSetupPanel(); // Cambio di schermata solo dopo il messaggio di successo
-        try {
-            tcpClient.startTCPClient(); // Avvia il client TCP solo dopo la transizione di schermata
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
@@ -242,8 +246,10 @@ public class BoxMenu extends JPanel {
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
     private void switchToPlayerSetupPanel() {
-        if (evListener != null) {
-            evListener.eventListener(new Event(this, "setInitialGame"));
-        }
+        // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.setContentPane(new PlayerSetupPanel());
+        frame.validate();
+        frame.repaint();
     }
 }
