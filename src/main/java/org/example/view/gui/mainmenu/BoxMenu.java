@@ -237,7 +237,10 @@ public class BoxMenu extends JPanel {
     }
 
 
-
+    /**
+     * Switches to the player setup panel within the application.
+     * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
+     */
     private void switchToPlayerSetupPanel() {
         if (evListener != null) {
             evListener.eventListener(new Event(this, "setInitialGame"));
