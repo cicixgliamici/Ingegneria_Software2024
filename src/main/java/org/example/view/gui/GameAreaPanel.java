@@ -1,7 +1,5 @@
 package org.example.view.gui;
 
-import org.example.view.gui.PlayCardArea;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +14,30 @@ public class GameAreaPanel extends JPanel{
     private JLabel token3;
     private JLabel token4;
     private PlayCardArea playCardArea;
-    private JLabel card;
     private static Point mouseDownCompCoords;
+    private JLabel card1;
+    private JLabel card2;
+    private JLabel card3;
+    private JLabel secretObjective;
 
     public GameAreaPanel(String color, String num) throws IOException {
         setLayout(new GridBagLayout());
+
+        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        Icon ic1 = new ImageIcon(img1);
+        card1 = new JLabel(ic1);
+
+        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        Icon ic2 = new ImageIcon(img2);
+        card2 = new JLabel(ic2);
+
+        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        Icon ic3 = new ImageIcon(img3);
+        card3 = new JLabel(ic3);
+
+        BufferedImage img4 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        Icon ic4 = new ImageIcon(img4);
+        secretObjective = new JLabel(ic4);
 
         switch (num){
             case "1":
@@ -201,22 +218,29 @@ public class GameAreaPanel extends JPanel{
 
         playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
 
-        //DrawingCardArea
-        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/001.png"));
-        Icon icon1 = new ImageIcon(logo1);
-        card = new JLabel(icon1);
 
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0.0001;
 
-        gbc.weightx = 0.000001;
-        gbc.weighty = 0.0001;
+        add(card1, gbc);
 
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 2;
+        gbc.weightx = 0.0001;
 
-        //add(card, gbc);
+        add(card2, gbc);
+
+        gbc.gridx = 3;
+        gbc.weightx = 0.0001;
+
+        add(card3, gbc);
+
+        gbc.gridx = 4;
+        gbc.weightx = 0.0001;
+
+        add(secretObjective, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -226,7 +250,7 @@ public class GameAreaPanel extends JPanel{
 
         add(token1, gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 5;
         gbc.gridy = 0;
 
         gbc.weightx = 0.00025;
@@ -242,7 +266,7 @@ public class GameAreaPanel extends JPanel{
 
         add(token3, gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 5;
         gbc.gridy = 2;
 
         gbc.weightx = 0.00025;
@@ -257,6 +281,7 @@ public class GameAreaPanel extends JPanel{
         gbc.weighty = 0.9;
 
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridwidth = 4;
         //gbc.anchor = GridBagConstraints.LINE_START;
 
         add(jScrollPane, gbc);
