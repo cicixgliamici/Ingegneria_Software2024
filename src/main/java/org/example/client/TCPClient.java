@@ -74,10 +74,16 @@ public class TCPClient {
      */
     public void sendColorAndNumPlayers(String color, String numPlayers) {
         if (socketOut != null) {
-            System.out.println("Sending color: " + color + " and number of players: " + numPlayers);
             socketOut.println(color);
             socketOut.flush();
             socketOut.println(numPlayers);
+            socketOut.flush();
+        }
+    }
+
+    public void sendSetObjStrater(int side, int choice){
+        if (socketOut != null) {
+            socketOut.println("setObjStarter:" + side + "," + choice);
             socketOut.flush();
         }
     }

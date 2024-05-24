@@ -88,7 +88,10 @@ public class ViewGUI extends View {
 
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
-
+        // Mostrare dopo le prime 3 carte
+        // Stampare in quadrato (TL-BL) Front starter, Back Starter, 1° Obj, 2° Obj
+        // al click equivale int (1-2)
+        // "setObjStarter:" + int + "," + int
     }
 
     @Override

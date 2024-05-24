@@ -270,7 +270,6 @@ public class BoxMenu extends JPanel {
             {
                 setOpaque(false);
             }
-
             public void paintComponent(Graphics graphics) {
                 graphics.drawImage(img, 0, 0, this);
                 super.paintComponent(graphics);
