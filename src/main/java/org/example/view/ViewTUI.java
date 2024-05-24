@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.view.gui.Point;
+import org.example.view.gui.Coordinates;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -124,9 +124,9 @@ public class ViewTUI extends View {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 boolean found = false;
-                for (Map.Entry<Integer, Point> entry : map.entrySet()) {
-                    Point point = entry.getValue();
-                    if (point.getX() == i && point.getY() == j) {
+                for (Map.Entry<Integer, Coordinates> entry : map.entrySet()) {
+                    Coordinates coordinates = entry.getValue();
+                    if (coordinates.getX() == i && coordinates.getY() == j) {
                         int id = entry.getKey();
                         System.out.printf(" %4d ", id);
                         found = true;

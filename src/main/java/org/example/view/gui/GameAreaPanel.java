@@ -14,7 +14,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel token3;
     private JLabel token4;
     private PlayCardArea playCardArea;
-    private static Point mouseDownCompCoords;
+    private static Coordinates mouseDownCompCoords;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
@@ -216,7 +216,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
+        playCardArea.InsertCard(500,500,"src/main/resources/images/small/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();

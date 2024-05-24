@@ -17,27 +17,27 @@ public class DrawingCardPanel extends JPanel {
     public DrawingCardPanel() throws IOException {
         setLayout(new GridBagLayout());
 
-        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon1 = new ImageIcon(logo1);
         coveredCard1 = new JLabel(icon1);
 
-        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon2 = new ImageIcon(logo2);
         covredCard2 = new JLabel(icon2);
 
-        BufferedImage logo3 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo3 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon3 = new ImageIcon(logo3);
         card1 = new JLabel(icon3);
 
-        BufferedImage logo4 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo4 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon4 = new ImageIcon(logo4);
         card2 = new JLabel(icon4);
 
-        BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon5 = new ImageIcon(logo5);
         card3 = new JLabel(icon5);
 
-        BufferedImage logo6 = ImageIO.read(new File("src/main/resources/images/001.png"));
+        BufferedImage logo6 = ImageIO.read(new File("src/main/resources/images/small/001.png"));
         Icon icon6 = new ImageIcon(logo6);
         card4 = new JLabel(icon6);
 
