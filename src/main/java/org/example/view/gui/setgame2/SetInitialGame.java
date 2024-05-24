@@ -1,5 +1,5 @@
 
-package org.example.view.gui.mainmenu;
+package org.example.view.gui.setgame2;
 
 import org.example.view.gui.GameAreaFrame;
 import org.example.view.gui.listener.EvListener;

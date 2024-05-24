@@ -1,8 +1,9 @@
-package org.example.view.gui.mainmenu;
+package org.example.view.gui.mainmenu1;
 
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
+import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

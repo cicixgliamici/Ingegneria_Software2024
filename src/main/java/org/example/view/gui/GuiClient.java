@@ -1,6 +1,6 @@
 package org.example.view.gui;
 
-import org.example.view.gui.mainmenu.MainMenu;
+import org.example.view.gui.mainmenu1.MainMenu;
 
 import java.io.IOException;
 

@@ -255,22 +255,26 @@ public class ViewTUI extends View {
         }
     }
 
+    /**
+     * Adds non-null colors to a formatted string of available colors.
+     */
+    @Override
     public void color(String c1, String c2, String c3, String c4) {
-        List<String> users = Arrays.asList(c1, c2, c3, c4);
-        StringBuilder orderBuilder = new StringBuilder("Colors available:");
+        List<String> colors = Arrays.asList(c1, c2, c3, c4); // Create a list of the input colors
+        StringBuilder colorBuilder = new StringBuilder("Colors available:");
         boolean isFirst = true; // Flag to handle commas correctly.
-        for (String user : users) {
-            if (!user.equals("null")) { // Check if the username is not "null".
+        for (String color : colors) {
+            if (!color.equals("null")) { // Check if the color is not "null".
                 if (!isFirst) {
-                    orderBuilder.append(", ");
+                    colorBuilder.append(", ");
                 }
-                orderBuilder.append(user);
+                colorBuilder.append(color);
                 isFirst = false;
             }
         }
         // Print the constructed order if at least one color was added.
         if (!isFirst) {
-            System.out.println(orderBuilder.toString());
+            System.out.println(colorBuilder.toString());
         } else {
             System.out.println("No colors are currently available.");
         }

@@ -2,7 +2,11 @@ package org.example.view;
 
 import org.json.simple.JSONObject;
 
-public class ViewGUI extends View{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ViewGUI extends View {
     public ViewGUI() {
 
     }
@@ -117,11 +121,24 @@ public class ViewGUI extends View{
 
     }
 
+    /**
+     * Adds non-null colors to a list of available colors.
+     */
     @Override
-    public void color(String color1, String color2, String color3, String color4) {
-
+    public void color(String c1, String c2, String c3, String c4) {
+        // Create a list from the input parameters
+        List<String> colors = Arrays.asList(c1, c2, c3, c4);
+        // Initialize a new ArrayList to store the valid colors
+        List<String> colorList = new ArrayList<>();
+        // Iterate over each color in the list and add to the list if it is not "null"
+        for (String color : colors) {
+            if (!"null".equals(color)) {
+                colorList.add(color);
+            }
+        }
     }
-    public void setPlayers(){
+
+    public void setPlayers() {
 
     }
 }

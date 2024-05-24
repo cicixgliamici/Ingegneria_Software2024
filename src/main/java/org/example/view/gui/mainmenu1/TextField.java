@@ -1,5 +1,5 @@
 
-package org.example.view.gui.mainmenu;
+package org.example.view.gui.mainmenu1;
 
 import javax.swing.*;
 import java.awt.*;
