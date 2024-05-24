@@ -82,7 +82,7 @@ public class TCPServer {
                 }
                 mainServer.chooseColor(username, chosenColor);
                 if(isFirst) {
-                    mainServer.onModelSpecific(username, "setPlayers");
+                    mainServer.onModelSpecific(username, "isFirst");
                     String numPLayer = in.readLine();
                     int num = Integer.parseInt(numPLayer);
                     mainServer.setNumMaxConnections(num);

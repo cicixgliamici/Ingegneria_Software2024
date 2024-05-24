@@ -42,10 +42,12 @@ public abstract class View {
 
     // Methods to be implemented for handling messages from the server.
     public abstract void drawnCard(int id);
+    public abstract void setFirst();
     public abstract void hasDrawn(String username, int id);
     public abstract void playedCard(int id, int x, int y);
     public abstract void hasPlayed(String username, int id);
     public abstract void unplayable(int id, int x, int y);
+    public abstract void placeholder(int id, int x, int y);
     public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void setHand(int side, int choice);
     public abstract void pubObj(int id1, int id2);
@@ -110,8 +112,6 @@ public abstract class View {
     public abstract void updateSetupUI(String[] colors, boolean isFirst);
 
     public abstract void color(String color1, String color2, String color3, String color4);
-
-    public abstract void setPlayers();
 
     public int getFlag() {
         return flag;

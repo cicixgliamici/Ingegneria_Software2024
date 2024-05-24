@@ -15,7 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewGUI extends View {
+    private boolean isFirst;
     public ViewGUI() {
+        this.isFirst=false;
         this.flag=1;
     }
 
@@ -140,6 +142,12 @@ public class ViewGUI extends View {
     }
 
     @Override
+    public void placeholder(int id, int x, int y) {
+
+    }
+
+
+    @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         // Mostrare dopo le prime 3 carte
         // Stampare in quadrato (TL-BL) Front starter, Back Starter, 1° Obj, 2° Obj
@@ -194,10 +202,8 @@ public class ViewGUI extends View {
         }
     }
 
-    public void setPlayers() {
 
+    public void setFirst() {
+        isFirst = true;
     }
-
-
-
 }

@@ -197,10 +197,31 @@ public class ViewTUI extends View {
      */
     @Override
     public void unplayable(int id, int x, int y) {
+        System.out.println("The card is unplayable at position: (" + x + ", " + y + ") because you need:");
+        JSONObject card = getCardById(id);
+        System.out.println("Requires:");
+        JSONArray req = (JSONArray) card.get("requireGold");
+        StringBuilder reqString = new StringBuilder();
+        for (Object CardRes : req) {
+            String resource = (String) CardRes;
+            String color = getResourceColor(resource);
+            String initial = getResourceInitial(resource);
+            reqString.append(color).append(initial).append(RESET_COLOR).append("-");
+        }
+        if (reqString.length() > 0) {
+            reqString.setLength(reqString.length() - 1); // Remove the last hyphen
+        }
+        System.out.println(reqString.toString());
+        System.out.println("\n");
+    }
+
+    @Override
+    public void placeholder(int id, int x, int y) {
         System.out.println("The card is unplayable at position: (" + x + ", " + y + ")");
         printCardDetailsFormatted(getCardById(id));
         printGrid();
     }
+
 
     /**
      * Processes the initial set of cards received by the player.
@@ -641,6 +662,8 @@ public class ViewTUI extends View {
         }
     }
 
+    public void setFirst(){
 
+    }
 
 }

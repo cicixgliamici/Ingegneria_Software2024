@@ -47,6 +47,17 @@
       ],
       "fileName": "View.java"
     },
+    "placeholder": {
+      "className": "org.example.view",
+      "methodName": "placeholder",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
     "firstHand": {
       "className": "org.example.view",
       "methodName": "firstHand",
@@ -124,9 +135,9 @@
     ],
     "fileName": "View.java"
   },
-  "setPlayers": {
+  "isFirst": {
     "className": "org.example.view",
-    "methodName": "setPlayers",
+    "methodName": "setFirst",
     "fileName": "View.java"
   }
 }
