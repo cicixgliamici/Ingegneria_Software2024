@@ -76,7 +76,7 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid");
+        if(placeHolder==null) throw new PlaceholderNotValid("placeholder not valid", x, y);
         checkChosenCard(model, card, placeHolder);
         model.getPlayerCardArea(this).playACard(card, placeHolder);
         model.getPlayerCardArea(this).getHand().remove(card);
