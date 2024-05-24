@@ -64,6 +64,8 @@ public class SetInitialGame extends JPanel {
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
 
+        //chooseColorPanel.setOpaque(false);
+
         //Layout of chooseColorPanel
         GridBagConstraints gbcRed = new GridBagConstraints();
 
@@ -114,13 +116,34 @@ public class SetInitialGame extends JPanel {
         chooseColorPanel.add(blueRadioButton, gbcBlue);
 
         //Setting setNumberPlayerPanel
-        JLabel labelNumPlayer = new JLabel("Number of players");
+        JLabel labelNumPlayer = new JLabel("Number of players: ");
+        labelNumPlayer.setForeground(Color.darkGray);
         String[] optionsNumPlayer = {"1", "2", "3", "4"};
         JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
+        //Border insideNumPlayerBorder = BorderFactory.createLineBorder(Color.BLACK);
+        //insideNumPlayerBorder = BorderFactory.createTitledBorder(insideNumPlayerBorder, "Choose the number of players");
         Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose the number of players");
         Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
+        setNumberPlayerPanel.setPreferredSize(new Dimension(180,112));
+        //setNumberPlayerPanel.setOpaque(false);
+
+        //Layout SetNumberPlayer
+        GridBagConstraints gbcNumPlayerLabel = new GridBagConstraints();
+
+        gbcNumPlayerLabel.gridy = 0;
+        gbcNumPlayerLabel.gridx = 0;
+        gbcNumPlayerLabel.insets = new Insets(0,10,0,10);
+
+        setNumberPlayerPanel.add(labelNumPlayer, gbcNumPlayerLabel);
+
+        GridBagConstraints gbcMenuNumPlayer = new GridBagConstraints();
+
+        gbcMenuNumPlayer.gridy = 0;
+        gbcMenuNumPlayer.gridx = 1;
+
+        setNumberPlayerPanel.add(menuNumPlayer, gbcMenuNumPlayer);
 
 
         confirmButton.addActionListener(new ActionListener() {
@@ -166,8 +189,10 @@ public class SetInitialGame extends JPanel {
         gbcChooseColor.gridy = 1;
         gbcChooseColor.gridx = 0;
 
-        gbcChooseColor.weighty = 0.3;
+        gbcChooseColor.weighty = 0.1;
         gbcChooseColor.weightx = 0.0;
+
+        gbcChooseColor.insets = new Insets(0,0,0,10);
 
         add(chooseColorPanel, gbcChooseColor);
 
@@ -176,8 +201,10 @@ public class SetInitialGame extends JPanel {
         gbcSetNumberPlayer.gridy = 1;
         gbcSetNumberPlayer.gridx = 1;
 
-        gbcSetNumberPlayer.weighty = 0.3;
+        gbcSetNumberPlayer.weighty = 0.1;
         gbcSetNumberPlayer.weightx = 0.0;
+
+        gbcSetNumberPlayer.insets = new Insets(0,10,0,0);
 
         add(setNumberPlayerPanel, gbcSetNumberPlayer);
 
