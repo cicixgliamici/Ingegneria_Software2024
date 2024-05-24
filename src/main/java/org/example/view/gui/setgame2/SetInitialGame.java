@@ -5,17 +5,20 @@ import org.example.view.gui.GameAreaFrame;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class SetInitialGame extends JPanel {
     private EvListener evListener;
     private TCPClient tcpClient;  // Aggiungi il riferimento al TCPClient
     private String username;
+    private JLabel labelTitle;
 
     public SetInitialGame(TCPClient tcpClient, String username) {
         this.tcpClient = tcpClient;
@@ -26,6 +29,19 @@ public class SetInitialGame extends JPanel {
         JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
 
         JButton confirmButton = new JButton("Confirm!");
+
+        BufferedImage logo = null;
+        try {
+            logo = ImageIO.read(getClass().getResource("/images/logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Icon icon = new ImageIcon(logo);
+
+        labelTitle = new JLabel(icon);
         //Setting chooseColorPanel
         JRadioButton redRadioButton = new JRadioButton("Red");
         redRadioButton.setActionCommand("Red");
@@ -130,24 +146,22 @@ public class SetInitialGame extends JPanel {
             }
         });
 
-        GridBagConstraints gbcLabelNumPlayer = new GridBagConstraints();
+        GridBagConstraints gbcTitle = new GridBagConstraints();
 
-        gbcLabelNumPlayer.gridy = 0;
-        gbcLabelNumPlayer.gridx = 0;
+        gbcTitle.gridy = 0;
+        gbcTitle.gridx = 0;
 
-        setNumberPlayerPanel.add(labelNumPlayer, gbcLabelNumPlayer);
+        gbcTitle.weightx = 0.0;
+        gbcTitle.weighty = 0.4;
 
-        GridBagConstraints gbcMenuNumPlayer = new GridBagConstraints();
+        gbcTitle.gridheight = 1;
+        gbcTitle.gridwidth = 2;
 
-        gbcMenuNumPlayer.gridy = 0;
-        gbcMenuNumPlayer.gridx = 1;
+        add(labelTitle, gbcTitle);
 
-        setNumberPlayerPanel.add(menuNumPlayer, gbcMenuNumPlayer);
-
-        //Layout
         GridBagConstraints gbcChooseColor = new GridBagConstraints();
 
-        gbcChooseColor.gridy = 0;
+        gbcChooseColor.gridy = 1;
         gbcChooseColor.gridx = 0;
 
         gbcChooseColor.weighty = 0.3;
@@ -158,7 +172,7 @@ public class SetInitialGame extends JPanel {
         GridBagConstraints gbcSetNumberPlayer = new GridBagConstraints();
 
         gbcSetNumberPlayer.gridy = 1;
-        gbcSetNumberPlayer.gridx = 0;
+        gbcSetNumberPlayer.gridx = 1;
 
         gbcSetNumberPlayer.weighty = 0.3;
         gbcSetNumberPlayer.weightx = 0.0;

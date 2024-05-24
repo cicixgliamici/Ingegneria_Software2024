@@ -263,7 +263,7 @@ public class BoxMenu extends JPanel {
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
     private void switchToPlayerSetupPanel(TCPClient tcpClient, String username) throws IOException {
-        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, username) {
+        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText()) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
 
@@ -278,7 +278,7 @@ public class BoxMenu extends JPanel {
         };
         // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setContentPane(new SetInitialGame(tcpClient, textFieldUsr.getText())); // Passa TCPClient e username
+        frame.setContentPane(setInitialGame); // Passa TCPClient e username
         frame.validate();
         frame.repaint();
     }
