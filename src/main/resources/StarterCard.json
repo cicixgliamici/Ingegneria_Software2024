@@ -43,7 +43,9 @@
           "PropertiesCorner": "INSECT"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/081.png",
+    "imagePathSB": "src/main/resources/images/small/back/081.png"
   },
   {
     "id": 82,
@@ -89,7 +91,9 @@
           "PropertiesCorner": "FUNGI"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/082.png",
+    "imagePathSB": "src/main/resources/images/small/back/082.png"
   },
   {
     "id": 83,
@@ -135,7 +139,9 @@
           "PropertiesCorner": "FUNGI"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/083.png",
+    "imagePathSB": "src/main/resources/images/small/back/083.png"
   },
   {
     "id": 84,
@@ -181,7 +187,9 @@
           "PropertiesCorner": "ANIMAL"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/084.png",
+    "imagePathSB": "src/main/resources/images/small/back/084.png"
   },
   {
     "id": 85,
@@ -227,7 +235,9 @@
           "PropertiesCorner": "PLANT"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/085.png",
+    "imagePathSB": "src/main/resources/images/small/back/085.png"
   },
   {
     "id": 86,
@@ -273,6 +283,8 @@
           "PropertiesCorner": "PLANT"
         }
       ]
-    }
+    },
+    "imagePathSF": "src/main/resources/images/small/front/086.png",
+    "imagePathSB": "src/main/resources/images/small/back/086.png"
   }
 ]

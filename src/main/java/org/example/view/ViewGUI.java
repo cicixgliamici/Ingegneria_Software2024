@@ -1,7 +1,15 @@
 package org.example.view;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,8 +66,57 @@ public class ViewGUI extends View {
 
     @Override
     public JSONObject getCardById(int id) {
+        JSONParser parser = new JSONParser();
+        String[] filePaths = {
+                "src/main/resources/Card.json",
+                "src/main/resources/GoldCard.json",
+                "src/main/resources/ObjectiveCard.json",
+                "src/main/resources/StarterCard.json"
+        };
+        for (String filePath : filePaths) {
+            try {
+                org.json.simple.JSONArray cards = (JSONArray) parser.parse(new FileReader(filePath));
+                for (Object cardObj : cards) {
+                    JSONObject card = (JSONObject) cardObj;
+                    if (((Long) card.get("id")).intValue() == id) {
+                        return card;
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                System.err.println("Error reading or parsing the JSON file: " + e.getMessage());
+            }
+        }
         return null;
     }
+    public String getImagePathById(int id) {
+        JSONObject card = getCardById(id);
+        if (card != null) {
+            return (String) card.get("imagePath");
+        }
+        return null;
+    }
+
+
+    //metodo che ritorna una grafica da una stringa (il percorso dell'immagine)
+    public Image loadImage(String imagePath) {
+        try {
+            return ImageIO.read(new File(imagePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    //metodo che ritorna una grafica direttamente da un id
+    public Image getImageById(int id) {
+        String imagePath = getImagePathById(id);
+        if (imagePath != null) {
+            return loadImage(imagePath);
+        }
+        return null;
+    }
+
 
     @Override
     public void drawnCard(int id) {
