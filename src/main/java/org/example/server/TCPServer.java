@@ -56,14 +56,17 @@ public class TCPServer {
     private void handleConnection(Socket clientSocket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+        System.out.println("Negri neri2");
         synchronized (mainServer) {
             if (mainServer.clientWriters.keySet().size() >= mainServer.numMaxConnections) {
                 out.println("Server is actually full");
                 clientSocket.close();
                 return;
             }
+            System.out.println("Negri neri3");
             out.println("Enter your username:");
             String username = in.readLine();
+            System.out.println("Negri neri");
             System.out.println("Received username: " + username);
             if (mainServer.clientWriters.containsKey(username)) {
                 mainServer.onModelSpecific(username,"message:7");

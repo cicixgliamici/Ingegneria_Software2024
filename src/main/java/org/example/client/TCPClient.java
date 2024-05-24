@@ -51,7 +51,26 @@ public class TCPClient {
             }
         });
         serverListener.start();
+        Scanner stdin = new Scanner(System.in);
+        if (view.getFlag() == 0) {
+            Thread userInputThread = new Thread(() -> {
+                while (stdin.hasNextLine()) {
+                    String input = stdin.nextLine();
+                    if (isValidInput(input)) {
+                        socketOut.println(input);  // Send valid input to the server
+                        lastSentMessage = input;
+                    } else {
+                        System.out.println("Invalid input. Please try again.");
+                    }
+                }
+            });
+            userInputThread.start();
+            userInputThread.join();
+        }
+        serverListener.join();
+
     }
+
 
     /**
      * Sends the username to the server after the connection is established.
@@ -99,6 +118,7 @@ public class TCPClient {
             if (line.startsWith("setup:")) {
                 processSetup(line);
             } else if(line.equals("Enter your username:")){
+                System.out.println("Poly QuizShow1:");
                 System.out.println("Enter your username:");
             }
             else {
