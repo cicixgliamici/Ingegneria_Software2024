@@ -22,7 +22,7 @@ public class GameAreaFrame extends JFrame {
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
         //setSize(1600, 860);
-
+        setUndecorated(true);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
