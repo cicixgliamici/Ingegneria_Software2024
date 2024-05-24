@@ -33,8 +33,8 @@ public class BoxMenu extends JPanel {
     private EvListener evListener; // Event listener for handling custom events
     private int connectionType; // Connection type (0 for TCP, 1 for RMI)
     private TCPClient tcpClient;
+    private String username;
 
-    public SetInitialGame setInitialGame;
     /**
      * Constructor for the BoxMenu class.
      *
@@ -44,19 +44,7 @@ public class BoxMenu extends JPanel {
     public BoxMenu(int connectionType) throws IOException {
         this.connectionType = connectionType;
         setLayout(new GridBagLayout());
-        setInitialGame=new SetInitialGame("culo") {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-            Image img = icon.getImage();
 
-            {
-                setOpaque(false);
-            }
-
-            public void paintComponent(Graphics graphics) {
-                graphics.drawImage(img, 0, 0, this);
-                super.paintComponent(graphics);
-            }
-        };
         // Load the logo image
         BufferedImage logo = null;
         try {
@@ -107,7 +95,7 @@ public class BoxMenu extends JPanel {
             @Override
             public void eventListener(Event event) throws IOException {
                 if (event.getEvent().equals("setInitialGame")) {
-                    switchToPlayerSetupPanel();
+                    switchToPlayerSetupPanel(tcpClient, username);
                 }
             }
         });
@@ -148,7 +136,7 @@ public class BoxMenu extends JPanel {
                 } else {
                     // Get the IP address and port number from the input fields
                     String ip = textFieldIp.getText();
-                    String username = textFieldUsr.getText();
+                    username = textFieldUsr.getText();
                     int port;
                     try {
                         port = Integer.parseInt(textFieldPort.getText());
@@ -253,34 +241,44 @@ public class BoxMenu extends JPanel {
             JOptionPane.showMessageDialog(this, "You are already connected.", "Connection Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         boolean connected = false;
         ViewGUI view = new ViewGUI();
         tcpClient = new TCPClient(ip, port, view);
         try {
             tcpClient.startTCPClient();
             connected = true;
+            // Invia l'username al server
             tcpClient.sendUsername(username);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         // Mostra il messaggio di successo e poi passa alla prossima schermata
         JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
-        switchToPlayerSetupPanel(); // Cambio di schermata solo dopo il messaggio di successo
-
+        switchToPlayerSetupPanel(tcpClient, username); // Cambio di schermata solo dopo il messaggio di successo
     }
-
 
     /**
      * Switches to the player setup panel within the application.
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
-    private void switchToPlayerSetupPanel() throws IOException {
+    private void switchToPlayerSetupPanel(TCPClient tcpClient, String username) throws IOException {
+        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, username) {
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+            Image img = icon.getImage();
+
+            {
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
         // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setContentPane(setInitialGame);
+        frame.setContentPane(new SetInitialGame(tcpClient, textFieldUsr.getText())); // Passa TCPClient e username
         frame.validate();
         frame.repaint();
     }

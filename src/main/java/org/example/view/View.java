@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
  * that display the game state and interact with the user.
  */
 public abstract class View {
+    protected int flag;
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
     protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
     protected Integer SecretObjective;  // Variable to store secret objectives if any.
@@ -123,4 +124,32 @@ public abstract class View {
     public abstract void color(String color1, String color2, String color3, String color4);
 
     public abstract void setPlayers();
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public List<Integer> getHand() {
+        return Hand;
+    }
+
+    public List<Integer> getPlayerCardArea() {
+        return PlayerCardArea;
+    }
+
+    public Integer getSecretObjective() {
+        return SecretObjective;
+    }
+
+    public Integer[][] getGrid() {
+        return grid;
+    }
+
+    public int getN() {
+        return N;
+    }
+
+    public int getM() {
+        return M;
+    }
 }

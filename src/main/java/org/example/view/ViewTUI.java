@@ -49,6 +49,7 @@ public class ViewTUI extends View {
     public ViewTUI() {
         // Initialize the grid in the constructor of the superclass.
         super();
+        this.flag=0;
     }
 
     /**
@@ -627,4 +628,7 @@ public class ViewTUI extends View {
             e.printStackTrace();
         }
     }
+
+
+
 }

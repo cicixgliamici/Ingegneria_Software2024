@@ -1,7 +1,6 @@
 package org.example.client;
 
 import org.example.view.View;
-import org.example.view.ViewTUI;
 
 import javax.swing.*;
 import java.io.PrintWriter;
@@ -42,11 +41,9 @@ public class TCPClient {
         // Establish a connection to the server.
         socket = new Socket(ip, port);
         System.out.println("Connected to " + ip + ":" + port);
-
         // Set up I/O streams.
         Scanner socketIn = new Scanner(socket.getInputStream());
-        PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
-
+        socketOut = new PrintWriter(socket.getOutputStream(), true);
         // Thread to handle server messages.
         Thread serverListener = new Thread(() -> {
             while (socketIn.hasNextLine()) {
@@ -54,25 +51,36 @@ public class TCPClient {
             }
         });
         serverListener.start();
-        // Thread to handle user input.
-        Scanner stdin = new Scanner(System.in);
-        Thread userInputThread = new Thread(() -> {
-            while (stdin.hasNextLine()) {
-                String input = stdin.nextLine();
-                if (isValidInput(input)) {
-                    socketOut.println(input);  // Send valid input to the server
-                    lastSentMessage = input;
-                } else {
-                    System.out.println("Invalid input. Please try again.");
-                }
-            }
-        });
-        userInputThread.start();
-
-        // Join threads to ensure the main thread waits for them to finish
-        userInputThread.join();
     }
 
+    /**
+     * Sends the username to the server after the connection is established.
+     *
+     * @param username The username to send.
+     */
+    public void sendUsername(String username) {
+        if (socketOut != null) {
+            System.out.println("Sending username: " + username);
+            socketOut.println(username);
+            socketOut.flush();
+        }
+    }
+
+    /**
+     * Sends the chosen color and number of players to the server.
+     *
+     * @param color The chosen color.
+     * @param numPlayers The number of players.
+     */
+    public void sendColorAndNumPlayers(String color, String numPlayers) {
+        if (socketOut != null) {
+            System.out.println("Sending color: " + color + " and number of players: " + numPlayers);
+            socketOut.println(color);
+            socketOut.flush();
+            socketOut.println(numPlayers);
+            socketOut.flush();
+        }
+    }
 
     /**
      * Handles messages received from the server.
@@ -93,8 +101,6 @@ public class TCPClient {
         }
     }
 
-
-
     private void processSetup(String setupMsg) {
         // Expected format: "setup:colors=Red,Blue;first=true"
         String[] parts = setupMsg.substring(6).split(";");
@@ -102,6 +108,7 @@ public class TCPClient {
         boolean isFirst = Boolean.parseBoolean(parts[1].split("=")[1]);
         SwingUtilities.invokeLater(() -> view.updateSetupUI(colors, isFirst));
     }
+
     /**
      * Handles user input and sends it to the server.
      *
@@ -172,18 +179,6 @@ public class TCPClient {
             }
         }
         return true;
-    }
-
-    /**
-     * Sends the username to the server after the connection is established.
-     *
-     * @param username The username to send.
-     */
-    public void sendUsername(String username) {
-        if (socketOut != null) {
-            socketOut.println(username);
-            socketOut.flush();
-        }
     }
 
     public boolean isConnected() {

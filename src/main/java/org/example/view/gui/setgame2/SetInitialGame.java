@@ -1,6 +1,6 @@
-
 package org.example.view.gui.setgame2;
 
+import org.example.client.TCPClient;
 import org.example.view.gui.GameAreaFrame;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
@@ -14,8 +14,12 @@ import java.io.IOException;
 
 public class SetInitialGame extends JPanel {
     private EvListener evListener;
-    public SetInitialGame(String username){
+    private TCPClient tcpClient;  // Aggiungi il riferimento al TCPClient
+    private String username;
 
+    public SetInitialGame(TCPClient tcpClient, String username) {
+        this.tcpClient = tcpClient;
+        this.username = username;
         setLayout(new GridBagLayout());
         //Components
         JPanel chooseColorPanel = new JPanel(new GridBagLayout());
@@ -106,11 +110,13 @@ public class SetInitialGame extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(buttonGroup.getSelection() != null){
+                    if (buttonGroup.getSelection() != null) {
                         String num = menuNumPlayer.getSelectedItem().toString();
                         String color = buttonGroup.getSelection().getActionCommand();
+                        // Invio dei dati al server tramite TCPClient
+                        tcpClient.sendColorAndNumPlayers(color, num);
                         new GameAreaFrame(username, color, num);
-                        // todo inviare la richiesta di chiuudere la pagina;
+                        // todo inviare la richiesta di chiudere la pagina;
                         Event event = new Event(this, "closeApp");
                         if (evListener != null) {
                             evListener.eventListener(event);
@@ -137,7 +143,6 @@ public class SetInitialGame extends JPanel {
         gbcMenuNumPlayer.gridx = 1;
 
         setNumberPlayerPanel.add(menuNumPlayer, gbcMenuNumPlayer);
-
 
         //Layout
         GridBagConstraints gbcChooseColor = new GridBagConstraints();
@@ -172,6 +177,14 @@ public class SetInitialGame extends JPanel {
         gbcConfirmButton.gridwidth = 2;
 
         add(confirmButton, gbcConfirmButton);
+    }
 
+    /**
+     * Sets the event listener for this menu.
+     *
+     * @param evListener The event listener to be set.
+     */
+    public void setEvListener(EvListener evListener) {
+        this.evListener = evListener;
     }
 }

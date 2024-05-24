@@ -59,7 +59,6 @@ public class CodexNaturalis {
                 System.out.println("Invalid mode. Please select 0 for TCP or 1 for RMI.");
             }
         }
-
         ClientPortSelection clientPortSelection = new ClientPortSelection();
         clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client
     }

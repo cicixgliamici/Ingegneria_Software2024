@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ViewGUI extends View {
     public ViewGUI() {
-
+        this.flag=1;
     }
 
     @Override
@@ -141,4 +141,7 @@ public class ViewGUI extends View {
     public void setPlayers() {
 
     }
+
+
+
 }

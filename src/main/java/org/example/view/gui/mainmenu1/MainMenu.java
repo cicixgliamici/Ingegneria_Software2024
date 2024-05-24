@@ -60,19 +60,6 @@ public class MainMenu extends JFrame {
             }
         });
 
-        setInitialGame = new SetInitialGame(username) {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-            Image img = icon.getImage();
-
-            {
-                setOpaque(false);
-            }
-
-            public void paintComponent(Graphics graphics) {
-                graphics.drawImage(img, 0, 0, this);
-                super.paintComponent(graphics);
-            }
-        };
 
         setLayout(new BorderLayout());
         setJMenuBar(createMenuBar());
