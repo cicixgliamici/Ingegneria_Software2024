@@ -85,7 +85,7 @@ public class GameAreaPanel extends JPanel{
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 } else if (color.equals("Red")) {
-                    BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/red.png"));
+                    BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 } else {
@@ -93,7 +93,7 @@ public class GameAreaPanel extends JPanel{
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 }
-                BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
+                BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
                 Icon icon5 = new ImageIcon(logo5);
                 token2 = new JLabel(icon5);
                 BufferedImage logo6 = ImageIO.read(new File("src/main/resources/images/red.png"));
@@ -249,7 +249,7 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.000025;
+        gbc.weightx = 0.1;
         gbc.weighty = 0.000025;
 
         add(token1, gbc);
@@ -257,8 +257,9 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 5;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.000025;
-        gbc.weighty = 0.000025;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.00025;
+
 
         add(token2, gbc);
 
