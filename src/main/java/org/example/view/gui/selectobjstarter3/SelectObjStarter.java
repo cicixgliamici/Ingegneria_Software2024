@@ -15,9 +15,9 @@ public class SelectObjStarter extends JFrame {
     private View view;
 
 
-    public SelectObjStarter(View view){
+    public SelectObjStarter(/*View view*/){
         super("Select StarterCard and ObjectedCard");
-        this.view = view;
+        //this.view = view;
 
         setLayout(new GridBagLayout());
 
@@ -38,6 +38,7 @@ public class SelectObjStarter extends JFrame {
         JLabel secondObjectCard = new JLabel(icon);
 
         JButton button = new JButton("Confirm!");
+
         ChooseCardButton chooseOne = new ChooseCardButton();
         chooseOne.addActionListener(new ActionListener() {
             @Override

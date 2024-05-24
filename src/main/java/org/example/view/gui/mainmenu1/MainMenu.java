@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,21 +144,31 @@ public class MainMenu extends JFrame {
                 Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
                 Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
                 aboutPanel.setBorder(finalBorder);
-                JTextArea creditsTextPane = new JTextArea();
+                //JTextArea creditsTextPane = new JTextArea();
+                JLabel link = new JLabel("Visit the page!");
+                link.setForeground(Color.BLUE.darker());
+                link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-                creditsTextPane.addFocusListener(new FocusListener() {
+                link.addMouseListener(new MouseAdapter()
+                {
                     @Override
-                    public void focusGained(FocusEvent e) {
-                        List<String> strings = new ArrayList<>();
-                        strings.add("c");
-                        strings.add("u");
-                        strings.add("l");
-                        strings.add("o");
+                    public void mouseClicked(MouseEvent e) {
+                        try
+                        {
+                            Desktop.getDesktop().browse(new URI("https://www.craniocreations.it/prodotto/codex-naturalis"));
+                        }
+                        catch (IOException | URISyntaxException e1)
+                        {
+                            e1.printStackTrace();
+                        }
                     }
-
                     @Override
-                    public void focusLost(FocusEvent e) {
-
+                    public void mouseExited(MouseEvent e) {
+                        link.setText("Visit the page!");
+                    }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        link.setText("Visit the page!");
                     }
                 });
 
@@ -168,7 +180,7 @@ public class MainMenu extends JFrame {
                 gbcCreditsLabel.weightx = 0.0;
                 gbcCreditsLabel.weighty = 0.9;
                 aboutPanel.setLayout(new GridBagLayout());
-                aboutPanel.add(creditsTextPane, gbcCreditsLabel);
+                aboutPanel.add(link, gbcCreditsLabel);
 
                 aboutFrame.setLayout(new BorderLayout());
                 aboutFrame.add(aboutPanel);
