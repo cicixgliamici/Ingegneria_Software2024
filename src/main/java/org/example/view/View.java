@@ -2,7 +2,7 @@ package org.example.view;
 
 import java.util.*;
 
-import org.example.view.gui.Point;
+import org.example.view.gui.Coordinates;
 import org.json.simple.JSONObject;
 
 /**
@@ -19,13 +19,13 @@ public abstract class View {
     final int N = 9;  // Size of the grid.
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
 
-    protected Map<Integer, Point> map = new HashMap<>();
+    protected Map<Integer, Coordinates> map = new HashMap<>();
 
     public void addMapping(Integer integer, int x, int y) {
-        map.put(integer, new Point(x, y));
+        map.put(integer, new Coordinates(x, y));
     }
 
-    public Point getPosition(JSONObject jsonObject) {
+    public Coordinates getPosition(JSONObject jsonObject) {
         return map.get(jsonObject);
     }    /**
      * Constructor that initializes the grid.
