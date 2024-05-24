@@ -22,6 +22,7 @@ public class GameAreaFrame extends JFrame {
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
         //setSize(1600, 860);
+
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(this);
@@ -50,15 +51,7 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
 
-        gameAreaPanel = new GameAreaPanel(color, num){
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/gamearea.png")));
-            Image img = icon.getImage();
-            {setOpaque(false);}
-            public void paintComponent(Graphics graphics){
-                graphics.drawImage(img,0,0, this);
-                super.paintComponent(graphics);
-            }
-        };
+        gameAreaPanel = new GameAreaPanel(color, num);
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
@@ -191,17 +184,4 @@ public class GameAreaFrame extends JFrame {
         return menuBar;
     }
 
-    public void setFullScreen() {
-        // Ottiene l'oggetto GraphicsDevice per il dispositivo di visualizzazione corrente
-        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = graphics.getDefaultScreenDevice();
-
-        // Imposta la finestra in modalità a schermo intero
-        if (device.isFullScreenSupported()) {
-            device.setFullScreenWindow(this);
-        } else {
-            setSize(800, 600); // Imposta una dimensione di fallback
-            setVisible(true);
-        }
-    }
 }

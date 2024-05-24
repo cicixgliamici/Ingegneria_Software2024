@@ -19,9 +19,12 @@ public class GameAreaPanel extends JPanel{
     private JLabel card2;
     private JLabel card3;
     private JLabel secretObjective;
+    private BufferedImage backgroundImg;
 
     public GameAreaPanel(String color, String num) throws IOException {
         setLayout(new GridBagLayout());
+
+        backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
 
         BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic1 = new ImageIcon(img1);
@@ -286,7 +289,19 @@ public class GameAreaPanel extends JPanel{
 
         add(jScrollPane, gbc);
 
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImg != null) {
+            // Ottieni le dimensioni del pannello
+            int panelWidth = getWidth();
+            int panelHeight = getHeight();
+
+            // Disegna l'immagine ridimensionata per coprire l'intera area del pannello
+            g.drawImage(backgroundImg, 0, 0, panelWidth, panelHeight, this);
+        }
     }
 
 }
