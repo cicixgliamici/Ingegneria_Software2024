@@ -67,8 +67,6 @@ public class TCPClient {
             userInputThread.start();
             userInputThread.join();
         }
-        serverListener.join();
-
     }
 
 

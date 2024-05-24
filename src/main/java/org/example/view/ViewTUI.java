@@ -126,7 +126,9 @@ public class ViewTUI extends View {
                 boolean found = false;
                 for (Map.Entry<Integer, Coordinates> entry : map.entrySet()) {
                     Coordinates coordinates = entry.getValue();
-                    if (coordinates.getX() == i && coordinates.getY() == j) {
+                    int gridX = M - coordinates.getY();
+                    int gridY = coordinates.getX() + M;
+                    if (gridX == i && gridY == j) {
                         int id = entry.getKey();
                         System.out.printf(" %4d ", id);
                         found = true;
