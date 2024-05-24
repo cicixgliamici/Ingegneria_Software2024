@@ -21,7 +21,10 @@ public class GameAreaFrame extends JFrame {
     DrawingCardPanel drawingCardPanel;
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
-        setSize(1600, 860);
+        //setSize(1600, 860);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(this);
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
