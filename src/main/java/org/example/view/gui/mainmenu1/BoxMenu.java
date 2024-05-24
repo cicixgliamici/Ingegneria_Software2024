@@ -1,6 +1,7 @@
 package org.example.view.gui.mainmenu1;
 
 import org.example.client.TCPClient;
+import org.example.view.View;
 import org.example.view.ViewGUI;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
@@ -34,6 +35,7 @@ public class BoxMenu extends JPanel {
     private int connectionType; // Connection type (0 for TCP, 1 for RMI)
     private TCPClient tcpClient;
     private String username;
+    private View view;
 
     /**
      * Constructor for the BoxMenu class.
@@ -41,8 +43,10 @@ public class BoxMenu extends JPanel {
      * @param connectionType The type of connection (0 for TCP, 1 for RMI).
      * @throws IOException if the logo image file cannot be found.
      */
-    public BoxMenu(int connectionType) throws IOException {
+    public BoxMenu(int connectionType, View view) throws IOException {
         this.connectionType = connectionType;
+        this.view = view;
+
         setLayout(new GridBagLayout());
 
         // Load the logo image
@@ -263,7 +267,7 @@ public class BoxMenu extends JPanel {
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
     private void switchToPlayerSetupPanel(TCPClient tcpClient, String username) throws IOException {
-        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText()) {
+        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText(), view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
 

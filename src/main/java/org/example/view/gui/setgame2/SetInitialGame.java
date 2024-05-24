@@ -1,6 +1,7 @@
 package org.example.view.gui.setgame2;
 
 import org.example.client.TCPClient;
+import org.example.view.View;
 import org.example.view.gui.GameAreaFrame;
 import org.example.view.gui.firsthand3.FirstHand;
 import org.example.view.gui.listener.EvListener;
@@ -20,10 +21,13 @@ public class SetInitialGame extends JPanel {
     private TCPClient tcpClient;  // Aggiungi il riferimento al TCPClient
     private String username;
     private JLabel labelTitle;
+    private View view;
 
-    public SetInitialGame(TCPClient tcpClient, String username) {
+    public SetInitialGame(TCPClient tcpClient, String username, View view) {
         this.tcpClient = tcpClient;
         this.username = username;
+        this.view = view;
+
         setLayout(new GridBagLayout());
         //Components
         JPanel chooseColorPanel = new JPanel(new GridBagLayout());
@@ -58,6 +62,7 @@ public class SetInitialGame extends JPanel {
         buttonGroup.add(greenRadioButton);
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
+
 
         Border insideChooseColorBorder = BorderFactory.createTitledBorder("Choose a Color");
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);

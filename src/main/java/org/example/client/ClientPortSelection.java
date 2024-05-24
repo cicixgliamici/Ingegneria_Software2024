@@ -1,5 +1,6 @@
 package org.example.client;
 
+import org.example.view.ViewGUI;
 import org.example.view.gui.GuiClient;
 import org.example.view.View;
 import org.example.view.ViewTUI;
@@ -56,7 +57,8 @@ public class ClientPortSelection {
             client.startClient(mode);  // Start the client with the specified mode
         }
         else if(ChosenView==3){
-            GuiClient.main(null, mode);
+            view = new ViewGUI();
+            GuiClient.startClient(mode, view);
             //todo gestione del client GUI
         }
     }

@@ -1,5 +1,6 @@
 package org.example.view.gui.mainmenu1;
 
+import org.example.view.View;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
@@ -21,15 +22,18 @@ public class MainMenu extends JFrame {
     SetInitialGame setInitialGame;
     private int connectionType;
     private String username = "culo";
+    private  View view;
 
-    public MainMenu(int connectionType) throws IOException {
+
+    public MainMenu(int connectionType, View view) throws IOException {
         super("Codex Naturalis");
         this.connectionType = connectionType;
+        this.view = view;
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
         setIconImage(icon);
 
-        boxMenu = new BoxMenu(connectionType) {
+        boxMenu = new BoxMenu(connectionType, view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
 
