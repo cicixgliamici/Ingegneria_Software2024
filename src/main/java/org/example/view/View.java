@@ -1,8 +1,8 @@
 package org.example.view;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import org.example.view.gui.Point;
 import org.json.simple.JSONObject;
 
 /**
@@ -19,7 +19,15 @@ public abstract class View {
     final int N = 9;  // Size of the grid.
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
 
-    /**
+    protected Map<Integer, Point> map = new HashMap<>();
+
+    public void addMapping(Integer integer, int x, int y) {
+        map.put(integer, new Point(x, y));
+    }
+
+    public Point getPosition(JSONObject jsonObject) {
+        return map.get(jsonObject);
+    }    /**
      * Constructor that initializes the grid.
      * Each cell of the grid is initialized to null indicating no card is placed.
      */
@@ -81,22 +89,7 @@ public abstract class View {
         PlayerCardArea.remove(id);
     }
 
-    /**
-     * Places a card in the grid.
-     * @param x Horizontal position of the card.
-     * @param y Vertical position of the card.
-     * @param cardId Identifier of the card to place.
-     */
-    public void playCardInGrid(int x, int y, int cardId) {
-        int gridX =M-y;
-        int gridY = x+M;
-        if (isValidPosition(gridX, gridY)) {
-            grid[gridX][gridY] = cardId;
-            System.out.println("Card " + cardId + " played at grid position: (" + x + ", " + y + ")");
-        } else {
-            System.out.println("Invalid grid position: (" + x + ", " + y + ")");
-        }
-    }
+
 
     public abstract void printPlayerCardArea();
 
@@ -107,7 +100,7 @@ public abstract class View {
      * @param gridY Vertical position index.
      * @return true if the position is valid, false otherwise.
      */
-    private boolean isValidPosition(int gridX, int gridY) {
+    public boolean isValidPosition(int gridX, int gridY) {
         return gridX >= 0 && gridX < N && gridY >= 0 && gridY < N;
     }
 

@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.view.gui.Point;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Text User Interface (TUI) version of the game view.
@@ -121,9 +123,17 @@ public class ViewTUI extends View {
         System.out.println("Current grid state:");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (grid[i][j] != null) {
-                    System.out.printf(" %4d ", grid[i][j]);
-                } else {
+                boolean found = false;
+                for (Map.Entry<Integer, Point> entry : map.entrySet()) {
+                    Point point = entry.getValue();
+                    if (point.getX() == i && point.getY() == j) {
+                        int id = entry.getKey();
+                        System.out.printf(" %4d ", id);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
                     System.out.print("   .  ");
                 }
             }
@@ -161,7 +171,7 @@ public class ViewTUI extends View {
     public void playedCard(int id, int x, int y) {
         PlayerCardArea.add(id);
         removeHand(id);
-        super.playCardInGrid(x, y, id);
+        super.addMapping(id,x,y);
         printGrid();
         System.out.println("\n");
         printPlayerCardArea();
@@ -208,7 +218,7 @@ public class ViewTUI extends View {
         System.out.println("Now please choose the side of the starter card:");
         PlayerCardArea.add(id4);
         printCardDetails(getCardById(id4));
-        playCardInGrid(0, 0, id4);  // Assume the card is placed at the center of the grid initially.
+        super.addMapping(id4,0,0);
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardById(id5));
         printCardDetails(getCardById(id6));

@@ -39,10 +39,6 @@ public class ViewGUI extends View {
 
     }
 
-    @Override
-    public void playCardInGrid(int x, int y, int cardId) {
-
-    }
 
     @Override
     public void printPlayerCardArea() {
