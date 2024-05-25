@@ -314,7 +314,7 @@ public class ViewTUI extends View {
         }
     }
 
-    public void setPlayers(){
+    public void setFirst(){
         System.out.println("Enter the maximum number of players (1-4):");
     }
 
@@ -661,9 +661,4 @@ public class ViewTUI extends View {
             e.printStackTrace();
         }
     }
-
-    public void setFirst(){
-
-    }
-
 }

@@ -249,10 +249,8 @@ public class BoxMenu extends JPanel {
         ViewGUI view = new ViewGUI();
         tcpClient = new TCPClient(ip, port, view);
         try {
-            System.out.println("Prendilo in mano piscio");
             tcpClient.startTCPClient();
             connected = true;
-            System.out.println("Prendilo in mano");
             tcpClient.sendUsername(username);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);

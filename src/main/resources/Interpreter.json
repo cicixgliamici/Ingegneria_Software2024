@@ -135,7 +135,7 @@
     ],
     "fileName": "View.java"
   },
-  "isFirst": {
+  "setFirst": {
     "className": "org.example.view",
     "methodName": "setFirst",
     "fileName": "View.java"

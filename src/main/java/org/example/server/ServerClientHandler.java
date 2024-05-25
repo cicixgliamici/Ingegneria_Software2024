@@ -107,12 +107,14 @@ public class ServerClientHandler implements Runnable {
         // Handle RMI connection commands if necessary
     }
 
+
     /**
      * Executes a command based on the input line.
      *
      * @param inputLine The input command line.
      * @param username  The username of the client.
      */
+    /*
     private void executeCommand(String inputLine, String username) {
         System.out.println("Eseguendo " + inputLine);
         try {
@@ -165,4 +167,71 @@ public class ServerClientHandler implements Runnable {
             e.printStackTrace();
         }
     }
+
+     */
+    private void executeCommand(String inputLine, String username) {
+        System.out.println("Eseguendo " + inputLine);
+        try {
+            String[] parts = inputLine.split(":");
+            String commandKey = parts[0]; // Command key
+            if (!commands.containsKey(commandKey)) {
+                System.out.println("Comando non riconosciuto");
+                return; // Command not recognized
+            }
+            System.out.println(server.gameFlow);
+            if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey)) {
+                JSONObject commandDetails = commands.get(commandKey); // Command details from the map
+                String className = commandDetails.getString("className");
+                String methodName = commandDetails.getString("methodName");
+                JSONArray jsonParams = commandDetails.getJSONArray("parameters");
+                Class<?> cls = Class.forName(className); // Load the class
+                Class<?>[] paramTypes = new Class[jsonParams.length()]; // Parameter types
+                Object[] paramValues = new Object[jsonParams.length()]; // Parameter values
+                String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
+                if (params.length != jsonParams.length() - 1) { // Exclude the 'Model' type parameter
+                    System.out.println("Numero di parametri non corrispondente");
+                    return;
+                }
+                int j = 0;
+                for (int i = 0; i < jsonParams.length(); i++) {
+                    JSONObject param = jsonParams.getJSONObject(i);
+                    String type = param.getString("type");
+                    if (type.equals("Model") && "server".equals(param.getString("source"))) {
+                        paramTypes[i] = Model.class;
+                        paramValues[i] = model;
+                    } else {
+                        paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
+                        paramValues[i] = type.equals("int") ? Integer.parseInt(params[j]) : params[j]; // Increment j only for user-supplied params
+                        j++;
+                    }
+                }
+                Player player = controller.getPlayerByUsername(username);
+                if (player == null) {
+                    System.out.println("Player non trovato: " + username);
+                    return;
+                }
+                Method method = cls.getDeclaredMethod(methodName, paramTypes);
+                if (method == null) {
+                    System.out.println("Metodo non trovato: " + methodName);
+                    return;
+                }
+                method.invoke(player, paramValues); // Invoke the method on the player
+
+                if (commandKey.equals("setObjStarter")) {
+                    server.incrementSetObjStarterCount();
+                }
+                if (server.getGameFlow() != null) {
+                    server.getGameFlow().incrementTurn();
+                }
+            }
+        } catch (InvocationTargetException e) {
+            Throwable targetException = e.getTargetException();
+            System.err.println("InvocationTargetException: " + targetException.getMessage());
+            targetException.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error executing command: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

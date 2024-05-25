@@ -1,6 +1,8 @@
 
 package org.example.server;
 
+import org.example.controller.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -82,12 +84,13 @@ public class TCPServer {
                 }
                 mainServer.chooseColor(username, chosenColor);
                 if(isFirst) {
-                    mainServer.onModelSpecific(username, "isFirst");
+                    mainServer.onModelSpecific(username, "setFirst");
                     String numPLayer = in.readLine();
                     int num = Integer.parseInt(numPLayer);
                     mainServer.setNumMaxConnections(num);
                 }
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
+                System.out.println(mainServer.getPlayers().toString());
                 mainServer.handleNewTCPClient(username, out);
             }
         }
