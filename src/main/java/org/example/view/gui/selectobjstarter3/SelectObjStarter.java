@@ -1,6 +1,9 @@
 package org.example.view.gui.selectobjstarter3;
 
+import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.GameAreaFrame;
+import org.example.view.gui.listener.Event;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,15 +16,23 @@ import java.io.IOException;
 public class SelectObjStarter extends JFrame {
 
     private View view;
+    private int side;
+    private int choice;
+    private TCPClient tcpClient;
+    private String username;
+    private String color;
+    private String num;
 
-
-    public SelectObjStarter(/*View view*/){
+    public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num){
         super("Select StarterCard and ObjectedCard");
-        //this.view = view;
+        this.tcpClient = tcpClient;
+        this.username = username;
+        this.view = view;
+        this.color=color;
+        this.num=num;
 
         setLayout(new GridBagLayout());
 
-        //Components
         BufferedImage logo = null;
         try {
             logo = ImageIO.read(getClass().getResource("/images/102.png"));
@@ -43,67 +54,83 @@ public class SelectObjStarter extends JFrame {
         chooseOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Mi hai cliccato!!");
+                side = 1;
+                System.out.println("Left upper card clicked!");
             }
         });
+
         ChooseCardButton chooseTwo = new ChooseCardButton();
+        chooseTwo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                side = 2;
+                System.out.println("Left lower card clicked!");
+            }
+        });
+
         ChooseCardButton chooseThree = new ChooseCardButton();
+        chooseThree.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                choice = 1;
+                System.out.println("Right upper card clicked!");
+            }
+        });
+
         ChooseCardButton chooseFour = new ChooseCardButton();
+        chooseFour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                choice = 2;
+                System.out.println("Right upper card clicked!");
+            }
+        });
 
-        //Layout
-        GridBagConstraints gbcBSS = new GridBagConstraints();
+        button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        tcpClient.sendSetObjStrater(side, choice);
+                        // Close the current frame
+                        dispose();
+                        // Open GameAreaFrame
+                        new GameAreaFrame(username, color, num); // Use actual color and num
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            });
 
-        gbcBSS.gridy = 0;
-        gbcBSS.gridx = 0;
-        gbcBSS.weighty = 0.5;
-        gbcBSS.weightx = 0.5;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weighty = 0.5;
+        gbc.weightx = 0.5;
 
-        add(backSideStarter, gbcBSS);
-        add(chooseOne, gbcBSS);
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        add(backSideStarter, gbc);
+        add(chooseOne, gbc);
 
-        GridBagConstraints gbcFSS = new GridBagConstraints();
+        gbc.gridy = 1;
+        add(frontSideStarter, gbc);
+        add(chooseTwo, gbc);
 
-        gbcFSS.gridy = 1;
-        gbcFSS.gridx = 0;
-        gbcFSS.weighty = 0.5;
-        gbcFSS.weightx = 0.5;
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        add(firstObjectCard, gbc);
+        add(chooseThree, gbc);
 
-        add(frontSideStarter, gbcFSS);
-        add(chooseTwo, gbcFSS);
-
-        GridBagConstraints gbcFOC = new GridBagConstraints();
-
-        gbcFOC.gridy = 0;
-        gbcFOC.gridx = 1;
-        gbcFOC.weighty = 0.5;
-        gbcFOC.weightx = 0.5;
-
-        add(firstObjectCard, gbcFOC);
-        add(chooseThree, gbcFOC);
-
-        GridBagConstraints gbcSOC = new GridBagConstraints();
-
-        gbcSOC.gridy = 1;
-        gbcSOC.gridx = 1;
-        gbcSOC.weighty = 0.5;
-        gbcSOC.weightx = 0.5;
-
-        add(secondObjectCard, gbcSOC);
-        add(chooseFour, gbcSOC);
+        gbc.gridy = 1;
+        add(secondObjectCard, gbc);
+        add(chooseFour, gbc);
 
         GridBagConstraints gbcButton = new GridBagConstraints();
-
         gbcButton.gridx = 0;
         gbcButton.gridy = 2;
-        gbcButton.weighty = 0.3;
-        gbcButton.weightx = 0.0;
-
-        gbcButton.gridheight = 1;
         gbcButton.gridwidth = 2;
+        gbcButton.weighty = 0.3;
 
         add(button, gbcButton);
 
-        //Settings of frame
         pack();
         setSize(500, 400);
         setResizable(false);

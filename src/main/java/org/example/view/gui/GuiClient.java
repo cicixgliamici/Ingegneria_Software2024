@@ -8,5 +8,6 @@ import java.io.IOException;
 public class GuiClient {
     public static void startClient(int mode, View view) throws IOException {
         new MainMenu(mode, view);
+
     }
 }

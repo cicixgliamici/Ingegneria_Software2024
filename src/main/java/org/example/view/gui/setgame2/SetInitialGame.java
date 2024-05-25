@@ -160,7 +160,7 @@ public class SetInitialGame extends JPanel {
                         String color = buttonGroup.getSelection().getActionCommand();
                         // Invio dei dati al server tramite TCPClient
                         tcpClient.sendColorAndNumPlayers(color, num);
-                        new SelectObjStarter();
+                        new SelectObjStarter(tcpClient, username, view, color, num);
                         // todo inviare la richiesta di chiudere la pagina;
                         // settare
                         Event event = new Event(this, "closeApp");
