@@ -2,9 +2,7 @@ package org.example.view.gui.setgame2;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.ViewGUI;
-import org.example.view.gui.GameAreaFrame;
-import org.example.view.gui.firsthand3.FirstHand;
+import org.example.view.gui.selectobjstarter3.SelectObjStarter;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 
@@ -28,7 +26,6 @@ public class SetInitialGame extends JPanel {
         this.tcpClient = tcpClient;
         this.username = username;
         this.view = view;
-
 
         setLayout(new GridBagLayout());
         //Components
@@ -65,11 +62,12 @@ public class SetInitialGame extends JPanel {
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
 
+
+
         Border insideChooseColorBorder = BorderFactory.createTitledBorder("Choose a Color");
         Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
-
 
         //chooseColorPanel.setOpaque(false);
 
@@ -162,8 +160,7 @@ public class SetInitialGame extends JPanel {
                         String color = buttonGroup.getSelection().getActionCommand();
                         // Invio dei dati al server tramite TCPClient
                         tcpClient.sendColorAndNumPlayers(color, num);
-                        new FirstHand();
-
+                        new SelectObjStarter(tcpClient, username, view, color, num);
                         // todo inviare la richiesta di chiudere la pagina;
                         // settare
                         Event event = new Event(this, "closeApp");
