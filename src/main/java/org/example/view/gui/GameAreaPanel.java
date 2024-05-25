@@ -85,7 +85,7 @@ public class GameAreaPanel extends JPanel{
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 } else if (color.equals("Red")) {
-                    BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
+                    BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/red.png"));
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 } else {

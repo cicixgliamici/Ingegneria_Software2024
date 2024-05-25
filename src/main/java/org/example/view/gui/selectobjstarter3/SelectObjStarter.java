@@ -82,7 +82,7 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
-                System.out.println("Right upper card clicked!");
+                System.out.println("Right lower card clicked!");
             }
         });
 

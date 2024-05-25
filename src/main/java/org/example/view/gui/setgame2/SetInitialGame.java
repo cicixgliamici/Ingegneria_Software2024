@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+
+
 public class SetInitialGame extends JPanel {
     private EvListener evListener;
     private TCPClient tcpClient;  // Aggiungi il riferimento al TCPClient
