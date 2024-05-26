@@ -45,10 +45,10 @@ public class GameRulesFrame extends JFrame {
             imagesIta[i] = new ImageIcon("src/main/resources/images/rulebook/ita/" + String.format("%02d", i + 1) + ".png");
         }
 
-        // Load all images for the ita rules into an array
+        // Load all images for the eng rules into an array
         imagesEng = new ImageIcon[12];
         for (int i = 0; i < imagesEng.length; i++) {
-            imagesEng[i] = new ImageIcon("src/main/resources/images/rulebook/eng/" + String.format("%02d", i + 1) + ".png");
+            imagesEng[i] = new ImageIcon("src/main/resources/images/rulebook/eng/" + String.format("%02d", i + 1) + ".jpg");
         }
 
         // Initialize the image panel and override its paintComponent to draw the current image
@@ -89,7 +89,7 @@ public class GameRulesFrame extends JFrame {
         scrollPaneEng = new JScrollPane(imagePanelEng);
         scrollPaneEng.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneEng.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        //getContentPane().add(scrollPaneEng, BorderLayout.CENTER);
+        getContentPane().add(scrollPaneEng, BorderLayout.CENTER);
 
         // Add a key listener to the frame to handle left and right arrow keys for navigation
         addKeyListener(new KeyAdapter() {
@@ -97,33 +97,49 @@ public class GameRulesFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_LEFT) {
-                    if(activeIta && !activeEng){
+                    if (activeIta && !activeEng) {
                         if (currentIndex != 0) {
                             currentIndex = (currentIndex - 1 + imagesIta.length) % imagesIta.length;
                             imagePanelIta.repaint(); // Repaint to show the previous image
                         }
-                    } else if (keyCode == KeyEvent.VK_RIGHT) {
-                        if (currentIndex < imagesIta.length - 1) {
-                            currentIndex++; // Increment the index to show the next image
-                            imagePanelIta.repaint(); // Repaint to update the display
-                        }
-                    }
-                    else if(!activeIta && activeEng){
+                    } else if (!activeIta && activeEng) {
                         if (currentIndex != 0) {
                             currentIndex = (currentIndex - 1 + imagesEng.length) % imagesEng.length;
                             imagePanelEng.repaint(); // Repaint to show the previous image
                         }
-                    } else if (keyCode == KeyEvent.VK_RIGHT) {
+                    }
+                }
+                else if (keyCode == KeyEvent.VK_RIGHT) {
+                    if (activeIta && !activeEng) {
                         if (currentIndex < imagesIta.length - 1) {
+                            currentIndex++; // Increment the index to show the next image
+                            imagePanelIta.repaint(); // Repaint to update the display
+                        }
+                    } else if (!activeIta && activeEng) {
+                        if (currentIndex < imagesEng.length - 1) {
                             currentIndex++; // Increment the index to show the next image
                             imagePanelEng.repaint(); // Repaint to update the display
                         }
                     }
                 }
-
-            }
+                    else if (keyCode == KeyEvent.VK_RIGHT) {
+                        if (activeIta && !activeEng) {
+                            if (currentIndex < imagesIta.length - 1) {
+                                currentIndex++; // Increment the index to show the next image
+                                imagePanelIta.repaint(); // Repaint to update the display
+                            }
+                        }
+                        else if(!activeIta && activeEng){
+                            if (currentIndex < imagesEng.length - 1) {
+                                currentIndex++; // Increment the index to show the next image
+                                imagePanelEng.repaint(); // Repaint to update the display
+                            }
+                        }
+                    }
+                }
         });
 
+        setContentPane(scrollPaneIta);
         setJMenuBar(createMenuBar());
         setFocusable(true); // Make the frame focusable to receive key events
         requestFocus(); // Request focus to receive key events
@@ -135,12 +151,12 @@ public class GameRulesFrame extends JFrame {
         JOptionPane.showMessageDialog(null, information, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void switchPanel(JScrollPane scrollPane){
-        // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setContentPane(scrollPane);
-        frame.validate();
-        frame.repaint();
+    private void switchPanel(JScrollPane scrollPane, boolean eng, boolean ita){
+        setContentPane(scrollPane);
+        validate();
+        repaint();
+        setActiveEng(eng);
+        setActiveIta(ita);
     }
     private JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
@@ -155,7 +171,21 @@ public class GameRulesFrame extends JFrame {
         buttonGroup.add(chooseEng);
         buttonGroup.add(chooseIta);
 
-        chooseEng.setSelected(true);
+        chooseIta.setSelected(true);
+
+        chooseEng.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPanel(scrollPaneEng, true, false);
+            }
+        });
+
+        chooseIta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPanel(scrollPaneIta, false, true);
+            }
+        });
 
         menuOption.add(chooseEng);
         menuOption.add(chooseIta);
@@ -163,5 +193,13 @@ public class GameRulesFrame extends JFrame {
         menuBar.add(menuOption);
 
         return menuBar;
+    }
+
+    public void setActiveIta(boolean activeIta) {
+        this.activeIta = activeIta;
+    }
+
+    public void setActiveEng(boolean activeEng) {
+        this.activeEng = activeEng;
     }
 }
