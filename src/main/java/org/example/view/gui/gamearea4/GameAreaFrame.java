@@ -2,6 +2,7 @@ package org.example.view.gui.gamearea4;
 
 
 
+import org.example.view.gui.About;
 import org.example.view.gui.gamerules.GameRulesFrame;
 
 import javax.swing.*;
@@ -75,9 +76,6 @@ public class GameAreaFrame extends JFrame {
         chat = new Chat(username);
         add(chat, gbc);
 
-
-
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -115,7 +113,7 @@ public class GameAreaFrame extends JFrame {
         JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
         menuAbout.add(menuItemRuleBook);
@@ -126,46 +124,7 @@ public class GameAreaFrame extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame aboutFrame = new JFrame("About");
-                JPanel aboutPanel = new JPanel();
-
-                aboutPanel.setPreferredSize(new Dimension(300,200));
-                Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-                Border outsideBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-                Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-                aboutPanel.setBorder(finalBorder);
-                JTextArea creditsTextPane = new JTextArea();
-
-                creditsTextPane.addFocusListener(new FocusListener() {
-                    @Override
-                    public void focusGained(FocusEvent e) {
-                        List<String> strings = new ArrayList<>();
-                    }
-
-                    @Override
-                    public void focusLost(FocusEvent e) {
-
-                    }
-                });
-
-                GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-
-                gbcCreditsLabel.gridx = 0;
-                gbcCreditsLabel.gridy = 0;
-
-                gbcCreditsLabel.weightx = 0.0;
-                gbcCreditsLabel.weighty = 0.9;
-                aboutPanel.setLayout(new GridBagLayout());
-                aboutPanel.add(creditsTextPane, gbcCreditsLabel);
-
-                aboutFrame.setLayout(new BorderLayout());
-                aboutFrame.add(aboutPanel);
-
-                aboutFrame.pack();
-                aboutFrame.setSize(300,200);
-                aboutFrame.setResizable(false);
-                aboutFrame.setLocationRelativeTo(null);
-                aboutFrame.setVisible(true);
+                new About();
             }
         });
 

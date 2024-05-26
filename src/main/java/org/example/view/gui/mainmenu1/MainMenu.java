@@ -2,6 +2,7 @@ package org.example.view.gui.mainmenu1;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.About;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
@@ -35,9 +36,6 @@ public class MainMenu extends JFrame {
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
-
-        TCPClient tcpClient;
-        String data;
 
         boxMenu = new BoxMenu(connectionType, view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
@@ -158,6 +156,16 @@ public class MainMenu extends JFrame {
         menuItemExit.setMnemonic(KeyEvent.VK_E);
         menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 
+        JMenuItem minimizedIconItem = new JMenuItem("Minimized");
+        minimizedIconItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setExtendedState(JFrame.ICONIFIED);
+            }
+        });
+
+        menuOption.add(minimizedIconItem);
+        menuOption.addSeparator();
         menuOption.add(menuItemExit);
 
         menuItemExit.addActionListener(new ActionListener() {
@@ -187,60 +195,7 @@ public class MainMenu extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame aboutFrame = new JFrame("About");
-                JPanel aboutPanel = new JPanel();
-
-                aboutPanel.setPreferredSize(new Dimension(300, 200));
-                Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-                Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-                Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-                aboutPanel.setBorder(finalBorder);
-                //JTextArea creditsTextPane = new JTextArea();
-                JLabel link = new JLabel("Visit the page!");
-                link.setForeground(Color.BLUE.darker());
-                link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-                link.addMouseListener(new MouseAdapter()
-                {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        try
-                        {
-                            Desktop.getDesktop().browse(new URI("https://www.craniocreations.it/prodotto/codex-naturalis"));
-                        }
-                        catch (IOException | URISyntaxException e1)
-                        {
-                            e1.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        link.setText("Visit the page!");
-                    }
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        link.setText("Visit the page!");
-                    }
-                });
-
-                GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-
-                gbcCreditsLabel.gridx = 0;
-                gbcCreditsLabel.gridy = 0;
-
-                gbcCreditsLabel.weightx = 0.0;
-                gbcCreditsLabel.weighty = 0.9;
-                aboutPanel.setLayout(new GridBagLayout());
-                aboutPanel.add(link, gbcCreditsLabel);
-
-                aboutFrame.setLayout(new BorderLayout());
-                aboutFrame.add(aboutPanel);
-
-                aboutFrame.pack();
-                aboutFrame.setSize(300, 200);
-                aboutFrame.setResizable(false);
-                aboutFrame.setLocationRelativeTo(null);
-                aboutFrame.setVisible(true);
+                new About();
             }
         });
 
