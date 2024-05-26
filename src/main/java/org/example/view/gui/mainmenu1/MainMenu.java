@@ -152,11 +152,11 @@ public class MainMenu extends JFrame {
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
 
-        JMenuItem menuItemExit = new JMenuItem("Exit");
+        JMenuItem menuItemExit = new JMenuItem("Exit", new ImageIcon("src/main/resources/images/icon/logout.png"));
         menuItemExit.setMnemonic(KeyEvent.VK_E);
         menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 
-        JMenuItem minimizedIconItem = new JMenuItem("Minimized");
+        JMenuItem minimizedIconItem = new JMenuItem("Minimized", new ImageIcon("src/main/resources/images/icon/minimize.png"));
         minimizedIconItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
