@@ -60,6 +60,15 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("setInitialGame")) {
                     getContentPane().removeAll();
                     getContentPane().add(setInitialGame, BorderLayout.CENTER);
+                    setInitialGame.setEvListener(new EvListener() {
+                        @Override
+                        public void eventListener(Event ev) {
+                            String event = ev.getEvent();
+                            if(event.equals("close")){
+                                dispose();
+                            }
+                        }
+                    });
                     validate();
                     repaint();
                 }
@@ -85,6 +94,17 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("setInitialGame")) {
                     remove(boxMenu);
                     add(setInitialGame, BorderLayout.CENTER);
+                    setInitialGame.setEvListener(new EvListener() {
+                        @Override
+                        public void eventListener(Event ev) {
+                            String event = ev.getEvent();
+                            if(event.equals("close")){
+                                dispose();
+                            }
+                        }
+                    });
+                    validate();
+                    repaint();
                 }
             }
         });
@@ -95,6 +115,7 @@ public class MainMenu extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
     }
 
     private JMenuBar createMenuBar() {

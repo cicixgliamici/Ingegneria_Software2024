@@ -3,6 +3,7 @@ package org.example.view.gui.selectobjstarter3;
 import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.gamearea4.GameAreaFrame;
+import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

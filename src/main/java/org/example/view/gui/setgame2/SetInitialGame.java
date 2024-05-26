@@ -165,7 +165,7 @@ public class SetInitialGame extends JPanel {
                         new SelectObjStarter(tcpClient, username, view, color, num);
                         // todo inviare la richiesta di chiudere la pagina;
                         // settare
-                        Event event = new Event(this, "closeApp");
+                        Event event = new Event(this, "close");
                         if (evListener != null) {
                             evListener.eventListener(event);
                         }
