@@ -35,6 +35,7 @@ public class About extends JFrame {
                 try
                 {
                     Desktop.getDesktop().browse(new URI("https://www.craniocreations.it/prodotto/codex-naturalis"));
+                    dispose();
                 }
                 catch (IOException | URISyntaxException e1)
                 {
