@@ -14,8 +14,10 @@ import java.io.IOException;
  */
 public class GameRulesFrame extends JFrame {
 
-    private JPanel imagePanel; // Panel to display images
-    private JScrollPane scrollPane; // Scroll pane to contain the image panel
+    private JPanel imagePanelIta; // Panel to display images
+    private JPanel imagePanelEng;
+    private JScrollPane scrollPaneIta; // Scroll pane to contain the image panel
+    private JScrollPane scrollPaneEng;
     private ImageIcon[] imagesIta; // Array to hold the images
     private ImageIcon[] imagesEng;
     private int currentIndex = 0; // Current index of the displayed image
@@ -30,14 +32,20 @@ public class GameRulesFrame extends JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/rulebook/ita/01.png");
         setIconImage(icon); // Set the icon image of the frame
 
-        // Load all images for the rules into an array
+        // Load all images for the ita rules into an array
         imagesIta = new ImageIcon[12];
         for (int i = 0; i < imagesIta.length; i++) {
             imagesIta[i] = new ImageIcon("src/main/resources/images/rulebook/ita/" + String.format("%02d", i + 1) + ".png");
         }
 
+        // Load all images for the ita rules into an array
+        imagesEng = new ImageIcon[12];
+        for (int i = 0; i < imagesIta.length; i++) {
+            imagesEng[i] = new ImageIcon("src/main/resources/images/rulebook/eng/" + String.format("%02d", i + 1) + ".png");
+        }
+
         // Initialize the image panel and override its paintComponent to draw the current image
-        imagePanel = new JPanel() {
+        imagePanelIta = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -52,10 +60,29 @@ public class GameRulesFrame extends JFrame {
         };
 
         // Setup the scroll pane to house the image panel
-        scrollPane = new JScrollPane(imagePanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        getContentPane().add(scrollPane, BorderLayout.CENTER); // Add the scrollPane to the center of the frame
+        scrollPaneIta = new JScrollPane(imagePanelIta);
+        scrollPaneIta.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneIta.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        getContentPane().add(scrollPaneIta, BorderLayout.CENTER); // Add the scrollPane to the center of the frame
+
+        imagePanelEng = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                imagesIta[currentIndex].paintIcon(this, g, 0, 0); // Draw the current image at position (0,0)
+            }
+
+            @Override
+            public Dimension getPreferredSize() {
+                // Dynamically adjust size based on the current image
+                return new Dimension(imagesEng[currentIndex].getIconWidth(), imagesEng[currentIndex].getIconHeight());
+            }
+        };
+
+        scrollPaneIta = new JScrollPane(imagePanelIta);
+        scrollPaneIta.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneIta.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        getContentPane().add(scrollPaneIta, BorderLayout.CENTER);
 
         // Add a key listener to the frame to handle left and right arrow keys for navigation
         addKeyListener(new KeyAdapter() {
@@ -65,12 +92,12 @@ public class GameRulesFrame extends JFrame {
                 if (keyCode == KeyEvent.VK_LEFT) {
                     if (currentIndex != 0) {
                         currentIndex = (currentIndex - 1 + imagesIta.length) % imagesIta.length;
-                        imagePanel.repaint(); // Repaint to show the previous image
+                        imagePanelIta.repaint(); // Repaint to show the previous image
                     }
                 } else if (keyCode == KeyEvent.VK_RIGHT) {
                     if (currentIndex < imagesIta.length - 1) {
                         currentIndex++; // Increment the index to show the next image
-                        imagePanel.repaint(); // Repaint to update the display
+                        imagePanelIta.repaint(); // Repaint to update the display
                     }
                 }
             }
