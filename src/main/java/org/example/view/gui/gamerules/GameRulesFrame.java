@@ -1,11 +1,16 @@
 package org.example.view.gui.gamerules;
 
+import org.example.client.TCPClient;
+import org.example.view.gui.setgame2.SetInitialGame;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -20,6 +25,8 @@ public class GameRulesFrame extends JFrame {
     private JScrollPane scrollPaneEng;
     private ImageIcon[] imagesIta; // Array to hold the images
     private ImageIcon[] imagesEng;
+    private boolean activeIta = true;
+    private boolean activeEng = false;
     private int currentIndex = 0; // Current index of the displayed image
 
     /**
@@ -40,7 +47,7 @@ public class GameRulesFrame extends JFrame {
 
         // Load all images for the ita rules into an array
         imagesEng = new ImageIcon[12];
-        for (int i = 0; i < imagesIta.length; i++) {
+        for (int i = 0; i < imagesEng.length; i++) {
             imagesEng[i] = new ImageIcon("src/main/resources/images/rulebook/eng/" + String.format("%02d", i + 1) + ".png");
         }
 
@@ -69,7 +76,7 @@ public class GameRulesFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                imagesIta[currentIndex].paintIcon(this, g, 0, 0); // Draw the current image at position (0,0)
+                imagesEng[currentIndex].paintIcon(this, g, 0, 0); // Draw the current image at position (0,0)
             }
 
             @Override
@@ -79,10 +86,10 @@ public class GameRulesFrame extends JFrame {
             }
         };
 
-        scrollPaneIta = new JScrollPane(imagePanelIta);
-        scrollPaneIta.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneIta.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        getContentPane().add(scrollPaneIta, BorderLayout.CENTER);
+        scrollPaneEng = new JScrollPane(imagePanelEng);
+        scrollPaneEng.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneEng.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        //getContentPane().add(scrollPaneEng, BorderLayout.CENTER);
 
         // Add a key listener to the frame to handle left and right arrow keys for navigation
         addKeyListener(new KeyAdapter() {
@@ -90,16 +97,30 @@ public class GameRulesFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_LEFT) {
-                    if (currentIndex != 0) {
-                        currentIndex = (currentIndex - 1 + imagesIta.length) % imagesIta.length;
-                        imagePanelIta.repaint(); // Repaint to show the previous image
+                    if(activeIta && !activeEng){
+                        if (currentIndex != 0) {
+                            currentIndex = (currentIndex - 1 + imagesIta.length) % imagesIta.length;
+                            imagePanelIta.repaint(); // Repaint to show the previous image
+                        }
+                    } else if (keyCode == KeyEvent.VK_RIGHT) {
+                        if (currentIndex < imagesIta.length - 1) {
+                            currentIndex++; // Increment the index to show the next image
+                            imagePanelIta.repaint(); // Repaint to update the display
+                        }
                     }
-                } else if (keyCode == KeyEvent.VK_RIGHT) {
-                    if (currentIndex < imagesIta.length - 1) {
-                        currentIndex++; // Increment the index to show the next image
-                        imagePanelIta.repaint(); // Repaint to update the display
+                    else if(!activeIta && activeEng){
+                        if (currentIndex != 0) {
+                            currentIndex = (currentIndex - 1 + imagesEng.length) % imagesEng.length;
+                            imagePanelEng.repaint(); // Repaint to show the previous image
+                        }
+                    } else if (keyCode == KeyEvent.VK_RIGHT) {
+                        if (currentIndex < imagesIta.length - 1) {
+                            currentIndex++; // Increment the index to show the next image
+                            imagePanelEng.repaint(); // Repaint to update the display
+                        }
                     }
                 }
+
             }
         });
 
@@ -113,25 +134,28 @@ public class GameRulesFrame extends JFrame {
         String information = "Please use the arrow keys to navigate.";
         JOptionPane.showMessageDialog(null, information, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    private void switchPanel(JScrollPane scrollPane){
+        // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.setContentPane(scrollPane);
+        frame.validate();
+        frame.repaint();
+    }
     private JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
 
-        JCheckBoxMenuItem chooseEng = new JCheckBoxMenuItem("English");
-        JCheckBoxMenuItem chooseIta = new JCheckBoxMenuItem("Italian");
-        chooseIta.setSelected(true);
+        JRadioButtonMenuItem chooseEng = new JRadioButtonMenuItem("English");
+        JRadioButtonMenuItem chooseIta = new JRadioButtonMenuItem("Italian");
 
-        chooseIta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
-                if (menuItem.isSelected()){
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(chooseEng);
+        buttonGroup.add(chooseIta);
 
-                }
-            }
-        });
+        chooseEng.setSelected(true);
 
         menuOption.add(chooseEng);
         menuOption.add(chooseIta);

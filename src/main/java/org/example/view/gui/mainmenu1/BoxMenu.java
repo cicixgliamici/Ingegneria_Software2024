@@ -288,8 +288,6 @@ public class BoxMenu extends JPanel {
         frame.setContentPane(setInitialGame); // Passa TCPClient e username
         frame.validate();
         frame.repaint();
-
-
     }
 
 

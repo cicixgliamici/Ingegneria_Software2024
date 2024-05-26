@@ -48,7 +48,7 @@ public class MainMenu extends JFrame {
                 super.paintComponent(graphics);
             }
         };
-
+/*
         boxMenu.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) {
@@ -73,7 +73,7 @@ public class MainMenu extends JFrame {
                     repaint();
                 }
             }
-        });
+        }); */
 
 
         setLayout(new BorderLayout());

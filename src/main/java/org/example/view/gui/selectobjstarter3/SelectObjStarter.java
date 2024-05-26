@@ -3,6 +3,8 @@ package org.example.view.gui.selectobjstarter3;
 import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.gamearea4.GameAreaFrame;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
@@ -22,6 +24,7 @@ public class SelectObjStarter extends JFrame {
     private String username;
     private String color;
     private String num;
+    private EvListener evListener;
 
     public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num){
         super("Select StarterCard and ObjectedCard");
@@ -91,6 +94,10 @@ public class SelectObjStarter extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         tcpClient.sendSetObjStrater(side, choice);
+                        org.example.view.gui.listener.Event event = new Event(this, "close");
+                        if (evListener != null) {
+                            evListener.eventListener(event);
+                        }
                         // Close the current frame
                         dispose();
                         // Open GameAreaFrame
