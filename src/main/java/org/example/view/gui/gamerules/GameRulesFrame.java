@@ -2,6 +2,8 @@ package org.example.view.gui.gamerules;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -14,7 +16,8 @@ public class GameRulesFrame extends JFrame {
 
     private JPanel imagePanel; // Panel to display images
     private JScrollPane scrollPane; // Scroll pane to contain the image panel
-    private ImageIcon[] images; // Array to hold the images
+    private ImageIcon[] imagesIta; // Array to hold the images
+    private ImageIcon[] imagesEng;
     private int currentIndex = 0; // Current index of the displayed image
 
     /**
@@ -28,9 +31,9 @@ public class GameRulesFrame extends JFrame {
         setIconImage(icon); // Set the icon image of the frame
 
         // Load all images for the rules into an array
-        images = new ImageIcon[12];
-        for (int i = 0; i < images.length; i++) {
-            images[i] = new ImageIcon("src/main/resources/images/rulebook/ita" + String.format("%02d", i + 1) + ".png");
+        imagesIta = new ImageIcon[12];
+        for (int i = 0; i < imagesIta.length; i++) {
+            imagesIta[i] = new ImageIcon("src/main/resources/images/rulebook/ita/" + String.format("%02d", i + 1) + ".png");
         }
 
         // Initialize the image panel and override its paintComponent to draw the current image
@@ -38,13 +41,13 @@ public class GameRulesFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                images[currentIndex].paintIcon(this, g, 0, 0); // Draw the current image at position (0,0)
+                imagesIta[currentIndex].paintIcon(this, g, 0, 0); // Draw the current image at position (0,0)
             }
 
             @Override
             public Dimension getPreferredSize() {
                 // Dynamically adjust size based on the current image
-                return new Dimension(images[currentIndex].getIconWidth(), images[currentIndex].getIconHeight());
+                return new Dimension(imagesIta[currentIndex].getIconWidth(), imagesIta[currentIndex].getIconHeight());
             }
         };
 
@@ -61,11 +64,11 @@ public class GameRulesFrame extends JFrame {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_LEFT) {
                     if (currentIndex != 0) {
-                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        currentIndex = (currentIndex - 1 + imagesIta.length) % imagesIta.length;
                         imagePanel.repaint(); // Repaint to show the previous image
                     }
                 } else if (keyCode == KeyEvent.VK_RIGHT) {
-                    if (currentIndex < images.length - 1) {
+                    if (currentIndex < imagesIta.length - 1) {
                         currentIndex++; // Increment the index to show the next image
                         imagePanel.repaint(); // Repaint to update the display
                     }
@@ -73,6 +76,7 @@ public class GameRulesFrame extends JFrame {
             }
         });
 
+        setJMenuBar(createMenuBar());
         setFocusable(true); // Make the frame focusable to receive key events
         requestFocus(); // Request focus to receive key events
         setResizable(false); // Make the frame non-resizable
@@ -88,7 +92,24 @@ public class GameRulesFrame extends JFrame {
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
 
+        JCheckBoxMenuItem chooseEng = new JCheckBoxMenuItem("English");
+        JCheckBoxMenuItem chooseIta = new JCheckBoxMenuItem("Italian");
+        chooseIta.setSelected(true);
 
+        chooseIta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
+                if (menuItem.isSelected()){
+
+                }
+            }
+        });
+
+        menuOption.add(chooseEng);
+        menuOption.add(chooseIta);
+
+        menuBar.add(menuOption);
 
         return menuBar;
     }
