@@ -32,7 +32,7 @@ public class MainMenu extends JFrame {
         this.connectionType = connectionType;
         this.view = view;
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
 
         boxMenu = new BoxMenu(connectionType, view) {
@@ -125,7 +125,7 @@ public class MainMenu extends JFrame {
         JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
         menuAbout.add(menuItemRuleBook);

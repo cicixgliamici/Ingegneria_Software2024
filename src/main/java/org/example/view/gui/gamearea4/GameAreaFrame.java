@@ -1,15 +1,13 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
 
 
 
 import org.example.view.gui.gamerules.GameRulesFrame;
-import org.example.view.gui.*;
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ public class GameAreaFrame extends JFrame {
         int width = (int) screenBounds.getWidth();
         int height = (int) screenBounds.getHeight() - taskbarHeight;
         setSize(width, height);
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
 
@@ -114,7 +112,7 @@ public class GameAreaFrame extends JFrame {
         JMenu menuAbout = new JMenu("About");
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
-        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/about_icon.png"));
+        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
         JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");

@@ -1,4 +1,6 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
+
+import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -219,7 +221,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
+        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();

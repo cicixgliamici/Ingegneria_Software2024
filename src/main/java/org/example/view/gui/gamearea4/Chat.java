@@ -1,4 +1,4 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
 
 
 import javax.swing.*;

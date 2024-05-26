@@ -1,4 +1,6 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
+
+import org.example.view.gui.utilities.ImageCard;
 
 import javax.swing.*;
 import java.awt.*;

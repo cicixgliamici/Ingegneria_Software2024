@@ -129,7 +129,7 @@ public class SetInitialGame extends JPanel {
         JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
         //Border insideNumPlayerBorder = BorderFactory.createLineBorder(Color.BLACK);
         //insideNumPlayerBorder = BorderFactory.createTitledBorder(insideNumPlayerBorder, "Choose the number of players");
-        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose the number of players");
+        Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose number of players");
         Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);

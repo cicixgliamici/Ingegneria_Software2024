@@ -1,6 +1,6 @@
 package org.example.view.gui;
 
-import org.example.view.gui.selectobjstarter3.SelectObjStarter;
+import org.example.view.gui.gamearea4.GameAreaFrame;
 
 import java.io.IOException;
 

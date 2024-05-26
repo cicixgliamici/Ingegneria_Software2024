@@ -2,8 +2,7 @@ package org.example.view.gui.selectobjstarter3;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.gui.GameAreaFrame;
-import org.example.view.gui.listener.Event;
+import org.example.view.gui.gamearea4.GameAreaFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,7 +34,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage logo = null;
         try {
-            logo = ImageIO.read(getClass().getResource("/images/102.png"));
+            logo = ImageIO.read(getClass().getResource("/images/card/102.png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);

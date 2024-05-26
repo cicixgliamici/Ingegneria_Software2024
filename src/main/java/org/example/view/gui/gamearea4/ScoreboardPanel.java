@@ -1,4 +1,4 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,11 +20,11 @@ public class ScoreboardPanel extends JPanel {
         scoreboard = new JLabel(icon);
         //MyDrawImage myDrawImage = new MyDrawImage("C:\\Users\\jamie\\OneDrive\\Desktop\\001.png", 0, 600);
 
-        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/102.png"));
+        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/card/102.png"));
         Icon icon1 = new ImageIcon(logo1);
         objective1 = new JLabel(icon1);
 
-        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/102.png"));
+        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/card/102.png"));
         Icon icon2 = new ImageIcon(logo2);
         objective2 = new JLabel(icon2);
 

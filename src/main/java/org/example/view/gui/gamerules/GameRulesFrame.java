@@ -24,13 +24,13 @@ public class GameRulesFrame extends JFrame {
         super("Game Rules");
         setSize(714, 740); // Set the size of the frame
         setLayout(new BorderLayout()); // Use BorderLayout for layout management
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/01.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/rulebook/ita/01.png");
         setIconImage(icon); // Set the icon image of the frame
 
         // Load all images for the rules into an array
         images = new ImageIcon[12];
         for (int i = 0; i < images.length; i++) {
-            images[i] = new ImageIcon("src/main/resources/images/" + String.format("%02d", i + 1) + ".png");
+            images[i] = new ImageIcon("src/main/resources/images/rulebook/ita" + String.format("%02d", i + 1) + ".png");
         }
 
         // Initialize the image panel and override its paintComponent to draw the current image
@@ -81,5 +81,15 @@ public class GameRulesFrame extends JFrame {
         // Show information dialog instructing the user on how to navigate
         String information = "Please use the arrow keys to navigate.";
         JOptionPane.showMessageDialog(null, information, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+    private JMenuBar createMenuBar(){
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuOption = new JMenu("Option");
+        menuOption.setMnemonic(KeyEvent.VK_O);
+
+
+
+        return menuBar;
     }
 }
