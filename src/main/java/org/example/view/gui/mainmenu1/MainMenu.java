@@ -125,7 +125,7 @@ public class MainMenu extends JFrame {
         JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\rulesbook-icon.png"));
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
         menuAbout.add(menuItemRuleBook);
