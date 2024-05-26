@@ -163,11 +163,13 @@ public class SetInitialGame extends JPanel {
                         // Invio dei dati al server tramite TCPClient
                         tcpClient.sendColorAndNumPlayers(color, num);
                         new SelectObjStarter(tcpClient, username, view, color, num);
-                        // todo inviare la richiesta di chiudere la pagina;
-                        // settare
                         Event event = new Event(this, "close");
                         if (evListener != null) {
-                            evListener.eventListener(event);
+                            try {
+                                evListener.eventListener(event);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Error! Please pick a color.", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -236,5 +238,29 @@ public class SetInitialGame extends JPanel {
      */
     public void setEvListener(EvListener evListener) {
         this.evListener = evListener;
+    }
+
+    public TCPClient getTcpClient() {
+        return tcpClient;
+    }
+
+    public void setTcpClient(TCPClient tcpClient) {
+        this.tcpClient = tcpClient;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

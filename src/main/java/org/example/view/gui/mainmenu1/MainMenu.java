@@ -1,5 +1,6 @@
 package org.example.view.gui.mainmenu1;
 
+import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
@@ -35,6 +36,9 @@ public class MainMenu extends JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
 
+        TCPClient tcpClient;
+        String data;
+
         boxMenu = new BoxMenu(connectionType, view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
@@ -43,6 +47,19 @@ public class MainMenu extends JFrame {
                 setOpaque(false);
             }
 
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
+
+        setInitialGame = new SetInitialGame(null,null, null){
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+            Image img = icon.getImage();
+
+            {
+                setOpaque(false);
+            }
             public void paintComponent(Graphics graphics) {
                 graphics.drawImage(img, 0, 0, this);
                 super.paintComponent(graphics);
@@ -81,7 +98,7 @@ public class MainMenu extends JFrame {
         add(boxMenu, BorderLayout.CENTER);
         boxMenu.setEvListener(new EvListener() {
             @Override
-            public void eventListener(Event ev) {
+            public void eventListener(Event ev) throws IOException {
                 String event = ev.getEvent();
                 if (event.equals("closeApp")) {
                     dispose();
@@ -92,19 +109,32 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("notValidPort")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else if (event.equals("setInitialGame")) {
-                    remove(boxMenu);
-                    add(setInitialGame, BorderLayout.CENTER);
+                    setInitialGame = new SetInitialGame(ev.getTcpClient(),ev.getData(), ev.getView()){
+                        ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+                        Image img = icon.getImage();
+
+                        {
+                            setOpaque(false);
+                        }
+                        public void paintComponent(Graphics graphics) {
+                            graphics.drawImage(img, 0, 0, this);
+                            super.paintComponent(graphics);
+                        }
+                    };
+
                     setInitialGame.setEvListener(new EvListener() {
                         @Override
-                        public void eventListener(Event ev) {
+                        public void eventListener(Event ev) throws IOException {
                             String event = ev.getEvent();
                             if(event.equals("close")){
                                 dispose();
                             }
                         }
                     });
+                    setContentPane(setInitialGame);
                     validate();
                     repaint();
+
                 }
             }
         });

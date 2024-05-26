@@ -26,7 +26,7 @@ public class SelectObjStarter extends JFrame {
     private String num;
     private EvListener evListener;
 
-    public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num){
+    public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num) throws IOException {
         super("Select StarterCard and ObjectedCard");
         this.tcpClient = tcpClient;
         this.username = username;
@@ -94,11 +94,6 @@ public class SelectObjStarter extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         tcpClient.sendSetObjStrater(side, choice);
-                        org.example.view.gui.listener.Event event = new Event(this, "close");
-                        if (evListener != null) {
-                            evListener.eventListener(event);
-                        }
-                        // Close the current frame
                         dispose();
                         // Open GameAreaFrame
                         new GameAreaFrame(username, color, num); // Use actual color and num
