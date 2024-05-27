@@ -244,7 +244,6 @@ public class BoxMenu extends JPanel {
             return;
         }
         boolean connected = false;
-        ViewGUI view = new ViewGUI(); //perchè viene instanziata un'altra view?
         tcpClient = new TCPClient(ip, port, view);
         try {
             tcpClient.startTCPClient();
