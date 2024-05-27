@@ -92,16 +92,6 @@ public class BoxMenu extends JPanel {
             }
         });
 
-        /*setEvListener(new EvListener() {
-            @Override
-            public void eventListener(Event event) throws IOException {
-                if (event.getEvent().equals("setInitialGame")) {
-                    switchToPlayerSetupPanel(tcpClient, username);
-                }
-            }
-        });*/
-
-
         // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {

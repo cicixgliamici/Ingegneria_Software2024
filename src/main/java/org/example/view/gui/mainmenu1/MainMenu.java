@@ -10,22 +10,17 @@ import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainMenu extends JFrame {
 
     BoxMenu boxMenu;
     SetInitialGame setInitialGame;
     private int connectionType;
-    private String username = "culo";
+    private String username;
     private  View view;
 
 
@@ -50,46 +45,6 @@ public class MainMenu extends JFrame {
                 super.paintComponent(graphics);
             }
         };
-
-        setInitialGame = new SetInitialGame(null,null, null){
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-            Image img = icon.getImage();
-
-            {
-                setOpaque(false);
-            }
-            public void paintComponent(Graphics graphics) {
-                graphics.drawImage(img, 0, 0, this);
-                super.paintComponent(graphics);
-            }
-        };
-/*
-        boxMenu.setEvListener(new EvListener() {
-            @Override
-            public void eventListener(Event ev) {
-                String event = ev.getEvent();
-                if (event.equals("closeApp")) {
-                    dispose();
-                } else if (event.equals("notValidUsr") || event.equals("notValidIp") || event.equals("notValidPort")) {
-                    JOptionPane.showMessageDialog(null, "Error! Please enter a valid input.", "Error!", JOptionPane.ERROR_MESSAGE);
-                } else if (event.equals("setInitialGame")) {
-                    getContentPane().removeAll();
-                    getContentPane().add(setInitialGame, BorderLayout.CENTER);
-                    setInitialGame.setEvListener(new EvListener() {
-                        @Override
-                        public void eventListener(Event ev) {
-                            String event = ev.getEvent();
-                            if(event.equals("close")){
-                                dispose();
-                            }
-                        }
-                    });
-                    validate();
-                    repaint();
-                }
-            }
-        }); */
-
 
         setLayout(new BorderLayout());
         setJMenuBar(createMenuBar());
@@ -122,7 +77,7 @@ public class MainMenu extends JFrame {
 
                     setInitialGame.setEvListener(new EvListener() {
                         @Override
-                        public void eventListener(Event ev) throws IOException {
+                        public void eventListener(Event ev){
                             String event = ev.getEvent();
                             if(event.equals("close")){
                                 dispose();
