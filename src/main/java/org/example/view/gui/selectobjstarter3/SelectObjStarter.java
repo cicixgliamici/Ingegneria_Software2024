@@ -18,8 +18,8 @@ import java.io.IOException;
 public class SelectObjStarter extends JFrame {
 
     private View view;
-    private int side;
-    private int choice;
+    private int side=0;
+    private int choice=0;
     private TCPClient tcpClient;
     private String username;
     private String color;
@@ -92,13 +92,18 @@ public class SelectObjStarter extends JFrame {
         button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        tcpClient.sendSetObjStrater(side, choice);
-                        dispose();
-                        // Open GameAreaFrame
-                        new GameAreaFrame(username, color, num); // Use actual color and num
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                    if (side != 0 && choice != 0) {
+                        try {
+                            tcpClient.sendSetObjStrater(side, choice);
+                            dispose();
+                            // Open GameAreaFrame
+                            new GameAreaFrame(username, color, num); // Use actual color and num
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(button, "Please select the side of the starter card and the objective card", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });

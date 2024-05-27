@@ -27,14 +27,14 @@ public class WaitingScreen extends JFrame {
         waitingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Barra di caricamento
-//        JProgressBar progressBar = new JProgressBar();
-//        progressBar.setIndeterminate(true);
-//        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        progressBar.setPreferredSize(new Dimension(300, 30));
-//        progressBar.setBackground(Color.WHITE);
+       JProgressBar progressBar = new JProgressBar();
+       progressBar.setIndeterminate(true);
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        progressBar.setPreferredSize(new Dimension(300, 30));
+        progressBar.setBackground(Color.WHITE);
 
 //        ProgressSpinner progress = new ProgressSpinner();
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("src/main/resources/images/loading1.gif"));
+        /*Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("src/main/resources/images/loading1.gif"));
         MediaTracker tracker = new MediaTracker(this);
         tracker.addImage(image, 0);
         try {
@@ -44,14 +44,14 @@ public class WaitingScreen extends JFrame {
         }
         ImageIcon icon = new ImageIcon(image);
 
-        JLabel progress = new JLabel(icon);
+        JLabel progress = new JLabel(icon);*/
         // Aggiunta degli elementi al pannello principale
         mainPanel.add(waitingLabel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Spazio tra gli elementi
-        mainPanel.add(progress);
+        mainPanel.add(progressBar);
 
         // Aggiunta del pannello principale al frame
-        add(progress, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
     }
 

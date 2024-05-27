@@ -75,6 +75,7 @@ public class TCPServer {
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
+                System.out.println(mainServer.getAvailableColors());
                 mainServer.onModelGeneric("message:8");
                 mainServer.onModelGeneric("color:" + String.join(",", mainServer.generateColor()));
                 String chosenColor = in.readLine();

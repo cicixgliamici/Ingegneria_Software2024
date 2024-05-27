@@ -15,14 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewGUI extends View {
-    private boolean isFirst;
-    private boolean matchStarted;
-
 
     public ViewGUI() {
         this.isFirst=false;
         this.flag=1;
         this.matchStarted=false;
+        colors=new ArrayList<>();
     }
 
     @Override
@@ -201,14 +199,10 @@ public class ViewGUI extends View {
      */
     @Override
     public void color(String c1, String c2, String c3, String c4) {
-        // Create a list from the input parameters
-        List<String> colors = Arrays.asList(c1, c2, c3, c4);
-        // Initialize a new ArrayList to store the valid colors
-        List<String> colorList = new ArrayList<>();
-        // Iterate over each color in the list and add to the list if it is not "null"
-        for (String color : colors) {
+        List<String> inputColors = Arrays.asList(c1, c2, c3, c4);
+        for (String color : inputColors) {
             if (!"null".equals(color)) {
-                colorList.add(color);
+                colors.add(color);
             }
         }
     }
@@ -217,4 +211,5 @@ public class ViewGUI extends View {
     public void setFirst() {
         isFirst = true;
     }
+
 }

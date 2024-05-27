@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
  */
 public abstract class View {
     protected int flag;
+    protected List<String> colors;
     protected boolean isFirst;
     protected volatile boolean matchStarted;
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
@@ -183,9 +184,11 @@ public abstract class View {
     public boolean isFirst() {
         return isFirst;
     }
-
     public boolean isMatchStarted() {
         return matchStarted;
     }
 
+    public List<String> getColors() {
+        return colors;
+    }
 }

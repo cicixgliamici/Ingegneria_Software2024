@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
+import java.util.List;
 
 
 public class SetInitialGame extends JPanel {
@@ -57,6 +57,7 @@ public class SetInitialGame extends JPanel {
         yellowRadioButton.setActionCommand("Yellow");
         JRadioButton blueRadioButton = new JRadioButton("Blue");
         blueRadioButton.setActionCommand("Blue");
+        System.out.println("PORCODIO"+ view.getColors());
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(redRadioButton);
@@ -64,6 +65,11 @@ public class SetInitialGame extends JPanel {
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
 
+        redRadioButton.setEnabled(view.getColors().contains("Red"));
+        yellowRadioButton.setEnabled(view.getColors().contains("Yellow"));
+        greenRadioButton.setEnabled(view.getColors().contains("Green"));
+        blueRadioButton.setEnabled(view.getColors().contains("Blue"));
+        //System.out.println(view.getColors());
 
 
         Border insideChooseColorBorder = BorderFactory.createTitledBorder("Choose a Color");
@@ -136,6 +142,7 @@ public class SetInitialGame extends JPanel {
         setNumberPlayerPanel.setPreferredSize(new Dimension(180,112));
         //setNumberPlayerPanel.setOpaque(false);
 
+        setNumberPlayerPanel.setEnabled(view.isFirst());
         //Layout SetNumberPlayer
         GridBagConstraints gbcNumPlayerLabel = new GridBagConstraints();
 
