@@ -2,7 +2,7 @@ package org.example.view;
 
 import java.util.*;
 
-import org.example.view.gui.Coordinates;
+import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONObject;
 
 /**

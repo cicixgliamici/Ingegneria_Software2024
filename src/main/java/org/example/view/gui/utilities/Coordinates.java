@@ -1,4 +1,4 @@
-package org.example.view.gui;
+package org.example.view.gui.utilities;
 import java.util.Objects;
 
 public class Coordinates {

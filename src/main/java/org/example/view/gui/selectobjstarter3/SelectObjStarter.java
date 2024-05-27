@@ -2,8 +2,10 @@ package org.example.view.gui.selectobjstarter3;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.gui.GameAreaFrame;
+import org.example.view.gui.gamearea4.GameAreaFrame;
+import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
+import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,8 +24,9 @@ public class SelectObjStarter extends JFrame {
     private String username;
     private String color;
     private String num;
+    private EvListener evListener;
 
-    public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num){
+    public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num) throws IOException {
         super("Select StarterCard and ObjectedCard");
         this.tcpClient = tcpClient;
         this.username = username;
@@ -35,7 +38,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage logo = null;
         try {
-            logo = ImageIO.read(getClass().getResource("/images/102.png"));
+            logo = ImageIO.read(getClass().getResource("/images/card/102.png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -82,7 +85,7 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
-                System.out.println("Right upper card clicked!");
+                System.out.println("Right lower card clicked!");
             }
         });
 
@@ -91,7 +94,6 @@ public class SelectObjStarter extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         tcpClient.sendSetObjStrater(side, choice);
-                        // Close the current frame
                         dispose();
                         // Open GameAreaFrame
                         new GameAreaFrame(username, color, num); // Use actual color and num

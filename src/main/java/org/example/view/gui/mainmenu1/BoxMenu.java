@@ -10,10 +10,7 @@ import org.example.view.gui.setgame2.SetInitialGame;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -95,14 +92,15 @@ public class BoxMenu extends JPanel {
             }
         });
 
-        setEvListener(new EvListener() {
+        /*setEvListener(new EvListener() {
             @Override
             public void eventListener(Event event) throws IOException {
                 if (event.getEvent().equals("setInitialGame")) {
                     switchToPlayerSetupPanel(tcpClient, username);
                 }
             }
-        });
+        });*/
+
 
         // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
@@ -246,7 +244,7 @@ public class BoxMenu extends JPanel {
             return;
         }
         boolean connected = false;
-        ViewGUI view = new ViewGUI();
+        ViewGUI view = new ViewGUI(); //perchè viene instanziata un'altra view?
         tcpClient = new TCPClient(ip, port, view);
         try {
             tcpClient.startTCPClient();
@@ -268,7 +266,7 @@ public class BoxMenu extends JPanel {
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
     private void switchToPlayerSetupPanel(TCPClient tcpClient, String username) throws IOException {
-        SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText(), view) {
+        /*SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText(), view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
 
@@ -284,8 +282,16 @@ public class BoxMenu extends JPanel {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.setContentPane(setInitialGame); // Passa TCPClient e username
         frame.validate();
-        frame.repaint();
-    }
+        frame.repaint();*/
 
+        Event event = new Event(this, "setInitialGame", tcpClient, username, view);
+        if (evListener != null) {
+            try {
+                evListener.eventListener(event);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
 
 }

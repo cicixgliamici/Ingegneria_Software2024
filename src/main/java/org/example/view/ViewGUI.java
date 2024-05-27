@@ -16,6 +16,8 @@ import java.util.List;
 
 public class ViewGUI extends View {
     private boolean isFirst;
+
+
     public ViewGUI() {
         this.isFirst=false;
         this.flag=1;

@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.view.gui.Coordinates;
+import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

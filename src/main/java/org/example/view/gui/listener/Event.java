@@ -1,5 +1,8 @@
 package org.example.view.gui.listener;
 
+import org.example.client.TCPClient;
+import org.example.view.View;
+
 import java.util.EventObject;
 
 /**
@@ -9,6 +12,8 @@ import java.util.EventObject;
 public class Event extends EventObject {
     private String event; // Describes the type or name of the event
     private String data; // Optional data or details associated with the event
+    private TCPClient tcpClient;
+    private View view;
 
     /**
      * Constructor to create an event without additional data.
@@ -30,6 +35,14 @@ public class Event extends EventObject {
         super(source);
         this.event = event;
         this.data = data;
+    }
+
+    public Event(Object source, String event, TCPClient tcpClient, String username, View view){
+        super(source);
+        this.event = event;
+        this.tcpClient = tcpClient;
+        this.data = username;
+        this.view = view;
     }
 
     /**
@@ -58,5 +71,21 @@ public class Event extends EventObject {
      */
     public void setEvent(String event) {
         this.event = event;
+    }
+
+    public TCPClient getTcpClient() {
+        return tcpClient;
+    }
+
+    public void setTcpClient(TCPClient tcpClient) {
+        this.tcpClient = tcpClient;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

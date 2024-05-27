@@ -1,4 +1,6 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
+
+import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -93,7 +95,7 @@ public class GameAreaPanel extends JPanel{
                     Icon icon1 = new ImageIcon(logo1);
                     token1 = new JLabel(icon1);
                 }
-                BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
+                BufferedImage logo5 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
                 Icon icon5 = new ImageIcon(logo5);
                 token2 = new JLabel(icon5);
                 BufferedImage logo6 = ImageIO.read(new File("src/main/resources/images/red.png"));
@@ -219,7 +221,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/001.png");
+        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -249,7 +251,7 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        gbc.weightx = 0.000025;
+        gbc.weightx = 0.1;
         gbc.weighty = 0.000025;
 
         add(token1, gbc);
@@ -257,8 +259,9 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 5;
         gbc.gridy = 0;
 
-        gbc.weightx = 0.000025;
-        gbc.weighty = 0.000025;
+        gbc.weightx = 0.1;
+        gbc.weighty = 0.00025;
+
 
         add(token2, gbc);
 

@@ -1,6 +1,8 @@
 package org.example.view.gui.mainmenu1;
 
+import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.About;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
@@ -32,7 +34,7 @@ public class MainMenu extends JFrame {
         this.connectionType = connectionType;
         this.view = view;
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
 
         boxMenu = new BoxMenu(connectionType, view) {
@@ -49,6 +51,19 @@ public class MainMenu extends JFrame {
             }
         };
 
+        setInitialGame = new SetInitialGame(null,null, null){
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+            Image img = icon.getImage();
+
+            {
+                setOpaque(false);
+            }
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
+/*
         boxMenu.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) {
@@ -60,11 +75,20 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("setInitialGame")) {
                     getContentPane().removeAll();
                     getContentPane().add(setInitialGame, BorderLayout.CENTER);
+                    setInitialGame.setEvListener(new EvListener() {
+                        @Override
+                        public void eventListener(Event ev) {
+                            String event = ev.getEvent();
+                            if(event.equals("close")){
+                                dispose();
+                            }
+                        }
+                    });
                     validate();
                     repaint();
                 }
             }
-        });
+        }); */
 
 
         setLayout(new BorderLayout());
@@ -72,7 +96,7 @@ public class MainMenu extends JFrame {
         add(boxMenu, BorderLayout.CENTER);
         boxMenu.setEvListener(new EvListener() {
             @Override
-            public void eventListener(Event ev) {
+            public void eventListener(Event ev) throws IOException {
                 String event = ev.getEvent();
                 if (event.equals("closeApp")) {
                     dispose();
@@ -83,8 +107,32 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("notValidPort")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else if (event.equals("setInitialGame")) {
-                    remove(boxMenu);
-                    add(setInitialGame, BorderLayout.CENTER);
+                    setInitialGame = new SetInitialGame(ev.getTcpClient(),ev.getData(), ev.getView()){
+                        ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
+                        Image img = icon.getImage();
+
+                        {
+                            setOpaque(false);
+                        }
+                        public void paintComponent(Graphics graphics) {
+                            graphics.drawImage(img, 0, 0, this);
+                            super.paintComponent(graphics);
+                        }
+                    };
+
+                    setInitialGame.setEvListener(new EvListener() {
+                        @Override
+                        public void eventListener(Event ev) throws IOException {
+                            String event = ev.getEvent();
+                            if(event.equals("close")){
+                                dispose();
+                            }
+                        }
+                    });
+                    setContentPane(setInitialGame);
+                    validate();
+                    repaint();
+
                 }
             }
         });
@@ -95,6 +143,7 @@ public class MainMenu extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
     }
 
     private JMenuBar createMenuBar() {
@@ -103,10 +152,20 @@ public class MainMenu extends JFrame {
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
 
-        JMenuItem menuItemExit = new JMenuItem("Exit");
+        JMenuItem menuItemExit = new JMenuItem("Exit", new ImageIcon("src/main/resources/images/icon/logout.png"));
         menuItemExit.setMnemonic(KeyEvent.VK_E);
         menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 
+        JMenuItem minimizedIconItem = new JMenuItem("Minimized", new ImageIcon("src/main/resources/images/icon/minimize.png"));
+        minimizedIconItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setExtendedState(JFrame.ICONIFIED);
+            }
+        });
+
+        menuOption.add(minimizedIconItem);
+        menuOption.addSeparator();
         menuOption.add(menuItemExit);
 
         menuItemExit.addActionListener(new ActionListener() {
@@ -122,10 +181,10 @@ public class MainMenu extends JFrame {
         JMenu menuAbout = new JMenu("About");
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
-        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/about_icon.png"));
+        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
         menuAbout.add(menuItemRuleBook);
@@ -136,60 +195,7 @@ public class MainMenu extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame aboutFrame = new JFrame("About");
-                JPanel aboutPanel = new JPanel();
-
-                aboutPanel.setPreferredSize(new Dimension(300, 200));
-                Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-                Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-                Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-                aboutPanel.setBorder(finalBorder);
-                //JTextArea creditsTextPane = new JTextArea();
-                JLabel link = new JLabel("Visit the page!");
-                link.setForeground(Color.BLUE.darker());
-                link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-                link.addMouseListener(new MouseAdapter()
-                {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        try
-                        {
-                            Desktop.getDesktop().browse(new URI("https://www.craniocreations.it/prodotto/codex-naturalis"));
-                        }
-                        catch (IOException | URISyntaxException e1)
-                        {
-                            e1.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        link.setText("Visit the page!");
-                    }
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        link.setText("Visit the page!");
-                    }
-                });
-
-                GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-
-                gbcCreditsLabel.gridx = 0;
-                gbcCreditsLabel.gridy = 0;
-
-                gbcCreditsLabel.weightx = 0.0;
-                gbcCreditsLabel.weighty = 0.9;
-                aboutPanel.setLayout(new GridBagLayout());
-                aboutPanel.add(link, gbcCreditsLabel);
-
-                aboutFrame.setLayout(new BorderLayout());
-                aboutFrame.add(aboutPanel);
-
-                aboutFrame.pack();
-                aboutFrame.setSize(300, 200);
-                aboutFrame.setResizable(false);
-                aboutFrame.setLocationRelativeTo(null);
-                aboutFrame.setVisible(true);
+                new About();
             }
         });
 

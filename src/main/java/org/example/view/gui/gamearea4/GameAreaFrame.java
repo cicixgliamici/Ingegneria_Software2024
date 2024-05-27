@@ -1,15 +1,14 @@
-package org.example.view.gui;
+package org.example.view.gui.gamearea4;
 
 
 
+import org.example.view.gui.About;
 import org.example.view.gui.gamerules.GameRulesFrame;
-import org.example.view.gui.*;
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class GameAreaFrame extends JFrame {
         int width = (int) screenBounds.getWidth();
         int height = (int) screenBounds.getHeight() - taskbarHeight;
         setSize(width, height);
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/iconamini.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
 
@@ -77,9 +76,6 @@ public class GameAreaFrame extends JFrame {
         chat = new Chat(username);
         add(chat, gbc);
 
-
-
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -95,10 +91,20 @@ public class GameAreaFrame extends JFrame {
         menuOption.setMnemonic(KeyEvent.VK_O);
 
 
-        JMenuItem menuItemExit = new JMenuItem("Exit");
+        JMenuItem menuItemExit = new JMenuItem("Exit", new ImageIcon("src/main/resources/images/icon/logout.png"));
         menuItemExit.setMnemonic(KeyEvent.VK_E);
         menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 
+        JMenuItem minimizedIconItem = new JMenuItem("Minimized", new ImageIcon("src/main/resources/images/icon/minimize.png"));
+        minimizedIconItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setExtendedState(JFrame.ICONIFIED);
+            }
+        });
+
+        menuOption.add(minimizedIconItem);
+        menuOption.addSeparator();
         menuOption.add(menuItemExit);
 
         menuItemExit.addActionListener(new ActionListener() {
@@ -114,10 +120,10 @@ public class GameAreaFrame extends JFrame {
         JMenu menuAbout = new JMenu("About");
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
-        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/about_icon.png"));
+        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
 
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book");
+        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
 
         menuAbout.add(menuItemRuleBook);
@@ -128,46 +134,7 @@ public class GameAreaFrame extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame aboutFrame = new JFrame("About");
-                JPanel aboutPanel = new JPanel();
-
-                aboutPanel.setPreferredSize(new Dimension(300,200));
-                Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-                Border outsideBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-                Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-                aboutPanel.setBorder(finalBorder);
-                JTextArea creditsTextPane = new JTextArea();
-
-                creditsTextPane.addFocusListener(new FocusListener() {
-                    @Override
-                    public void focusGained(FocusEvent e) {
-                        List<String> strings = new ArrayList<>();
-                    }
-
-                    @Override
-                    public void focusLost(FocusEvent e) {
-
-                    }
-                });
-
-                GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-
-                gbcCreditsLabel.gridx = 0;
-                gbcCreditsLabel.gridy = 0;
-
-                gbcCreditsLabel.weightx = 0.0;
-                gbcCreditsLabel.weighty = 0.9;
-                aboutPanel.setLayout(new GridBagLayout());
-                aboutPanel.add(creditsTextPane, gbcCreditsLabel);
-
-                aboutFrame.setLayout(new BorderLayout());
-                aboutFrame.add(aboutPanel);
-
-                aboutFrame.pack();
-                aboutFrame.setSize(300,200);
-                aboutFrame.setResizable(false);
-                aboutFrame.setLocationRelativeTo(null);
-                aboutFrame.setVisible(true);
+                new About();
             }
         });
 
