@@ -20,15 +20,17 @@ public class GameAreaFrame extends JFrame {
     DrawingCardPanel drawingCardPanel;
     public GameAreaFrame(String username, String color, String num) throws IOException {
         super("Codex Naturalis");
-        //setSize(1600, 860);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        setSize(1900, 820);
+
+        /*GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         Rectangle screenBounds = gd.getDefaultConfiguration().getBounds();
         Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
         int taskbarHeight = scnMax.bottom;
         int width = (int) screenBounds.getWidth();
         int height = (int) screenBounds.getHeight() - taskbarHeight;
-        setSize(width, height);
+        setSize(width, height);*/
+
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());

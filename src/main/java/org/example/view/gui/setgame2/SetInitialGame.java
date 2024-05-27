@@ -23,13 +23,14 @@ public class SetInitialGame extends JPanel {
     private String username;
     private JLabel labelTitle;
     private View view;
+
     public SetInitialGame(TCPClient tcpClient, String username, View view) {
         this.tcpClient = tcpClient;
         this.username = username;
         this.view = view;
 
         setLayout(new GridBagLayout());
-        // Components
+        //Components
         JPanel chooseColorPanel = new JPanel(new GridBagLayout());
         JPanel setNumberPlayerPanel = new JPanel(new GridBagLayout());
 
@@ -47,7 +48,7 @@ public class SetInitialGame extends JPanel {
         Icon icon = new ImageIcon(logo);
 
         labelTitle = new JLabel(icon);
-        // Setting chooseColorPanel
+        //Setting chooseColorPanel
         JRadioButton redRadioButton = new JRadioButton("Red");
         redRadioButton.setActionCommand("Red");
         JRadioButton greenRadioButton = new JRadioButton("Green");
@@ -56,6 +57,7 @@ public class SetInitialGame extends JPanel {
         yellowRadioButton.setActionCommand("Yellow");
         JRadioButton blueRadioButton = new JRadioButton("Blue");
         blueRadioButton.setActionCommand("Blue");
+        System.out.println("PORCODIO"+ view.getColors());
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(redRadioButton);
@@ -63,18 +65,21 @@ public class SetInitialGame extends JPanel {
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
 
-        System.out.println(view.getColors());
         redRadioButton.setEnabled(view.getColors().contains("Red"));
         yellowRadioButton.setEnabled(view.getColors().contains("Yellow"));
         greenRadioButton.setEnabled(view.getColors().contains("Green"));
         blueRadioButton.setEnabled(view.getColors().contains("Blue"));
+        //System.out.println(view.getColors());
+
 
         Border insideChooseColorBorder = BorderFactory.createTitledBorder("Choose a Color");
-        Border outsideBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+        Border outsideBorder = BorderFactory.createEmptyBorder(20,20,20,20);
         Border finalChooseColorBorder = BorderFactory.createCompoundBorder(insideChooseColorBorder, outsideBorder);
         chooseColorPanel.setBorder(finalChooseColorBorder);
 
-        // Layout of chooseColorPanel
+        //chooseColorPanel.setOpaque(false);
+
+        //Layout of chooseColorPanel
         GridBagConstraints gbcRed = new GridBagConstraints();
 
         gbcRed.gridy = 0;
@@ -123,30 +128,27 @@ public class SetInitialGame extends JPanel {
 
         chooseColorPanel.add(blueRadioButton, gbcBlue);
 
-        // Setting setNumberPlayerPanel
+        //Setting setNumberPlayerPanel
         JLabel labelNumPlayer = new JLabel("Number of players: ");
         labelNumPlayer.setForeground(Color.darkGray);
         String[] optionsNumPlayer = {"1", "2", "3", "4"};
-        JComboBox<String> menuNumPlayer = new JComboBox<>(optionsNumPlayer);
+        JComboBox menuNumPlayer = new JComboBox(optionsNumPlayer);
+        //Border insideNumPlayerBorder = BorderFactory.createLineBorder(Color.BLACK);
+        //insideNumPlayerBorder = BorderFactory.createTitledBorder(insideNumPlayerBorder, "Choose the number of players");
         Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose number of players");
-        Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
-        Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideNumPlayerBorder);
+        Border outsideNumPlayerBorder = BorderFactory.createEmptyBorder(20,20,20,20);
+        Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
-        setNumberPlayerPanel.setPreferredSize(new Dimension(180, 112));
+        setNumberPlayerPanel.setPreferredSize(new Dimension(180,112));
+        //setNumberPlayerPanel.setOpaque(false);
 
-        System.out.println("sono il primo: " + view.isFirst());
-        // Check if the player is the first
-        if (!view.isFirst()) {
-            menuNumPlayer.setEnabled(false); // Disable the combo box
-            menuNumPlayer.setSelectedItem(String.valueOf(view.getNumConnection())); // Set the current number of connected players
-        }
-
-        // Layout SetNumberPlayer
+        setNumberPlayerPanel.setEnabled(view.isFirst());
+        //Layout SetNumberPlayer
         GridBagConstraints gbcNumPlayerLabel = new GridBagConstraints();
 
         gbcNumPlayerLabel.gridy = 0;
         gbcNumPlayerLabel.gridx = 0;
-        gbcNumPlayerLabel.insets = new Insets(0, 10, 0, 10);
+        gbcNumPlayerLabel.insets = new Insets(0,10,0,10);
 
         setNumberPlayerPanel.add(labelNumPlayer, gbcNumPlayerLabel);
 
@@ -156,6 +158,7 @@ public class SetInitialGame extends JPanel {
         gbcMenuNumPlayer.gridx = 1;
 
         setNumberPlayerPanel.add(menuNumPlayer, gbcMenuNumPlayer);
+
 
         confirmButton.addActionListener(new ActionListener() {
             @Override
@@ -207,6 +210,8 @@ public class SetInitialGame extends JPanel {
             }
         });
 
+
+
         GridBagConstraints gbcTitle = new GridBagConstraints();
 
         gbcTitle.gridy = 0;
@@ -228,7 +233,7 @@ public class SetInitialGame extends JPanel {
         gbcChooseColor.weighty = 0.1;
         gbcChooseColor.weightx = 0.0;
 
-        gbcChooseColor.insets = new Insets(0, 0, 0, 10);
+        gbcChooseColor.insets = new Insets(0,0,0,10);
 
         add(chooseColorPanel, gbcChooseColor);
 
@@ -240,7 +245,7 @@ public class SetInitialGame extends JPanel {
         gbcSetNumberPlayer.weighty = 0.1;
         gbcSetNumberPlayer.weightx = 0.0;
 
-        gbcSetNumberPlayer.insets = new Insets(0, 10, 0, 0);
+        gbcSetNumberPlayer.insets = new Insets(0,10,0,0);
 
         add(setNumberPlayerPanel, gbcSetNumberPlayer);
 

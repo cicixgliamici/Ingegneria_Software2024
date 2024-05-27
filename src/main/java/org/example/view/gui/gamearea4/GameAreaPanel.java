@@ -5,6 +5,9 @@ import org.example.view.gui.utilities.Coordinates;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -31,6 +34,33 @@ public class GameAreaPanel extends JPanel{
         BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic1 = new ImageIcon(img1);
         card1 = new JLabel(ic1);
+        card1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                JComponent c = (JComponent) e.getSource();
+                TransferHandler handler = c.getTransferHandler();
+                handler.exportAsDrag(c, e, TransferHandler.COPY);
+            }
+        });
+        card1.setTransferHandler(new TransferHandler("icon") {
+            protected Transferable createTransferable(JComponent c) {
+                return new Transferable() {
+                    @Override
+                    public DataFlavor[] getTransferDataFlavors() {
+                        return new DataFlavor[] { DataFlavor.imageFlavor };
+                    }
+
+                    @Override
+                    public boolean isDataFlavorSupported(DataFlavor flavor) {
+                        return flavor.equals(DataFlavor.imageFlavor);
+                    }
+
+                    @Override
+                    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+                        return ((ImageIcon) card1.getIcon()).getImage();
+                    }
+                };
+            }
+        });
 
         BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic2 = new ImageIcon(img2);
@@ -178,6 +208,27 @@ public class GameAreaPanel extends JPanel{
                 graphics.drawImage(img,0,0, this);
                 super.paintComponent(graphics);}
         };
+
+        playCardArea.setTransferHandler(new TransferHandler() {
+            public boolean canImport(TransferSupport support) {
+                return support.isDataFlavorSupported(DataFlavor.imageFlavor);
+            }
+
+            public boolean importData(TransferSupport support) {
+                if (!canImport(support)) {
+                    return false;
+                }
+                try {
+                    Transferable t = support.getTransferable();
+                    Image image = (Image) t.getTransferData(DataFlavor.imageFlavor);
+                    // Handle the dropped image as needed
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        });
 
 
         MouseAdapter ma = new MouseAdapter() {
