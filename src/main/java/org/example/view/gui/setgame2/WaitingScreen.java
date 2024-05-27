@@ -34,16 +34,16 @@ public class WaitingScreen extends JFrame {
 //        progressBar.setBackground(Color.WHITE);
 
 //        ProgressSpinner progress = new ProgressSpinner();
-        BufferedImage logo = null;
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("src/main/resources/images/loading1.gif"));
+        MediaTracker tracker = new MediaTracker(this);
+        tracker.addImage(image, 0);
         try {
-            logo = ImageIO.read(getClass().getResource("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\loading1.gif"));
-        } catch (IOException e) {
+            tracker.waitForAll();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
         }
+        ImageIcon icon = new ImageIcon(image);
 
-        Icon icon = new ImageIcon(logo);
         JLabel progress = new JLabel(icon);
         // Aggiunta degli elementi al pannello principale
         mainPanel.add(waitingLabel);
