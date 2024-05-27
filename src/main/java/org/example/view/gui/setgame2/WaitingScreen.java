@@ -27,8 +27,8 @@ public class WaitingScreen extends JFrame {
         waitingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Barra di caricamento
-       JProgressBar progressBar = new JProgressBar();
-       progressBar.setIndeterminate(true);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true);
         progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
         progressBar.setPreferredSize(new Dimension(300, 30));
         progressBar.setBackground(Color.WHITE);

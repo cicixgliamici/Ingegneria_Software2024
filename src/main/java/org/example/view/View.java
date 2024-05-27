@@ -197,4 +197,5 @@ public abstract class View {
     public int getNumConnection() {
         return numConnection;
     }
+
 }

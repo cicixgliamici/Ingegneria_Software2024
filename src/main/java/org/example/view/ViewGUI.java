@@ -200,11 +200,14 @@ public class ViewGUI extends View {
     @Override
     public void color(String c1, String c2, String c3, String c4) {
         List<String> inputColors = Arrays.asList(c1, c2, c3, c4);
+        isFirst=true;
         for (String color : inputColors) {
             if (!"null".equals(color)) {
                 colors.add(color);
-            }
+            } else
+                isFirst=false;
         }
+        System.out.println("in view: Colors: " + colors);
     }
 
 
@@ -213,5 +216,6 @@ public class ViewGUI extends View {
     }
     public void numCon(int maxCon){
         numConnection=maxCon;
+        System.out.println("ricevuto il num max di player" + numConnection);
     }
 }

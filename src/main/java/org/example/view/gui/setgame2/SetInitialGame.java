@@ -63,6 +63,7 @@ public class SetInitialGame extends JPanel {
         buttonGroup.add(yellowRadioButton);
         buttonGroup.add(blueRadioButton);
 
+        System.out.println(view.getColors());
         redRadioButton.setEnabled(view.getColors().contains("Red"));
         yellowRadioButton.setEnabled(view.getColors().contains("Yellow"));
         greenRadioButton.setEnabled(view.getColors().contains("Green"));
@@ -133,6 +134,7 @@ public class SetInitialGame extends JPanel {
         setNumberPlayerPanel.setBorder(finalNumPlayerBorder);
         setNumberPlayerPanel.setPreferredSize(new Dimension(180, 112));
 
+        System.out.println("sono il primo: " + view.isFirst());
         // Check if the player is the first
         if (!view.isFirst()) {
             menuNumPlayer.setEnabled(false); // Disable the combo box

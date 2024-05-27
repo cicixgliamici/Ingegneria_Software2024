@@ -91,7 +91,8 @@ public class TCPServer {
                     mainServer.setNumMaxConnections(num);
                 }
                 else{
-                    mainServer.onModelGeneric("numCon:"+ num);
+                    mainServer.onModelGeneric("numCon:"+ mainServer.numMaxConnections);
+                    System.out.println("inviato il num max di player");
                 }
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
                 System.out.println(mainServer.getPlayers().toString());

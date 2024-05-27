@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class ViewTUI extends View {
 
-    private boolean isFirst;
+
     private boolean matchStarted;
 
     // Map to associate resource names with their ANSI color codes for colored console output.
@@ -305,15 +305,16 @@ public class ViewTUI extends View {
     public void color(String c1, String c2, String c3, String c4) {
         List<String> colors = Arrays.asList(c1, c2, c3, c4); // Create a list of the input colors
         StringBuilder colorBuilder = new StringBuilder("Colors available:");
-        boolean isFirst = true; // Flag to handle commas correctly.
+        isFirst = true; // Flag to handle commas correctly.
         for (String color : colors) {
             if (!color.equals("null")) { // Check if the color is not "null".
                 if (!isFirst) {
                     colorBuilder.append(", ");
                 }
                 colorBuilder.append(color);
+
+            } else
                 isFirst = false;
-            }
         }
         // Print the constructed order if at least one color was added.
         if (!isFirst) {
