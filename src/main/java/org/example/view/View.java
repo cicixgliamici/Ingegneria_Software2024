@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
  */
 public abstract class View {
     protected int flag;
+    protected int numConnection;
     protected List<String> colors;
     protected boolean isFirst;
     protected volatile boolean matchStarted;
@@ -98,6 +99,7 @@ public abstract class View {
     public abstract void order(String us1, String us2, String us3, String us4);
     public abstract void points(String us1, int p1, String us2, int p2, String us3, int p3, String us4, int p4);
 
+    public abstract void numCon(int num);
     /**
      * Adds a card to the player's hand.
      * @param id Card identifier.
@@ -190,5 +192,9 @@ public abstract class View {
 
     public List<String> getColors() {
         return colors;
+    }
+
+    public int getNumConnection() {
+        return numConnection;
     }
 }

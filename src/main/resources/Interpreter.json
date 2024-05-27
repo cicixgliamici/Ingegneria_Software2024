@@ -139,5 +139,13 @@
     "className": "org.example.view",
     "methodName": "setFirst",
     "fileName": "View.java"
+  },
+  "numCon": {
+    "className": "org.example.view",
+    "methodName": "numCon",
+    "parameters": [
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
   }
 }

@@ -211,5 +211,7 @@ public class ViewGUI extends View {
     public void setFirst() {
         isFirst = true;
     }
-
+    public void numCon(int maxCon){
+        numConnection=maxCon;
+    }
 }

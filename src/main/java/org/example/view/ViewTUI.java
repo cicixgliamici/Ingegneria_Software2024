@@ -633,4 +633,8 @@ public class ViewTUI extends View {
         }
         System.out.println(reqString.toString().trim());
     }
+
+    public void numCon(int maxCon){
+        System.out.println("The game will start with " + maxCon + " players");
+    }
 }

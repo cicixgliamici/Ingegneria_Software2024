@@ -12,6 +12,7 @@ import java.net.Socket;
 
 public class TCPServer {
     private int port;
+    private int num;
     private Server mainServer;
     private ServerSocket serverSocket; // ServerSocket as an instance variable
 
@@ -75,7 +76,6 @@ public class TCPServer {
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
-                System.out.println(mainServer.getAvailableColors());
                 mainServer.onModelGeneric("message:8");
                 mainServer.onModelGeneric("color:" + String.join(",", mainServer.generateColor()));
                 String chosenColor = in.readLine();
@@ -87,8 +87,11 @@ public class TCPServer {
                 if(isFirst) {
                     mainServer.onModelSpecific(username, "setFirst");
                     String numPLayer = in.readLine();
-                    int num = Integer.parseInt(numPLayer);
+                    num = Integer.parseInt(numPLayer);
                     mainServer.setNumMaxConnections(num);
+                }
+                else{
+                    mainServer.onModelGeneric("numCon:"+ num);
                 }
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
                 System.out.println(mainServer.getPlayers().toString());
