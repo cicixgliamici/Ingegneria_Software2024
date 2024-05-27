@@ -1,7 +1,10 @@
 package org.example.view.gui.setgame2;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class WaitingScreen extends JFrame {
 
@@ -24,19 +27,31 @@ public class WaitingScreen extends JFrame {
         waitingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Barra di caricamento
-        JProgressBar progressBar = new JProgressBar();
-        progressBar.setIndeterminate(true);
-        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        progressBar.setPreferredSize(new Dimension(300, 30));
-        progressBar.setBackground(Color.WHITE);
+//        JProgressBar progressBar = new JProgressBar();
+//        progressBar.setIndeterminate(true);
+//        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        progressBar.setPreferredSize(new Dimension(300, 30));
+//        progressBar.setBackground(Color.WHITE);
 
+//        ProgressSpinner progress = new ProgressSpinner();
+        BufferedImage logo = null;
+        try {
+            logo = ImageIO.read(getClass().getResource("C:\\Users\\acall\\Documents\\Docuni\\Grafiche Codex\\loading1.gif"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Icon icon = new ImageIcon(logo);
+        JLabel progress = new JLabel(icon);
         // Aggiunta degli elementi al pannello principale
         mainPanel.add(waitingLabel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Spazio tra gli elementi
-        mainPanel.add(progressBar);
+        mainPanel.add(progress);
 
         // Aggiunta del pannello principale al frame
-        add(mainPanel, BorderLayout.CENTER);
+        add(progress, BorderLayout.CENTER);
         setVisible(true);
     }
 
