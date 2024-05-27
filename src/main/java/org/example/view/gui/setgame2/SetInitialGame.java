@@ -143,6 +143,12 @@ public class SetInitialGame extends JPanel {
         //setNumberPlayerPanel.setOpaque(false);
 
         setNumberPlayerPanel.setEnabled(view.isFirst());
+        menuNumPlayer.setEnabled(view.isFirst());
+
+        if (!menuNumPlayer.isEnabled()){
+            //todo passargli il numero dei giocatori
+            menuNumPlayer.setSelectedIndex(/* num of player */ - 1);
+        }
         //Layout SetNumberPlayer
         GridBagConstraints gbcNumPlayerLabel = new GridBagConstraints();
 
