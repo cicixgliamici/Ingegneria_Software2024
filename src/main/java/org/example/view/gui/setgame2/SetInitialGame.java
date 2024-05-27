@@ -162,7 +162,30 @@ public class SetInitialGame extends JPanel {
                         String color = buttonGroup.getSelection().getActionCommand();
                         // Invio dei dati al server tramite TCPClient
                         tcpClient.sendColorAndNumPlayers(color, num);
-                        new SelectObjStarter(tcpClient, username, view, color, num);
+                        if (view.isMatchStarted()) {
+                            new SelectObjStarter(tcpClient, username, view, color, num);
+                        } else {
+                            WaitingScreen waitingScreen = new WaitingScreen();
+                            new Thread(() -> {
+                                while (!view.isMatchStarted()) {
+                                    try {
+                                        System.out.println("Waiting for match to start..."); // Debug
+                                        Thread.sleep(1000); // Check every second
+                                    } catch (InterruptedException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                                System.out.println("Match started!"); // Debug
+                                SwingUtilities.invokeLater(() -> {
+                                    waitingScreen.close();
+                                    try {
+                                        new SelectObjStarter(tcpClient, username, view, color, num);
+                                    } catch (IOException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+                                });
+                            }).start();
+                        }
                         Event event = new Event(this, "close");
                         if (evListener != null) {
                             try {
@@ -179,6 +202,8 @@ public class SetInitialGame extends JPanel {
                 }
             }
         });
+
+
 
         GridBagConstraints gbcTitle = new GridBagConstraints();
 

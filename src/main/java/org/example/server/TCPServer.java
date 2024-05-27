@@ -59,7 +59,7 @@ public class TCPServer {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         synchronized (mainServer) {
-            if (mainServer.clientWriters.keySet().size() >= mainServer.numMaxConnections) {
+            if (mainServer.clientWriters.keySet().size() >= mainServer.numMaxConnections || mainServer.clientWriters.keySet().size()>4 ) {
                 out.println("Server is actually full");
                 clientSocket.close();
                 return;

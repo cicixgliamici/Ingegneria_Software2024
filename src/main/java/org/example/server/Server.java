@@ -113,12 +113,17 @@ public class Server implements ModelChangeListener {
      */
     public void checkForGameStart() throws RemoteException {
         if (numConnections == numMaxConnections) {
-            onModelGeneric("Match started"); // Notifica i clienti che il match è iniziato.
+            onModelGeneric("message:10");// Notifica i clienti che il match è iniziato.
+            System.out.println("message:10");
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
+        }
+        else {
+            onModelGeneric("message:9");
+            System.out.println("message:9");
         }
     }
 

@@ -1,5 +1,6 @@
 package org.example.view;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
 import org.example.view.gui.utilities.Coordinates;
@@ -12,6 +13,8 @@ import org.json.simple.JSONObject;
  */
 public abstract class View {
     protected int flag;
+    protected boolean isFirst;
+    protected volatile boolean matchStarted;
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
     protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
     protected Integer SecretObjective;  // Variable to store secret objectives if any.
@@ -26,7 +29,8 @@ public abstract class View {
 
     public Coordinates getPosition(JSONObject jsonObject) {
         return map.get(jsonObject);
-    }    /**
+    }
+    /**
      * Constructor that initializes the grid.
      * Each cell of the grid is initialized to null indicating no card is placed.
      */
@@ -34,8 +38,47 @@ public abstract class View {
     public View() {
     }
 
+    public void setMatchStarted(boolean matchStarted) {
+        this.matchStarted = matchStarted;
+    }
+
+    /**
+     * Interprets commands received from the server and invokes the corresponding methods.
+     * @param message The command message from the server.
+     */
     // Server message interpreter, to be implemented by subclasses.
-    public abstract void Interpreter(String message);
+    public void Interpreter(String message) {
+        // Parses and executes commands received from the server by reflecting the corresponding methods.
+        String[] parts = message.split(":");
+        if (parts.length < 1) {
+            System.out.println("Invalid command received.");
+            return;
+        }
+        String command = parts[0];
+        String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
+        try {
+            Method[] methods = this.getClass().getDeclaredMethods();
+            for (Method method : methods) {
+                if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
+                    Class<?>[] paramTypes = method.getParameterTypes();
+                    Object[] paramValues = new Object[parameters.length];
+                    for (int i = 0; parameters != null && i < parameters.length; i++) {
+                        if (paramTypes[i] == int.class) {
+                            paramValues[i] = Integer.parseInt(parameters[i]);
+                        } else if (paramTypes[i] == String.class) {
+                            paramValues[i] = parameters[i];
+                        }
+                    }
+                    method.invoke(this, paramValues);
+                    return;
+                }
+            }
+            System.out.println("No such method exists: " + command);
+        } catch (Exception e) {
+            System.out.println("Error executing command " + command + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     // Retrieves a card by its ID, to be implemented by subclasses.
     public abstract JSONObject getCardById(int id);
@@ -136,4 +179,13 @@ public abstract class View {
     public int getM() {
         return M;
     }
+
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public boolean isMatchStarted() {
+        return matchStarted;
+    }
+
 }

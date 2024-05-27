@@ -116,7 +116,6 @@ public class TCPClient {
             if (line.startsWith("setup:")) {
                 processSetup(line);
             } else if(line.equals("Enter your username:")){
-                System.out.println("Poly QuizShow1:");
                 System.out.println("Enter your username:");
             }
             else {

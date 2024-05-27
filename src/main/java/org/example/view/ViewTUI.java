@@ -20,6 +20,9 @@ import java.util.Map;
  */
 public class ViewTUI extends View {
 
+    private boolean isFirst;
+    private boolean matchStarted;
+
     // Map to associate resource names with their ANSI color codes for colored console output.
     private static final HashMap<String, String> resourceColors = new HashMap<>();
     private static final HashMap<String, String> resourceInitials = new HashMap<>();
@@ -87,6 +90,12 @@ public class ViewTUI extends View {
                 break;
             case 8:
                 System.out.println("Connection successful");
+                break;
+            case 9:
+                System.out.println("Waiting for other players");
+                break;
+            case 10:
+                System.out.println("Match Started");
                 break;
             default:
                 System.out.println("Unknown message code.");
@@ -623,42 +632,5 @@ public class ViewTUI extends View {
             reqString.append(color).append(initial).append(RESET_COLOR).append(" ");
         }
         System.out.println(reqString.toString().trim());
-    }
-
-    /**
-     * Interprets commands received from the server and invokes the corresponding methods.
-     * @param message The command message from the server.
-     */
-    public void Interpreter(String message) {
-        // Parses and executes commands received from the server by reflecting the corresponding methods.
-        String[] parts = message.split(":");
-        if (parts.length < 1) {
-            System.out.println("Invalid command received.");
-            return;
-        }
-        String command = parts[0];
-        String[] parameters = parts.length > 1 ? parts[1].split(",") : new String[0];
-        try {
-            Method[] methods = this.getClass().getDeclaredMethods();
-            for (Method method : methods) {
-                if (method.getName().equals(command) && method.getParameterCount() == parameters.length) {
-                    Class<?>[] paramTypes = method.getParameterTypes();
-                    Object[] paramValues = new Object[parameters.length];
-                    for (int i = 0; parameters != null && i < parameters.length; i++) {
-                        if (paramTypes[i] == int.class) {
-                            paramValues[i] = Integer.parseInt(parameters[i]);
-                        } else if (paramTypes[i] == String.class) {
-                            paramValues[i] = parameters[i];
-                        }
-                    }
-                    method.invoke(this, paramValues);
-                    return;
-                }
-            }
-            System.out.println("No such method exists: " + command);
-        } catch (Exception e) {
-            System.out.println("Error executing command " + command + ": " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }

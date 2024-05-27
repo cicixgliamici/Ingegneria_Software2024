@@ -16,11 +16,13 @@ import java.util.List;
 
 public class ViewGUI extends View {
     private boolean isFirst;
+    private boolean matchStarted;
 
 
     public ViewGUI() {
         this.isFirst=false;
         this.flag=1;
+        this.matchStarted=false;
     }
 
     @Override
@@ -56,11 +58,6 @@ public class ViewGUI extends View {
 
     @Override
     public void printGrid() {
-
-    }
-
-    @Override
-    public void Interpreter(String message) {
 
     }
 
@@ -177,8 +174,20 @@ public class ViewGUI extends View {
 
     }
 
+
+
     @Override
     public void message(int x) {
+        switch (x) {
+            case 9:
+                matchStarted=false;
+                System.out.println(matchStarted);
+                break;
+            case 10:
+                matchStarted=true;
+                System.out.println(matchStarted);
+                break;
+        }
 
     }
 
