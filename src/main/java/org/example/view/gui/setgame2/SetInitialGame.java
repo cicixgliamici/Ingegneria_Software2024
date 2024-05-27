@@ -144,6 +144,7 @@ public class SetInitialGame extends JPanel {
 
         setNumberPlayerPanel.setEnabled(view.isFirst());
         menuNumPlayer.setEnabled(view.isFirst());
+        labelNumPlayer.setEnabled(view.isFirst());
 
         if (!menuNumPlayer.isEnabled()){
             //todo passargli il numero dei giocatori
