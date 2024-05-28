@@ -518,26 +518,22 @@ public class ViewTUI extends View {
             System.out.println("Card not found.");
             return;
         }
-
         String type = (String) card.get("type");
         Long id = (Long) card.get("id");
         JSONObject side = (JSONObject) card.get("side");
         JSONArray front = (JSONArray) side.get("front");
         JSONArray back = (JSONArray) side.get("back");
-
         // Define the variables for resource initials and colors for both front and back
         String[] cornersFront = new String[]{" ", " ", " ", " "};
         String[] cornersBack = new String[]{" ", " ", " ", " "};
         setCornerDetails(front, cornersFront);
         setCornerDetails(back, cornersBack);
-
         // Printing the basic card details for front and back
         System.out.printf("Type: %s    ID: %d\n", type, id);
         System.out.printf("Front: TL: %s, TR: %s, BR: %s, BL: %s\n",
                 cornersFront[0], cornersFront[1], cornersFront[2], cornersFront[3]);
         System.out.printf("Back: TL: %s, TR: %s, BR: %s, BL: %s\n",
                 cornersBack[0], cornersBack[1], cornersBack[2], cornersBack[3]);
-
         // Additional details for GOLD and STARTER cards
         if ("GOLD".equals(type)) {
             printGoldCardDetails(card);
@@ -607,5 +603,8 @@ public class ViewTUI extends View {
 
     public void numCon(int maxCon){
         System.out.println("The game will start with " + maxCon + " players");
+    }
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+
     }
 }

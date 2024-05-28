@@ -126,6 +126,7 @@ public abstract class View {
     public abstract void unplayable(int id, int x, int y);
     public abstract void placeholder(int id, int x, int y);
     public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void setHand(int side, int choice);
     public abstract void pubObj(int id1, int id2);
     public abstract void order(String us1, String us2, String us3, String us4);

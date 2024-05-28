@@ -233,4 +233,5 @@ public class ViewGUI extends View {
         numConnection=maxCon;
         System.out.println("ricevuto il num max di player " + numConnection);
     }
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){}
 }

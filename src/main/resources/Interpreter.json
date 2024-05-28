@@ -147,5 +147,18 @@
       {"type": "int", "source": "server"}
     ],
     "fileName": "View.java"
+  },
+  "visibleArea": {
+    "className": "org.example.view",
+    "methodName": "visibleArea",
+    "parameters": [
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
   }
 }
