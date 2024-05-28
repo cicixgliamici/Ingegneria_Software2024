@@ -22,6 +22,7 @@ public class ViewGUI extends View {
     public ViewGUI() {
         cardsPath=new ArrayList<>();
         cardsId=new ArrayList<>();
+        drawableCards=new ArrayList<>();
         this.isFirst=false;
         this.flag=1;
         this.matchStarted=false;
@@ -241,7 +242,14 @@ public class ViewGUI extends View {
         numConnection=maxCon;
         System.out.println("ricevuto il num max di player " + numConnection);
     }
-    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){}
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+        drawableCards.add(id1);
+        drawableCards.add(id2);
+        drawableCards.add(id3);
+        drawableCards.add(id4);
+        drawableCards.add(id5);
+        drawableCards.add(id6);
+    }
 
     public void chatC(String message){
         if (message.startsWith("chatC:")) {

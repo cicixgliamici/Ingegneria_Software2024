@@ -2,7 +2,6 @@ package org.example.view.gui.mainmenu1;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.gui.About;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
@@ -147,6 +146,7 @@ public class MainMenu extends JFrame {
         menuAbout.add(menuItemAbout);
 
         // AboutFrame
+        /*
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,6 +154,7 @@ public class MainMenu extends JFrame {
             }
         });
 
+         */
         menuItemRuleBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
