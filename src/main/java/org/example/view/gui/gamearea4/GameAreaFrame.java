@@ -19,9 +19,9 @@ public class GameAreaFrame extends JFrame {
     ScoreboardPanel scoreboardPanel;
     Chat chat;
     DrawingCardPanel drawingCardPanel;
-    private int starterCard;
-    private int objCard;
-    public GameAreaFrame(TCPClient tcpClient, String username, String color, String num, int starterCard, int objCard) throws IOException {
+    private String starterCard;
+    private String objCard;
+    public GameAreaFrame(TCPClient tcpClient, String username, String color, String num, String starterCard, String objCard) throws IOException {
         super("Codex Naturalis" + "[" + username + "]");
         this.starterCard = starterCard;
         this.objCard = objCard;
