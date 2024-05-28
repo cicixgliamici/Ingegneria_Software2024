@@ -188,13 +188,48 @@ public class GameAreaPanel extends JPanel{
                 super.paintComponent(graphics);}
         };
 
+        MouseAdapter ma = new MouseAdapter() {
+
+            private Point origin;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                origin = new Point(e.getPoint());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (origin != null) {
+                    JViewport viewPort = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, playCardArea);
+                    if (viewPort != null) {
+                        int deltaX = origin.x - e.getX();
+                        int deltaY = origin.y - e.getY();
+
+                        Rectangle view = viewPort.getViewRect();
+                        view.x += deltaX;
+                        view.y += deltaY;
+
+                        playCardArea.scrollRectToVisible(view);
+                    }
+                }
+            }
+
+        };
+
+        playCardArea.addMouseListener(ma);
+        playCardArea.addMouseMotionListener(ma);
+
         JScrollPane jScrollPane = new JScrollPane(playCardArea);
 
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        //playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
+        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();
