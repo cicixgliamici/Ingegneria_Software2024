@@ -31,7 +31,7 @@ public class GameAreaPanel extends JPanel{
 
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
 
-        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/small/front/102.png"));
         Icon ic1 = new ImageIcon(img1);
         card1 = new JLabel(ic1);
 
@@ -51,7 +51,7 @@ public class GameAreaPanel extends JPanel{
                 //playCardArea.insertCard(e.getX(), e.getY(), "src/main/resources/images/minicard.png");
             }
             public void mouseReleased(MouseEvent e){
-                playCardArea.insertCard(e.getX(), e.getY(), "src/main/resources/images/minicard.png");
+                playCardArea.insertCard(e.getX(), e.getY(), "src/main/resources/images/small/front/102.png");
             }
         });
 
@@ -78,16 +78,16 @@ public class GameAreaPanel extends JPanel{
 
 
 
-        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/small/front/102.png"));
         Icon ic2 = new ImageIcon(img2);
         card2 = new JLabel(ic2);
 
 
-        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/small/front/102.png"));
         Icon ic3 = new ImageIcon(img3);
         card3 = new JLabel(ic3);
 
-        BufferedImage img4 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img4 = ImageIO.read(new File("src/main/resources/images/small/front/102.png"));
         Icon ic4 = new ImageIcon(img4);
         secretObjective = new JLabel(ic4);
 
