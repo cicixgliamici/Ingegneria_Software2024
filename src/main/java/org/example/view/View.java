@@ -165,6 +165,7 @@ public abstract class View {
         PlayerCardArea.remove(id);
     }
 
+    public abstract void chatC(String message);
 
 
     public abstract void printPlayerCardArea();
@@ -234,4 +235,5 @@ public abstract class View {
     public List<String> getCardsPath() {
         return cardsPath;
     }
+
 }

@@ -155,7 +155,7 @@ public class SelectObjStarter extends JFrame {
                         tcpClient.sendSetObjStrater(side, choice);
                         dispose();
                         // Open GameAreaFrame
-                        new GameAreaFrame(username, color, num, choiceSideStarter, choiceObjCard); // Use actual color and num
+                        new GameAreaFrame(tcpClient, username, color, num, choiceSideStarter, choiceObjCard); // Use actual color and num
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
