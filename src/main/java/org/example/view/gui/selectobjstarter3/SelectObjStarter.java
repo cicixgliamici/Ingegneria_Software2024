@@ -36,14 +36,28 @@ public class SelectObjStarter extends JFrame {
     private Border emptyBorder = new LineBorder(Color.WHITE, 3); // white or null
 
     public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num) throws IOException {
-        super("Select StarterCard and ObjectedCard");
+        super("Select StarterCard and ObjectedCard " + "[" + username + "]");
         this.tcpClient = tcpClient;
         this.username = username;
         this.view = view;
         this.color = color;
         this.num = num;
 
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
+
+        JPanel container = new JPanel(new GridBagLayout()){
+            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
+            Image img = icon.getImage();
+
+            {
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
 
         BufferedImage starterFront = null;
         try {
@@ -152,21 +166,21 @@ public class SelectObjStarter extends JFrame {
 
         gbc.gridy = 0;
         gbc.gridx = 0;
-        add(backSideStarter, gbc);
-        add(chooseOne, gbc);
+        container.add(backSideStarter, gbc);
+        container.add(chooseOne, gbc);
 
         gbc.gridy = 1;
-        add(frontSideStarter, gbc);
-        add(chooseTwo, gbc);
+        container.add(frontSideStarter, gbc);
+        container.add(chooseTwo, gbc);
 
         gbc.gridy = 0;
         gbc.gridx = 1;
-        add(firstObjectCard, gbc);
-        add(chooseThree, gbc);
+        container.add(firstObjectCard, gbc);
+        container.add(chooseThree, gbc);
 
         gbc.gridy = 1;
-        add(secondObjectCard, gbc);
-        add(chooseFour, gbc);
+        container.add(secondObjectCard, gbc);
+        container.add(chooseFour, gbc);
 
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
@@ -174,8 +188,9 @@ public class SelectObjStarter extends JFrame {
         gbcButton.gridwidth = 2;
         gbcButton.weighty = 0.3;
 
-        add(button, gbcButton);
+        container.add(button, gbcButton);
 
+        add(container, BorderLayout.CENTER);
         pack();
         setSize(500, 400);
         setResizable(false);

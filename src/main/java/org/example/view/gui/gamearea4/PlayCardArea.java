@@ -4,12 +4,11 @@ import org.example.view.gui.utilities.ImageCard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.datatransfer.DataFlavor;
 
+import java.awt.dnd.*;
+import java.util.ArrayList;
+import java.util.List;
 public class PlayCardArea extends JPanel {
 
     private List<ImageCard> cardPlaced = new ArrayList<>();
@@ -19,12 +18,10 @@ public class PlayCardArea extends JPanel {
         setPreferredSize(new Dimension(800,800));
     }
 
-    public void insertCard(int x, int y, String pathImage){
+    public void InsertCard(int x, int y, String pathImage){
         ImageCard imageCard = new ImageCard(pathImage, x, y);
         cardPlaced.add(imageCard);
     };
-
-
 
     @Override
     protected void paintComponent(Graphics g) {
