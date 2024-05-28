@@ -57,7 +57,6 @@ public class SetInitialGame extends JPanel {
         yellowRadioButton.setActionCommand("Yellow");
         JRadioButton blueRadioButton = new JRadioButton("Blue");
         blueRadioButton.setActionCommand("Blue");
-        System.out.println("PORCODIO"+ view.getColors());
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(redRadioButton);
@@ -147,8 +146,7 @@ public class SetInitialGame extends JPanel {
         labelNumPlayer.setEnabled(view.isFirst());
 
         if (!menuNumPlayer.isEnabled()){
-            //todo passargli il numero dei giocatori
-            menuNumPlayer.setSelectedIndex(/* num of player */ - 1);
+            menuNumPlayer.setSelectedIndex(view.getNumConnection() - 1);
         }
         //Layout SetNumberPlayer
         GridBagConstraints gbcNumPlayerLabel = new GridBagConstraints();
@@ -183,7 +181,6 @@ public class SetInitialGame extends JPanel {
                             new Thread(() -> {
                                 while (!view.isMatchStarted()) {
                                     try {
-                                        System.out.println("Waiting for match to start..."); // Debug
                                         Thread.sleep(1000); // Check every second
                                     } catch (InterruptedException ex) {
                                         ex.printStackTrace();

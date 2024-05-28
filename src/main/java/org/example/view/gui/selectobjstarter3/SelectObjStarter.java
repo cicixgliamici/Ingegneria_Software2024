@@ -9,6 +9,8 @@ import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,38 +20,76 @@ import java.io.IOException;
 public class SelectObjStarter extends JFrame {
 
     private View view;
-    private int side=0;
-    private int choice=0;
+    private int side = 0;
+    private int choice = 0;
     private TCPClient tcpClient;
     private String username;
     private String color;
     private String num;
     private EvListener evListener;
 
+    private JLabel backSideStarter;
+    private JLabel frontSideStarter;
+    private JLabel firstObjectCard;
+    private JLabel secondObjectCard;
+
+    private Border blueBorder = new LineBorder(Color.BLUE, 3);
+    private Border emptyBorder = new LineBorder(Color.WHITE, 3); // white or null
+
     public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num) throws IOException {
         super("Select StarterCard and ObjectedCard");
         this.tcpClient = tcpClient;
         this.username = username;
         this.view = view;
-        this.color=color;
-        this.num=num;
+        this.color = color;
+        this.num = num;
 
         setLayout(new GridBagLayout());
 
-        BufferedImage logo = null;
+        BufferedImage starterFront = null;
         try {
-            logo = ImageIO.read(getClass().getResource("/images/card/102.png"));
+            starterFront = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        Icon icon1 = new ImageIcon(starterFront);
 
-        Icon icon = new ImageIcon(logo);
-        JLabel backSideStarter = new JLabel(icon);
-        JLabel frontSideStarter = new JLabel(icon);
-        JLabel firstObjectCard = new JLabel(icon);
-        JLabel secondObjectCard = new JLabel(icon);
+        BufferedImage starterBack = null;
+        try {
+            starterBack = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Icon icon2 = new ImageIcon(starterBack);
+
+        BufferedImage obj1 = null;
+        try {
+            obj1 = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Icon icon3 = new ImageIcon(obj1);
+
+        BufferedImage obj2 = null;
+        try {
+            obj2 = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Icon icon4 = new ImageIcon(obj2);
+
+        backSideStarter = new JLabel(icon1);
+        frontSideStarter = new JLabel(icon2);
+        firstObjectCard = new JLabel(icon3);
+        secondObjectCard = new JLabel(icon4);
 
         JButton button = new JButton("Confirm!");
 
@@ -59,6 +99,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 1;
                 System.out.println("Left upper card clicked!");
+                updateStarterBorders();
             }
         });
 
@@ -68,6 +109,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 2;
                 System.out.println("Left lower card clicked!");
+                updateStarterBorders();
             }
         });
 
@@ -77,6 +119,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 1;
                 System.out.println("Right upper card clicked!");
+                updateChoiceBorders();
             }
         });
 
@@ -86,27 +129,27 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
                 System.out.println("Right lower card clicked!");
+                updateChoiceBorders();
             }
         });
 
         button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (side != 0 && choice != 0) {
-                        try {
-                            tcpClient.sendSetObjStrater(side, choice);
-                            dispose();
-                            // Open GameAreaFrame
-                            new GameAreaFrame(username, color, num); // Use actual color and num
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (side != 0 && choice != 0) {
+                    try {
+                        tcpClient.sendSetObjStrater(side, choice);
+                        dispose();
+                        // Open GameAreaFrame
+                        new GameAreaFrame(username, color, num); // Use actual color and num
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    else{
-                        JOptionPane.showMessageDialog(button, "Please select the side of the starter card and the objective card", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                } else {
+                    JOptionPane.showMessageDialog(button, "Please select the side of the starter card and the objective card", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            });
+            }
+        });
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 0.5;
@@ -144,5 +187,25 @@ public class SelectObjStarter extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void updateStarterBorders() {
+        if (side == 1) {
+            backSideStarter.setBorder(blueBorder);
+            frontSideStarter.setBorder(emptyBorder);
+        } else if (side == 2) {
+            backSideStarter.setBorder(emptyBorder);
+            frontSideStarter.setBorder(blueBorder);
+        }
+    }
+
+    private void updateChoiceBorders() {
+        if (choice == 1) {
+            firstObjectCard.setBorder(blueBorder);
+            secondObjectCard.setBorder(emptyBorder);
+        } else if (choice == 2) {
+            firstObjectCard.setBorder(emptyBorder);
+            secondObjectCard.setBorder(blueBorder);
+        }
     }
 }

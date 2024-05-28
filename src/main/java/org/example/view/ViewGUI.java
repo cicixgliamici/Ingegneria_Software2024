@@ -16,7 +16,9 @@ import java.util.List;
 
 public class ViewGUI extends View {
 
+
     public ViewGUI() {
+        cardsPath=new ArrayList<>();
         this.isFirst=false;
         this.flag=1;
         this.matchStarted=false;
@@ -59,36 +61,39 @@ public class ViewGUI extends View {
 
     }
 
-    @Override
-    public JSONObject getCardById(int id) {
-        JSONParser parser = new JSONParser();
-        String[] filePaths = {
-                "src/main/resources/Card.json",
-                "src/main/resources/GoldCard.json",
-                "src/main/resources/ObjectiveCard.json",
-                "src/main/resources/StarterCard.json"
-        };
-        for (String filePath : filePaths) {
-            try {
-                org.json.simple.JSONArray cards = (JSONArray) parser.parse(new FileReader(filePath));
-                for (Object cardObj : cards) {
-                    JSONObject card = (JSONObject) cardObj;
-                    if (((Long) card.get("id")).intValue() == id) {
-                        return card;
-                    }
+    /**
+     *
+     * @param card
+     * @param dim is for big (1), small(2) or mid(3)
+     * @param side is for front(1) or back(2)
+     * @return
+     */
+    public String getImagePath(JSONObject card, int dim, int side) {
+        if (card == null) {
+            return null;
+        }
+        switch(dim) {
+            case 1:
+                if (side == 1) {
+                    return (String) card.get("imagePathBF");
+                } else if (side == 2) {
+                    return (String) card.get("imagePathBB");
                 }
-            } catch (IOException | ParseException e) {
-                System.err.println("Error reading or parsing the JSON file: " + e.getMessage());
-            }
+            case 2:
+                if (side == 1) {
+                    return (String) card.get("imagePathSF");
+                } else if (side == 2) {
+                    return (String) card.get("imagePathSB");
+                }
+            case 3:
+                if (side == 1) {
+                    return (String) card.get("imagePathMF");
+                } else if (side == 2) {
+                    return (String) card.get("imagePathMB");
+                }
+            default:
+                return null;
         }
-        return null;
-    }
-    public String getImagePathById(int id) {
-        JSONObject card = getCardById(id);
-        if (card != null) {
-            return (String) card.get("imagePath");
-        }
-        return null;
     }
 
 
@@ -104,8 +109,8 @@ public class ViewGUI extends View {
 
 
     //metodo che ritorna una grafica direttamente da un id
-    public Image getImageById(int id) {
-        String imagePath = getImagePathById(id);
+    public Image getImageById(int id, int side, int dim) {
+        String imagePath = getImagePath(getCardById(id), side, dim);
         if (imagePath != null) {
             return loadImage(imagePath);
         }
@@ -146,10 +151,17 @@ public class ViewGUI extends View {
 
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
-        // Mostrare dopo le prime 3 carte
-        // Stampare in quadrato (TL-BL) Front starter, Back Starter, 1° Obj, 2° Obj
-        // al click equivale int (1-2)
-        // "setObjStarter:" + int + "," + int
+        // showStarterObjective(id4, id5, id6);
+        cardsPath.clear();
+
+    }
+
+    public void showStarterObjective(int id4, int id5, int id6){
+        cardsPath.clear();
+        cardsPath.add(getImagePath(getCardById(id4), 3, 1));
+        cardsPath.add(getImagePath(getCardById(id4), 3, 2));
+        cardsPath.add(getImagePath(getCardById(id5), 3, 1));
+        cardsPath.add(getImagePath(getCardById(id6), 3, 1));
     }
 
     @Override
@@ -216,6 +228,6 @@ public class ViewGUI extends View {
     }
     public void numCon(int maxCon){
         numConnection=maxCon;
-        System.out.println("ricevuto il num max di player" + numConnection);
+        System.out.println("ricevuto il num max di player " + numConnection);
     }
 }

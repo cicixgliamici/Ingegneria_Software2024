@@ -1,10 +1,15 @@
 package org.example.view;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
 import org.example.view.gui.utilities.Coordinates;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Abstract base class for views in the application.
@@ -12,6 +17,7 @@ import org.json.simple.JSONObject;
  * that display the game state and interact with the user.
  */
 public abstract class View {
+    protected List<String> cardsPath;
     protected int flag;
     protected int numConnection;
     protected List<String> colors;
@@ -82,8 +88,34 @@ public abstract class View {
         }
     }
 
-    // Retrieves a card by its ID, to be implemented by subclasses.
-    public abstract JSONObject getCardById(int id);
+    /**
+     * Retrieves card details from the JSON data source based on the card ID.
+     * @param id The card identifier.
+     * @return JSONObject containing card details.
+     */
+    public JSONObject getCardById(int id) {
+        JSONParser parser = new JSONParser();
+        String[] filePaths = {
+                "src/main/resources/Card.json",
+                "src/main/resources/GoldCard.json",
+                "src/main/resources/ObjectiveCard.json",
+                "src/main/resources/StarterCard.json"
+        };
+        for (String filePath : filePaths) {
+            try {
+                JSONArray cards = (JSONArray) parser.parse(new FileReader(filePath));
+                for (Object cardObj : cards) {
+                    JSONObject card = (JSONObject) cardObj;
+                    if (((Long) card.get("id")).intValue() == id) {
+                        return card;
+                    }
+                }
+            } catch (IOException | ParseException e) {
+                System.err.println("Error reading or parsing the JSON file: " + e.getMessage());
+            }
+        }
+        return null;
+    }
 
     // Methods to be implemented for handling messages from the server.
     public abstract void drawnCard(int id);
@@ -198,4 +230,7 @@ public abstract class View {
         return numConnection;
     }
 
+    public List<String> getCardsPath() {
+        return cardsPath;
+    }
 }

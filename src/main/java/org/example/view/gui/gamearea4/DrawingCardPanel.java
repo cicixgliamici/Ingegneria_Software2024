@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class DrawingCardPanel extends JPanel {
+    public int draw;
     private JLabel coveredCard1;
     private JLabel covredCard2;
     private JLabel card1;

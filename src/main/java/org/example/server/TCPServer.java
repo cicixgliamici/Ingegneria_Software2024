@@ -76,6 +76,12 @@ public class TCPServer {
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
+
+                if(!isFirst){
+                    mainServer.onModelGeneric("numCon:"+ mainServer.numMaxConnections);
+                    System.out.println("inviato il num max di player " + mainServer.numMaxConnections);
+                }
+
                 mainServer.onModelGeneric("message:8");
                 mainServer.onModelGeneric("color:" + String.join(",", mainServer.generateColor()));
                 String chosenColor = in.readLine();
@@ -89,10 +95,6 @@ public class TCPServer {
                     String numPLayer = in.readLine();
                     num = Integer.parseInt(numPLayer);
                     mainServer.setNumMaxConnections(num);
-                }
-                else{
-                    mainServer.onModelGeneric("numCon:"+ mainServer.numMaxConnections);
-                    System.out.println("inviato il num max di player");
                 }
                 mainServer.executor.submit(new ServerClientHandler(clientSocket, mainServer.commands, mainServer.model, mainServer.controller, mainServer.socketToUsername, mainServer));
                 System.out.println(mainServer.getPlayers().toString());

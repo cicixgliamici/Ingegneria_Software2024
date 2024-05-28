@@ -361,35 +361,6 @@ public class ViewTUI extends View {
     }
 
     /**
-     * Retrieves card details from the JSON data source based on the card ID.
-     * @param id The card identifier.
-     * @return JSONObject containing card details.
-     */
-    public JSONObject getCardById(int id) {
-        JSONParser parser = new JSONParser();
-        String[] filePaths = {
-                "src/main/resources/Card.json",
-                "src/main/resources/GoldCard.json",
-                "src/main/resources/ObjectiveCard.json",
-                "src/main/resources/StarterCard.json"
-        };
-        for (String filePath : filePaths) {
-            try {
-                JSONArray cards = (JSONArray) parser.parse(new FileReader(filePath));
-                for (Object cardObj : cards) {
-                    JSONObject card = (JSONObject) cardObj;
-                    if (((Long) card.get("id")).intValue() == id) {
-                        return card;
-                    }
-                }
-            } catch (IOException | ParseException e) {
-                System.err.println("Error reading or parsing the JSON file: " + e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    /**
      * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
      * @param card The card as a JSONObject.
      * @param sides The number of sides to display (1 for front, 2 for back).
@@ -487,7 +458,6 @@ public class ViewTUI extends View {
             System.out.println("Card not found.");
             return;
         }
-
         String type = (String) card.get("type");
         System.out.println("Type: " + type);
         if ("RESOURCES".equals(type) || "GOLD".equals(type)) {
