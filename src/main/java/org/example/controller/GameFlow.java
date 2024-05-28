@@ -55,10 +55,10 @@ public class GameFlow {
         if (command.equals("setObjStarter")){
             return true;
         }
-        System.out.println("turn "+ turn);
+
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getUsername().equals(username)) {
-                System.out.println(i);
+
                 switch (i){
                     case 0:
                        if(Objects.equals(command, "play")) {

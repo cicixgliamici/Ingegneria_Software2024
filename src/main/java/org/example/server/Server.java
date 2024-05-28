@@ -114,7 +114,6 @@ public class Server implements ModelChangeListener {
     public void checkForGameStart() throws RemoteException {
         if (numConnections == numMaxConnections) {
             onModelGeneric("message:10");// Notifica i clienti che il match è iniziato.
-            System.out.println("message:10");
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
@@ -151,7 +150,6 @@ public class Server implements ModelChangeListener {
 
     private String generatePlayerOrderMessage() {
         String[] playerOrder = new String[4]; // Array to hold up to four usernames or "null".
-
         // Fill the array with usernames or "null" based on the number of connected players.
         for (int i = 0; i < playerOrder.length; i++) {
             if (i < players.size()) {

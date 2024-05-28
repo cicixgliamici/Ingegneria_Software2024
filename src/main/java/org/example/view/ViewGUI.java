@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
@@ -151,8 +152,8 @@ public class ViewGUI extends View {
 
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
-        // showStarterObjective(id4, id5, id6);
-        cardsPath.clear();
+        showStarterObjective(id4, id5, id6);
+
 
     }
 
@@ -189,6 +190,9 @@ public class ViewGUI extends View {
     @Override
     public void message(int x) {
         switch (x) {
+            case 4:
+                JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
+                break;
             case 9:
                 matchStarted=false;
                 System.out.println(matchStarted);
@@ -219,7 +223,6 @@ public class ViewGUI extends View {
             } else
                 isFirst=false;
         }
-        System.out.println("in view: Colors: " + colors);
     }
 
 

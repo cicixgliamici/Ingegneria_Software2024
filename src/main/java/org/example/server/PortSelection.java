@@ -81,7 +81,6 @@ public class PortSelection {
                 // Assign default port if input is not a valid number.
                 port = portType.equalsIgnoreCase("TCP") ? 50000 : 50001;
             }
-
             // Check if the port is within the valid range and not in use.
             if (port >= 1024 && port <= 65535 && !isPortInUse(port)) {
                 break;  // Valid port found.

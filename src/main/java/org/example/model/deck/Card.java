@@ -89,7 +89,7 @@ public class Card {
             //System.out.println("Card Position: " + this.getCardPosition());
 
         }
-        System.out.println("Side: " + this.getSide().getSide());
+
         if(this.getSide().getFrontCorners()!= null){
             //System.out.println("Front Corners:");
             List<Corner> frontCorners = this.getSide().getFrontCorners();

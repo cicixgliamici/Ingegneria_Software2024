@@ -50,9 +50,7 @@ public class PlayerCardArea {
 
     public void setStarterNode(){
         Node starter = new Node(this.cardStarter, 0, 0, placeHolders, availableNodes, allNodes);
-        System.out.println("al tuo counter attuale sono state aggiunte:");
         updateCounter(cardStarter);
-
     }
 
     /**
@@ -86,16 +84,16 @@ public class PlayerCardArea {
      */
     public void updateCounter(Card card) {
         counter.addResource(card.getSide().getChosenList().get(0).getPropertiesCorner());
-        System.out.println(card.getSide().getChosenList().get(0).getPropertiesCorner());
+
 
         counter.addResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
-        System.out.println(card.getSide().getChosenList().get(1).getPropertiesCorner());
+
 
         counter.addResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
-        System.out.println(card.getSide().getChosenList().get(2).getPropertiesCorner());
+
 
         counter.addResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
-        System.out.println(card.getSide().getChosenList().get(3).getPropertiesCorner());
+
 
         //se risorsa o gold e ho scelto il back allora aggiungi card res
         if(card.getSide().getSide().equals(Side.BACK) && (card.getType()==Type.RESOURCES || card.getType()==Type.GOLD)){

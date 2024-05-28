@@ -4,8 +4,6 @@ import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.gamearea4.GameAreaFrame;
 import org.example.view.gui.listener.EvListener;
-import org.example.view.gui.listener.Event;
-import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class SelectObjStarter extends JFrame {
@@ -48,7 +47,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage starterFront = null;
         try {
-            starterFront = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+            starterFront = ImageIO.read(new File((view.getCardsPath().get(0))));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -58,7 +57,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage starterBack = null;
         try {
-            starterBack = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+            starterBack = ImageIO.read(new File((view.getCardsPath().get(1))));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -68,7 +67,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage obj1 = null;
         try {
-            obj1 = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+            obj1 = ImageIO.read(new File((view.getCardsPath().get(2))));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -78,7 +77,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage obj2 = null;
         try {
-            obj2 = ImageIO.read(getClass().getResource(view.getCardsPath().get(0)));
+            obj2 = ImageIO.read(new File((view.getCardsPath().get(3))));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -98,7 +97,6 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 side = 1;
-                System.out.println("Left upper card clicked!");
                 updateStarterBorders();
             }
         });
@@ -108,7 +106,6 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 side = 2;
-                System.out.println("Left lower card clicked!");
                 updateStarterBorders();
             }
         });
@@ -118,7 +115,6 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 choice = 1;
-                System.out.println("Right upper card clicked!");
                 updateChoiceBorders();
             }
         });
@@ -128,7 +124,6 @@ public class SelectObjStarter extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
-                System.out.println("Right lower card clicked!");
                 updateChoiceBorders();
             }
         });
