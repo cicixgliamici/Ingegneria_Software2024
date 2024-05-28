@@ -32,7 +32,7 @@
       "fileName": "Player.java"
     },
     "chatS": {
-      "className": "org.example.Server",
+      "className": "org.example.server.Server",
       "methodName": "chatS",
       "parameters": [
         {"type": "string", "source": "user"}
