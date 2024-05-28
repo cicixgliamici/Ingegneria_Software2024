@@ -30,7 +30,7 @@ public class GameAreaPanel extends JPanel{
     private JLabel secretObjective;
     private BufferedImage backgroundImg;
 
-    public GameAreaPanel(String color, String num, String starterCard, String objCard) throws IOException {
+    public GameAreaPanel(String color, String num, int starterCard, int objCard) throws IOException {
         setLayout(new GridBagLayout());
 
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));

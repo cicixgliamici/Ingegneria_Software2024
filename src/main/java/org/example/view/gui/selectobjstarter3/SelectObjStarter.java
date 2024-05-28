@@ -26,8 +26,8 @@ public class SelectObjStarter extends JFrame {
     private String color;
     private String num;
     private EvListener evListener;
-    private String choiceSideStarter;
-    private String choiceObjCard;
+    private int choiceSideStarter;
+    private int choiceObjCard;
     private JLabel backSideStarter;
     private JLabel frontSideStarter;
     private JLabel firstObjectCard;
@@ -62,7 +62,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage starterFront = null;
         try {
-            starterFront = ImageIO.read(new File((view.getCardsPath().get(0))));
+            starterFront = ImageIO.read(new File("src/main/resources/images/mid/front" + String.valueOf(view.getCardsId().get(0)).toString() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -72,7 +72,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage starterBack = null;
         try {
-            starterBack = ImageIO.read(new File((view.getCardsPath().get(1))));
+            starterBack = ImageIO.read(new File("src/main/resources/images/mid/back" + String.valueOf(view.getCardsId().get(0)).toString() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -82,7 +82,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage obj1 = null;
         try {
-            obj1 = ImageIO.read(new File((view.getCardsPath().get(2))));
+            obj1 = ImageIO.read(new File("src/main/resources/images/mid/front" + String.valueOf(view.getCardsId().get(1)).toString() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -92,7 +92,7 @@ public class SelectObjStarter extends JFrame {
 
         BufferedImage obj2 = null;
         try {
-            obj2 = ImageIO.read(new File((view.getCardsPath().get(3))));
+            obj2 = ImageIO.read(new File("src/main/resources/images/mid/front" + String.valueOf(view.getCardsId().get(2)).toString() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +113,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 1;
                 updateStarterBorders();
-                choiceSideStarter = view.getCardsPath().get(0);
+                choiceSideStarter = view.getCardsId().get(0);
             }
         });
 
@@ -123,7 +123,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 2;
                 updateStarterBorders();
-                choiceSideStarter = view.getCardsPath().get(1);
+                choiceSideStarter = view.getCardsId().get(0);
             }
         });
 
@@ -133,7 +133,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 1;
                 updateChoiceBorders();
-                choiceObjCard = view.getCardsPath().get(2);
+                choiceObjCard = view.getCardsId().get(1);
             }
         });
 
@@ -143,7 +143,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
                 updateChoiceBorders();
-                choiceObjCard = view.getCardsPath().get(3);
+                choiceObjCard = view.getCardsId().get(2);
             }
         });
 
