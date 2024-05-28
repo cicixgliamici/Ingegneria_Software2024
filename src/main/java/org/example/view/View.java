@@ -17,6 +17,7 @@ import org.json.simple.parser.ParseException;
  * that display the game state and interact with the user.
  */
 public abstract class View {
+    protected List<Integer> cardsId;
     protected List<String> cardsPath;
     protected int flag;
     protected int numConnection;
@@ -234,6 +235,10 @@ public abstract class View {
 
     public List<String> getCardsPath() {
         return cardsPath;
+    }
+
+    public List<Integer> getCardsId(){
+        return cardsId;
     }
 
 }

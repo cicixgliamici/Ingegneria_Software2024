@@ -21,6 +21,7 @@ public class ViewGUI extends View {
 
     public ViewGUI() {
         cardsPath=new ArrayList<>();
+        cardsId=new ArrayList<>();
         this.isFirst=false;
         this.flag=1;
         this.matchStarted=false;
@@ -120,6 +121,8 @@ public class ViewGUI extends View {
     }
 
 
+
+
     @Override
     public void drawnCard(int id) {
 
@@ -160,6 +163,10 @@ public class ViewGUI extends View {
 
     public void showStarterObjective(int id4, int id5, int id6){
         cardsPath.clear();
+        cardsId.clear();
+        cardsId.add(id4);
+        cardsId.add(id5);
+        cardsId.add(id6);
         cardsPath.add(getImagePath(getCardById(id4), 3, 1));
         cardsPath.add(getImagePath(getCardById(id4), 3, 2));
         cardsPath.add(getImagePath(getCardById(id5), 3, 1));
@@ -238,6 +245,7 @@ public class ViewGUI extends View {
 
     public void chatC(String message){
         if (message.startsWith("chatC:")) {
+            System.out.println(message);
             message = message.substring(6);  // Remove the "chatC:" prefix
             chatPanel.displayMessage(message);  // Display the message in the chat panel
         }

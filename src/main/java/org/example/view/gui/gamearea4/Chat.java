@@ -56,12 +56,14 @@ public class Chat extends JPanel {
 
     private void sendMessage(String username) {
         String message = textField.getText();
+        System.out.println("Send " + message);
         if (!message.isEmpty()) {
             tcpClient.sendChat(username + ":" + message);
             textField.setText("");  // Clear the input field after sending
         }
     }
     public void displayMessage(String message) {
+        System.out.println("Display " + message);
         textArea.append(message + "\n");  // Append the new message with a newline
     }
 
