@@ -229,7 +229,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
+        playCardArea.InsertCard(400,400,starterCard);
 
 
         GridBagConstraints gbc = new GridBagConstraints();
