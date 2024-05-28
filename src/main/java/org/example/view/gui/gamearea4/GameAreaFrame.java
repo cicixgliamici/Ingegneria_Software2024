@@ -22,19 +22,10 @@ public class GameAreaFrame extends JFrame {
     private String starterCard;
     private String objCard;
     public GameAreaFrame(TCPClient tcpClient, String username, String color, String num, String starterCard, String objCard) throws IOException {
-        super("Codex Naturalis");
+        super("Codex Naturalis" + "[" + username + "]");
         this.starterCard = starterCard;
         this.objCard = objCard;
         setSize(1900, 820);
-
-        /*GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        Rectangle screenBounds = gd.getDefaultConfiguration().getBounds();
-        Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
-        int taskbarHeight = scnMax.bottom;
-        int width = (int) screenBounds.getWidth();
-        int height = (int) screenBounds.getHeight() - taskbarHeight;
-        setSize(width, height);*/
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
@@ -44,15 +35,7 @@ public class GameAreaFrame extends JFrame {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        scoreboardPanel = new ScoreboardPanel()/*{
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/plateau.png")));
-            Image img = icon.getImage();
-            {setOpaque(false);}
-            public void paintComponent(Graphics graphics){
-                graphics.drawImage(img,0,0, this);
-                super.paintComponent(graphics);
-            }
-        }*/;
+        scoreboardPanel = new ScoreboardPanel();
 
         gbc.gridx=0;
         gbc.gridy = 0;

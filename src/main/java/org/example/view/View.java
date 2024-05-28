@@ -11,6 +11,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.swing.*;
+
 /**
  * Abstract base class for views in the application.
  * This class defines the common structure and behavior for different types of views
@@ -19,6 +21,8 @@ import org.json.simple.parser.ParseException;
 public abstract class View {
     protected List<Integer> cardsId;
     protected List<String> cardsPath;
+
+    protected List<Integer> drawableCards;
     protected int flag;
     protected int numConnection;
     protected List<String> colors;
@@ -241,4 +245,7 @@ public abstract class View {
         return cardsId;
     }
 
+    public List<Integer> getDrawableCards() {
+        return drawableCards;
+    }
 }
