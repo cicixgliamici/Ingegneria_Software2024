@@ -170,7 +170,9 @@ public class ServerClientHandler implements Runnable {
                 if (server.getGameFlow() != null) {
                     server.getGameFlow().incrementTurn();
                 }
+
             }
+            System.out.println("Eseguendo ");
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
             System.err.println("InvocationTargetException: " + targetException.getMessage());
