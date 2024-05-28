@@ -30,6 +30,15 @@
         {"type": "int", "source": "user"}
       ],
       "fileName": "Player.java"
+    },
+    "chatS": {
+      "className": "org.example.Server",
+      "methodName": "chatS",
+      "parameters": [
+        {"type": "string", "source": "user"}
+      ],
+      "fileName": "Server.java"
     }
   }
 }
+

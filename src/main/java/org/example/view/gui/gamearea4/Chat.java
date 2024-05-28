@@ -1,17 +1,21 @@
 package org.example.view.gui.gamearea4;
 
 
+import org.example.client.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Chat extends JPanel {
+    private TCPClient tcpClient;
     private JButton button;
     private JTextArea textArea;
     private JTextField textField;
 
-    public Chat(String username){
+    public Chat(TCPClient tcpClient , String username){
+        this.tcpClient = tcpClient;
         setLayout(new BorderLayout());
 
         textArea = new JTextArea();
@@ -50,12 +54,15 @@ public class Chat extends JPanel {
 
     }
 
-    private void sendMessage(String username){
+    private void sendMessage(String username) {
         String message = textField.getText();
         if (!message.isEmpty()) {
-            textArea.append(username + ": " + message + "\n");
-            textField.setText("");
+            tcpClient.sendChat(username + ":" + message);
+            textField.setText("");  // Clear the input field after sending
         }
+    }
+    public void displayMessage(String message) {
+        textArea.append(message + "\n");  // Append the new message with a newline
     }
 
 }

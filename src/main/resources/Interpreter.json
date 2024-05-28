@@ -160,5 +160,13 @@
       {"type": "int", "source": "server"}
     ],
     "fileName": "View.java"
-  }
+  },
+  "chatC":{
+    "className": "org.example.view",
+    "methodName": "chatC",
+    "parameters": [
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+}
 }

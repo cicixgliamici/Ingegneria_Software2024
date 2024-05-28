@@ -105,6 +105,13 @@ public class TCPClient {
         }
     }
 
+    public void sendChat(String message){
+        if (socketOut != null) {
+            socketOut.println("chatS:" + message);
+            socketOut.flush();
+        }
+    }
+
     /**
      * Handles messages received from the server.
      *

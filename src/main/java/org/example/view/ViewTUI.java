@@ -605,4 +605,5 @@ public class ViewTUI extends View {
     public void numCon(int maxCon){
         System.out.println("The game will start with " + maxCon + " players");
     }
+    public void chatC(String message){}
 }

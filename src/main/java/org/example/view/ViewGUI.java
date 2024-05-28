@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.view.gui.gamearea4.Chat;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewGUI extends View {
-
+    private Chat chatPanel;
 
     public ViewGUI() {
         cardsPath=new ArrayList<>();
@@ -234,4 +235,11 @@ public class ViewGUI extends View {
         System.out.println("ricevuto il num max di player " + numConnection);
     }
     public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){}
+
+    public void chatC(String message){
+        if (message.startsWith("chatC:")) {
+            message = message.substring(6);  // Remove the "chatC:" prefix
+            chatPanel.displayMessage(message);  // Display the message in the chat panel
+        }
+    }
 }
