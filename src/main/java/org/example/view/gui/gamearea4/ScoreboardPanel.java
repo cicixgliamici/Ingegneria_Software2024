@@ -17,11 +17,11 @@ public class ScoreboardPanel extends JPanel {
         Icon icon = new ImageIcon(logo);
         scoreboard = new JLabel(icon);
 
-        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/mid/102.png"));
+        BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/mid/back/081.png"));
         Icon icon1 = new ImageIcon(logo1);
         objective1 = new JLabel(icon1);
 
-        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/mid/102.png"));
+        BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/mid/back/081.png"));
         Icon icon2 = new ImageIcon(logo2);
         objective2 = new JLabel(icon2);
 

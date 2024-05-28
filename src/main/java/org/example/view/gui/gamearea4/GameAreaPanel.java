@@ -30,26 +30,26 @@ public class GameAreaPanel extends JPanel{
     private JLabel secretObjective;
     private BufferedImage backgroundImg;
 
-    public GameAreaPanel(String color, String num) throws IOException {
+    public GameAreaPanel(String color, String num, String starterCard, String objCard) throws IOException {
         setLayout(new GridBagLayout());
 
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
 
-        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
         Icon ic1 = new ImageIcon(img1);
         card1 = new JLabel(ic1);
 
         //Drag and Drop delle carte
 
-        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
         Icon ic2 = new ImageIcon(img2);
         card2 = new JLabel(ic2);
 
-        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
         Icon ic3 = new ImageIcon(img3);
         card3 = new JLabel(ic3);
 
-        BufferedImage img4 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
+        BufferedImage img4 = ImageIO.read(new File(objCard));
         Icon ic4 = new ImageIcon(img4);
         secretObjective = new JLabel(ic4);
 
@@ -194,7 +194,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
+        //playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();

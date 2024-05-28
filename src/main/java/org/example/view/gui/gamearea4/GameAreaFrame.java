@@ -2,7 +2,6 @@ package org.example.view.gui.gamearea4;
 
 
 
-import org.example.client.TCPClient;
 import org.example.view.gui.About;
 import org.example.view.gui.gamerules.GameRulesFrame;
 
@@ -19,8 +18,12 @@ public class GameAreaFrame extends JFrame {
     ScoreboardPanel scoreboardPanel;
     Chat chat;
     DrawingCardPanel drawingCardPanel;
-    public GameAreaFrame(TCPClient tcpClient, String username, String color, String num) throws IOException {
+    private String starterCard;
+    private String objCard;
+    public GameAreaFrame(String username, String color, String num, String starterCard, String objCard) throws IOException {
         super("Codex Naturalis");
+        this.starterCard = starterCard;
+        this.objCard = objCard;
         setSize(1900, 820);
 
         /*GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -57,7 +60,7 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
 
-        gameAreaPanel = new GameAreaPanel(color, num);
+        gameAreaPanel = new GameAreaPanel(color, num, starterCard, objCard);
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
@@ -76,7 +79,7 @@ public class GameAreaFrame extends JFrame {
         gbc.weighty = 0.0;
         gbc.weightx = 0.17;
         gbc.fill = GridBagConstraints.BOTH;
-        chat = new Chat(tcpClient, username);
+        chat = new Chat(username);
         add(chat, gbc);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

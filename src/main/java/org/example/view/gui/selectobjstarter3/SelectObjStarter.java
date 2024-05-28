@@ -26,7 +26,8 @@ public class SelectObjStarter extends JFrame {
     private String color;
     private String num;
     private EvListener evListener;
-
+    private String choiceSideStarter;
+    private String choiceObjCard;
     private JLabel backSideStarter;
     private JLabel frontSideStarter;
     private JLabel firstObjectCard;
@@ -112,6 +113,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 1;
                 updateStarterBorders();
+                choiceSideStarter = view.getCardsPath().get(0);
             }
         });
 
@@ -121,6 +123,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 side = 2;
                 updateStarterBorders();
+                choiceSideStarter = view.getCardsPath().get(1);
             }
         });
 
@@ -130,6 +133,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 1;
                 updateChoiceBorders();
+                choiceObjCard = view.getCardsPath().get(2);
             }
         });
 
@@ -139,6 +143,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 choice = 2;
                 updateChoiceBorders();
+                choiceObjCard = view.getCardsPath().get(3);
             }
         });
 
@@ -150,7 +155,7 @@ public class SelectObjStarter extends JFrame {
                         tcpClient.sendSetObjStrater(side, choice);
                         dispose();
                         // Open GameAreaFrame
-                        new GameAreaFrame(tcpClient, username, color, num); // Use actual color and num
+                        new GameAreaFrame(username, color, num, choiceSideStarter, choiceObjCard); // Use actual color and num
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }

@@ -44,7 +44,6 @@ public class Event extends EventObject {
         this.data = username;
         this.view = view;
     }
-
     /**
      * Returns the type or name of the event.
      */
