@@ -34,13 +34,27 @@ public class GameAreaPanel extends JPanel{
         BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic1 = new ImageIcon(img1);
         card1 = new JLabel(ic1);
+
+        /*card1.setTransferHandler(new TransferHandler("text"));
+        card1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                JLabel label = (JLabel) e.getSource();
+                TransferHandler handler = label.getTransferHandler();
+                handler.exportAsDrag(label, e, TransferHandler.COPY);
+            }
+        });*/
         card1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 JComponent c = (JComponent) e.getSource();
                 TransferHandler handler = c.getTransferHandler();
                 handler.exportAsDrag(c, e, TransferHandler.COPY);
+                //playCardArea.insertCard(e.getX(), e.getY(), "src/main/resources/images/minicard.png");
+            }
+            public void mouseReleased(MouseEvent e){
+                playCardArea.insertCard(e.getX(), e.getY(), "src/main/resources/images/minicard.png");
             }
         });
+
         card1.setTransferHandler(new TransferHandler("icon") {
             protected Transferable createTransferable(JComponent c) {
                 return new Transferable() {
@@ -62,9 +76,12 @@ public class GameAreaPanel extends JPanel{
             }
         });
 
+
+
         BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic2 = new ImageIcon(img2);
         card2 = new JLabel(ic2);
+
 
         BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/minicard.png"));
         Icon ic3 = new ImageIcon(img3);
@@ -208,7 +225,23 @@ public class GameAreaPanel extends JPanel{
                 graphics.drawImage(img,0,0, this);
                 super.paintComponent(graphics);}
         };
+        /*playCardArea.setTransferHandler(new TransferHandler() {
+            public boolean canImport(TransferHandler.TransferSupport support) {
+                return support.isDataFlavorSupported(DataFlavor.stringFlavor);
+            }
 
+            public boolean importData(TransferHandler.TransferSupport support) {
+                try {
+                    String data = (String) support.getTransferable().getTransferData(DataFlavor.stringFlavor);
+                    ((JPanel) support.getComponent()).add(new JLabel(data));
+                    support.getComponent().revalidate();
+                    return true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                return false;
+            }
+        });*/
         playCardArea.setTransferHandler(new TransferHandler() {
             public boolean canImport(TransferSupport support) {
                 return support.isDataFlavorSupported(DataFlavor.imageFlavor);
@@ -272,7 +305,7 @@ public class GameAreaPanel extends JPanel{
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 
-        playCardArea.InsertCard(500,500,"src/main/resources/images/card/001.png");
+        playCardArea.insertCard(500,500,"src/main/resources/images/card/001.png");
 
 
         GridBagConstraints gbc = new GridBagConstraints();
