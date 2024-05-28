@@ -66,6 +66,20 @@ public class Model {
         }
     }
 
+    public void showArea(){
+        try {
+            notifyModelGeneric("visibleArea:"
+                    + DrawingCardArea.getCardIdFromDeck(Type.RESOURCES)+ ","
+                    + DrawingCardArea.getCardIdFromDeck(Type.GOLD) + ","
+                    + DrawingCardArea.getVisibleGoCard().get(0).getId()+ ","
+                    + DrawingCardArea.getVisibleGoCard().get(1).getId()+ ","
+                    + DrawingCardArea.getVisibleReCard().get(0).getId()+ ","
+                    + DrawingCardArea.getVisibleReCard().get(1).getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public void setPlayersAndGameArea(List<Player> playersList) {
         PlayersList = playersList;
         for (Player p : playersList){

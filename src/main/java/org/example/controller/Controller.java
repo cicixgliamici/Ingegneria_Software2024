@@ -25,6 +25,10 @@ public class Controller {
         model.DealCards();
     }
 
+    public void drawableArea(){
+        model.showArea();
+    }
+
     // Metodo per recuperare un giocatore tramite username
     public Player getPlayerByUsername(String username) {
         for (Player player : players) {

@@ -259,6 +259,16 @@ public class ViewTUI extends View {
                 "\ny is the objective card you want to keep.");
     }
 
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+        System.out.println("Drawable:\n");
+        printCardDetailsFormatted(getCardById(id1));
+        printCardDetailsFormatted(getCardById(id2));
+        printCardDetailsFormatted(getCardById(id3));
+        printCardDetailsFormatted(getCardById(id4));
+        printCardDetailsFormatted(getCardById(id5));
+        printCardDetailsFormatted(getCardById(id6));
+    }
+
     @Override
     public void pubObj(int id1, int id2) {
 
@@ -305,23 +315,14 @@ public class ViewTUI extends View {
     public void color(String c1, String c2, String c3, String c4) {
         List<String> colors = Arrays.asList(c1, c2, c3, c4); // Create a list of the input colors
         StringBuilder colorBuilder = new StringBuilder("Colors available:");
-        isFirst = true; // Flag to handle commas correctly.
         for (String color : colors) {
             if (!color.equals("null")) { // Check if the color is not "null".
-                if (!isFirst) {
-                    colorBuilder.append(", ");
-                }
+                colorBuilder.append(", ");
                 colorBuilder.append(color);
-
-            } else
-                isFirst = false;
+            }
+            // Print the constructed order if at least one color was added.
         }
-        // Print the constructed order if at least one color was added.
-        if (!isFirst) {
-            System.out.println(colorBuilder.toString());
-        } else {
-            System.out.println("No colors are currently available.");
-        }
+        System.out.println(colorBuilder.toString());
     }
 
     public void setFirst(){
@@ -603,8 +604,5 @@ public class ViewTUI extends View {
 
     public void numCon(int maxCon){
         System.out.println("The game will start with " + maxCon + " players");
-    }
-    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
-
     }
 }

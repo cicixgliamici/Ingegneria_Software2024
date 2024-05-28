@@ -5,6 +5,7 @@ import org.example.controller.Controller;
 import org.example.controller.GameFlow;
 import org.example.controller.Player;
 import org.example.enumeration.Color;
+import org.example.enumeration.Type;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
@@ -117,7 +118,7 @@ public class Server implements ModelChangeListener {
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
-            onModelGeneric("visibleArea:");
+            showDrawCardArea();
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
         }
@@ -125,6 +126,10 @@ public class Server implements ModelChangeListener {
             onModelGeneric("message:9");
             System.out.println("message:9");
         }
+    }
+
+    public void showDrawCardArea() {
+        controller.drawableArea();
     }
 
     /**

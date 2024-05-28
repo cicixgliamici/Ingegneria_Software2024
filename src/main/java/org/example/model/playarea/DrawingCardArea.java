@@ -12,12 +12,12 @@ import java.io.IOException;
  */
 
 public class DrawingCardArea {
-    private final Deck resourceDeck;
-    private final Deck goldDeck;
-    private final Deck objectDeck;
-    private final Deck starterDeck;
-    private final List<Card> visibleReCard;
-    private final List<Card> visibleGoCard;
+    private static Deck resourceDeck;
+    private static  Deck goldDeck;
+    private static  Deck objectDeck;
+    private static  Deck starterDeck;
+    private static  List<Card> visibleReCard;
+    private static  List<Card> visibleGoCard;
 
     public DrawingCardArea() throws IOException, ParseException {
         this.resourceDeck = new Deck(Type.RESOURCES);   //covered resource deck
@@ -69,6 +69,20 @@ public class DrawingCardArea {
         }
     }
 
+    public static int getCardIdFromDeck(Type type) {
+        switch(type) {
+            case RESOURCES:
+                return resourceDeck.getCards().get(0).getId();
+            case GOLD:
+                return goldDeck.getCards().get(0).getId();
+            case STARTER:
+                return starterDeck.getCards().get(0).getId();
+            case OBJECT:
+                return objectDeck.getCards().get(0).getId();
+        }
+        return 0;
+    }
+
     /**
      * Draw from one of the 4 visible cards,
      * the player chooses which card to draw and
@@ -116,11 +130,11 @@ public class DrawingCardArea {
         return objectDeck;
     }
 
-    public List<Card> getVisibleReCard() {
+    public static List<Card> getVisibleReCard() {
         return visibleReCard;
     }
 
-    public List<Card> getVisibleGoCard() {
+    public static List<Card> getVisibleGoCard() {
         return visibleGoCard;
     }
 
