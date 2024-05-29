@@ -29,10 +29,6 @@ public class ViewGUI extends View {
         players=new ArrayList<>();
     }
 
-    @Override
-    public void updateHand(int id) {
-
-    }
 
     @Override
     public void updatePlayerCardArea(int id) {
@@ -158,6 +154,10 @@ public class ViewGUI extends View {
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         showStarterObjective(id4, id5, id6);
+        updateHand(id1);
+        updateHand(id2);
+        updateHand(id3);
+        System.out.println(getHand());
     }
 
     public void showStarterObjective(int id4, int id5, int id6){
@@ -179,7 +179,8 @@ public class ViewGUI extends View {
 
     @Override
     public void pubObj(int id1, int id2) {
-
+        PublicObjectives.add(id1);
+        PublicObjectives.add(id2);
     }
 
     @Override

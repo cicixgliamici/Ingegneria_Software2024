@@ -30,6 +30,11 @@ public class Controller {
         model.showArea();
     }
 
+    public void publicObj(){
+        model.showPublicObjective();
+    }
+
+
     // Metodo per recuperare un giocatore tramite username
     public Player getPlayerByUsername(String username) {
         for (Player player : players) {

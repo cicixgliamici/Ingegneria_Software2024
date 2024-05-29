@@ -118,6 +118,7 @@ public class Server implements ModelChangeListener {
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
             showDrawCardArea();
+            showPubObj();
             String orderMessage = generatePlayerOrderMessage();
             System.out.println(orderMessage);
             onModelGeneric(orderMessage);
@@ -133,6 +134,9 @@ public class Server implements ModelChangeListener {
 
     public void showDrawCardArea() {
         controller.drawableArea();
+    }
+    public void showPubObj (){
+        controller.publicObj();
     }
 
     /**

@@ -80,6 +80,17 @@ public class Model {
         }
 
     }
+
+    public void showPublicObjective(){
+        try {
+            notifyModelGeneric("pubObj:"+
+                    getPublicObjective().get(0).getId() + ","
+                    +getPublicObjective().get(1).getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void setPlayersAndGameArea(List<Player> playersList) {
         PlayersList = playersList;
         for (Player p : playersList){

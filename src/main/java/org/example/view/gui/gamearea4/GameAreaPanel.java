@@ -1,5 +1,6 @@
 package org.example.view.gui.gamearea4;
 
+import org.example.view.View;
 import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
@@ -29,25 +30,46 @@ public class GameAreaPanel extends JPanel{
     private JLabel card3;
     private JLabel secretObjective;
     private BufferedImage backgroundImg;
+    View view;
 
-    public GameAreaPanel(String color, String num, String starterCard, String objCard) throws IOException {
+    public GameAreaPanel(View view, String color, String num, String starterCard, String objCard) throws IOException {
+        this.view = view;
         setLayout(new GridBagLayout());
 
+        System.out.println(view.getHand());
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
-
-        BufferedImage img1 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
+        BufferedImage img1= null;
+        if(view.getHand().get(0)<10){
+            img1 = ImageIO.read(new File("src/main/resources/images/small/front/00"+view.getHand().get(0) +".png"));
+        }
+        else {
+            img1 = ImageIO.read(new File("src/main/resources/images/small/front/0"+view.getHand().get(0) +".png"));
+        }
         Icon ic1 = new ImageIcon(img1);
         card1 = new JLabel(ic1);
 
         //Drag and Drop delle carte
-
-        BufferedImage img2 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
+        BufferedImage img2= null;
+        if(view.getHand().get(1)<10){
+            img2 = ImageIO.read(new File("src/main/resources/images/small/front/00"+view.getHand().get(1) +".png"));
+        }
+        else {
+            img2 = ImageIO.read(new File("src/main/resources/images/small/front/0"+view.getHand().get(1) +".png"));
+        }
         Icon ic2 = new ImageIcon(img2);
-        card2 = new JLabel(ic2);
+        card2 = new JLabel(ic1);
 
-        BufferedImage img3 = ImageIO.read(new File("src/main/resources/images/small/front/001.png"));
+
+        BufferedImage img3= null;
+        if(view.getHand().get(2)<10){
+            img3 = ImageIO.read(new File("src/main/resources/images/small/front/00"+view.getHand().get(2) +".png"));
+        }
+        else {
+            img3 = ImageIO.read(new File("src/main/resources/images/small/front/0"+view.getHand().get(2) +".png"));
+        }
         Icon ic3 = new ImageIcon(img3);
         card3 = new JLabel(ic3);
+
 
         BufferedImage img4 = ImageIO.read(new File(objCard));
         Icon ic4 = new ImageIcon(img4);

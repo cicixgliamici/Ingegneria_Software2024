@@ -31,6 +31,7 @@ public abstract class View {
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
     protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
     protected Integer SecretObjective;  // Variable to store secret objectives if any.
+    protected List<Integer> PublicObjectives = new ArrayList<>();
     final int N = 9;  // Size of the grid.
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
 
@@ -254,4 +255,9 @@ public abstract class View {
     public List<String> getPlayers() {
         return players;
     }
+
+    public List<Integer> getPublicObjectives() {
+        return PublicObjectives;
+    }
+
 }

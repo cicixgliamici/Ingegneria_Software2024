@@ -17,6 +17,7 @@ public class DrawingCardPanel extends JPanel {
     private JLabel card2;
     private JLabel card3;
     private JLabel card4;
+    public int drawChoose ;
 
     public View view;
     public DrawingCardPanel(View view) throws IOException {
@@ -32,24 +33,21 @@ public class DrawingCardPanel extends JPanel {
         try {
             if(view.getDrawableCards().get(0) <= 10){
                 String path = "src/main/resources/images/big/back/001.png";
-                System.out.println(path);
+
                 image1 = ImageIO.read(new File(path));
                 icon1 = new ImageIcon(image1);
             } else if (view.getDrawableCards().get(0) <=20 ) {
                 String path = "src/main/resources/images/big/back/011.png";
-                System.out.println(path);
                 image1 = ImageIO.read(new File(path));
                 icon1 = new ImageIcon(image1);
             }
             else if(view.getDrawableCards().get(0) <=30){
                 String path = "src/main/resources/images/big/back/021.png";
-                System.out.println(path);
                 image1 = ImageIO.read(new File(path));
                 icon1 = new ImageIcon(image1);
             }
             else if(view.getDrawableCards().get(0) <=40){
                 String path = "src/main/resources/images/big/back/031.png";
-                System.out.println(path);
                 image1 = ImageIO.read(new File(path));
                 icon1 = new ImageIcon(image1);
             }
@@ -69,24 +67,24 @@ public class DrawingCardPanel extends JPanel {
         try {
             if(view.getDrawableCards().get(1) <= 50){
                 String path = "src/main/resources/images/big/back/041.png";
-                System.out.println(path);
+
                 image2 = ImageIO.read(new File(path));
                 icon2 = new ImageIcon(image2);
             } else if (view.getDrawableCards().get(1) <=60 ) {
                 String path = "src/main/resources/images/big/back/051.png";
-                System.out.println(path);
+
                 image2 = ImageIO.read(new File(path));
                 icon2 = new ImageIcon(image2);
             }
             else if(view.getDrawableCards().get(1) <=70){
                 String path = "src/main/resources/images/big/back/061.png";
-                System.out.println(path);
+
                 image2 = ImageIO.read(new File(path));
                 icon2 = new ImageIcon(image2);
             }
             else if(view.getDrawableCards().get(1) <=80){
                 String path = "src/main/resources/images/big/back/071.png";
-                System.out.println(path);
+
                 image2 = ImageIO.read(new File(path));
                 icon2 = new ImageIcon(image2);
             }
@@ -129,16 +127,16 @@ public class DrawingCardPanel extends JPanel {
             String path= null;
             if(view.getDrawableCards().get(3) < 10){
                 path= "src/main/resources/images/big/front/00" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
-                System.out.println(path);
+
                 image4 = ImageIO.read(new File(path));
             } else if (view.getDrawableCards().get(3) > 99) {
                 path= "src/main/resources/images/big/front/" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
-                System.out.println(path);
+
                 image4 = ImageIO.read(new File(path));
             }
             else {
                 path= "src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
-                System.out.println(path);
+
                 image4 = ImageIO.read(new File(path));
 
             }
@@ -157,7 +155,7 @@ public class DrawingCardPanel extends JPanel {
         BufferedImage image5 = null;
         try {
             String path= "src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(4)).toString() + ".png";
-            System.out.println(path);
+
             image5 = ImageIO.read(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
