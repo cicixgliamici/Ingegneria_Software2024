@@ -28,22 +28,36 @@ public class DrawingCardPanel extends JPanel {
         coveredCard1 = new JLabel(icon1);*/
 
         BufferedImage image1 = null;
+        Icon icon1 = null;
         try {
-            if(view.getDrawableCards().get(0) < 10){
-                image1 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(0)).toString() + ".png"));
-            } else if (view.getDrawableCards().get(0) > 99) {
-                image1 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(0)).toString() + ".png"));
+            if(view.getDrawableCards().get(0) <= 10){
+                String path = "src/main/resources/images/big/back/001.png";
+                System.out.println(path);
+                image1 = ImageIO.read(new File(path));
+                icon1 = new ImageIcon(image1);
+            } else if (view.getDrawableCards().get(0) <=20 ) {
+                String path = "src/main/resources/images/big/back/011.png";
+                System.out.println(path);
+                image1 = ImageIO.read(new File(path));
+                icon1 = new ImageIcon(image1);
             }
-            else {
-                image1 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(0)).toString() + ".png"));
-
+            else if(view.getDrawableCards().get(0) <=30){
+                String path = "src/main/resources/images/big/back/021.png";
+                System.out.println(path);
+                image1 = ImageIO.read(new File(path));
+                icon1 = new ImageIcon(image1);
+            }
+            else if(view.getDrawableCards().get(0) <=40){
+                String path = "src/main/resources/images/big/back/031.png";
+                System.out.println(path);
+                image1 = ImageIO.read(new File(path));
+                icon1 = new ImageIcon(image1);
             }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Icon icon1 = new ImageIcon(image1);
         coveredCard1 = new JLabel(icon1);
 
         /*BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/big/big/front/001.png"));
@@ -51,22 +65,36 @@ public class DrawingCardPanel extends JPanel {
         covredCard2 = new JLabel(icon2);*/
 
         BufferedImage image2 = null;
+        Icon icon2 = null;
         try {
-            if(view.getDrawableCards().get(1) < 10){
-                image2 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(1)).toString() + ".png"));
-            } else if (view.getDrawableCards().get(1) > 99) {
-                image2 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(1)).toString() + ".png"));
+            if(view.getDrawableCards().get(1) <= 50){
+                String path = "src/main/resources/images/big/back/041.png";
+                System.out.println(path);
+                image2 = ImageIO.read(new File(path));
+                icon2 = new ImageIcon(image2);
+            } else if (view.getDrawableCards().get(1) <=60 ) {
+                String path = "src/main/resources/images/big/back/051.png";
+                System.out.println(path);
+                image2 = ImageIO.read(new File(path));
+                icon2 = new ImageIcon(image2);
             }
-            else {
-                image2 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(1)).toString() + ".png"));
-
+            else if(view.getDrawableCards().get(1) <=70){
+                String path = "src/main/resources/images/big/back/061.png";
+                System.out.println(path);
+                image2 = ImageIO.read(new File(path));
+                icon2 = new ImageIcon(image2);
+            }
+            else if(view.getDrawableCards().get(1) <=80){
+                String path = "src/main/resources/images/big/back/071.png";
+                System.out.println(path);
+                image2 = ImageIO.read(new File(path));
+                icon2 = new ImageIcon(image2);
             }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Icon icon2 = new ImageIcon(image2);
         coveredCard2 = new JLabel(icon2);
 
         /*BufferedImage logo3 = ImageIO.read(new File("src/main/resources/images/big/big/front/001.png"));
@@ -76,12 +104,12 @@ public class DrawingCardPanel extends JPanel {
         BufferedImage image3 = null;
         try {
             if(view.getDrawableCards().get(2) < 10){
-                image3 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
+                image3 = ImageIO.read(new File("src/main/resources/images/big/front/00" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
             } else if (view.getDrawableCards().get(2) > 99) {
-                image3 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
+                image3 = ImageIO.read(new File("src/main/resources/images/big/front/" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
             }
             else {
-                image3 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
+                image3 = ImageIO.read(new File("src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(2)).toString() + ".png"));
 
             }
         } catch (IOException e) {
@@ -98,13 +126,20 @@ public class DrawingCardPanel extends JPanel {
 
         BufferedImage image4 = null;
         try {
+            String path= null;
             if(view.getDrawableCards().get(3) < 10){
-                image4 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png"));
+                path= "src/main/resources/images/big/front/00" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
+                System.out.println(path);
+                image4 = ImageIO.read(new File(path));
             } else if (view.getDrawableCards().get(3) > 99) {
-                image4 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png"));
+                path= "src/main/resources/images/big/front/" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
+                System.out.println(path);
+                image4 = ImageIO.read(new File(path));
             }
             else {
-                image4 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png"));
+                path= "src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(3)).toString() + ".png";
+                System.out.println(path);
+                image4 = ImageIO.read(new File(path));
 
             }
         } catch (IOException e) {
@@ -121,15 +156,9 @@ public class DrawingCardPanel extends JPanel {
 
         BufferedImage image5 = null;
         try {
-            if(view.getDrawableCards().get(4) < 10){
-                image5 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(4)).toString() + ".png"));
-            } else if (view.getDrawableCards().get(4) > 99) {
-                image5 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(4)).toString() + ".png"));
-            }
-            else {
-                image5 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(4)).toString() + ".png"));
-
-            }
+            String path= "src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(4)).toString() + ".png";
+            System.out.println(path);
+            image5 = ImageIO.read(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -145,12 +174,12 @@ public class DrawingCardPanel extends JPanel {
         BufferedImage image6 = null;
         try {
             if(view.getDrawableCards().get(5) < 10){
-                image6 = ImageIO.read(new File("src/main/resources/images/big/big/back/00" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
+                image6 = ImageIO.read(new File("src/main/resources/images/big/front/00" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
             } else if (view.getDrawableCards().get(5) > 99) {
-                image6 = ImageIO.read(new File("src/main/resources/images/big/big/back/" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
+                image6 = ImageIO.read(new File("src/main/resources/images/big/front/" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
             }
             else {
-                image6 = ImageIO.read(new File("src/main/resources/images/big/big/back/0" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
+                image6 = ImageIO.read(new File("src/main/resources/images/big/front/0" + String.valueOf(view.getDrawableCards().get(5)).toString() + ".png"));
 
             }
         } catch (IOException e) {

@@ -158,8 +158,6 @@ public class ViewGUI extends View {
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
         showStarterObjective(id4, id5, id6);
-
-
     }
 
     public void showStarterObjective(int id4, int id5, int id6){

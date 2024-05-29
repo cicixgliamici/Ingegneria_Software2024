@@ -49,9 +49,9 @@ public class GameAreaPanel extends JPanel{
         Icon ic3 = new ImageIcon(img3);
         card3 = new JLabel(ic3);
 
-        /*BufferedImage img4 = ImageIO.read(new File(objCard));
+        BufferedImage img4 = ImageIO.read(new File(objCard));
         Icon ic4 = new ImageIcon(img4);
-        secretObjective = new JLabel(ic4);*/
+        secretObjective = new JLabel(ic4);
 
         switch (num){
             case "1":

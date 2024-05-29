@@ -117,11 +117,11 @@ public class Server implements ModelChangeListener {
             onModelGeneric("message:10");// Notifica i clienti che il match è iniziato.
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
+            showDrawCardArea();
             String orderMessage = generatePlayerOrderMessage();
             System.out.println(orderMessage);
             onModelGeneric(orderMessage);
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
-            showDrawCardArea();
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
         }
