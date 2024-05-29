@@ -97,7 +97,7 @@ public class GameAreaPanel extends JPanel{
                 BufferedImage logo2 = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
                 Icon icon2 = new ImageIcon(logo2);
                 token2 = new JLabel(icon2);
-                token2.setVisible(false);
+                //token2.setVisible(false);
                 BufferedImage logo3 = ImageIO.read(new File("src/main/resources/images/red.png"));
                 Icon icon3 = new ImageIcon(logo3);
                 token3 = new JLabel(icon3);
@@ -314,7 +314,7 @@ public class GameAreaPanel extends JPanel{
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        gbc.weightx = 0.75;
+        gbc.weightx = 0.7;
         gbc.weighty = 0.99;
 
         gbc.fill = GridBagConstraints.BOTH;
