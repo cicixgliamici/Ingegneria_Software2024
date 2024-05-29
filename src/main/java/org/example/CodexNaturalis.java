@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /** First class run when you start the CodexNaturalis.jar
- *   So that you can choose to run a server or a client (TUI or GUI)
+ *  So that you can choose to run a server or a client (then if TUI or GUI)
  */
 
 public class CodexNaturalis {
@@ -26,7 +26,6 @@ public class CodexNaturalis {
             input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    //called from Codex Naturalis, go to PortSelection
                     PortSelection.main(null);
                     break;
                 case "2":
@@ -60,6 +59,6 @@ public class CodexNaturalis {
             }
         }
         ClientPortSelection clientPortSelection = new ClientPortSelection();
-        clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client
+        clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client with its view
     }
 }
