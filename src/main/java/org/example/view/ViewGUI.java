@@ -256,6 +256,7 @@ public class ViewGUI extends View {
         drawableCards.add(id4);
         drawableCards.add(id5);
         drawableCards.add(id6);
+        System.out.println(drawableCards);
     }
 
     public void chatC(String username, String message){

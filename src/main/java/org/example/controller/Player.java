@@ -149,6 +149,9 @@ public class Player {
                 // Estrai il messaggio dopo le parentesi quadre
                 String actualMessage = message.substring(endIndex + 1);
                 // Invia il messaggio all'utente specifico utilizzando notifyModelSpecific()
+                if(targetUsername.equals(username)){
+                    model.notifyModelSpecific(username, "chatC:" + "Server" + "," + "Why would you send messages to yourself?");
+                }
                 model.notifyModelSpecific(targetUsername, "chatC:" + username + "," + actualMessage);
                 model.notifyModelSpecific(username, "chatC:" + username + "," + message);
             }

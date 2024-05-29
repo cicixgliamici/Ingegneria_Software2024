@@ -1,5 +1,7 @@
 package org.example.view.gui.gamearea4;
 
+import org.example.view.View;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,15 +11,16 @@ import java.io.IOException;
 
 public class DrawingCardPanel extends JPanel {
     public int draw;
+    public View view;
     private JLabel coveredCard1;
     private JLabel covredCard2;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
     private JLabel card4;
-    public DrawingCardPanel() throws IOException {
+    public DrawingCardPanel(View view) throws IOException {
+        this.view = view;
         setLayout(new GridBagLayout());
-
         BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/big/big/front/001.png"));
         Icon icon1 = new ImageIcon(logo1);
         coveredCard1 = new JLabel(icon1);

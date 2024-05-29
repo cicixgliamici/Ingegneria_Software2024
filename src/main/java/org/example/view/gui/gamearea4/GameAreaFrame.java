@@ -19,6 +19,7 @@ public class GameAreaFrame extends JFrame {
     GameAreaPanel gameAreaPanel;
     ScoreboardPanel scoreboardPanel;
     Chat chat;
+    View view;
     DrawingCardPanel drawingCardPanel;
     private String starterCard;
     private String objCard;
@@ -26,6 +27,7 @@ public class GameAreaFrame extends JFrame {
         super("Codex Naturalis" + "[" + username + "]");
         this.starterCard = starterCard;
         this.objCard = objCard;
+        this.view = view;
         setSize(1900, 820);
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
@@ -56,7 +58,7 @@ public class GameAreaFrame extends JFrame {
 
         gbc.gridx = 2;
         gbc.weightx = 0.05;
-        drawingCardPanel = new DrawingCardPanel();
+        drawingCardPanel = new DrawingCardPanel(view);
         add(drawingCardPanel, gbc);
 
         gbc.gridx=3;
