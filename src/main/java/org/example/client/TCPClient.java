@@ -112,6 +112,13 @@ public class TCPClient {
         }
     }
 
+    public void sendDraw(int choice){
+        if (socketOut != null) {
+            socketOut.println("draw:" + choice);
+            socketOut.flush();
+        }
+    }
+
     /**
      * Handles messages received from the server.
      *

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChooseCardButton extends JButton {
-    ChooseCardButton(){
+    public ChooseCardButton(){
         super("");
         setOpaque(false);
         setContentAreaFilled(false);

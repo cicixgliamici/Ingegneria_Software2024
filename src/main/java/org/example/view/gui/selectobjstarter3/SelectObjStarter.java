@@ -203,6 +203,7 @@ public class SelectObjStarter extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        firstUpdate();
     }
 
     private void updateStarterBorders() {
@@ -223,5 +224,12 @@ public class SelectObjStarter extends JFrame {
             firstObjectCard.setBorder(emptyBorder);
             secondObjectCard.setBorder(blueBorder);
         }
+    }
+
+    private void firstUpdate() {
+        frontSideStarter.setBorder(emptyBorder);
+        backSideStarter.setBorder(emptyBorder);
+        firstObjectCard.setBorder(emptyBorder);
+        secondObjectCard.setBorder(emptyBorder);
     }
 }

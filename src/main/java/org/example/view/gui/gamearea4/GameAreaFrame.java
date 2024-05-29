@@ -59,7 +59,7 @@ public class GameAreaFrame extends JFrame {
 
         gbc.gridx = 2;
         gbc.weightx = 0.05;
-        drawingCardPanel = new DrawingCardPanel(view);
+        drawingCardPanel = new DrawingCardPanel(tcpClient, view);
         add(drawingCardPanel, gbc);
 
         gbc.gridx=3;
@@ -148,5 +148,7 @@ public class GameAreaFrame extends JFrame {
 
         return menuBar;
     }
+
+
 
 }
