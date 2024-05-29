@@ -232,4 +232,37 @@ public class DrawingCardPanel extends JPanel {
         }
 
     }
+    private JLabel createCardLabel(String path, int cardIndex) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path));
+        JLabel label = new JLabel(new ImageIcon(image));
+        label.setBorder(defaultBorder);  // Imposta il bordo predefinito
+
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    drawChoose = cardIndex;
+                    updateCardSelection(cardIndex);
+                } else if (e.getClickCount() == 2) {
+                    drawChoose = cardIndex;
+                    updateCardSelection(cardIndex);
+                    tcpClient.sendDraw(cardIndex);
+                }
+            }
+        });
+        return label;
+    }
+
+
+    private void updateCardSelection(int selectedCardIndex) {
+        for (int i = 0; i < cardLabels.length; i++) {
+            if (i == selectedCardIndex) {
+                cardLabels[i].setBorder(selectedBorder);  // Seleziona il bordo per la carta cliccata
+            } else {
+                cardLabels[i].setBorder(defaultBorder);  // Ripristina il bordo predefinito per le altre carte
+            }
+        }
+    }
+
+
 }
