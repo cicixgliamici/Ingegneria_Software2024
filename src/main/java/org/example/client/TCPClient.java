@@ -106,7 +106,7 @@ public class TCPClient {
     }
 
     public void sendChat(String message){
-        System.out.println("TCP " + message);
+       System.out.println("TCP " + message);
         if (socketOut != null) {
             socketOut.println("chatS:" + message);
             socketOut.flush();

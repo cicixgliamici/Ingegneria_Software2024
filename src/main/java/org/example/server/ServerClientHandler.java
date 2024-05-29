@@ -113,7 +113,6 @@ public class ServerClientHandler implements Runnable {
      * @param inputLine The input command line.
      * @param username  The username of the client.
      */
-
     private void executeCommand(String inputLine, String username) {
         System.out.println("Eseguendo " + inputLine);
         try {
@@ -172,7 +171,7 @@ public class ServerClientHandler implements Runnable {
                 }
 
             }
-            System.out.println("Eseguendo ");
+           // System.out.println("Eseguendo ");
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
             System.err.println("InvocationTargetException: " + targetException.getMessage());

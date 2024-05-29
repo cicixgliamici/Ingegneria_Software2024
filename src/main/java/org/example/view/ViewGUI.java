@@ -254,11 +254,9 @@ public class ViewGUI extends View {
     public void chatC(String message){
         if (message.startsWith("chatC:")) {
             System.out.println(message);
-            message = message.substring(6);  // Remove the "chatC:" prefix
-            String finalMessage = message;
-            SwingUtilities.invokeLater(() -> {
-                chatPanel.displayMessage(finalMessage);
-            }); // Display the message in the chat panel
+            message = message.substring(6);// Remove the "chatC:" prefix
+            message = message.replaceFirst(";",":");
+            chatPanel.displayMessage(message);// Display the message in the chat panel
         }
     }
 }

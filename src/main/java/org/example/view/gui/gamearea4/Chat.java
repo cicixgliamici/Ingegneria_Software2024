@@ -58,7 +58,7 @@ public class Chat extends JPanel {
         String message = textField.getText();
         System.out.println("Send " + message);
         if (!message.isEmpty()) {
-            tcpClient.sendChat(username + ":" + message);
+            tcpClient.sendChat(username + ";" + message);
             textField.setText("");  // Clear the input field after sending
         }
     }
