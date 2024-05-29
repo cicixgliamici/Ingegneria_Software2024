@@ -170,7 +170,9 @@ public abstract class View {
         PlayerCardArea.remove(id);
     }
 
-    public abstract void chatC(String message);
+    public void chatC(String username, String message){
+        System.out.println(message);
+    };
 
 
     public abstract void printPlayerCardArea();

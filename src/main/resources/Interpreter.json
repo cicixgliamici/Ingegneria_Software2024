@@ -165,6 +165,7 @@
     "className": "org.example.view",
     "methodName": "chatC",
     "parameters": [
+      {"type": "string", "source": "server"},
       {"type": "string", "source": "server"}
     ],
     "fileName": "View.java"

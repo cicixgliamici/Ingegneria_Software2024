@@ -122,8 +122,7 @@ public class ServerClientHandler implements Runnable {
                 System.out.println("Comando non riconosciuto");
                 return; // Command not recognized
             }
-            System.out.println(server.gameFlow);
-            if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey)) {
+            if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
                 JSONObject commandDetails = commands.get(commandKey); // Command details from the map
                 String className = commandDetails.getString("className");
                 String methodName = commandDetails.getString("methodName");
@@ -143,9 +142,17 @@ public class ServerClientHandler implements Runnable {
                     if (type.equals("Model") && "server".equals(param.getString("source"))) {
                         paramTypes[i] = Model.class;
                         paramValues[i] = model;
+                    } else if (type.equals("int")) {
+                        paramTypes[i] = int.class;
+                        paramValues[i] = Integer.parseInt(params[j]);
+                        j++;
+                    } else if (type.equals("string")) {
+                        paramTypes[i] = String.class;
+                        paramValues[i] = params[j];
+                        j++;
                     } else {
-                        paramTypes[i] = type.equals("int") ? int.class : Class.forName(type);
-                        paramValues[i] = type.equals("int") ? Integer.parseInt(params[j]) : params[j]; // Increment j only for user-supplied params
+                        paramTypes[i] = Class.forName(type);
+                        paramValues[i] = params[j];
                         j++;
                     }
                 }
@@ -163,15 +170,13 @@ public class ServerClientHandler implements Runnable {
                 if (commandKey.equals("setObjStarter")) {
                     server.incrementSetObjStarterCount();
                 }
-                if(commandKey.equals("draw")){
+                if (commandKey.equals("draw")) {
                     server.showDrawCardArea();
                 }
                 if (server.getGameFlow() != null) {
                     server.getGameFlow().incrementTurn();
                 }
-
             }
-           // System.out.println("Eseguendo ");
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
             System.err.println("InvocationTargetException: " + targetException.getMessage());
@@ -181,5 +186,6 @@ public class ServerClientHandler implements Runnable {
             e.printStackTrace();
         }
     }
+
 
 }

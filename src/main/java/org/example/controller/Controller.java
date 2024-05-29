@@ -4,6 +4,7 @@ import org.example.model.Model;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -32,12 +32,14 @@
       "fileName": "Player.java"
     },
     "chatS": {
-      "className": "org.example.server.Server",
+      "className": "org.example.controller.Player",
       "methodName": "chatS",
       "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "string", "source": "user"},
         {"type": "string", "source": "user"}
       ],
-      "fileName": "Server.java"
+      "fileName": "Player.java"
     }
   }
 }

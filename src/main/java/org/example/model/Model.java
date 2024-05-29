@@ -25,7 +25,7 @@ public class Model {
     private List<Card> PublicObjective;
     private int currentPlayer;
     private List<ModelChangeListener> listeners = new ArrayList<>(); // List of other classes that are interested when something changes (only the Server)
-
+    private List<String> chat= new ArrayList<>();
     /** Constructor of the Model
      *
      */
@@ -165,5 +165,9 @@ public class Model {
         for(ModelChangeListener listener: listeners) {
             listener.onModelGeneric(generalMessage);
         }
+    }
+    public void addChat(String message){
+        chat.add(message);
+        System.out.println(chat);
     }
 }

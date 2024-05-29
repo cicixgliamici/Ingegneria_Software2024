@@ -344,11 +344,4 @@ public class Server implements ModelChangeListener {
         this.numMaxConnections=numConnections;
     }
 
-    public void chatS(String message) throws RemoteException {
-        System.out.println("Server " + message);
-        message=message.substring(6);
-        System.out.println("Server " + message);
-        onModelGeneric("chatC:"+message);
-    }
-
 }

@@ -138,4 +138,9 @@ public class Player {
             scoreBoard.updatePlayerPoint(this, model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
     }
+    public void chatS(Model model, String username, String message) throws RemoteException {
+        System.out.println("chatC:"+username+"," +message);
+        model.addChat(username+":"+message);
+        model.notifyModelGeneric("chatC:"+username+ "," + message);
+    }
 }

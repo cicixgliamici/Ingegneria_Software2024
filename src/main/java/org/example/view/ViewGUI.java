@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewGUI extends View {
-    private Chat chatPanel;
 
     public ViewGUI() {
         cardsPath=new ArrayList<>();
@@ -251,12 +250,7 @@ public class ViewGUI extends View {
         drawableCards.add(id6);
     }
 
-    public void chatC(String message){
-        if (message.startsWith("chatC:")) {
-            System.out.println(message);
-            message = message.substring(6);// Remove the "chatC:" prefix
-            message = message.replaceFirst(";",":");
-            chatPanel.displayMessage(message);// Display the message in the chat panel
-        }
+    public void chatC(String username, String message){
+        Chat.displayMessage(username, message);// Display the message in the chat panel
     }
 }

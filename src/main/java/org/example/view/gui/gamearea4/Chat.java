@@ -1,9 +1,11 @@
 package org.example.view.gui.gamearea4;
 
-
 import org.example.client.*;
 
 import javax.swing.*;
+import javax.swing.text.*;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,32 +13,30 @@ import java.awt.event.ActionListener;
 public class Chat extends JPanel {
     private TCPClient tcpClient;
     private JButton button;
-    private JTextArea textArea;
+    private static JTextPane textPane;
     private JTextField textField;
 
-    public Chat(TCPClient tcpClient , String username){
+    public Chat(TCPClient tcpClient, String username) {
         this.tcpClient = tcpClient;
         setLayout(new BorderLayout());
 
-        textArea = new JTextArea();
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
+        textPane = new JTextPane();
+        textPane.setContentType("text/html");
+        textPane.setEditable(false);
 
         button = new JButton("Send");
         textField = new JTextField();
 
-        textArea.setEditable(false);
-
-        JScrollPane sp = new JScrollPane(textArea);
+        JScrollPane sp = new JScrollPane(textPane);
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         add(sp, BorderLayout.CENTER);
+
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(textField, BorderLayout.CENTER);
         panel.add(button, BorderLayout.EAST);
         add(panel, BorderLayout.SOUTH);
-
 
         button.addActionListener(new ActionListener() {
             @Override
@@ -51,20 +51,28 @@ public class Chat extends JPanel {
                 sendMessage(username);
             }
         });
-
     }
 
     private void sendMessage(String username) {
         String message = textField.getText();
-        System.out.println("Send " + message);
         if (!message.isEmpty()) {
-            tcpClient.sendChat(username + ";" + message);
+            tcpClient.sendChat(username + "," + message);
             textField.setText("");  // Clear the input field after sending
         }
     }
-    public void displayMessage(String message) {
-        System.out.println("Display " + message);
-        textArea.append(message + "\n");  // Append the new message with a newline
-    }
 
+    public static void displayMessage(String username, String message) {
+        // Create the formatted message with HTML tags
+        String formattedMessage = "<b>" + username + ":</b> " + message + "<br>";
+        // Insert the HTML content into the text pane
+        HTMLEditorKit kit = (HTMLEditorKit) textPane.getEditorKit();
+        HTMLDocument doc = (HTMLDocument) textPane.getDocument();
+        try {
+            kit.insertHTML(doc, doc.getLength(), formattedMessage, 0, 0, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Scroll to the bottom of the text pane
+        textPane.setCaretPosition(doc.getLength());
+    }
 }
