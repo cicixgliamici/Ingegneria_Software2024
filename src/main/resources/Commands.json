@@ -1,0 +1,44 @@
+{
+  "commands": {
+    "draw": {
+      "className": "org.example.controller.Player",
+      "methodName": "draw",
+      "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "int", "source": "user"}
+      ],
+      "fileName": "Player.java"
+    },
+    "play": {
+      "className": "org.example.controller.Player",
+      "methodName": "play",
+      "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"}
+      ],
+      "fileName": "Player.java"
+    },
+    "setObjStarter": {
+      "className": "org.example.controller.Player",
+      "methodName": "setObjStarter",
+      "parameters": [
+        {"type": "Model", "source": "server"},
+        {"type": "int", "source": "user"},
+        {"type": "int", "source": "user"}
+      ],
+      "fileName": "Player.java"
+    },
+    "chatS": {
+      "className": "org.example.server.Server",
+      "methodName": "chatS",
+      "parameters": [
+        {"type": "string", "source": "user"}
+      ],
+      "fileName": "Server.java"
+    }
+  }
+}
+

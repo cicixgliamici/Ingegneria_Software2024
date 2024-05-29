@@ -1,0 +1,172 @@
+{
+  "interpreter": {
+    "drawnCard": {
+      "className": "org.example.view",
+      "methodName": "drawnCard",
+      "parameters": [
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "hasDrawn": {
+      "className": "org.example.view",
+      "methodName": "hasDrawn",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "playedCard": {
+      "className": "org.example.view",
+      "methodName": "playedCard",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "hasPlayed": {
+      "className": "org.example.view",
+      "methodName": "hasPlayed",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "unplayable": {
+      "className": "org.example.view",
+      "methodName": "unplayable",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "placeholder": {
+      "className": "org.example.view",
+      "methodName": "placeholder",
+      "parameters": [
+        {"type": "string", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "firstHand": {
+      "className": "org.example.view",
+      "methodName": "firstHand",
+      "parameters": [
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "setHand": {
+      "className": "org.example.view",
+      "methodName": "setHand",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    },
+    "pubObj": {
+      "className": "org.example.view",
+      "methodName": "pubObj",
+      "parameters": [
+        {"type": "int", "source": "server"},
+        {"type": "int", "source":  "server"}
+      ],
+      "fileName": "View.java"
+    }
+  },
+  "message": {
+    "className": "org.example.view",
+    "methodName": "message",
+    "parameters": [
+      {"type": "int", "source": "server"}
+      ],
+    "fileName": "View.java"
+  },
+  "order": {
+    "className": "org.example.view",
+    "methodName": "order",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "points": {
+    "className": "org.example.view",
+    "methodName": "points",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "color": {
+    "className": "org.example.view",
+    "methodName": "color",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "setFirst": {
+    "className": "org.example.view",
+    "methodName": "setFirst",
+    "fileName": "View.java"
+  },
+  "numCon": {
+    "className": "org.example.view",
+    "methodName": "numCon",
+    "parameters": [
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "visibleArea": {
+    "className": "org.example.view",
+    "methodName": "visibleArea",
+    "parameters": [
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"},
+      {"type": "int", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "chatC":{
+    "className": "org.example.view",
+    "methodName": "chatC",
+    "parameters": [
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+}
+}
