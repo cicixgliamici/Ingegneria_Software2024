@@ -26,6 +26,7 @@ public class ViewGUI extends View {
         this.flag=1;
         this.matchStarted=false;
         colors=new ArrayList<>();
+        players=new ArrayList<>();
     }
 
     @Override
@@ -185,7 +186,14 @@ public class ViewGUI extends View {
 
     @Override
     public void order(String us1, String us2, String us3, String us4) {
-
+        List<String> orderPlayer = Arrays.asList(us1, us2, us3, us4);
+        isFirst=true;
+        for (String player : orderPlayer) {
+            if (!"null".equals(player)) {
+                players.add(player);
+            } else
+                isFirst=false;
+        }
     }
 
     @Override

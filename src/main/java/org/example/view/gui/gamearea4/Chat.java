@@ -1,7 +1,7 @@
 package org.example.view.gui.gamearea4;
 
 import org.example.client.*;
-
+import org.example.view.View;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.html.HTMLEditorKit;
@@ -16,7 +16,7 @@ public class Chat extends JPanel {
     private static JTextPane textPane;
     private JTextField textField;
 
-    public Chat(TCPClient tcpClient, String username) {
+    public Chat(TCPClient tcpClient, View view, String username) {
         this.tcpClient = tcpClient;
         setLayout(new BorderLayout());
 
@@ -51,6 +51,11 @@ public class Chat extends JPanel {
                 sendMessage(username);
             }
         });
+
+        String mess1 = "Welcome everyone, this is the list of players:" + view.getPlayers();
+        displayMessage("Server", mess1);
+        String mess2 = "If you want to send a private messagge, type [username]";
+        displayMessage("Server", mess2);
     }
 
     private void sendMessage(String username) {

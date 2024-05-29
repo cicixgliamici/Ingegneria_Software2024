@@ -139,8 +139,22 @@ public class Player {
         }
     }
     public void chatS(Model model, String username, String message) throws RemoteException {
-        System.out.println("chatC:"+username+"," +message);
         model.addChat(username+":"+message);
-        model.notifyModelGeneric("chatC:"+username+ "," + message);
+        if (message.startsWith("[")) {
+            // Se il messaggio inizia con '[', si tratta di un messaggio diretto a un utente specifico
+            int endIndex = message.indexOf("]");
+            if (endIndex != -1) {
+                // Estrai l'username dall'interno delle parentesi quadre
+                String targetUsername = message.substring(1, endIndex);
+                // Estrai il messaggio dopo le parentesi quadre
+                String actualMessage = message.substring(endIndex + 1);
+                // Invia il messaggio all'utente specifico utilizzando notifyModelSpecific()
+                model.notifyModelSpecific(targetUsername, "chatC:" + username + "," + actualMessage);
+                model.notifyModelSpecific(username, "chatC:" + username + "," + message);
+            }
+        }
+        else {
+            model.notifyModelGeneric("chatC:" + username + "," + message);
+        }
     }
 }

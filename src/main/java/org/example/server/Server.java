@@ -117,6 +117,9 @@ public class Server implements ModelChangeListener {
             onModelGeneric("message:10");// Notifica i clienti che il match è iniziato.
             controller.setPlayers(players); // Imposta i giocatori nel controller.
             controller.initializeController(); // Inizializza il controller.
+            String orderMessage = generatePlayerOrderMessage();
+            System.out.println(orderMessage);
+            onModelGeneric(orderMessage);
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
             showDrawCardArea();
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
@@ -145,9 +148,8 @@ public class Server implements ModelChangeListener {
         }
         System.out.println("All clients have set correctly");
         try {
-            // Generate the order message with usernames in the order they connected.
-            String orderMessage = generatePlayerOrderMessage();
-            onModelGeneric(orderMessage); // Send the order of players.
+            //String orderMessage = generatePlayerOrderMessage();
+            //onModelGeneric(orderMessage);
             onModelGeneric("message:3"); // Notify clients that all have set their starter cards.
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -164,7 +166,6 @@ public class Server implements ModelChangeListener {
                 playerOrder[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
             }
         }
-
         // Join the player names (or "nulls") with commas to create the final message.
         return "order:" + String.join(",", playerOrder);
     }
@@ -179,7 +180,6 @@ public class Server implements ModelChangeListener {
                 colors[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
             }
         }
-
         // Join the player names (or "nulls") with commas to create the final message.
         return String.join(",", colors);
     }

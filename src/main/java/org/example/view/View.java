@@ -21,11 +21,11 @@ import javax.swing.*;
 public abstract class View {
     protected List<Integer> cardsId;
     protected List<String> cardsPath;
-
     protected List<Integer> drawableCards;
     protected int flag;
     protected int numConnection;
     protected List<String> colors;
+    protected List<String> players;
     protected boolean isFirst;
     protected volatile boolean matchStarted;
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
@@ -249,5 +249,9 @@ public abstract class View {
 
     public List<Integer> getDrawableCards() {
         return drawableCards;
+    }
+
+    public List<String> getPlayers() {
+        return players;
     }
 }
