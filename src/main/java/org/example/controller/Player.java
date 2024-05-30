@@ -82,7 +82,7 @@ public class Player {
         model.getPlayerCardArea(this).getHand().remove(card);
         model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
                                                 "hasPlayed:" + username + "," + card.getId());
-
+        model.notifyModelGeneric("points:"+ this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
     }
 
     /**
@@ -138,6 +138,7 @@ public class Player {
             scoreBoard.updatePlayerPoint(this, model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
     }
+
     public void chatS(Model model, String username, String message) throws RemoteException {
         model.addChat(username+":"+message);
         if (message.startsWith("[")) {
@@ -151,9 +152,18 @@ public class Player {
                 // Invia il messaggio all'utente specifico utilizzando notifyModelSpecific()
                 if(targetUsername.equals(username)){
                     model.notifyModelSpecific(username, "chatC:" + "Server" + "," + "Why would you send messages to yourself?");
+                    model.notifyModelSpecific(username, "chatC:" + username + "," + message);
                 }
-                model.notifyModelSpecific(targetUsername, "chatC:" + username + "," + actualMessage);
-                model.notifyModelSpecific(username, "chatC:" + username + "," + message);
+                else{
+                    for(Player player : model.getPlayersList()){
+                        if(targetUsername.equals(player.getUsername())){
+                            model.notifyModelSpecific(targetUsername, "chatC:" + username + " [PVT]" + "," + actualMessage);
+                            model.notifyModelSpecific(username, "chatC:" + username + "," + message);
+                            return;
+                        }
+                    }
+                    model.notifyModelSpecific(username, "chatC:" + "Server" + "," + " This player does not exist:" + "'" + targetUsername +  "'" );
+                }
             }
         }
         else {

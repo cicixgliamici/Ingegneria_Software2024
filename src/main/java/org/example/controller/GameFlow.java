@@ -45,7 +45,7 @@ public class GameFlow {
         int maxTurnValue = maxTurn.get();
         if (currentTurn == maxTurnValue) {
             turn.set(1);
-            server.notifyPlayerPoints();
+
         } else {
             turn.incrementAndGet();
         }

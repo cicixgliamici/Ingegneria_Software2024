@@ -328,39 +328,9 @@ public class ViewTUI extends View {
     public void setFirst(){
         System.out.println("Enter the maximum number of players (1-4):");
     }
+    public void points(String username, int points){
 
-    /**
-     * Displays the current points for each player, ensuring to only include non-null usernames.
-     * @param us1 Username and points of the first player or null
-     * @param us2 Username and points of the second player or null
-     * @param us3 Username and points of the third player or null
-     * @param us4 Username and points of the fourth player or null
-     */
-    public void points(String us1, int points1, String us2, int points2, String us3, int points3, String us4, int points4) {
-        List<String> users = Arrays.asList(us1, us2, us3, us4);
-        List<Integer> points = Arrays.asList(points1, points2, points3, points4);
-        StringBuilder pointsBuilder = new StringBuilder("Player points: ");
-        boolean isFirst = true; // Flag to handle commas correctly.
-
-        for (int i = 0; i < users.size(); i++) {
-            String user = users.get(i);
-            int point = points.get(i);
-            if (!user.equals("null")) { // Check if the username is not "null".
-                if (!isFirst) {
-                    pointsBuilder.append(", ");
-                }
-                pointsBuilder.append(user).append(": ").append(point);
-                isFirst = false;
-            }
-        }
-        // Print the constructed points if at least one username was added.
-        if (!isFirst) {
-            System.out.println(pointsBuilder.toString());
-        } else {
-            System.out.println("No players have points.");
-        }
     }
-
     /**
      * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
      * @param card The card as a JSONObject.

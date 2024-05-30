@@ -114,12 +114,6 @@
     "methodName": "points",
     "parameters": [
       {"type": "string", "source": "server"},
-      {"type": "int", "source": "server"},
-      {"type": "string", "source": "server"},
-      {"type": "int", "source": "server"},
-      {"type": "string", "source": "server"},
-      {"type": "int", "source": "server"},
-      {"type": "string", "source": "server"},
       {"type": "int", "source": "server"}
     ],
     "fileName": "View.java"

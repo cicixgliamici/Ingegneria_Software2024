@@ -179,6 +179,5 @@ public class Model {
     }
     public void addChat(String message){
         chat.add(message);
-        System.out.println(chat);
     }
 }

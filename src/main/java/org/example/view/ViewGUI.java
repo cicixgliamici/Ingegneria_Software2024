@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ViewGUI extends View {
@@ -27,6 +28,8 @@ public class ViewGUI extends View {
         this.matchStarted=false;
         colors=new ArrayList<>();
         players=new ArrayList<>();
+        map=new HashMap<>();
+        points=new HashMap<>();
     }
 
 
@@ -196,8 +199,9 @@ public class ViewGUI extends View {
     }
 
     @Override
-    public void points(String us1, int p1, String us2, int p2, String us3, int p3, String us4, int p4) {
-
+    public void points(String username, int point) {
+        System.out.println(username+point);
+        points.put(username, point);
     }
 
 

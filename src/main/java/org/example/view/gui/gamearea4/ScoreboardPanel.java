@@ -98,7 +98,7 @@ public class ScoreboardPanel extends JPanel {
             //objective2 = new JLabel(icon2);
         }
 
-        token1 = ImageIO.read(new File("C:\\Users\\jamie\\OneDrive\\Desktop\\CODEX_pion_bleu (1).png"));
+        //token1 = ImageIO.read(new File("C:\\Users\\jamie\\OneDrive\\Desktop\\CODEX_pion_bleu (1).png"));
         //Icon icon3 = new ImageIcon(logo3);
         //token1 = new JLabel(icon3);
 
@@ -133,6 +133,8 @@ public class ScoreboardPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
 
         add(objective2, gbc);*/
+        System.out.println("La madre di matteo è na troia");
+        System.out.println(view.getPoints());
 
     }
 

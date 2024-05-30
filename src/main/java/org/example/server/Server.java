@@ -122,6 +122,10 @@ public class Server implements ModelChangeListener {
             String orderMessage = generatePlayerOrderMessage();
             System.out.println(orderMessage);
             onModelGeneric(orderMessage);
+            for (Player player : players) {
+                System.out.println("points:" + player.getUsername() + "," + "0");
+                onModelGeneric("points:" + player.getUsername() + "," + "0");
+            }
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
@@ -186,27 +190,6 @@ public class Server implements ModelChangeListener {
         }
         // Join the player names (or "nulls") with commas to create the final message.
         return String.join(",", colors);
-    }
-
-    public void notifyPlayerPoints() {
-        StringBuilder message = new StringBuilder("points:");
-        for (int i = 0; i < 4; i++) {
-            if (i < players.size()) {
-                Player player = players.get(i);
-                int points = model.getScoreBoard().getPlayerPoint(player);
-                message.append(player.getUsername()).append(",").append(points);
-            } else {
-                message.append("null,0");
-            }
-            if (i < 3) {
-                message.append(",");
-            }
-        }
-        try {
-            onModelGeneric(message.toString());
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

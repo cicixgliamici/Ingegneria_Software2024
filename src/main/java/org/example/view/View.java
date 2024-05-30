@@ -34,13 +34,11 @@ public abstract class View {
     protected List<Integer> PublicObjectives = new ArrayList<>();
     final int N = 9;  // Size of the grid.
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
-
     protected Map<Integer, Coordinates> map = new HashMap<>();
-
+    protected Map<String, Integer> points;
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }
-
     public Coordinates getPosition(JSONObject jsonObject) {
         return map.get(jsonObject);
     }
@@ -136,7 +134,7 @@ public abstract class View {
     public abstract void setHand(int side, int choice);
     public abstract void pubObj(int id1, int id2);
     public abstract void order(String us1, String us2, String us3, String us4);
-    public abstract void points(String us1, int p1, String us2, int p2, String us3, int p3, String us4, int p4);
+    public abstract void points(String username, int points);
 
     public abstract void numCon(int num);
     /**
@@ -260,4 +258,7 @@ public abstract class View {
         return PublicObjectives;
     }
 
+    public Map<String, Integer> getPoints() {
+        return points;
+    }
 }
