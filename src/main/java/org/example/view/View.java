@@ -261,4 +261,5 @@ public abstract class View {
     public Map<String, Integer> getPoints() {
         return points;
     }
+
 }

@@ -63,7 +63,8 @@ public class Player {
      * Plays a card from the player's hand on the node with the passed coordinates
      * on the chosen side
      */
-    public void play(Model model, int choice, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException, RemoteException {
+    public void play(Model model, int id, int side, int x, int y) throws PlaceholderNotValid, InvalidCardException, RemoteException {
+        int choice = findIdinHand(model, id);
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         card.setSide(side);
         PlaceHolder placeHolder=null;
@@ -83,6 +84,15 @@ public class Player {
         model.notifyModelChange(this.username,  "playedCard:" + card.getId() + "," + x + "," + y,
                                                 "hasPlayed:" + username + "," + card.getId());
         model.notifyModelGeneric("points:"+ this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
+    }
+
+    public int findIdinHand(Model model, int id) throws RemoteException {
+        for (Card card : model.getPlayerCardArea(this).getHand()) {
+            if(card.getId()==id) {
+                return model.getPlayerCardArea(this).getHand().indexOf(card);
+            }
+        }
+        return 0;
     }
 
     /**

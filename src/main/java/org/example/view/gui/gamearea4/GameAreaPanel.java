@@ -1,5 +1,6 @@
 package org.example.view.gui.gamearea4;
 
+import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.utilities.Coordinates;
 
@@ -36,13 +37,24 @@ public class GameAreaPanel extends JPanel {
     private int ChosenId;
     private int ChosenSide;
     View view;
+    TCPClient tcpClient;
     private Map<JLabel, Boolean> cardStates = new HashMap<>();
     private Map<JLabel, Integer> cardIds = new HashMap<>();
     private JLabel selectedCard = null;
+    private Icon transparentIcon;
 
-    public GameAreaPanel(View view, String color, String num, String starterCard, String objCard) throws IOException {
+    public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard) throws IOException {
+        this.tcpClient= tcpClient;
         this.view = view;
         setLayout(new GridBagLayout());
+
+        // Creazione dell'icona trasparente
+        BufferedImage transparentImage = new BufferedImage(100, 150, BufferedImage.TYPE_INT_ARGB); // Assumi dimensioni 100x150
+        Graphics2D g2d = transparentImage.createGraphics();
+        g2d.setComposite(AlphaComposite.Clear);
+        g2d.fillRect(0, 0, 100, 150);
+        g2d.dispose();
+        transparentIcon = new ImageIcon(transparentImage);
 
         System.out.println(view.getHand());
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
@@ -196,8 +208,6 @@ public class GameAreaPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth = 4;
         add(jScrollPane, gbc);
-
-
     }
 
     private JLabel createCard(int cardId) throws IOException {
@@ -211,6 +221,7 @@ public class GameAreaPanel extends JPanel {
         JLabel cardLabel = new JLabel(icon);
         cardStates.put(cardLabel, true); // Start with front side
         cardIds.put(cardLabel, cardId);
+        cardLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight())); // Imposta dimensioni fisse
         return cardLabel;
     }
 
@@ -236,15 +247,18 @@ public class GameAreaPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
+                    tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
                     selectCard(card);
+                    view.removeHand(ChosenId);
+                    // Sostituisce la carta selezionata con un'icona trasparente
+                    card.setIcon(transparentIcon);
+                    card.setBorder(null); // Rimuove il bordo della carta
                 } else if (e.getClickCount() == 2) {
                     changeCardImage(card);
                 }
             }
         });
     }
-
-
 
     private void selectCard(JLabel card) {
         if (selectedCard != null) {

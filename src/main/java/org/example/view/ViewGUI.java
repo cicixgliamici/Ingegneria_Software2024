@@ -160,7 +160,7 @@ public class ViewGUI extends View {
         updateHand(id1);
         updateHand(id2);
         updateHand(id3);
-        System.out.println(getHand());
+        System.out.println("hand" + getHand());
     }
 
     public void showStarterObjective(int id4, int id5, int id6){
@@ -259,7 +259,7 @@ public class ViewGUI extends View {
         drawableCards.add(id4);
         drawableCards.add(id5);
         drawableCards.add(id6);
-        System.out.println(drawableCards);
+        System.out.println("drawable cards" + drawableCards);
     }
 
     public void chatC(String username, String message){

@@ -119,6 +119,13 @@ public class TCPClient {
         }
     }
 
+    public void sendPlay(int choice, int side, int x, int y){
+        if (socketOut != null) {
+            socketOut.println("play:" + choice + "," + side + "," + x + "," + y);
+            socketOut.flush();
+        }
+    }
+
     /**
      * Handles messages received from the server.
      *
