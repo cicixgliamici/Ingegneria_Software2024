@@ -143,7 +143,7 @@ public class GameAreaPanel extends JPanel {
         addCardListeners(card3);
         JLabel[] cards = {card1, card2, card3};
         for (JLabel card : cards) {
-            card.setBorder(new LineBorder(Color.WHITE, 2));
+            card.setBorder(new LineBorder(Color.WHITE, 1));
         }
         GridBagConstraints gbc = new GridBagConstraints();
 
