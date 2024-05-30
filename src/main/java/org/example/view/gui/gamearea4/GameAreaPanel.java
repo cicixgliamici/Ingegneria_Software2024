@@ -277,6 +277,7 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
                         card.setIcon(transparentIcon);
                         card.setBorder(null);
                         removeMouseListeners(card); // Rimuove i listener del mouse
+                        playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         restoreCard(card); // Ripristina la carta in caso di errore
