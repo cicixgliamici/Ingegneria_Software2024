@@ -2,6 +2,7 @@ package org.example.view.gui.listener;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.utilities.CornerButton;
 
 import java.util.EventObject;
 
@@ -13,6 +14,7 @@ public class Event extends EventObject {
     private String event; // Describes the type or name of the event
     private String data; // Optional data or details associated with the event
     private TCPClient tcpClient;
+    private CornerButton cornerButton;
     private View view;
 
     /**
@@ -43,6 +45,11 @@ public class Event extends EventObject {
         this.tcpClient = tcpClient;
         this.data = username;
         this.view = view;
+    }
+    public Event(Object source, String event, CornerButton cornerButton){
+        super(source);
+        this.event = event;
+        this.cornerButton = cornerButton;
     }
     /**
      * Returns the type or name of the event.
@@ -86,5 +93,13 @@ public class Event extends EventObject {
 
     public void setView(View view) {
         this.view = view;
+    }
+
+    public CornerButton getCornerButton() {
+        return cornerButton;
+    }
+
+    public void setCornerButton(CornerButton cornerButton) {
+        this.cornerButton = cornerButton;
     }
 }

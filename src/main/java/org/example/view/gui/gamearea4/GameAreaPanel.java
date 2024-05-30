@@ -37,6 +37,8 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
     private Map<JLabel, Integer> cardIds = new HashMap<>();
     private JLabel selectedCard = null;
     private Icon transparentIcon;
+    private final static int MIDX = 320;
+    private final static int MIDY = 347;
 
     public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard) throws IOException {
         this.tcpClient = tcpClient;
@@ -146,7 +148,7 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        playCardArea.InsertCard(400, 400, starterCard);
+        playCardArea.insertCardStarter(MIDX, MIDY, starterCard, 0,0);
 
         addCardListeners(card1);
         addCardListeners(card2);
