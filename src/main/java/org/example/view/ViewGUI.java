@@ -1,6 +1,9 @@
 package org.example.view;
 
+import org.example.exception.PlaceholderNotValid;
+import org.example.exception.PlaceholderNotValidHandler;
 import org.example.view.gui.gamearea4.Chat;
+import org.example.view.gui.listener.InvalidPlacementListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,11 +38,6 @@ public class ViewGUI extends View {
 
     @Override
     public void updatePlayerCardArea(int id) {
-
-    }
-
-    @Override
-    public void removeHand(int id) {
 
     }
 
@@ -145,12 +143,17 @@ public class ViewGUI extends View {
 
     @Override
     public void unplayable(int id, int x, int y) {
-
+        JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere giFreocata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
+        if (invalidPlacementListener != null) {
+            invalidPlacementListener.onInvalidPlacement(id);
+        }
     }
 
-    @Override
     public void placeholder(int id, int x, int y) {
-
+        JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere posizionata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
+        if (invalidPlacementListener != null) {
+            invalidPlacementListener.onInvalidPlacement(id);
+        }
     }
 
 
@@ -248,18 +251,20 @@ public class ViewGUI extends View {
     public void setFirst() {
         isFirst = true;
     }
+
     public void numCon(int maxCon){
         numConnection=maxCon;
         System.out.println("ricevuto il num max di player " + numConnection);
     }
     public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+        drawableCards.clear();
         drawableCards.add(id1);
         drawableCards.add(id2);
         drawableCards.add(id3);
         drawableCards.add(id4);
         drawableCards.add(id5);
         drawableCards.add(id6);
-        System.out.println("drawable cards" + drawableCards);
+        System.out.println("updatando le carte: visible area" + drawableCards);
     }
 
     public void chatC(String username, String message){

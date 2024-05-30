@@ -2,27 +2,22 @@ package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.listener.InvalidPlacementListener;
 import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSource;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameAreaPanel extends JPanel {
+public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
     private JLabel token1;
     private JLabel token2;
     private JLabel token3;
@@ -44,12 +39,12 @@ public class GameAreaPanel extends JPanel {
     private Icon transparentIcon;
 
     public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard) throws IOException {
-        this.tcpClient= tcpClient;
+        this.tcpClient = tcpClient;
         this.view = view;
         setLayout(new GridBagLayout());
 
         // Creazione dell'icona trasparente
-        BufferedImage transparentImage = new BufferedImage(100, 150, BufferedImage.TYPE_INT_ARGB); // Assumi dimensioni 100x150
+        BufferedImage transparentImage = new BufferedImage(100, 150, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = transparentImage.createGraphics();
         g2d.setComposite(AlphaComposite.Clear);
         g2d.fillRect(0, 0, 100, 150);
@@ -66,8 +61,8 @@ public class GameAreaPanel extends JPanel {
         BufferedImage img4 = ImageIO.read(new File(objCard));
         Icon ic4 = new ImageIcon(img4);
         secretObjective = new JLabel(ic4);
-        cardStates.put(secretObjective, true); // Assuming secretObjective only has a front side
-        cardIds.put(secretObjective, -1); // No ID for secretObjective
+        cardStates.put(secretObjective, true);
+        cardIds.put(secretObjective, -1);
 
         switch (num) {
             case "1":
@@ -102,7 +97,10 @@ public class GameAreaPanel extends JPanel {
         playCardArea = new PlayCardArea() {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
             Image img = icon.getImage();
-            { setOpaque(false); }
+
+            {
+                setOpaque(false);
+            }
 
             public void paintComponent(Graphics graphics) {
                 graphics.drawImage(img, 0, 0, this);
@@ -210,6 +208,125 @@ public class GameAreaPanel extends JPanel {
         add(jScrollPane, gbc);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImg != null) {
+            int panelWidth = getWidth();
+            int panelHeight = getHeight();
+            g.drawImage(backgroundImg, 0, 0, panelWidth, panelHeight, this);
+        }
+    }
+
+    @Override
+    public void onInvalidPlacement(int cardId) {
+        for (Map.Entry<JLabel, Integer> entry : cardIds.entrySet()) {
+            if (entry.getValue() == cardId) {
+                try {
+                    entry.getKey().setIcon(loadCardIcon(cardId, true));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                entry.getKey().setVisible(true);
+                break;
+            }
+        }
+    }
+
+    private Icon loadCardIcon(int cardId, boolean isFront) throws IOException {
+        BufferedImage newImg = null;
+        if (!isFront) {
+            if (cardId < 10) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/001.png"));
+            } else if (cardId < 20) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/011.png"));
+            } else if (cardId < 30) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/021.png"));
+            } else if (cardId < 40) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/031.png"));
+            } else if (cardId < 50) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/041.png"));
+            } else if (cardId < 60) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/051.png"));
+            } else if (cardId < 70) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/061.png"));
+            } else if (cardId < 80) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/back/071.png"));
+            }
+        } else {
+            if (cardId < 10) {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/front/00" + cardId + ".png"));
+            } else {
+                newImg = ImageIO.read(new File("src/main/resources/images/small/front/0" + cardId + ".png"));
+            }
+        }
+        return new ImageIcon(newImg);
+    }
+
+    private void addCardListeners(JLabel card) {
+        MouseAdapter ma = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    selectCard(card);
+                    try {
+                        tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
+                        view.removeHand(ChosenId);
+                        card.setIcon(transparentIcon);
+                        card.setBorder(null);
+                        removeMouseListeners(card); // Rimuove i listener del mouse
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        restoreCard(card); // Ripristina la carta in caso di errore
+                    }
+                } else if ( e.getClickCount() == 2) {
+                    changeCardImage(card);
+                }
+            }
+        };
+        card.addMouseListener(ma);
+        card.putClientProperty("mouseAdapter", ma); // Salva il listener nel client property della carta
+    }
+
+    private void removeMouseListeners(JLabel card) {
+        MouseAdapter ma = (MouseAdapter) card.getClientProperty("mouseAdapter");
+        if (ma != null) {
+            card.removeMouseListener(ma);
+        }
+    }
+
+    private void restoreCard(JLabel card) {
+        try {
+            int cardId = cardIds.get(card);
+            card.setIcon(loadCardIcon(cardId, true));
+            card.setBorder(new LineBorder(Color.WHITE, 1));
+            cardStates.put(card, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void selectCard(JLabel card) {
+        if (selectedCard != null) {
+            selectedCard.setBorder(new LineBorder(Color.WHITE, 1));
+        }
+        selectedCard = card;
+        selectedCard.setBorder(new LineBorder(Color.BLUE, 2));
+        ChosenId = cardIds.get(card);
+        ChosenSide = cardStates.get(card) ? 0 : 1;
+    }
+
+    private void changeCardImage(JLabel card) {
+        try {
+            int cardId = cardIds.get(card);
+            boolean isFront = cardStates.get(card);
+            card.setIcon(loadCardIcon(cardId, !isFront));
+            cardStates.put(card, !isFront);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private JLabel createCard(int cardId) throws IOException {
         BufferedImage img;
         if (cardId < 10) {
@@ -219,9 +336,9 @@ public class GameAreaPanel extends JPanel {
         }
         Icon icon = new ImageIcon(img);
         JLabel cardLabel = new JLabel(icon);
-        cardStates.put(cardLabel, true); // Start with front side
+        cardStates.put(cardLabel, true);
         cardIds.put(cardLabel, cardId);
-        cardLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight())); // Imposta dimensioni fisse
+        cardLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         return cardLabel;
     }
 
@@ -240,84 +357,5 @@ public class GameAreaPanel extends JPanel {
         JLabel tokenLabel = new JLabel(icon);
         tokenLabel.setVisible(visible);
         return tokenLabel;
-    }
-
-    private void addCardListeners(JLabel card) {
-        card.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
-                    selectCard(card);
-                    view.removeHand(ChosenId);
-                    // Sostituisce la carta selezionata con un'icona trasparente
-                    card.setIcon(transparentIcon);
-                    card.setBorder(null); // Rimuove il bordo della carta
-                } else if (e.getClickCount() == 2) {
-                    changeCardImage(card);
-                }
-            }
-        });
-    }
-
-    private void selectCard(JLabel card) {
-        if (selectedCard != null) {
-            selectedCard.setBorder(new LineBorder(Color.WHITE, 1));
-        }
-        selectedCard = card;
-        selectedCard.setBorder(new LineBorder(Color.BLUE, 2));
-        ChosenId = cardIds.get(card);
-        ChosenSide = cardStates.get(card) ? 0 : 1;
-    }
-
-    private void changeCardImage(JLabel card) {
-        try {
-            int cardId = cardIds.get(card);
-            boolean isFront = cardStates.get(card);
-            BufferedImage newImg = null;
-            if (isFront) {
-                if (cardId < 10) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/001.png"));
-                } else if (cardId < 20) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/011.png"));
-                } else if (cardId < 30) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/021.png"));
-                } else if (cardId < 40) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/031.png"));
-                } else if (cardId < 50) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/041.png"));
-                } else if (cardId < 60) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/051.png"));
-                } else if (cardId < 70) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/061.png"));
-                } else if (cardId < 80) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/back/071.png"));
-                }
-            } else {
-                if (cardId < 10) {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/front/00" + cardId + ".png"));
-                } else {
-                    newImg = ImageIO.read(new File("src/main/resources/images/small/front/0" + cardId + ".png"));
-                }
-            }
-            Icon newIcon = new ImageIcon(newImg);
-            card.setIcon(newIcon);
-            cardStates.put(card, !isFront); // Toggle state
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (backgroundImg != null) {
-            // Ottieni le dimensioni del pannello
-            int panelWidth = getWidth();
-            int panelHeight = getHeight();
-
-            // Disegna l'immagine ridimensionata per coprire l'intera area del pannello
-            g.drawImage(backgroundImg, 0, 0, panelWidth, panelHeight, this);
-        }
     }
 }

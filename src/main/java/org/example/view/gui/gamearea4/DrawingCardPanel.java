@@ -50,10 +50,62 @@ public class DrawingCardPanel extends JPanel {
         this.tcpClient=tcpClient;
         setLayout(new GridBagLayout());
 
+        updateCards();
+
         /*BufferedImage logo1 = ImageIO.read(new File("src/main/resources/images/big/big/front/001.png"));
         Icon icon1 = new ImageIcon(logo1);
         coveredCard1 = new JLabel(icon1);*/
 
+
+
+        GridBagConstraints gbFactory = new GridBagConstraints();
+
+        gbFactory.fill = GridBagConstraints.BOTH;
+        gbFactory.insets = new Insets(5, 0, 5, 0);
+
+        for(int i = 0; i< paths.size(); i++){
+            JLabel cardlabel =createCardLabel(paths.get(i), i);
+            gbFactory.gridy = i;
+            add(cardlabel, gbFactory);
+            cardLabels[i]=cardlabel;
+        }
+
+    }
+    private JLabel createCardLabel(String path, int cardIndex) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path));
+        JLabel label = new JLabel(new ImageIcon(image));
+        label.setBorder(defaultBorder);  // Imposta il bordo predefinito
+
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    drawChoose = cardIndex;
+                    updateCardSelection(cardIndex);
+                } else if (e.getClickCount() == 2) {
+                    drawChoose = cardIndex;
+                    updateCardSelection(cardIndex);
+                    tcpClient.sendDraw(cardIndex);
+                    view.getHand().add(cardIndex);
+                    updateCards();
+                }
+            }
+        });
+        return label;
+    }
+
+
+    private void updateCardSelection(int selectedCardIndex) {
+        for (int i = 0; i < cardLabels.length; i++) {
+            if (i == selectedCardIndex) {
+                cardLabels[i].setBorder(selectedBorder);  // Seleziona il bordo per la carta cliccata
+            } else {
+                cardLabels[i].setBorder(defaultBorder);  // Ripristina il bordo predefinito per le altre carte
+            }
+        }
+    }
+
+    public void updateCards(){
         BufferedImage image1 = null;
         Icon icon1 = null;
         try {
@@ -218,50 +270,6 @@ public class DrawingCardPanel extends JPanel {
         }
         Icon icon6 = new ImageIcon(image6);
         card4 = new JLabel(icon6);
-
-        GridBagConstraints gbFactory = new GridBagConstraints();
-
-        gbFactory.fill = GridBagConstraints.BOTH;
-        gbFactory.insets = new Insets(5, 0, 5, 0);
-
-        for(int i = 0; i< paths.size(); i++){
-            JLabel cardlabel =createCardLabel(paths.get(i), i);
-            gbFactory.gridy = i;
-            add(cardlabel, gbFactory);
-            cardLabels[i]=cardlabel;
-        }
-
-    }
-    private JLabel createCardLabel(String path, int cardIndex) throws IOException {
-        BufferedImage image = ImageIO.read(new File(path));
-        JLabel label = new JLabel(new ImageIcon(image));
-        label.setBorder(defaultBorder);  // Imposta il bordo predefinito
-
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    drawChoose = cardIndex;
-                    updateCardSelection(cardIndex);
-                } else if (e.getClickCount() == 2) {
-                    drawChoose = cardIndex;
-                    updateCardSelection(cardIndex);
-                    tcpClient.sendDraw(cardIndex);
-                }
-            }
-        });
-        return label;
-    }
-
-
-    private void updateCardSelection(int selectedCardIndex) {
-        for (int i = 0; i < cardLabels.length; i++) {
-            if (i == selectedCardIndex) {
-                cardLabels[i].setBorder(selectedBorder);  // Seleziona il bordo per la carta cliccata
-            } else {
-                cardLabels[i].setBorder(defaultBorder);  // Ripristina il bordo predefinito per le altre carte
-            }
-        }
     }
 
 

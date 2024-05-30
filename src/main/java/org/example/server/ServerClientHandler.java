@@ -2,7 +2,6 @@ package org.example.server;
 
 import org.example.controller.Controller;
 import org.example.controller.Player;
-
 import org.example.exception.ExceptionManager;
 import org.example.exception.InvalidCardException;
 import org.example.exception.PlaceholderNotValid;
@@ -11,6 +10,7 @@ import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,26 +23,16 @@ import java.util.Map;
  * Handles client connections and processes commands from both TCP and RMI clients.
  */
 public class ServerClientHandler implements Runnable {
-    private Socket socket;  // Socket for TCP communication
-    private Model model;  // Game model
-    private Controller controller;  // Game controller
-    private Map<String, JSONObject> commands;  // Map of commands and their details
-    private Map<Socket, String> socketToUsername;  // Map to associate sockets with usernames
-    private Server server;  // Main server instance
-    private RMIClientCallbackInterface rmiClientCallback;  // RMI client callback interface
-    private String username;  // Username of the client
+    private Socket socket;
+    private Model model;
+    private Controller controller;
+    private Map<String, JSONObject> commands;
+    private Map<Socket, String> socketToUsername;
+    private Server server;
+    private RMIClientCallbackInterface rmiClientCallback;
+    private String username;
     private ExceptionManager exceptionManager;
 
-    /**
-     * Constructor for TCP connections.
-     *
-     * @param socket           The socket for the TCP connection.
-     * @param commands         The map of commands.
-     * @param model            The game model.
-     * @param controller       The game controller.
-     * @param socketToUsername The map associating sockets with usernames.
-     * @param server           The main server instance.
-     */
     public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername, Server server) {
         this.socket = socket;
         this.commands = commands;
@@ -50,18 +40,9 @@ public class ServerClientHandler implements Runnable {
         this.controller = controller;
         this.socketToUsername = socketToUsername;
         this.server = server;
+        this.exceptionManager = new ExceptionManager(); // Inizializza exceptionManager
     }
 
-    /**
-     * Constructor for RMI connections.
-     *
-     * @param rmiClientCallback The RMI client callback interface.
-     * @param username          The username of the client.
-     * @param commands          The map of commands.
-     * @param model             The game model.
-     * @param controller        The game controller.
-     * @param server            The main server instance.
-     */
     public ServerClientHandler(RMIClientCallbackInterface rmiClientCallback, String username, Map<String, JSONObject> commands, Model model, Controller controller, Server server) {
         this.rmiClientCallback = rmiClientCallback;
         this.username = username;
@@ -69,11 +50,9 @@ public class ServerClientHandler implements Runnable {
         this.model = model;
         this.controller = controller;
         this.server = server;
+        this.exceptionManager = new ExceptionManager(); // Inizializza exceptionManager
     }
 
-    /**
-     * Runs the handler, processing either TCP or RMI connections based on the initialization.
-     */
     public void run() {
         try {
             if (socket != null) {
@@ -85,53 +64,42 @@ public class ServerClientHandler implements Runnable {
             exceptionManager.handleException(e, username, server);
         }
     }
-    /**
-     * Handles TCP connections by reading input from the socket and executing commands.
-     */
+
     private void handleTCPConnection() {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                executeCommand(inputLine, socketToUsername.get(socket));  // Execute the command from the input
+                executeCommand(inputLine, socketToUsername.get(socket));
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    /**
-     * Placeholder method for handling RMI connections.
-     */
     private void handleRMIConnection() {
         // Handle RMI connection commands if necessary
     }
 
-
-    /**
-     * Executes a command based on the input line.
-     *
-     * @param inputLine The input command line.
-     * @param username  The username of the client.
-     */
     private void executeCommand(String inputLine, String username) {
-        System.out.println("Eseguendo " + inputLine);
+        System.out.println("ricevuto " + inputLine);
         try {
             String[] parts = inputLine.split(":");
-            String commandKey = parts[0]; // Command key
+            String commandKey = parts[0];
             if (!commands.containsKey(commandKey)) {
                 System.out.println("Comando non riconosciuto");
-                return; // Command not recognized
+                return;
             }
             if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
-                JSONObject commandDetails = commands.get(commandKey); // Command details from the map
+                System.out.println("eseguendo " + inputLine);
+                JSONObject commandDetails = commands.get(commandKey);
                 String className = commandDetails.getString("className");
                 String methodName = commandDetails.getString("methodName");
                 JSONArray jsonParams = commandDetails.getJSONArray("parameters");
-                Class<?> cls = Class.forName(className); // Load the class
-                Class<?>[] paramTypes = new Class[jsonParams.length()]; // Parameter types
-                Object[] paramValues = new Object[jsonParams.length()]; // Parameter values
+                Class<?> cls = Class.forName(className);
+                Class<?>[] paramTypes = new Class[jsonParams.length()];
+                Object[] paramValues = new Object[jsonParams.length()];
                 String[] params = parts.length > 1 ? parts[1].split(",") : new String[0];
-                if (params.length != jsonParams.length() - 1) { // Exclude the 'Model' type parameter
+                if (params.length != jsonParams.length() - 1) {
                     System.out.println("Numero di parametri non corrispondente");
                     return;
                 }
@@ -166,7 +134,7 @@ public class ServerClientHandler implements Runnable {
                     System.out.println("Metodo non trovato: " + methodName);
                     return;
                 }
-                method.invoke(player, paramValues); // Invoke the method on the player
+                method.invoke(player, paramValues);
                 if (commandKey.equals("setObjStarter")) {
                     server.incrementSetObjStarterCount();
                 }
@@ -176,16 +144,14 @@ public class ServerClientHandler implements Runnable {
                 if (server.getGameFlow() != null) {
                     server.getGameFlow().incrementTurn();
                 }
+            } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {
+                server.onModelSpecific(username, "message:4");
             }
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
-            System.err.println("InvocationTargetException: " + targetException.getMessage());
-            targetException.printStackTrace();
+            exceptionManager.handleException((Exception) targetException, username, server);
         } catch (Exception e) {
-            System.err.println("Error executing command: " + e.getMessage());
-            e.printStackTrace();
+            exceptionManager.handleException(e, username, server);
         }
     }
-
-
 }

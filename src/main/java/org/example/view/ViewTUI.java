@@ -226,8 +226,7 @@ public class ViewTUI extends View {
 
     @Override
     public void placeholder(int id, int x, int y) {
-        System.out.println("The card is unplayable at position: (" + x + ", " + y + ")");
-        printCardDetailsFormatted(getCardById(id));
+        System.out.println("The card " + id +  "is unplayable at position: (" + x + ", " + y + ")");
         printGrid();
     }
 

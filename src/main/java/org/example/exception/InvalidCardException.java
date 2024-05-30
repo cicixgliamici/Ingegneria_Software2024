@@ -14,11 +14,6 @@ public class InvalidCardException extends Exception {
         this.y=y;
 
     }
-    public void handle(Throwable exception, String username, Server server) {
-        InvalidCardException ice = (InvalidCardException) exception;
-        System.err.println("InvalidCardException: " + ice.getMessage());
-        server.onModelSpecific(username, "unplayable:" + ice.getCardId() + "," + ice.getX() + "," + ice.getY());
-    }
 
     public int getCardId() {
         return cardId;

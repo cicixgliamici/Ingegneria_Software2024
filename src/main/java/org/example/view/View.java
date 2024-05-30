@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import org.example.view.gui.listener.InvalidPlacementListener;
 import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +37,9 @@ public abstract class View {
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
     protected Map<Integer, Coordinates> map = new HashMap<>();
     protected Map<String, Integer> points;
+    InvalidPlacementListener invalidPlacementListener;
+
+
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }
@@ -153,6 +157,9 @@ public abstract class View {
         PlayerCardArea.add(id);
     }
 
+    public void removeVisibleArea(int id) {
+
+    }
     /**
      * Removes a card from the player's hand.
      * @param id Card identifier.
@@ -261,5 +268,7 @@ public abstract class View {
     public Map<String, Integer> getPoints() {
         return points;
     }
-
+    public void setInvalidPlacementListener(InvalidPlacementListener listener){
+        this.invalidPlacementListener=listener;
+    }
 }

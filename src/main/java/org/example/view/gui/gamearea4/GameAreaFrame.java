@@ -49,6 +49,7 @@ public class GameAreaFrame extends JFrame {
         add(scoreboardPanel, gbc);
 
         gameAreaPanel = new GameAreaPanel(tcpClient, view, color, num, starterCard, objCard);
+        view.setInvalidPlacementListener(gameAreaPanel);
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;

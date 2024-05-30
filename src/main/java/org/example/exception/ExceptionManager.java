@@ -22,7 +22,6 @@ public class ExceptionManager {
         if (handler != null) {
             handler.handle(exception, username, server);
         } else {
-            // Log an unhandled exception error or send a generic error message to the client
             server.onModelSpecific(username, "error:UnhandledException," + exception.getMessage());
         }
     }
