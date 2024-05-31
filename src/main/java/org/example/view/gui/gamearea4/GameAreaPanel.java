@@ -272,6 +272,7 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     selectCard(card);
+                    System.out.println(view.getValidPlay()+ " in gamePanel before tcp.sendPlay");
                     tcpClient.sendPlay(ChosenId, ChosenSide, 5, 5);
                     if(view.getValidPlay()==0){
                         System.out.println(view.getValidPlay()+ " in gamePanel before set (if)");

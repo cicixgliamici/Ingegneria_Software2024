@@ -40,7 +40,7 @@ public abstract class View {
     protected Map<Integer, Coordinates> map = new HashMap<>();
     protected Map<String, Integer> points;
     protected int validPlay;
-    InvalidPlacementListener invalidPlacementListener;
+
 
 
     public void addMapping(Integer integer, int x, int y) {

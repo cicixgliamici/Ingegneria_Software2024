@@ -133,7 +133,7 @@ public class ViewGUI extends View {
 
     @Override
     public void playedCard(int id, int x, int y) {
-
+        validPlay=1;
     }
 
     @Override
@@ -143,6 +143,7 @@ public class ViewGUI extends View {
 
     @Override
     public void unplayable(int id, int x, int y) {
+        System.out.println("unplayable");
         JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere giFreocata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
         if (invalidPlacementListener != null) {
             invalidPlacementListener.onInvalidPlacement(id);
@@ -152,6 +153,7 @@ public class ViewGUI extends View {
 
     @Override
     public void placeholder(int id, int x, int y) {
+        System.out.println("placeholder");
         validPlay=0;
         JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere posizionata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
         if (invalidPlacementListener != null) {
