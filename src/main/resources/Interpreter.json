@@ -166,7 +166,7 @@
  },
   "newConnection":{
     "className": "org.example.view",
-    "methodName": "addColorPlayer",
+    "methodName": "newConnection",
     "parameters": [
       {"type": "string", "source": "server"},
       {"type": "string", "source": "server"}

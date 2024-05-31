@@ -278,7 +278,7 @@ public class GameAreaPanel extends JPanel {
                     selectCard(card);
                     System.out.println(view.getValidPlay() + " in gamePanel before tcp.sendPlay");
                     System.out.println(view.isTurn() + " in gamePanel before tcp.sendPlay");
-                    tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
+                    //tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
                     // Confronto spostato nel listener registrato
                 } else if (e.getClickCount() == 2) {
                     changeCardImage(card);

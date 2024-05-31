@@ -31,6 +31,13 @@ public class ViewGUI extends View {
     }
 
     @Override
+    public void newConnection(String player, String color) {
+        colorPlayer.put(player,color);
+        System.out.println(colorPlayer);
+
+    }
+
+    @Override
     public void updatePlayerCardArea(int id) {
 
     }

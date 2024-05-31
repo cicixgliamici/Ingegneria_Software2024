@@ -61,10 +61,7 @@ public abstract class View {
         this.matchStarted = matchStarted;
     }
 
-    public void addColorPlayer(String player, String color) {
-        colorPlayer.put(player,color);
-        System.out.println(colorPlayer);
-    }
+    public abstract void newConnection(String player, String color) ;
     public Map<String, String> getColorPlayer(){
         return colorPlayer;
     }

@@ -57,6 +57,11 @@ public class ViewTUI extends View {
         this.flag=0;
     }
 
+    @Override
+    public void newConnection(String player, String color) {
+
+    }
+
     /**
      * Handles message outputs based on a message code input.
      * @param x The message code determining output behavior.

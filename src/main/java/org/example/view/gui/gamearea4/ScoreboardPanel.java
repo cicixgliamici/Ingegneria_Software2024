@@ -77,7 +77,8 @@ public class ScoreboardPanel extends JPanel {
             obj2 = ImageIO.read(new File("src/main/resources/images/mid/front/" + String.valueOf(view.getPublicObjectives().get(1)).toString() + ".png"));
         }
 
-        //System.out.println(view.getColorPlayer().get(view.getPlayers().get(0)));
+        System.out.println(view.getColorPlayer());
+
         if(view.getColorPlayer().get(view.getPlayers().get(0)).equals("Blue")){
             token1 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
         } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Green")) {
