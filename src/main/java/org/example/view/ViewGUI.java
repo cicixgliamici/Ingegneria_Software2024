@@ -1,19 +1,12 @@
 package org.example.view;
 
-import org.example.exception.PlaceholderNotValid;
-import org.example.exception.PlaceholderNotValidHandler;
 import org.example.view.gui.gamearea4.Chat;
-import org.example.view.gui.listener.InvalidPlacementListener;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,7 +126,7 @@ public class ViewGUI extends View {
 
     @Override
     public void playedCard(int id, int x, int y) {
-
+        validPlay=1;
     }
 
     @Override
@@ -143,20 +136,17 @@ public class ViewGUI extends View {
 
     @Override
     public void unplayable(int id, int x, int y) {
+        System.out.println("unplayable");
         JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere giFreocata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
-        if (invalidPlacementListener != null) {
-            invalidPlacementListener.onInvalidPlacement(id);
-        }
     }
 
 
     @Override
     public void placeholder(int id, int x, int y) {
+        System.out.println("placeholder");
         validPlay=0;
+        System.out.println("settato valid play a 0");
         JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere posizionata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
-        if (invalidPlacementListener != null) {
-            invalidPlacementListener.onInvalidPlacement(id);
-        }
     }
 
 

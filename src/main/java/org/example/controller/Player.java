@@ -32,8 +32,10 @@ public class Player {
     public void checkChosenCard(Model model, Card card, PlaceHolder placeHolder) throws InvalidCardException {
         boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
         if (isInvalidCard) {
+            System.out.println("check fallito");
             throw new InvalidCardException("La carta selezionata non è valida.", card.getId(), placeHolder.getX(), placeHolder.getY());
         }
+        System.out.println("check a buon fine");
     }
 
     /**
@@ -74,11 +76,11 @@ public class Player {
                     break;
                 }
             }
+            checkChosenCard(model, card, placeHolder);
             if (placeHolder == null) {
-                System.out.println("A");
+                System.out.println("placeholder fallito");
                 throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
             }
-            checkChosenCard(model, card, placeHolder);
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
             model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,
