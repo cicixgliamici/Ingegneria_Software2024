@@ -19,36 +19,29 @@ import org.json.simple.parser.ParseException;
  * that display the game state and interact with the user.
  */
 public abstract class View {
-    protected List<Integer> cardsId;
-    protected List<String> cardsPath;
-    protected List<Integer> drawableCards;
+
     protected int flag;
     protected int numConnection;
-    protected List<String> colors;
-    protected List<String> players;
-    protected Map<String, String> colorPlayer= new HashMap<>();
-    protected boolean isFirst;
-    protected volatile boolean matchStarted;
-    protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
-    protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
-    protected Integer SecretObjective;  // Variable to store secret objectives if any.
-    protected List<Integer> PublicObjectives = new ArrayList<>();
-    final int N = 9;  // Size of the grid.
-    final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
-    protected Map<Integer, Coordinates> map = new HashMap<>();
-    protected Map<String, Integer> points;
     protected int validPlay;
     protected int turn;
+    final int N = 9;  // Size of the grid.
+    final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
+    protected Integer SecretObjective;  // Variable to store secret objectives if any.
+    protected boolean isFirst;
+    protected volatile boolean matchStarted;
+    protected List<Integer> cardsId;
+    protected List<Integer> drawableCards;
+    protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
+    protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
+    protected List<Integer> PublicObjectives = new ArrayList<>();
+    protected List<String> cardsPath;
+    protected List<String> colors;
+    protected List<String> players;
     protected List<EvListener> listeners = new ArrayList<>();
+    protected Map<String, String> colorPlayer= new HashMap<>();
+    protected Map<Integer, Coordinates> map = new HashMap<>();
+    protected Map<String, Integer> points;
 
-
-
-    public void addMapping(Integer integer, int x, int y) {
-        map.put(integer, new Coordinates(x, y));
-    }
-    public Coordinates getPosition(JSONObject jsonObject) {
-        return map.get(jsonObject);
-    }
     /**
      * Constructor that initializes the grid.
      * Each cell of the grid is initialized to null indicating no card is placed.
@@ -56,6 +49,21 @@ public abstract class View {
 
     public View() {
     }
+
+     // Methods to be implemented for handling messages from the server.
+    public abstract void drawnCard(int id);
+    public abstract void setFirst();
+    public abstract void hasDrawn(String username, int id);
+    public abstract void playedCard(int id, int x, int y);
+    public abstract void hasPlayed(String username, int id);
+    public abstract void unplayable(int id, int x, int y);
+    public abstract void placeholder(int id, int x, int y);
+    public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void setHand(int side, int choice);
+    public abstract void pubObj(int id1, int id2);
+    public abstract void order(String us1, String us2, String us3, String us4);
+    public abstract void points(String username, int points);
 
     public void setMatchStarted(boolean matchStarted) {
         this.matchStarted = matchStarted;
@@ -131,21 +139,6 @@ public abstract class View {
         }
         return null;
     }
-
-    // Methods to be implemented for handling messages from the server.
-    public abstract void drawnCard(int id);
-    public abstract void setFirst();
-    public abstract void hasDrawn(String username, int id);
-    public abstract void playedCard(int id, int x, int y);
-    public abstract void hasPlayed(String username, int id);
-    public abstract void unplayable(int id, int x, int y);
-    public abstract void placeholder(int id, int x, int y);
-    public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
-    public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
-    public abstract void setHand(int side, int choice);
-    public abstract void pubObj(int id1, int id2);
-    public abstract void order(String us1, String us2, String us3, String us4);
-    public abstract void points(String username, int points);
 
     public abstract void numCon(int num);
     /**
@@ -300,6 +293,13 @@ public abstract class View {
                 e.printStackTrace();
             }
         }
+    }
+
+       public void addMapping(Integer integer, int x, int y) {
+        map.put(integer, new Coordinates(x, y));
+    }
+    public Coordinates getPosition(JSONObject jsonObject) {
+        return map.get(jsonObject);
     }
 
 }
