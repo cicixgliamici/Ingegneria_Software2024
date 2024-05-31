@@ -17,19 +17,21 @@ import java.util.Objects;
  * The BoxMenu class represents the main menu panel where users can enter their username, IP address, and port number to connect to the server.
  */
 public class BoxMenu extends JPanel {
-    private JButton button; // Button to initiate the connection
-    private JLabel labelTitle; // Label for the title image
-    private JLabel labelUsr; // Label for the username field
-    private TextField textFieldUsr; // Text field for entering the username
-    private JLabel labelIp; // Label for the IP address field
-    private TextField textFieldIp; // Text field for entering the IP address
-    private JLabel labelPort; // Label for the port number field
-    private TextField textFieldPort; // Text field for entering the port number
-    private EvListener evListener; // Event listener for handling custom events
-    private int connectionType; // Connection type (0 for TCP, 1 for RMI)
+    
     private TCPClient tcpClient;
     private String username;
     private View view;
+    private int connectionType; // Connection type (0 for TCP, 1 for RMI)
+    private JButton button; // Button to initiate the connection
+    private JLabel labelTitle; // Label for the title image
+    private JLabel labelUsr; // Label for the username field
+    private JLabel labelIp; // Label for the IP address field
+    private JLabel labelPort; // Label for the port number field
+    private TextField textFieldIp; // Text field for entering the IP address
+    private TextField textFieldUsr; // Text field for entering the username
+    private TextField textFieldPort; // Text field for entering the port number
+    private EvListener evListener; // Event listener for handling custom events
+
 
     /**
      * Constructor for the BoxMenu class.
@@ -40,9 +42,7 @@ public class BoxMenu extends JPanel {
     public BoxMenu(int connectionType, View view) throws IOException {
         this.connectionType = connectionType;
         this.view = view;
-
         setLayout(new GridBagLayout());
-
         // Load the logo image
         BufferedImage logo = null;
         try {
@@ -52,10 +52,8 @@ public class BoxMenu extends JPanel {
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
-
         // Initialize and style the username label and text field
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.darkGray);
@@ -64,7 +62,6 @@ public class BoxMenu extends JPanel {
         textFieldUsr.setForeground(Color.gray);
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
-
         // Initialize and style the IP address label and text field
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
@@ -73,7 +70,6 @@ public class BoxMenu extends JPanel {
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
-
         // Initialize and style the port number label and text field
         labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
@@ -88,7 +84,6 @@ public class BoxMenu extends JPanel {
                 // Allow letters in the port field to trigger default port logic
             }
         });
-
         // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {
@@ -142,7 +137,6 @@ public class BoxMenu extends JPanel {
                 }
             }
         });
-
         // Layout configuration using GridBagConstraints
         GridBagConstraints gbcTitle = new GridBagConstraints();
         gbcTitle.gridx = 0;
@@ -152,14 +146,13 @@ public class BoxMenu extends JPanel {
         gbcTitle.gridheight = 1;
         gbcTitle.gridwidth = 2;
         add(labelTitle, gbcTitle);
-
+        // Grid settings
         GridBagConstraints gbcUsrLabel = new GridBagConstraints();
         gbcUsrLabel.gridx = 0;
         gbcUsrLabel.gridy = 1;
         gbcUsrLabel.weightx = 0.0;
         gbcUsrLabel.weighty = 0.02;
         add(labelUsr, gbcUsrLabel);
-
         GridBagConstraints gbcUsrField = new GridBagConstraints();
         gbcUsrField.gridx = 1;
         gbcUsrField.gridy = 1;
@@ -167,14 +160,12 @@ public class BoxMenu extends JPanel {
         gbcUsrField.weighty = 0.02;
         gbcUsrField.insets = new Insets(0, 10, 0, 10);
         add(textFieldUsr, gbcUsrField);
-
         GridBagConstraints gbcIpLabel = new GridBagConstraints();
         gbcIpLabel.gridx = 0;
         gbcIpLabel.gridy = 2;
         gbcIpLabel.weightx = 0.0;
         gbcIpLabel.weighty = 0.02;
         add(labelIp, gbcIpLabel);
-
         GridBagConstraints gbcIpField = new GridBagConstraints();
         gbcIpField.gridx = 1;
         gbcIpField.gridy = 2;
@@ -182,14 +173,12 @@ public class BoxMenu extends JPanel {
         gbcIpField.weighty = 0.02;
         gbcIpField.insets = new Insets(0, 10, 0, 10);
         add(textFieldIp, gbcIpField);
-
         GridBagConstraints gbcPortLabel = new GridBagConstraints();
         gbcPortLabel.gridx = 0;
         gbcPortLabel.gridy = 3;
         gbcPortLabel.weightx = 0.0;
         gbcPortLabel.weighty = 0.02;
         add(labelPort, gbcPortLabel);
-
         GridBagConstraints gbcPortField = new GridBagConstraints();
         gbcPortField.gridx = 1;
         gbcPortField.gridy = 3;
@@ -197,7 +186,6 @@ public class BoxMenu extends JPanel {
         gbcPortField.weighty = 0.02;
         gbcPortField.insets = new Insets(0, 10, 0, 10);
         add(textFieldPort, gbcPortField);
-
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
         gbcButton.gridy = 4;
@@ -206,15 +194,6 @@ public class BoxMenu extends JPanel {
         gbcButton.gridheight = 1;
         gbcButton.gridwidth = 2;
         add(button, gbcButton);
-    }
-
-    /**
-     * Sets the event listener for this menu.
-     *
-     * @param evListener The event listener to be set.
-     */
-    public void setEvListener(EvListener evListener) {
-        this.evListener = evListener;
     }
 
     /**
@@ -245,8 +224,6 @@ public class BoxMenu extends JPanel {
         switchToPlayerSetupPanel(tcpClient, username); // Cambio di schermata solo dopo il messaggio di successo
     }
 
-
-
     /**
      * Switches to the player setup panel within the application.
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
@@ -269,7 +246,6 @@ public class BoxMenu extends JPanel {
         frame.setContentPane(setInitialGame); // Passa TCPClient e username
         frame.validate();
         frame.repaint();*/
-
         Event event = new Event(this, "setInitialGame", tcpClient, username, view);
         if (evListener != null) {
             try {
@@ -280,4 +256,13 @@ public class BoxMenu extends JPanel {
         }
     }
 
+     // Getter and Setter Zone 
+     /**
+     * Sets the event listener for this menu.
+     *
+     * @param evListener The event listener to be set.
+     */
+    public void setEvListener(EvListener evListener) {
+        this.evListener = evListener;
+    }
 }
