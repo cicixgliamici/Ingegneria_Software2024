@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DrawingCardPanel extends JPanel {
+
+    public View view;
     public int draw;
+    public int drawChoose ;
     public TCPClient tcpClient;
     private JLabel coveredCard1;
     private JLabel coveredCard2;
@@ -27,7 +30,6 @@ public class DrawingCardPanel extends JPanel {
     private JLabel card2;
     private JLabel card3;
     private JLabel card4;
-    public int drawChoose ;
     private String path1;
     private String path2;
     private String path3;
@@ -35,15 +37,11 @@ public class DrawingCardPanel extends JPanel {
     private String path5;
     private String path6;
     private List<String> paths;
-
     // Class Variables
     private Border selectedBorder = new LineBorder(Color.BLUE, 2);
     private Border defaultBorder = new LineBorder(Color.WHITE, 2);
     private JLabel[] cardLabels = new JLabel[6];
 
-
-
-    public View view;
     public DrawingCardPanel(TCPClient tcpClient, View view) throws IOException {
         this.view = view;
         this.paths=new ArrayList<>();
