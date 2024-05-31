@@ -3,7 +3,6 @@ package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.gui.listener.InvalidPlacementListener;
 import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
+public class GameAreaPanel extends JPanel {
     private JLabel token1;
     private JLabel token2;
     private JLabel token3;
@@ -221,20 +220,6 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
         }
     }
 
-    @Override
-    public void onInvalidPlacement(int cardId) {
-        for (Map.Entry<JLabel, Integer> entry : cardIds.entrySet()) {
-            if (entry.getValue() == cardId) {
-                try {
-                    entry.getKey().setIcon(loadCardIcon(cardId, true));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                entry.getKey().setVisible(true);
-                break;
-            }
-        }
-    }
 
     private Icon loadCardIcon(int cardId, boolean isFront) throws IOException {
         BufferedImage newImg = null;
@@ -274,10 +259,11 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
                     selectCard(card);
                     System.out.println(view.getValidPlay()+ " in gamePanel before tcp.sendPlay");
                     tcpClient.sendPlay(ChosenId, ChosenSide, 5, 5);
+                    System.out.println(view.getValidPlay()+ " in gamePanel after tcp.sendplay");
                     if(view.getValidPlay()==0){
                         System.out.println(view.getValidPlay()+ " in gamePanel before set (if)");
                         restoreCard(card);
-                        view.setValidPlay(1);
+                        System.out.println("settato valid play a 1");
                         System.out.println(view.getValidPlay()+ " in gamePanel after set(if)");
                     } else {
                         System.out.println(view.getValidPlay()+ " in gamePanel after set(else)");
@@ -287,7 +273,7 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
                         removeMouseListeners(card);
                         playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
                     }
-                     // Ripristina la carta in caso di errore
+
                 } else if ( e.getClickCount() == 2) {
                     changeCardImage(card);
                 }

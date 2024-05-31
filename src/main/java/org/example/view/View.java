@@ -5,15 +5,11 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import org.example.exception.PlaceholderNotValid;
-import org.example.view.gui.listener.InvalidPlacementListener;
 import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import javax.swing.*;
 
 /**
  * Abstract base class for views in the application.
