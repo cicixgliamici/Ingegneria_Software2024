@@ -58,9 +58,21 @@ public class ViewTUI extends View {
     }
 
     @Override
-    public void newConnection(String player, String color) {
+    public void newConnection(String player, String color) {}
+    
+    @Override
+    public void updateSetupUI(String[] colors, boolean isFirst) {}
 
-    }
+    @Override
+    public void pubObj(int id1, int id2) {}
+
+    @Override
+    public void setHand(int side, int choice) {}
+
+    public void points(String username, int points){}
+
+    @Override
+    public void chatC(String username, String message) {}
 
     /**
      * Handles message outputs based on a message code input.
@@ -107,12 +119,7 @@ public class ViewTUI extends View {
                 break;
         }
     }
-
-    @Override
-    public void updateSetupUI(String[] colors, boolean isFirst) {
-
-    }
-
+    
     /**
      * Processes actions to take when a new card is drawn.
      * @param id The card identifier.
@@ -273,16 +280,6 @@ public class ViewTUI extends View {
         printCardDetailsFormatted(getCardById(id6));
     }
 
-    @Override
-    public void pubObj(int id1, int id2) {
-
-    }
-
-    @Override
-    public void setHand(int side, int choice) {
-
-    }
-
     /**
      * Sends a list of player usernames to the client to indicate player turn order.
      * It checks each username and prints only non-null usernames.
@@ -332,9 +329,7 @@ public class ViewTUI extends View {
     public void setFirst(){
         System.out.println("Enter the maximum number of players (1-4):");
     }
-    public void points(String username, int points){
-
-    }
+    
     /**
      * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
      * @param card The card as a JSONObject.
@@ -404,7 +399,6 @@ public class ViewTUI extends View {
                             "+ - - - - - - - - - - - - - - - - +\n";
         }
     }
-
 
     /**
      * Retrieves the ANSI color code associated with a specific resource.
@@ -561,8 +555,6 @@ public class ViewTUI extends View {
         System.out.println(); // Move to the next line after listing all resources.
     }
 
-
-
     private void printStarterCardDetails(JSONObject card) {
         // Prints details specific to starter cards, highlighting permanent resources.
         JSONArray requireGold = (JSONArray) card.get("requireGold");
@@ -579,10 +571,4 @@ public class ViewTUI extends View {
     public void numCon(int maxCon){
         System.out.println("The game will start with " + maxCon + " players");
     }
-
-    @Override
-    public void chatC(String username, String message) {
-
-    }
-
 }
