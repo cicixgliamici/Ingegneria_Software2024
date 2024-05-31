@@ -50,24 +50,33 @@ public abstract class View {
     public View() {
     }
 
-     // Methods to be implemented for handling messages from the server.
-    public abstract void drawnCard(int id);
+    /** All these methods are implemented in either the GUI and
+    *   the TUI and are well explaneid there.
+    */
+    public void removeVisibleArea(int id) {}
     public abstract void setFirst();
-    public abstract void hasDrawn(String username, int id);
-    public abstract void playedCard(int id, int x, int y);
-    public abstract void hasPlayed(String username, int id);
-    public abstract void unplayable(int id, int x, int y);
-    public abstract void placeholder(int id, int x, int y);
-    public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
-    public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void printGrid();
+    public abstract void printPlayerCardArea();
+    public abstract void printHand();
+    public abstract void numCon(int num);
+    public abstract void drawnCard(int id);
+    public abstract void message(int x);
     public abstract void setHand(int side, int choice);
     public abstract void pubObj(int id1, int id2);
-    public abstract void order(String us1, String us2, String us3, String us4);
+    public abstract void playedCard(int id, int x, int y);
+    public abstract void unplayable(int id, int x, int y);
+    public abstract void placeholder(int id, int x, int y);
+    public abstract void hasDrawn(String username, int id);
+    public abstract void hasPlayed(String username, int id);
     public abstract void points(String username, int points);
+    public abstract void updateSetupUI(String[] colors, boolean isFirst); //?
+    public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
+    public abstract void order(String us1, String us2, String us3, String us4);
+    public abstract void color(String color1, String color2, String color3, String color4);
 
-    public void setMatchStarted(boolean matchStarted) {
-        this.matchStarted = matchStarted;
-    }
+
+ 
 
     public abstract void newConnection(String player, String color) ;
     public Map<String, String> getColorPlayer(){
@@ -140,7 +149,6 @@ public abstract class View {
         return null;
     }
 
-    public abstract void numCon(int num);
     /**
      * Adds a card to the player's hand.
      * @param id Card identifier.
@@ -157,9 +165,6 @@ public abstract class View {
         PlayerCardArea.add(id);
     }
 
-    public void removeVisibleArea(int id) {
-
-    }
     /**
      * Removes a card from the player's hand.
      * @param id Card identifier.
@@ -180,10 +185,6 @@ public abstract class View {
         System.out.println(message);
     };
 
-
-    public abstract void printPlayerCardArea();
-
-    public abstract void printHand();
     /**
      * Checks if a given position is valid within the grid boundaries.
      * @param gridX Horizontal position index.
@@ -194,20 +195,13 @@ public abstract class View {
         return gridX >= 0 && gridX < N && gridY >= 0 && gridY < N;
     }
 
-    /**
-     * Prints the current state of the grid, showing the placement of cards.
-     */
-    public abstract void printGrid();
-
-    // Method to handle generic server messages, to be implemented by subclasses.
-    public abstract void message(int x);
-
-    public abstract void updateSetupUI(String[] colors, boolean isFirst);
-
-    public abstract void color(String color1, String color2, String color3, String color4);
-
+    //Getter and Setter Zone
     public int getFlag() {
         return flag;
+    }
+
+    public Coordinates getPosition(JSONObject jsonObject) {
+        return map.get(jsonObject);
     }
 
     public List<Integer> getHand() {
@@ -269,7 +263,6 @@ public abstract class View {
         return points;
     }
 
-
     public int getValidPlay() {
         return validPlay;
     }
@@ -281,6 +274,11 @@ public abstract class View {
     public void setTurn(int turn) {
         this.turn = turn;
     }
+
+    public void setMatchStarted(boolean matchStarted) {
+        this.matchStarted = matchStarted;
+    }
+    
     public void addListener(EvListener listener) {
         listeners.add(listener);
     }
@@ -295,11 +293,8 @@ public abstract class View {
         }
     }
 
-       public void addMapping(Integer integer, int x, int y) {
+    public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
-    }
-    public Coordinates getPosition(JSONObject jsonObject) {
-        return map.get(jsonObject);
     }
 
 }
