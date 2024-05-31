@@ -69,19 +69,18 @@ public abstract class View {
     public abstract void hasDrawn(String username, int id);
     public abstract void hasPlayed(String username, int id);
     public abstract void points(String username, int points);
+    public abstract void newConnection(String player, String color) ;
     public abstract void updateSetupUI(String[] colors, boolean isFirst); //?
     public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void order(String us1, String us2, String us3, String us4);
     public abstract void color(String color1, String color2, String color3, String color4);
 
-
- 
-
-    public abstract void newConnection(String player, String color) ;
+    
     public Map<String, String> getColorPlayer(){
         return colorPlayer;
     }
+    
     /**
      * Interprets commands received from the server and invokes the corresponding methods.
      * @param message The command message from the server.
