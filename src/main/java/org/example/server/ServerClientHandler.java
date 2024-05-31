@@ -6,6 +6,7 @@ import org.example.exception.ExceptionManager;
 
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
+import org.example.view.gui.listener.EvListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,6 +17,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +34,7 @@ public class ServerClientHandler implements Runnable {
     private RMIClientCallbackInterface rmiClientCallback;
     private String username;
     private ExceptionManager exceptionManager;
+    private List<EvListener> listeners = new ArrayList<>();
 
     public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername, Server server) {
         this.socket = socket;

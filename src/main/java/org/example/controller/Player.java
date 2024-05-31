@@ -76,11 +76,12 @@ public class Player {
                     break;
                 }
             }
-            checkChosenCard(model, card, placeHolder);
+
             if (placeHolder == null) {
                 System.out.println("placeholder fallito");
                 throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
             }
+            checkChosenCard(model, card, placeHolder);
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
             model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,

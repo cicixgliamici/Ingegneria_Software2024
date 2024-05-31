@@ -2,17 +2,14 @@ package org.example.view.gui.mainmenu1;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.ViewGUI;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
-import org.example.view.gui.setgame2.SetInitialGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 

@@ -27,5 +27,4 @@ public class ExceptionManager {
             server.onModelSpecific(username, "error:UnhandledException," + exception.getMessage());
         }
     }
-
 }

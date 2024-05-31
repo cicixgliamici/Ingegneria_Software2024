@@ -4,15 +4,12 @@ import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImageCard {
     private long id;

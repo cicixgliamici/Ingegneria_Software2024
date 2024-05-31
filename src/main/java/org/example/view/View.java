@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,6 +38,8 @@ public abstract class View {
     protected Map<Integer, Coordinates> map = new HashMap<>();
     protected Map<String, Integer> points;
     protected int validPlay;
+    protected int turn;
+    protected List<EvListener> listeners = new ArrayList<>();
 
 
 
@@ -273,11 +277,29 @@ public abstract class View {
     }
 
 
-    public void setValidPlay(int validPlay) {
-        this.validPlay = validPlay;
-    }
-
     public int getValidPlay() {
         return validPlay;
     }
+
+    public int isTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+    public void addListener(EvListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyListeners(Event event) {
+        for (EvListener listener : listeners) {
+            try {
+                listener.eventListener(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

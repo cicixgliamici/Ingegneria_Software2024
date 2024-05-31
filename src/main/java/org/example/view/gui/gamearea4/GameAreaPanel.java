@@ -3,6 +3,8 @@ package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
@@ -208,6 +210,23 @@ public class GameAreaPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth = 4;
         add(jScrollPane, gbc);
+
+        view.addListener(new EvListener() {
+            @Override
+            public void eventListener(Event ev) throws IOException {
+                if (ev.getEvent().equals("playUpdated")) {
+                    if (view.getValidPlay() == 1 && view.isTurn() == 1) {
+                        System.out.println(view.getValidPlay() + " in gamePanel after set(else)");
+                        System.out.println(view.isTurn() + " in gamePanel after set(else)");
+                        view.removeHand(ChosenId);
+                        selectedCard.setIcon(transparentIcon);
+                        selectedCard.setBorder(null);
+                        removeMouseListeners(selectedCard);
+                        playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -257,31 +276,19 @@ public class GameAreaPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     selectCard(card);
-                    System.out.println(view.getValidPlay()+ " in gamePanel before tcp.sendPlay");
-                    tcpClient.sendPlay(ChosenId, ChosenSide, 5, 5);
-                    System.out.println(view.getValidPlay()+ " in gamePanel after tcp.sendplay");
-                    if(view.getValidPlay()==0){
-                        System.out.println(view.getValidPlay()+ " in gamePanel before set (if)");
-                        restoreCard(card);
-                        System.out.println("settato valid play a 1");
-                        System.out.println(view.getValidPlay()+ " in gamePanel after set(if)");
-                    } else {
-                        System.out.println(view.getValidPlay()+ " in gamePanel after set(else)");
-                        view.removeHand(ChosenId);
-                        card.setIcon(transparentIcon);
-                        card.setBorder(null);
-                        removeMouseListeners(card);
-                        playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
-                    }
-
-                } else if ( e.getClickCount() == 2) {
+                    System.out.println(view.getValidPlay() + " in gamePanel before tcp.sendPlay");
+                    System.out.println(view.isTurn() + " in gamePanel before tcp.sendPlay");
+                    tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
+                    // Confronto spostato nel listener registrato
+                } else if (e.getClickCount() == 2) {
                     changeCardImage(card);
                 }
             }
         };
         card.addMouseListener(ma);
-        card.putClientProperty("mouseAdapter", ma); // Salva il listener nel client property della carta
+        card.putClientProperty("mouseAdapter", ma);
     }
+
 
     private void removeMouseListeners(JLabel card) {
         MouseAdapter ma = (MouseAdapter) card.getClientProperty("mouseAdapter");

@@ -7,8 +7,6 @@ import org.example.view.gui.utilities.ImageCard;
 import javax.swing.*;
 import java.awt.*;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

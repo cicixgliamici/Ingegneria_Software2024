@@ -1,6 +1,5 @@
 package org.example.view.gui.mainmenu1;
 
-import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;

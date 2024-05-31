@@ -1,7 +1,5 @@
 package org.example.exception;
 
-import org.example.server.Server;
-
 public class InvalidCardException extends Exception {
     private final int cardId;
     private final int x;
@@ -10,17 +8,18 @@ public class InvalidCardException extends Exception {
     public InvalidCardException(String message, int cardId, int x, int y) {
         super(message);
         this.cardId = cardId;
-        this.x=x;
-        this.y=y;
-
+        this.x = x;
+        this.y = y;
     }
 
     public int getCardId() {
         return cardId;
     }
+
     public int getX() {
         return x;
     }
+
     public int getY() {
         return y;
     }

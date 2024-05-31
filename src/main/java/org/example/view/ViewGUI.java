@@ -1,6 +1,8 @@
 package org.example.view;
 
 import org.example.view.gui.gamearea4.Chat;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 import org.json.simple.JSONObject;
 
 import javax.imageio.ImageIO;
@@ -27,7 +29,6 @@ public class ViewGUI extends View {
         map=new HashMap<>();
         points=new HashMap<>();
     }
-
 
     @Override
     public void updatePlayerCardArea(int id) {
@@ -126,7 +127,23 @@ public class ViewGUI extends View {
 
     @Override
     public void playedCard(int id, int x, int y) {
+        turn=1;
         validPlay=1;
+        notifyListeners(new Event(this, "playUpdated"));
+    }
+
+    public void addListener(EvListener listener) {
+        listeners.add(listener);
+    }
+
+    private void notifyListeners(Event event) {
+        for (EvListener listener : listeners) {
+            try {
+                listener.eventListener(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -137,7 +154,7 @@ public class ViewGUI extends View {
     @Override
     public void unplayable(int id, int x, int y) {
         System.out.println("unplayable");
-        JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere giFreocata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "You don't have enough resources for the " + id + " card", "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
@@ -146,7 +163,8 @@ public class ViewGUI extends View {
         System.out.println("placeholder");
         validPlay=0;
         System.out.println("settato valid play a 0");
-        JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere posizionata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
+        notifyListeners(new Event(this, "playUpdated"));
+        JOptionPane.showMessageDialog(null, "Card " + id + " can not be placed at " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
@@ -207,6 +225,7 @@ public class ViewGUI extends View {
         switch (x) {
             case 4:
                 JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
+                turn=0;
                 break;
             case 9:
                 matchStarted=false;
@@ -217,7 +236,6 @@ public class ViewGUI extends View {
                 System.out.println(matchStarted);
                 break;
         }
-
     }
 
     @Override
