@@ -20,33 +20,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameAreaPanel extends JPanel {
+    
+    View view;
+    TCPClient tcpClient;
+    private int ChosenId;
+    private int ChosenSide;
+    private final static int MIDX = 320;
+    private final static int MIDY = 347;
     private JLabel token1;
     private JLabel token2;
     private JLabel token3;
     private JLabel token4;
-    private PlayCardArea playCardArea;
-    private static Coordinates mouseDownCompCoords;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
     private JLabel secretObjective;
+    private JLabel selectedCard = null;
+    private PlayCardArea playCardArea;
+    private static Coordinates mouseDownCompCoords;
     private BufferedImage backgroundImg;
-    private int ChosenId;
-    private int ChosenSide;
-    View view;
-    TCPClient tcpClient;
     private Map<JLabel, Boolean> cardStates = new HashMap<>();
     private Map<JLabel, Integer> cardIds = new HashMap<>();
-    private JLabel selectedCard = null;
     private Icon transparentIcon;
-    private final static int MIDX = 320;
-    private final static int MIDY = 347;
 
     public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard) throws IOException {
         this.tcpClient = tcpClient;
         this.view = view;
         setLayout(new GridBagLayout());
-
         // Creazione dell'icona trasparente
         BufferedImage transparentImage = new BufferedImage(100, 150, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = transparentImage.createGraphics();
@@ -54,20 +54,16 @@ public class GameAreaPanel extends JPanel {
         g2d.fillRect(0, 0, 100, 150);
         g2d.dispose();
         transparentIcon = new ImageIcon(transparentImage);
-
         System.out.println(view.getHand());
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
-
         card1 = createCard(view.getHand().get(0));
         card2 = createCard(view.getHand().get(1));
         card3 = createCard(view.getHand().get(2));
-
         BufferedImage img4 = ImageIO.read(new File(objCard));
         Icon ic4 = new ImageIcon(img4);
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
-
         switch (num) {
             case "1":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
@@ -75,14 +71,14 @@ public class GameAreaPanel extends JPanel {
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
-
+                
             case "2":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
                 token2 = createToken("Blue", "Blue", "Yellow", "Red", "Green", true);
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
-
+                
             case "3":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
                 token2 = createToken("Yellow", "Blue", "Yellow", "Red", "Green", true);
@@ -101,11 +97,9 @@ public class GameAreaPanel extends JPanel {
         playCardArea = new PlayCardArea() {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
             Image img = icon.getImage();
-
             {
                 setOpaque(false);
             }
-
             public void paintComponent(Graphics graphics) {
                 graphics.drawImage(img, 0, 0, this);
                 super.paintComponent(graphics);
@@ -114,16 +108,13 @@ public class GameAreaPanel extends JPanel {
 
         MouseAdapter ma = new MouseAdapter() {
             private Point origin;
-
             @Override
             public void mousePressed(MouseEvent e) {
                 origin = new Point(e.getPoint());
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
             }
-
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (origin != null) {
@@ -131,11 +122,9 @@ public class GameAreaPanel extends JPanel {
                     if (viewPort != null) {
                         int deltaX = origin.x - e.getX();
                         int deltaY = origin.y - e.getY();
-
                         Rectangle view = viewPort.getViewRect();
                         view.x += deltaX;
                         view.y += deltaY;
-
                         playCardArea.scrollRectToVisible(view);
                     }
                 }
@@ -144,12 +133,9 @@ public class GameAreaPanel extends JPanel {
 
         playCardArea.addMouseListener(ma);
         playCardArea.addMouseMotionListener(ma);
-
         JScrollPane jScrollPane = new JScrollPane(playCardArea);
-
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
         playCardArea.insertCardStarter(MIDX, MIDY, starterCard, 0,0);
 
         addCardListeners(card1);
