@@ -12,30 +12,20 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ScoreboardPanel extends JPanel {
-    /*private JLabel scoreboard;
-    private JLabel objective1;
-    private JLabel objective2;
-
-    private JLabel token1;
-
-    private JLabel token2;
-
-    private JLabel token3;
-
-    private JLabel token4;*/
-
     private BufferedImage scoreboard;
-
     private BufferedImage obj1;
-
     private BufferedImage obj2;
-
     private BufferedImage token1;
+    private BufferedImage token2;
+    private BufferedImage token3;
+    private BufferedImage token4;
+
+    public View view;
+    HashMap<Integer, List<Integer>> coordinates = new HashMap<>();
 
     public ScoreboardPanel(View view) throws IOException {
-        //setLayout(new GridBagLayout());
 
-        HashMap<Integer, List<Integer>> coordinates = new HashMap<>();
+        this.view = view;
 
         coordinates.put(0, List.of(60, 575));
         coordinates.put(1, List.of(130, 575));
@@ -68,71 +58,42 @@ public class ScoreboardPanel extends JPanel {
         coordinates.put(28, List.of(240, 185));
         coordinates.put(29, List.of(135, 135));
 
-
         scoreboard = ImageIO.read(new File("src/main/resources/images/plateau.png"));
-        //Icon icon = new ImageIcon(logo);
-        //scoreboard = new JLabel(icon);
 
         if(view.getPublicObjectives().get(0) < 100) {
             System.out.println(view.getPublicObjectives().get(0));
             obj1 = ImageIO.read(new File("src/main/resources/images/mid/front/0" + String.valueOf(view.getPublicObjectives().get(0)).toString() + ".png"));
-            //Icon icon1 = new ImageIcon(logo1);
-            //objective1 = new JLabel(icon1);
         }
         else if(view.getPublicObjectives().get(0) >= 100){
             System.out.println(view.getPublicObjectives().get(0));
             obj1 = ImageIO.read(new File("src/main/resources/images/mid/front/" + String.valueOf(view.getPublicObjectives().get(0)).toString() + ".png"));
-            //Icon icon1 = new ImageIcon(logo1);
-            //objective1 = new JLabel(icon1);
         }
         if(view.getPublicObjectives().get(1) < 100) {
             System.out.println(view.getPublicObjectives().get(1));
             obj2 = ImageIO.read(new File("src/main/resources/images/mid/front/0" + String.valueOf(view.getPublicObjectives().get(1)).toString() + ".png"));
-            //Icon icon2 = new ImageIcon(logo2);
-            //objective2 = new JLabel(icon2);
         }
         else if(view.getPublicObjectives().get(1) >= 100){
             System.out.println(view.getPublicObjectives().get(1));
             obj2 = ImageIO.read(new File("src/main/resources/images/mid/front/" + String.valueOf(view.getPublicObjectives().get(1)).toString() + ".png"));
-            //Icon icon2 = new ImageIcon(logo2);
-            //objective2 = new JLabel(icon2);
         }
 
-        //token1 = ImageIO.read(new File("C:\\Users\\jamie\\OneDrive\\Desktop\\CODEX_pion_bleu (1).png"));
-        //Icon icon3 = new ImageIcon(logo3);
-        //token1 = new JLabel(icon3);
+        //System.out.println(view.getColorPlayer().get(view.getPlayers().get(0)));
+        if(view.getColorPlayer().get(view.getPlayers().get(0)).equals("Blue")){
+            token1 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Green")) {
+            token1 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
+        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Yellow")) {
+            token1 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
+        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Red")) {
+            token1 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+        }
 
+        token2 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
 
+        token3 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
 
-        /*GridBagConstraints gbc = new GridBagConstraints();
+        token4 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
 
-        gbc.gridy = 0;
-        gbc.gridx = 0;
-
-        gbc.weighty = 0.8;
-        gbc.weightx = 1;
-
-        gbc.gridwidth = 2;
-
-        add(scoreboard, gbc);
-
-        gbc.gridy = 1;
-        gbc.gridx = 0;
-        gbc.gridwidth = 1;
-
-        gbc.weighty = 0.2;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.PAGE_START;
-
-        add(objective1, gbc);
-
-        gbc.gridy = 1;
-        gbc.gridx = 1;
-
-        gbc.weighty = 0.2;
-        gbc.fill = GridBagConstraints.BOTH;
-
-        add(objective2, gbc);*/
         System.out.println("La madre di matteo è na troia");
         System.out.println(view.getPoints());
 
@@ -151,8 +112,28 @@ public class ScoreboardPanel extends JPanel {
             g.drawImage(obj2, 170, 640, this);
         }
         if(token1 != null){
-            g.drawImage(token1, 200, 65, this);
+            String username = view.getPlayers().get(0);
+            Integer points = view.getPoints().get(username);
+            List<Integer> values = coordinates.get(points);
+            g.drawImage(token1, values.get(0), values.get(1), this);
+        }
+        if(token2 != null && view.getPlayers().size() > 1){
+            String username = view.getPlayers().get(1);
+            Integer points = view.getPoints().get(username);
+            List<Integer> values = coordinates.get(points);
+            g.drawImage(token2, values.get(0), values.get(1) - 35, this);
+        }
+        if(token3 != null && view.getPlayers().size() > 2){
+            String username = view.getPlayers().get(2);
+            Integer points = view.getPoints().get(username);
+            List<Integer> values = coordinates.get(points);
+            g.drawImage(token3, values.get(0) + 35, values.get(1), this);
+        }
+        if(token4 != null && view.getPlayers().size() > 3){
+            String username = view.getPlayers().get(3);
+            Integer points = view.getPoints().get(username);
+            List<Integer> values = coordinates.get(points);
+            g.drawImage(token4, values.get(0) + 35, values.get(1) - 35, this);
         }
     }
-
 }

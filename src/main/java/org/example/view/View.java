@@ -65,6 +65,9 @@ public abstract class View {
         colorPlayer.put(player,color);
         System.out.println(colorPlayer);
     }
+    public Map<String, String> getColorPlayer(){
+        return colorPlayer;
+    }
     /**
      * Interprets commands received from the server and invokes the corresponding methods.
      * @param message The command message from the server.
