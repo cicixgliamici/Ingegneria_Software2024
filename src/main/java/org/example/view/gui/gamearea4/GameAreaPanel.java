@@ -1,3 +1,4 @@
+
 package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
@@ -271,17 +272,21 @@ public class GameAreaPanel extends JPanel implements InvalidPlacementListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     selectCard(card);
-                    try {
-                        tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
+                    tcpClient.sendPlay(ChosenId, ChosenSide, 5, 5);
+                    if(view.getValidPlay()==0){
+                        System.out.println(view.getValidPlay()+ " in gamePanel before set (if)");
+                        restoreCard(card);
+                        view.setValidPlay(1);
+                        System.out.println(view.getValidPlay()+ " in gamePanel after set(if)");
+                    } else {
+                        System.out.println(view.getValidPlay()+ " in gamePanel after set(else)");
                         view.removeHand(ChosenId);
                         card.setIcon(transparentIcon);
                         card.setBorder(null);
-                        removeMouseListeners(card); // Rimuove i listener del mouse
+                        removeMouseListeners(card);
                         playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        restoreCard(card); // Ripristina la carta in caso di errore
                     }
+                     // Ripristina la carta in caso di errore
                 } else if ( e.getClickCount() == 2) {
                     changeCardImage(card);
                 }

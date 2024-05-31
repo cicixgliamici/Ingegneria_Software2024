@@ -1,5 +1,6 @@
 package org.example.client;
 
+import org.example.exception.PlaceholderNotValid;
 import org.example.view.View;
 
 import javax.swing.*;
@@ -119,7 +120,7 @@ public class TCPClient {
         }
     }
 
-    public void sendPlay(int choice, int side, int x, int y){
+    public void sendPlay(int choice, int side, int x, int y)   {
         if (socketOut != null) {
             socketOut.println("play:" + choice + "," + side + "," + x + "," + y);
             socketOut.flush();

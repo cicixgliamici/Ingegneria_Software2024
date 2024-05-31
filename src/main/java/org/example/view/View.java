@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import org.example.exception.PlaceholderNotValid;
 import org.example.view.gui.listener.InvalidPlacementListener;
 import org.example.view.gui.utilities.Coordinates;
 import org.json.simple.JSONArray;
@@ -27,6 +28,7 @@ public abstract class View {
     protected int numConnection;
     protected List<String> colors;
     protected List<String> players;
+    protected Map<String, String> colorPlayer= new HashMap<>();
     protected boolean isFirst;
     protected volatile boolean matchStarted;
     protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
@@ -37,6 +39,7 @@ public abstract class View {
     final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
     protected Map<Integer, Coordinates> map = new HashMap<>();
     protected Map<String, Integer> points;
+    protected int validPlay;
     InvalidPlacementListener invalidPlacementListener;
 
 
@@ -58,6 +61,10 @@ public abstract class View {
         this.matchStarted = matchStarted;
     }
 
+    public void addColorPlayer(String player, String color) {
+        colorPlayer.put(player,color);
+        System.out.println(colorPlayer);
+    }
     /**
      * Interprets commands received from the server and invokes the corresponding methods.
      * @param message The command message from the server.
@@ -268,7 +275,13 @@ public abstract class View {
     public Map<String, Integer> getPoints() {
         return points;
     }
-    public void setInvalidPlacementListener(InvalidPlacementListener listener){
-        this.invalidPlacementListener=listener;
+
+
+    public void setValidPlay(int validPlay) {
+        this.validPlay = validPlay;
+    }
+
+    public int getValidPlay() {
+        return validPlay;
     }
 }

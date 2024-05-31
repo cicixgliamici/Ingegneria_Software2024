@@ -30,39 +30,29 @@ public class GameAreaFrame extends JFrame {
         this.objCard = objCard;
         this.view = view;
         setSize(1900, 820);
-
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
         setLayout(new GridBagLayout());
-
         setJMenuBar(createMenuBar());
-
         GridBagConstraints gbc = new GridBagConstraints();
-
         scoreboardPanel = new ScoreboardPanel(view);
-
         gbc.gridx=0;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
         gbc.weightx=0.55;
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
-
         gameAreaPanel = new GameAreaPanel(tcpClient, view, color, num, starterCard, objCard);
-        view.setInvalidPlacementListener(gameAreaPanel);
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
         gbc.weightx=0.1;
         gbc.fill = GridBagConstraints.BOTH;
-
         add(gameAreaPanel, gbc);
-
         gbc.gridx = 2;
         gbc.weightx = 0.05;
         drawingCardPanel = new DrawingCardPanel(tcpClient, view);
         add(drawingCardPanel, gbc);
-
         gbc.gridx=3;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
@@ -70,26 +60,19 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         chat = new Chat(tcpClient, view,  username);
         add(chat, gbc);
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-
-
     }
 
     private JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
-
         JMenu menuOption = new JMenu("Option");
         menuOption.setMnemonic(KeyEvent.VK_O);
-
-
         JMenuItem menuItemExit = new JMenuItem("Exit", new ImageIcon("src/main/resources/images/icon/logout.png"));
         menuItemExit.setMnemonic(KeyEvent.VK_E);
         menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-
         JMenuItem minimizedIconItem = new JMenuItem("Minimized", new ImageIcon("src/main/resources/images/icon/minimize.png"));
         minimizedIconItem.addActionListener(new ActionListener() {
             @Override
@@ -97,11 +80,9 @@ public class GameAreaFrame extends JFrame {
                 setExtendedState(JFrame.ICONIFIED);
             }
         });
-
         menuOption.add(minimizedIconItem);
         menuOption.addSeparator();
         menuOption.add(menuItemExit);
-
         menuItemExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,20 +92,15 @@ public class GameAreaFrame extends JFrame {
                 }
             }
         });
-
         JMenu menuAbout = new JMenu("About");
         menuAbout.setMnemonic(KeyEvent.VK_A);
-
         JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
         menuItemAbout.setMnemonic(KeyEvent.VK_I);
-
         JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
         menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
-
         menuAbout.add(menuItemRuleBook);
         menuAbout.addSeparator();
         menuAbout.add(menuItemAbout);
-
         //AboutFrame
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
@@ -132,7 +108,6 @@ public class GameAreaFrame extends JFrame {
                 new About();
             }
         });
-
         menuItemRuleBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,13 +118,8 @@ public class GameAreaFrame extends JFrame {
                 }
             }
         });
-
         menuBar.add(menuOption);
         menuBar.add(menuAbout);
-
         return menuBar;
     }
-
-
-
 }

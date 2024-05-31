@@ -86,7 +86,6 @@ public class DrawingCardPanel extends JPanel {
                     drawChoose = cardIndex;
                     updateCardSelection(cardIndex);
                     tcpClient.sendDraw(cardIndex);
-                    view.getHand().add(cardIndex);
                     updateCards();
                 }
             }

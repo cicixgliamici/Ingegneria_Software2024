@@ -3,8 +3,7 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.Player;
 import org.example.exception.ExceptionManager;
-import org.example.exception.InvalidCardException;
-import org.example.exception.PlaceholderNotValid;
+
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONArray;
@@ -79,7 +78,6 @@ public class ServerClientHandler implements Runnable {
     private void handleRMIConnection() {
         // Handle RMI connection commands if necessary
     }
-
     private void executeCommand(String inputLine, String username) {
         System.out.println("ricevuto " + inputLine);
         try {

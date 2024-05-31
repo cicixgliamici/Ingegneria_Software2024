@@ -163,5 +163,14 @@
       {"type": "string", "source": "server"}
     ],
     "fileName": "View.java"
- }
+ },
+  "newConnection":{
+    "className": "org.example.view",
+    "methodName": "addColorPlayer",
+    "parameters": [
+      {"type": "string", "source": "server"},
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+  }
 }

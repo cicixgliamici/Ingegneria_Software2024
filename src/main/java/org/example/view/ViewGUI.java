@@ -123,7 +123,7 @@ public class ViewGUI extends View {
 
     @Override
     public void drawnCard(int id) {
-
+        Hand.add(id);
     }
 
     @Override
@@ -149,7 +149,10 @@ public class ViewGUI extends View {
         }
     }
 
+
+    @Override
     public void placeholder(int id, int x, int y) {
+        validPlay=0;
         JOptionPane.showMessageDialog(null, "La carta " + id + " non può essere posizionata a " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
         if (invalidPlacementListener != null) {
             invalidPlacementListener.onInvalidPlacement(id);

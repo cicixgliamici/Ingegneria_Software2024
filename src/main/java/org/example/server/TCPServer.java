@@ -90,6 +90,7 @@ public class TCPServer {
                     chosenColor = in.readLine();
                 }
                 mainServer.chooseColor(username, chosenColor);
+                mainServer.onModelGeneric("newConnection:" + username +","+ chosenColor);
                 if(isFirst) {
                     mainServer.onModelSpecific(username, "setFirst");
                     String numPLayer = in.readLine();

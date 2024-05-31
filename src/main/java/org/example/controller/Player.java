@@ -64,7 +64,6 @@ public class Player {
      * on the chosen side
      */
     public void play(Model model, int id, int side, int x, int y) throws RemoteException, PlaceholderNotValid, InvalidCardException {
-        try {
             int choice = findIdinHand(model, id);
             Card card = model.getPlayerCardArea(this).getHand().get(choice);
             card.setSide(side);
@@ -76,6 +75,7 @@ public class Player {
                 }
             }
             if (placeHolder == null) {
+                System.out.println("A");
                 throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
             }
             checkChosenCard(model, card, placeHolder);
@@ -84,11 +84,6 @@ public class Player {
             model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,
                     "hasPlayed:" + username + "," + card.getId());
             model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
-        } catch (PlaceholderNotValid | InvalidCardException e) {
-            throw e;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public int findIdinHand(Model model, int id) throws RemoteException {
@@ -132,6 +127,7 @@ public class Player {
                 model.getPlayerCardArea(this).getHand().add(card);
                 break;
         }
+        model.showArea();
         assert card != null;
         model.notifyModelChange(this.username,  "drawnCard:" + card.getId(),
                                                 "hasDrawn:" + username + ","+ card.getId());
