@@ -18,12 +18,12 @@ import java.util.List;
 public class ViewGUI extends View {
 
     public ViewGUI() {
+        this.isFirst=false;
+        this.matchStarted=false;
+        this.flag=1;
         cardsPath=new ArrayList<>();
         cardsId=new ArrayList<>();
         drawableCards=new ArrayList<>();
-        this.isFirst=false;
-        this.flag=1;
-        this.matchStarted=false;
         colors=new ArrayList<>();
         players=new ArrayList<>();
         map=new HashMap<>();
@@ -31,35 +31,36 @@ public class ViewGUI extends View {
     }
 
     @Override
+    public void updatePlayerCardArea(int id) {}
+
+    @Override
+    public void removePlayerCardArea(int id) {}
+
+    @Override
+    public void printPlayerCardArea() {}
+
+    @Override
+    public void printHand() {}
+
+    @Override
+    public void printGrid() {}
+
+    @Override
+    public void hasDrawn(String username, int id) {}
+
+    @Override
+    public void hasPlayed(String username, int id) {}
+
+    @Override
+    public void setHand(int side, int choice) {}
+
+       @Override
+    public void updateSetupUI(String[] colors, boolean isFirst) {}
+
+    @Override
     public void newConnection(String player, String color) {
         colorPlayer.put(player,color);
         System.out.println(colorPlayer);
-
-    }
-
-    @Override
-    public void updatePlayerCardArea(int id) {
-
-    }
-
-    @Override
-    public void removePlayerCardArea(int id) {
-
-    }
-
-
-    @Override
-    public void printPlayerCardArea() {
-
-    }
-
-    @Override
-    public void printHand() {
-
-    }
-
-    @Override
-    public void printGrid() {
 
     }
 
@@ -119,17 +120,9 @@ public class ViewGUI extends View {
         return null;
     }
 
-
-
-
     @Override
     public void drawnCard(int id) {
         Hand.add(id);
-    }
-
-    @Override
-    public void hasDrawn(String username, int id) {
-
     }
 
     @Override
@@ -151,11 +144,6 @@ public class ViewGUI extends View {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void hasPlayed(String username, int id) {
-
     }
 
     @Override
@@ -197,11 +185,6 @@ public class ViewGUI extends View {
     }
 
     @Override
-    public void setHand(int side, int choice) {
-
-    }
-
-    @Override
     public void pubObj(int id1, int id2) {
         PublicObjectives.add(id1);
         PublicObjectives.add(id2);
@@ -225,8 +208,6 @@ public class ViewGUI extends View {
         points.put(username, point);
     }
 
-
-
     @Override
     public void message(int x) {
         switch (x) {
@@ -243,11 +224,6 @@ public class ViewGUI extends View {
                 System.out.println(matchStarted);
                 break;
         }
-    }
-
-    @Override
-    public void updateSetupUI(String[] colors, boolean isFirst) {
-
     }
 
     /**
