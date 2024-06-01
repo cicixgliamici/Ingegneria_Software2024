@@ -19,8 +19,7 @@ public class MainMenu extends JFrame {
     SetInitialGame setInitialGame;
     private int connectionType;
     private String username;
-    private  View view;
-
+    private View view;
 
     public MainMenu(int connectionType, View view) throws IOException {
         super("Codex Naturalis");
@@ -60,13 +59,14 @@ public class MainMenu extends JFrame {
                 } else if (event.equals("notValidPort")) {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else if (event.equals("setInitialGame")) {
-                    setInitialGame = new SetInitialGame(ev.getTcpClient(),ev.getData(), ev.getView()){
+                    setInitialGame = new SetInitialGame(ev.getTcpClient(), ev.getData(), ev.getView()) {
                         ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
                         Image img = icon.getImage();
 
                         {
                             setOpaque(false);
                         }
+
                         public void paintComponent(Graphics graphics) {
                             graphics.drawImage(img, 0, 0, this);
                             super.paintComponent(graphics);
@@ -75,9 +75,9 @@ public class MainMenu extends JFrame {
 
                     setInitialGame.setEvListener(new EvListener() {
                         @Override
-                        public void eventListener(Event ev){
+                        public void eventListener(Event ev) {
                             String event = ev.getEvent();
-                            if(event.equals("close")){
+                            if (event.equals("close")) {
                                 dispose();
                             }
                         }
@@ -85,7 +85,23 @@ public class MainMenu extends JFrame {
                     setContentPane(setInitialGame);
                     validate();
                     repaint();
+                }
+            }
+        });
 
+        // Aggiungi un KeyBinding per il tasto Invio
+        addKeyBinding(this.getRootPane(), KeyEvent.VK_ENTER, "CONFIRM", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Trova e attiva il pulsante di conferma
+                Component[] components = boxMenu.getComponents();
+                for (Component component : components) {
+                    if (component instanceof JButton) {
+                        JButton button = (JButton) component;
+                        if (button.getText().equals("Conferma")) {
+                            button.doClick();
+                        }
+                    }
                 }
             }
         });
@@ -96,7 +112,13 @@ public class MainMenu extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+    }
 
+    private void addKeyBinding(JComponent component, int keyCode, String name, Action action) {
+        InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = component.getActionMap();
+        inputMap.put(KeyStroke.getKeyStroke(keyCode, 0), name);
+        actionMap.put(name, action);
     }
 
     private JMenuBar createMenuBar() {
@@ -144,16 +166,6 @@ public class MainMenu extends JFrame {
         menuAbout.addSeparator();
         menuAbout.add(menuItemAbout);
 
-        // AboutFrame
-        /*
-        menuItemAbout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new About();
-            }
-        });
-
-         */
         menuItemRuleBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
