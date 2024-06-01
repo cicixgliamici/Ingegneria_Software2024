@@ -98,9 +98,16 @@ public class DrawingCardPanel extends JPanel {
                     paths.add(path);
 
                 } else {
-                    String path= "src/main/resources/images/big/front/0"+drawableCard+".png";
-                    paths.add(path);
-                    i++;
+                    if(drawableCard<10){
+                        String path= "src/main/resources/images/big/front/00"+drawableCard+".png";
+                        paths.add(path);
+                        i++;
+                    } else {
+                        String path= "src/main/resources/images/big/front/0"+drawableCard+".png";
+                        paths.add(path);
+                        i++;
+                    }
+
                 }
 
             }
