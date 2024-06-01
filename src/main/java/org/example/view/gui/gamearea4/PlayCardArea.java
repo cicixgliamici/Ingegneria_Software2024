@@ -45,6 +45,7 @@ public class PlayCardArea extends JPanel {
     }
 
     public void insertCardStarter(int x, int y, String pathImage, int nx, int ny){
+        System.out.println(pathImage);
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonBottomDx());
         this.add(imageCard.getCornerButtonHighDx());
@@ -165,6 +166,7 @@ public class PlayCardArea extends JPanel {
     }
 
     public void insertCardHighSx(int x, int y, String pathImage, int nx, int ny){
+        System.out.println(pathImage);
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonBottomSx());
         this.add(imageCard.getCornerButtonHighSx());

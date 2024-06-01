@@ -29,6 +29,7 @@ public class ImageCard {
 
 
     public ImageCard(String imagePath, int x, int y, int nx, int ny) {
+        System.out.println(imagePath);
         this.image = loadImage(imagePath);
         this.x = x;
         this.y = y;
@@ -100,6 +101,7 @@ public class ImageCard {
 
     // il parametro "path" è il path dell'immagine da caricare
     private BufferedImage loadImage(String path) {
+        System.out.println(path);
         BufferedImage bimg = null;
         BufferedImage ret = null;
         try {
