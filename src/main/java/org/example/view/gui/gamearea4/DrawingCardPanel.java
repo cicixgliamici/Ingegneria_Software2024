@@ -35,7 +35,6 @@ public class DrawingCardPanel extends JPanel {
     }
 
     private JLabel createCardLabel(String path, int cardIndex) throws IOException {
-        System.out.println("create" + path);
         BufferedImage image = ImageIO.read(new File(path));
         JLabel label = new JLabel(new ImageIcon(image));
         label.setBorder(defaultBorder);
@@ -115,7 +114,6 @@ public class DrawingCardPanel extends JPanel {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("update " + paths);
         refreshCardLabels();
     }
 

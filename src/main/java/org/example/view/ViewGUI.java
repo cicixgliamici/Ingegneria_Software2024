@@ -132,7 +132,7 @@ public class ViewGUI extends View {
         validPlay = 1;
         removeHand(id);
         System.out.println("playedCard");
-        notifyListeners(new Event(this, "playUpdated"));
+        notifyListeners(new Event(this, "playUpdated", id)); //todo evento che aggiorna il tabellone di gioco
     }
 
     public void addListener(EvListener listener) {

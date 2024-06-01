@@ -18,8 +18,8 @@ public class GameAreaPanelListener implements EvListener {
             System.out.println("Dentro handUpdated");
             gameAreaPanel.updateHandDisplay();
         } else if ("playUpdated".equals(ev.getEvent())) {
-            System.out.println("Dentro playUpdated");
-            gameAreaPanel.handlePlayUpdate();
+            System.out.println("Dentro playUpdated con id: " + ev.getId());
+            gameAreaPanel.handlePlayUpdate(ev.getId()); // Passa l'ID qui
         }
     }
 }

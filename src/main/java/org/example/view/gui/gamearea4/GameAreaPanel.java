@@ -328,20 +328,76 @@ public class GameAreaPanel extends JPanel {
 
     public void updateHandDisplay() {
         try {
-            System.out.println("Hand in GameAreaPanel"+view.getHand());
-            System.out.println(view.getHand().get(0));
-            card1.setIcon(loadCardIcon(view.getHand().get(0), true));
-            card2.setIcon(loadCardIcon(view.getHand().get(1), true));
-            System.out.println(view.getHand().get(2));
-            card3.setIcon(loadCardIcon(view.getHand().get(2), true));
+            System.out.println("Updating hand display");
+            java.util.List<Integer> hand = view.getHand();
+            System.out.println("Hand in GameAreaPanel: " + hand);
+            System.out.println("Card IDs before update: " + cardIds.values());
+
+            // Rimuovi tutte le carte attuali dal pannello
+            for (JLabel card : new JLabel[]{card1, card2, card3}) {
+                remove(card);
+            }
+
+            // Crea e aggiungi le nuove carte con i nuovi ID
+            if (hand.size() >= 3) {
+                card1 = createCard(hand.get(0));
+                card2 = createCard(hand.get(1));
+                card3 = createCard(hand.get(2));
+
+                // Aggiorna cardIds con i nuovi ID
+                cardIds.clear();
+                cardIds.put(card1, hand.get(0));
+                cardIds.put(card2, hand.get(1));
+                cardIds.put(card3, hand.get(2));
+
+                addCardListeners(card1);
+                addCardListeners(card2);
+                addCardListeners(card3);
+
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridy = 2;
+                gbc.weightx = 0.0001;
+
+                gbc.gridx = 1;
+                add(card1, gbc);
+
+                gbc.gridx = 2;
+                add(card2, gbc);
+
+                gbc.gridx = 3;
+                add(card3, gbc);
+            }
+
+            System.out.println("Card IDs after update: " + cardIds.values());
+
+            revalidate();
+            repaint();
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error updating hand cards", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void handlePlayUpdate() {
-        System.out.println("Massafganistan");
-        // Code to handle play update event
+    public void handlePlayUpdate(int playedCardId) {
+        System.out.println("Updating play with playedCardId: " + playedCardId);
+        JLabel playedCardLabel = null;
+        for (Map.Entry<JLabel, Integer> entry : cardIds.entrySet()) {
+            if (entry.getValue() == playedCardId) {
+                playedCardLabel = entry.getKey();
+                break;
+            }
+        }
+        if (playedCardLabel != null) {
+            GridBagConstraints gbc = ((GridBagLayout) getLayout()).getConstraints(playedCardLabel);
+            cardIds.remove(playedCardLabel);
+            remove(playedCardLabel);
+            JLabel transparentCardLabel = new JLabel(transparentIcon);
+            transparentCardLabel.setPreferredSize(new Dimension(transparentIcon.getIconWidth(), transparentIcon.getIconHeight()));
+            cardIds.put(transparentCardLabel, -1); // Aggiorna la mappa con l'ID -1 per la carta trasparente
+            add(transparentCardLabel, gbc);
+            transparentCardLabel.setEnabled(false);
+        }
+        revalidate();
+        repaint();
     }
 }
