@@ -1,6 +1,8 @@
 package org.example.view;
 
 import org.example.view.gui.gamearea4.Chat;
+import org.example.view.gui.gamearea4.DrawingCardPanel;
+import org.example.view.gui.listener.DrawingCardPanelListener;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.json.simple.JSONObject;
@@ -259,9 +261,11 @@ public class ViewGUI extends View {
         drawableCards.add(id5);
         drawableCards.add(id6);
         System.out.println("updatando le carte: visible area" + drawableCards);
+        notifyListeners(new Event(this, "visibleArea"));
     }
 
     public void chatC(String username, String message){
         Chat.displayMessage(username, message);// Display the message in the chat panel
     }
+
 }

@@ -43,6 +43,7 @@ public class GameAreaFrame extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         add(scoreboardPanel, gbc);
         gameAreaPanel = new GameAreaPanel(tcpClient, view, color, num, starterCard, objCard);
+        view.setGameAreaPanel(gameAreaPanel);
         gbc.gridx=1;
         gbc.gridy = 0;
         gbc.weighty = 1;
@@ -51,7 +52,8 @@ public class GameAreaFrame extends JFrame {
         add(gameAreaPanel, gbc);
         gbc.gridx = 2;
         gbc.weightx = 0.05;
-        drawingCardPanel = new DrawingCardPanel(tcpClient, view);
+        drawingCardPanel = new DrawingCardPanel(tcpClient, view, gameAreaPanel);
+        view.setDrawingCardPanel(drawingCardPanel);
         add(drawingCardPanel, gbc);
         gbc.gridx=3;
         gbc.gridy = 0;

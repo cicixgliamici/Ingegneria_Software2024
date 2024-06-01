@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import org.example.view.gui.gamearea4.DrawingCardPanel;
+import org.example.view.gui.gamearea4.GameAreaPanel;
+import org.example.view.gui.listener.DrawingCardPanelListener;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.Coordinates;
@@ -13,46 +16,35 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-/**
- * Abstract base class for views in the application.
- * This class defines the common structure and behavior for different types of views
- * that display the game state and interact with the user.
- */
 public abstract class View {
 
     protected int flag;
     protected int numConnection;
     protected int validPlay;
     protected int turn;
-    final int N = 9;  // Size of the grid.
-    final int M = (N - 1) / 2;  // Middle index of the grid, used for centering the play area.
-    protected Integer SecretObjective;  // Variable to store secret objectives if any.
+    final int N = 9;
+    final int M = (N - 1) / 2;
+    protected Integer SecretObjective;
     protected boolean isFirst;
     protected volatile boolean matchStarted;
     protected List<Integer> cardsId;
     protected List<Integer> drawableCards;
-    protected List<Integer> Hand = new ArrayList<>();  // List to hold cards currently in the player's hand.
-    protected List<Integer> PlayerCardArea = new ArrayList<>();  // List to hold cards placed in the play area.
+    protected List<Integer > Hand = new ArrayList<>();// Updated to Map
+    protected List<Integer> PlayerCardArea = new ArrayList<>();
     protected List<Integer> PublicObjectives = new ArrayList<>();
     protected List<String> cardsPath;
     protected List<String> colors;
     protected List<String> players;
     protected List<EvListener> listeners = new ArrayList<>();
-    protected Map<String, String> colorPlayer= new HashMap<>();
+    protected Map<String, String> colorPlayer = new HashMap<>();
     protected Map<Integer, Coordinates> map = new HashMap<>();
     protected Map<String, Integer> points;
-
-    /**
-     * Constructor that initializes the grid.
-     * Each cell of the grid is initialized to null indicating no card is placed.
-     */
+    protected DrawingCardPanel drawingCardPanel;
+    protected GameAreaPanel gameAreaPanel;
 
     public View() {
     }
 
-    /** All these methods are implemented in either the GUI and
-    *   the TUI and are well explaneid there.
-    */
     public void removeVisibleArea(int id) {}
     public abstract void setFirst();
     public abstract void printGrid();
@@ -70,24 +62,18 @@ public abstract class View {
     public abstract void hasPlayed(String username, int id);
     public abstract void points(String username, int points);
     public abstract void newConnection(String player, String color) ;
-    public abstract void updateSetupUI(String[] colors, boolean isFirst); //?
+    public abstract void updateSetupUI(String[] colors, boolean isFirst);
     public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void order(String us1, String us2, String us3, String us4);
     public abstract void color(String color1, String color2, String color3, String color4);
 
-    
+
     public Map<String, String> getColorPlayer(){
         return colorPlayer;
     }
-    
-    /**
-     * Interprets commands received from the server and invokes the corresponding methods.
-     * @param message The command message from the server.
-     */
-    // Server message interpreter, to be implemented by subclasses.
+
     public void Interpreter(String message) {
-        // Parses and executes commands received from the server by reflecting the corresponding methods.
         String[] parts = message.split(":");
         if (parts.length < 1) {
             System.out.println("Invalid command received.");
@@ -119,11 +105,6 @@ public abstract class View {
         }
     }
 
-    /**
-     * Retrieves card details from the JSON data source based on the card ID.
-     * @param id The card identifier.
-     * @return JSONObject containing card details.
-     */
     public JSONObject getCardById(int id) {
         JSONParser parser = new JSONParser();
         String[] filePaths = {
@@ -148,34 +129,19 @@ public abstract class View {
         return null;
     }
 
-    /**
-     * Adds a card to the player's hand.
-     * @param id Card identifier.
-     */
     public void updateHand(int id) {
         Hand.add(id);
+        notifyListeners(new Event(this, "handUpdated"));
     }
 
-    /**
-     * Adds a card to the play area.
-     * @param id Card identifier.
-     */
     public void updatePlayerCardArea(int id) {
         PlayerCardArea.add(id);
     }
 
-    /**
-     * Removes a card from the player's hand.
-     * @param id Card identifier.
-     */
     public void removeHand(int id) {
         Hand.removeIf(id1 -> id1.equals(id));
     }
 
-    /**
-     * Removes a card from the play area.
-     * @param id Card identifier.
-     */
     public void removePlayerCardArea(int id) {
         PlayerCardArea.remove(id);
     }
@@ -184,17 +150,10 @@ public abstract class View {
         System.out.println(message);
     };
 
-    /**
-     * Checks if a given position is valid within the grid boundaries.
-     * @param gridX Horizontal position index.
-     * @param gridY Vertical position index.
-     * @return true if the position is valid, false otherwise.
-     */
     public boolean isValidPosition(int gridX, int gridY) {
         return gridX >= 0 && gridX < N && gridY >= 0 && gridY < N;
     }
 
-    //Getter and Setter Zone
     public int getFlag() {
         return flag;
     }
@@ -277,7 +236,16 @@ public abstract class View {
     public void setMatchStarted(boolean matchStarted) {
         this.matchStarted = matchStarted;
     }
-    
+
+    public void setGameAreaPanel(GameAreaPanel gameAreaPanel) {
+        this.gameAreaPanel = gameAreaPanel;
+    }
+
+    public void setDrawingCardPanel(DrawingCardPanel drawingCardPanel) {
+        this.drawingCardPanel = drawingCardPanel;
+        addListener(new DrawingCardPanelListener(drawingCardPanel, gameAreaPanel));
+    }
+
     public void addListener(EvListener listener) {
         listeners.add(listener);
     }
@@ -295,5 +263,4 @@ public abstract class View {
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }
-
 }

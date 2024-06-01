@@ -1,4 +1,3 @@
-
 package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
@@ -17,10 +16,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameAreaPanel extends JPanel {
-    
+
     View view;
     TCPClient tcpClient;
     private int ChosenId;
@@ -71,14 +71,14 @@ public class GameAreaPanel extends JPanel {
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
-                
+
             case "2":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
                 token2 = createToken("Blue", "Blue", "Yellow", "Red", "Green", true);
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
-                
+
             case "3":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
                 token2 = createToken("Yellow", "Blue", "Yellow", "Red", "Green", true);
@@ -264,7 +264,7 @@ public class GameAreaPanel extends JPanel {
                     selectCard(card);
                     System.out.println(view.getValidPlay() + " in gamePanel before tcp.sendPlay");
                     System.out.println(view.isTurn() + " in gamePanel before tcp.sendPlay");
-                    //tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
+                    tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
                     // Confronto spostato nel listener registrato
                 } else if (e.getClickCount() == 2) {
                     changeCardImage(card);
@@ -274,7 +274,6 @@ public class GameAreaPanel extends JPanel {
         card.addMouseListener(ma);
         card.putClientProperty("mouseAdapter", ma);
     }
-
 
     private void removeMouseListeners(JLabel card) {
         MouseAdapter ma = (MouseAdapter) card.getClientProperty("mouseAdapter");
@@ -345,5 +344,17 @@ public class GameAreaPanel extends JPanel {
         JLabel tokenLabel = new JLabel(icon);
         tokenLabel.setVisible(visible);
         return tokenLabel;
+    }
+
+    public void updateHandDisplay() {
+            try {
+            System.out.println(view.getHand());
+            card1.setIcon(loadCardIcon(view.getHand().get(0), true));
+            card2.setIcon(loadCardIcon(view.getHand().get(1), true));
+            card3.setIcon(loadCardIcon(view.getHand().get(2), true));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error updating hand cards", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
