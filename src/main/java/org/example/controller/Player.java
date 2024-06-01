@@ -76,7 +76,6 @@ public class Player {
                     break;
                 }
             }
-
             if (placeHolder == null) {
                 System.out.println("placeholder fallito");
                 throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
@@ -84,9 +83,11 @@ public class Player {
             checkChosenCard(model, card, placeHolder);
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
-            model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,
+             if (placeHolder != null) {
+                model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,
                     "hasPlayed:" + username + "," + card.getId());
-            model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
+                 model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
+             }
     }
 
     public int findIdinHand(Model model, int id) throws RemoteException {

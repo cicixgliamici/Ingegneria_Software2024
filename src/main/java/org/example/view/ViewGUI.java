@@ -3,6 +3,7 @@ package org.example.view;
 import org.example.view.gui.gamearea4.Chat;
 import org.example.view.gui.gamearea4.DrawingCardPanel;
 import org.example.view.gui.listener.DrawingCardPanelListener;
+import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.json.simple.JSONObject;
@@ -20,64 +21,65 @@ import java.util.List;
 public class ViewGUI extends View {
 
     public ViewGUI() {
-        this.isFirst=false;
-        this.matchStarted=false;
-        this.flag=1;
-        cardsPath=new ArrayList<>();
-        cardsId=new ArrayList<>();
-        drawableCards=new ArrayList<>();
-        colors=new ArrayList<>();
-        players=new ArrayList<>();
-        map=new HashMap<>();
-        points=new HashMap<>();
+        this.isFirst = false;
+        this.matchStarted = false;
+        this.flag = 1;
+        cardsPath = new ArrayList<>();
+        cardsId = new ArrayList<>();
+        drawableCards = new ArrayList<>();
+        colors = new ArrayList<>();
+        players = new ArrayList<>();
+        map = new HashMap<>();
+        points = new HashMap<>();
     }
 
     @Override
-    public void updatePlayerCardArea(int id) {}
+    public void updatePlayerCardArea(int id) {
+    }
 
     @Override
-    public void removePlayerCardArea(int id) {}
+    public void removePlayerCardArea(int id) {
+    }
 
     @Override
-    public void printPlayerCardArea() {}
+    public void printPlayerCardArea() {
+    }
 
     @Override
-    public void printHand() {}
+    public void printHand() {
+    }
 
     @Override
-    public void printGrid() {}
+    public void printGrid() {
+    }
 
     @Override
-    public void hasDrawn(String username, int id) {}
+    public void hasDrawn(String username, int id) {
+    }
 
     @Override
-    public void hasPlayed(String username, int id) {}
+    public void hasPlayed(String username, int id) {
+    }
 
     @Override
-    public void setHand(int side, int choice) {}
+    public void setHand(int side, int choice) {
+    }
 
-       @Override
-    public void updateSetupUI(String[] colors, boolean isFirst) {}
+    @Override
+    public void updateSetupUI(String[] colors, boolean isFirst) {
+    }
 
     @Override
     public void newConnection(String player, String color) {
-        colorPlayer.put(player,color);
+        colorPlayer.put(player, color);
         System.out.println(colorPlayer);
-
     }
 
-    /**
-     *
-     * @param card
-     * @param dim is for big (1), small(2) or mid(3)
-     * @param side is for front(1) or back(2)
-     * @return
-     */
     public String getImagePath(JSONObject card, int dim, int side) {
         if (card == null) {
             return null;
         }
-        switch(dim) {
+        switch (dim) {
             case 1:
                 if (side == 1) {
                     return (String) card.get("imagePathBF");
@@ -101,8 +103,6 @@ public class ViewGUI extends View {
         }
     }
 
-
-    //metodo che ritorna una grafica da una stringa (il percorso dell'immagine)
     public Image loadImage(String imagePath) {
         try {
             return ImageIO.read(new File(imagePath));
@@ -112,8 +112,6 @@ public class ViewGUI extends View {
         }
     }
 
-
-    //metodo che ritorna una grafica direttamente da un id
     public Image getImageById(int id, int side, int dim) {
         String imagePath = getImagePath(getCardById(id), side, dim);
         if (imagePath != null) {
@@ -125,27 +123,20 @@ public class ViewGUI extends View {
     @Override
     public void drawnCard(int id) {
         Hand.add(id);
+        notifyListeners(new Event(this, "handUpdated"));
     }
 
     @Override
     public void playedCard(int id, int x, int y) {
-        turn=1;
-        validPlay=1;
+        turn = 1;
+        validPlay = 1;
+        removeHand(id);
+        System.out.println("playedCard");
         notifyListeners(new Event(this, "playUpdated"));
     }
 
     public void addListener(EvListener listener) {
         listeners.add(listener);
-    }
-
-    private void notifyListeners(Event event) {
-        for (EvListener listener : listeners) {
-            try {
-                listener.eventListener(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
@@ -154,16 +145,12 @@ public class ViewGUI extends View {
         JOptionPane.showMessageDialog(null, "You don't have enough resources for the " + id + " card", "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
-
     @Override
     public void placeholder(int id, int x, int y) {
         System.out.println("placeholder");
-        validPlay=0;
-        System.out.println("settato valid play a 0");
-        notifyListeners(new Event(this, "playUpdated"));
+        validPlay = 0;
         JOptionPane.showMessageDialog(null, "Card " + id + " can not be placed at " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
-
 
     @Override
     public void firstHand(int id1, int id2, int id3, int id4, int id5, int id6) {
@@ -174,7 +161,7 @@ public class ViewGUI extends View {
         System.out.println("hand" + getHand());
     }
 
-    public void showStarterObjective(int id4, int id5, int id6){
+    public void showStarterObjective(int id4, int id5, int id6) {
         cardsPath.clear();
         cardsId.clear();
         cardsId.add(id4);
@@ -195,18 +182,18 @@ public class ViewGUI extends View {
     @Override
     public void order(String us1, String us2, String us3, String us4) {
         List<String> orderPlayer = Arrays.asList(us1, us2, us3, us4);
-        isFirst=true;
+        isFirst = true;
         for (String player : orderPlayer) {
             if (!"null".equals(player)) {
                 players.add(player);
             } else
-                isFirst=false;
+                isFirst = false;
         }
     }
 
     @Override
     public void points(String username, int point) {
-        System.out.println(username+point);
+        System.out.println(username + point);
         points.put(username, point);
     }
 
@@ -215,44 +202,41 @@ public class ViewGUI extends View {
         switch (x) {
             case 4:
                 JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
-                turn=0;
+                turn = 0;
                 break;
             case 9:
-                matchStarted=false;
+                matchStarted = false;
                 System.out.println(matchStarted);
                 break;
             case 10:
-                matchStarted=true;
+                matchStarted = true;
                 System.out.println(matchStarted);
                 break;
         }
     }
 
-    /**
-     * Adds non-null colors to a list of available colors.
-     */
     @Override
     public void color(String c1, String c2, String c3, String c4) {
         List<String> inputColors = Arrays.asList(c1, c2, c3, c4);
-        isFirst=true;
+        isFirst = true;
         for (String color : inputColors) {
             if (!"null".equals(color)) {
                 colors.add(color);
             } else
-                isFirst=false;
+                isFirst = false;
         }
     }
-
 
     public void setFirst() {
         isFirst = true;
     }
 
-    public void numCon(int maxCon){
-        numConnection=maxCon;
+    public void numCon(int maxCon) {
+        numConnection = maxCon;
         System.out.println("ricevuto il num max di player " + numConnection);
     }
-    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6) {
         drawableCards.clear();
         drawableCards.add(id1);
         drawableCards.add(id2);
@@ -264,8 +248,8 @@ public class ViewGUI extends View {
         notifyListeners(new Event(this, "visibleArea"));
     }
 
-    public void chatC(String username, String message){
-        Chat.displayMessage(username, message);// Display the message in the chat panel
+    public void chatC(String username, String message) {
+        Chat.displayMessage(username, message);
     }
 
 }

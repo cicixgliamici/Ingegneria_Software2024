@@ -8,6 +8,7 @@ import java.util.*;
 import org.example.view.gui.gamearea4.DrawingCardPanel;
 import org.example.view.gui.gamearea4.GameAreaPanel;
 import org.example.view.gui.listener.DrawingCardPanelListener;
+import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.Coordinates;
@@ -29,7 +30,7 @@ public abstract class View {
     protected volatile boolean matchStarted;
     protected List<Integer> cardsId;
     protected List<Integer> drawableCards;
-    protected List<Integer > Hand = new ArrayList<>();// Updated to Map
+    protected List<Integer> Hand = new ArrayList<>();
     protected List<Integer> PlayerCardArea = new ArrayList<>();
     protected List<Integer> PublicObjectives = new ArrayList<>();
     protected List<String> cardsPath;
@@ -44,6 +45,8 @@ public abstract class View {
 
     public View() {
     }
+
+
 
     public void removeVisibleArea(int id) {}
     public abstract void setFirst();
@@ -133,6 +136,7 @@ public abstract class View {
         Hand.add(id);
         notifyListeners(new Event(this, "handUpdated"));
     }
+
 
     public void updatePlayerCardArea(int id) {
         PlayerCardArea.add(id);
@@ -239,20 +243,22 @@ public abstract class View {
 
     public void setGameAreaPanel(GameAreaPanel gameAreaPanel) {
         this.gameAreaPanel = gameAreaPanel;
+
     }
 
     public void setDrawingCardPanel(DrawingCardPanel drawingCardPanel) {
         this.drawingCardPanel = drawingCardPanel;
-        addListener(new DrawingCardPanelListener(drawingCardPanel, gameAreaPanel));
+
     }
 
     public void addListener(EvListener listener) {
         listeners.add(listener);
     }
 
-    private void notifyListeners(Event event) {
+    public void notifyListeners(Event event) {
         for (EvListener listener : listeners) {
             try {
+                System.out.println("Chiamato da " + listener);
                 listener.eventListener(event);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -263,4 +269,5 @@ public abstract class View {
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }
+
 }

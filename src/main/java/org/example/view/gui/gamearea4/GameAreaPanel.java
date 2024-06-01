@@ -2,8 +2,7 @@ package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
 import org.example.view.View;
-import org.example.view.gui.listener.EvListener;
-import org.example.view.gui.listener.Event;
+import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.utilities.Coordinates;
 
 import javax.imageio.ImageIO;
@@ -16,7 +15,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GameAreaPanel extends JPanel {
@@ -47,7 +45,6 @@ public class GameAreaPanel extends JPanel {
         this.tcpClient = tcpClient;
         this.view = view;
         setLayout(new GridBagLayout());
-        // Creazione dell'icona trasparente
         BufferedImage transparentImage = new BufferedImage(100, 150, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = transparentImage.createGraphics();
         g2d.setComposite(AlphaComposite.Clear);
@@ -197,22 +194,7 @@ public class GameAreaPanel extends JPanel {
         gbc.gridwidth = 4;
         add(jScrollPane, gbc);
 
-        view.addListener(new EvListener() {
-            @Override
-            public void eventListener(Event ev) throws IOException {
-                if (ev.getEvent().equals("playUpdated")) {
-                    if (view.getValidPlay() == 1 && view.isTurn() == 1) {
-                        System.out.println(view.getValidPlay() + " in gamePanel after set(else)");
-                        System.out.println(view.isTurn() + " in gamePanel after set(else)");
-                        view.removeHand(ChosenId);
-                        selectedCard.setIcon(transparentIcon);
-                        selectedCard.setBorder(null);
-                        removeMouseListeners(selectedCard);
-                        playCardArea.setPathImageInsert("src/main/resources/images/mid/back/084.png");
-                    }
-                }
-            }
-        });
+        view.addListener(new GameAreaPanelListener(this));
     }
 
     @Override
@@ -224,7 +206,6 @@ public class GameAreaPanel extends JPanel {
             g.drawImage(backgroundImg, 0, 0, panelWidth, panelHeight, this);
         }
     }
-
 
     private Icon loadCardIcon(int cardId, boolean isFront) throws IOException {
         BufferedImage newImg = null;
@@ -262,10 +243,9 @@ public class GameAreaPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     selectCard(card);
-                    System.out.println(view.getValidPlay() + " in gamePanel before tcp.sendPlay");
-                    System.out.println(view.isTurn() + " in gamePanel before tcp.sendPlay");
+                    System.out.println(view.getValidPlay() + " valid in gamePanel before tcp.sendPlay");
+                    System.out.println(view.isTurn() + " turn in gamePanel before tcp.sendPlay");
                     tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
-                    // Confronto spostato nel listener registrato
                 } else if (e.getClickCount() == 2) {
                     changeCardImage(card);
                 }
@@ -347,14 +327,21 @@ public class GameAreaPanel extends JPanel {
     }
 
     public void updateHandDisplay() {
-            try {
-            System.out.println(view.getHand());
+        try {
+            System.out.println("Hand in GameAreaPanel"+view.getHand());
+            System.out.println(view.getHand().get(0));
             card1.setIcon(loadCardIcon(view.getHand().get(0), true));
             card2.setIcon(loadCardIcon(view.getHand().get(1), true));
+            System.out.println(view.getHand().get(2));
             card3.setIcon(loadCardIcon(view.getHand().get(2), true));
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error updating hand cards", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void handlePlayUpdate() {
+        System.out.println("Massafganistan");
+        // Code to handle play update event
     }
 }
