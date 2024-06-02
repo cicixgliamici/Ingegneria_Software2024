@@ -1,6 +1,7 @@
 package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
+import org.example.controller.Player;
 import org.example.view.View;
 import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.utilities.Coordinates;
@@ -14,8 +15,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class GameAreaPanel extends JPanel {
 
@@ -41,7 +44,7 @@ public class GameAreaPanel extends JPanel {
     private Map<JLabel, Integer> cardIds = new HashMap<>();
     private Icon transparentIcon;
 
-    public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard) throws IOException {
+    public GameAreaPanel(TCPClient tcpClient, View view, String color, String num, String starterCard, String objCard, String username) throws IOException {
         this.tcpClient = tcpClient;
         this.view = view;
         setLayout(new GridBagLayout());
@@ -61,6 +64,12 @@ public class GameAreaPanel extends JPanel {
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
+        List<String> p = new ArrayList<>();
+        for(String player : view.getPlayers()){
+            if(!player.equals(username)){
+                p.add(player);
+            }
+        }
         switch (num) {
             case "1":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
@@ -71,23 +80,23 @@ public class GameAreaPanel extends JPanel {
 
             case "2":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken("Blue", "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "3":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken("Yellow", "Blue", "Yellow", "Red", "Green", true);
-                token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                token3 = createToken(view.getColorPlayer().get(p.get(1)), "Blue", "Yellow", "Red", "Green", true);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "4":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken("Yellow", "Blue", "Yellow", "Red", "Green", true);
-                token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", true);
-                token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                token3 = createToken(view.getColorPlayer().get(p.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                token4 = createToken(view.getColorPlayer().get(p.get(2)), "Blue", "Yellow", "Red", "Green", true);
                 break;
         }
 

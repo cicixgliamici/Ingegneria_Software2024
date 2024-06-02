@@ -187,7 +187,7 @@ public class SetInitialGame extends JPanel {
                                 }
                                 System.out.println("Match started!"); // Debug
                                 SwingUtilities.invokeLater(() -> {
-                                    waitingScreen.close();
+                                    waitingScreen.dispose();
                                     try {
                                         new SelectObjStarter(tcpClient, username, view, color, num);
                                     } catch (IOException ex) {
