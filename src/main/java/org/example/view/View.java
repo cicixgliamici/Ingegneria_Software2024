@@ -47,7 +47,6 @@ public abstract class View {
     }
 
 
-
     public void removeVisibleArea(int id) {}
     public abstract void setFirst();
     public abstract void printGrid();

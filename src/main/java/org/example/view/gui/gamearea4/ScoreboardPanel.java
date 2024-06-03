@@ -89,11 +89,41 @@ public class ScoreboardPanel extends JPanel {
             token1 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
         }
 
-        token2 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+        if(view.getPlayers().size() > 1){
+            if(view.getColorPlayer().get(view.getPlayers().get(1)).equals("Blue")){
+                token2 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Green")) {
+                token2 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Yellow")) {
+                token2 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Red")) {
+                token2 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+            }
+        }
 
-        token3 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+        if(view.getPlayers().size() > 2){
+            if(view.getColorPlayer().get(view.getPlayers().get(2)).equals("Blue")){
+                token3 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Green")) {
+                token3 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Yellow")) {
+                token3 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Red")) {
+                token3 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+            }
+        }
 
-        token4 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+        if(view.getPlayers().size() > 3){
+            if(view.getColorPlayer().get(view.getPlayers().get(3)).equals("Blue")){
+                token4 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Green")) {
+                token4 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Yellow")) {
+                token4 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
+            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Red")) {
+                token4 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+            }
+        }
 
         System.out.println("La madre di matteo è na troia");
         System.out.println(view.getPoints());
