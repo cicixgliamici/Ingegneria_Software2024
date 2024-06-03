@@ -402,7 +402,7 @@ public class GameAreaPanel extends JPanel {
         }
     }
 
-    public void handlePlayUpdate(int playedCardId, int side, int x, int y, String cornerButton) {
+    public void handlePlayUpdate(int playedCardId, int side, int x, int y) {
         System.out.println("Updating play with playedCardId: " + playedCardId);
         JLabel playedCardLabel = null;
         for (Map.Entry<JLabel, Integer> entry : cardIds.entrySet()) {
@@ -420,7 +420,7 @@ public class GameAreaPanel extends JPanel {
             cardIds.put(transparentCardLabel, -1);
             add(transparentCardLabel, gbc);
             transparentCardLabel.setEnabled(false);
-            playCardArea.playCard(playedCardId, side, x, y, cornerButton);
+            playCardArea.playCard(playedCardId, side, x, y);
         }
         revalidate();
         repaint();

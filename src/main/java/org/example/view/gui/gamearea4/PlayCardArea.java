@@ -58,7 +58,10 @@ public class PlayCardArea extends JPanel {
     }
 
     private void deactivateButton(int nx, int ny) {
-        findAndRemoveButton(nx, ny);
+        findAndRemoveButton(nx + 1, ny + 1);
+        findAndRemoveButton(nx + 1, ny - 1);
+        findAndRemoveButton(nx - 1, ny + 1);
+        findAndRemoveButton(nx - 1, ny - 1);
     }
 
     private void findAndRemoveButton(int nx, int ny) {
@@ -88,6 +91,7 @@ public class PlayCardArea extends JPanel {
                 nx = imageCard.getCornerButtonHighDx().getNx();
                 ny = imageCard.getCornerButtonHighDx().getNy();
                 sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                deactivateButton(nx, ny);
                 break;
             case "addFromBottomDx":
                 x = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
@@ -95,6 +99,7 @@ public class PlayCardArea extends JPanel {
                 nx = imageCard.getCornerButtonBottomDx().getNx();
                 ny = imageCard.getCornerButtonBottomDx().getNy();
                 sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                deactivateButton(nx, ny);
                 break;
             case "addFromHighSx":
                 x = COSTX + imageCard.getCornerButtonHighSx().getNx() * SCALEX;
@@ -102,6 +107,7 @@ public class PlayCardArea extends JPanel {
                 nx = imageCard.getCornerButtonHighSx().getNx();
                 ny = imageCard.getCornerButtonHighSx().getNy();
                 sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                deactivateButton(nx, ny);
                 break;
             case "addFromBottomSx":
                 x = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
@@ -109,6 +115,7 @@ public class PlayCardArea extends JPanel {
                 nx = imageCard.getCornerButtonBottomSx().getNx();
                 ny = imageCard.getCornerButtonBottomSx().getNy();
                 sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                deactivateButton(nx, ny);
                 break;
         }
         repaint();
@@ -123,10 +130,10 @@ public class PlayCardArea extends JPanel {
         }
     }
 
-    protected void playCard(int id, int side, int x, int y, int nx, int ny) {
+    protected void playCard(int id, int side, int x, int y) {
         ImageCard imageCard = new ImageCard(getPathImageInsert(), COSTX + x * SCALEX, COSTY - y * SCALEY, x, y);
         addCardButtons(imageCard);
-        deactivateButton(nx, ny);
+        deactivateButton(x, y);
         cardPlaced.add(imageCard);
         repaint();
     }
