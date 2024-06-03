@@ -101,7 +101,10 @@ public class GameAreaPanel extends JPanel {
         }
 
         playCardArea = new PlayCardArea(tcpClient, this) {
+
+
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
+            //ImageIcon icon = new ImageIcon(ImageIO.read(new File("C:\\Users\\jamie\\OneDrive\\Desktop\\pannotavolo.jpg")));
             Image img = icon.getImage();
 
             {
@@ -113,6 +116,19 @@ public class GameAreaPanel extends JPanel {
                 super.paintComponent(graphics);
             }
         };
+
+        JScrollPane jScrollPane = new JScrollPane(playCardArea);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        /*InfinitePanel infinitePanel = new InfinitePanel();
+        infinitePanel.setView(playCardArea);
+
+        JScrollPane jScrollPane = new JScrollPane();
+        jScrollPane.setViewport(infinitePanel);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+*/
 
         MouseAdapter ma = new MouseAdapter() {
             private Point origin;
@@ -144,9 +160,7 @@ public class GameAreaPanel extends JPanel {
 
         playCardArea.addMouseListener(ma);
         playCardArea.addMouseMotionListener(ma);
-        JScrollPane jScrollPane = new JScrollPane(playCardArea);
-        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         playCardArea.insertCardStarter(MIDX, MIDY, starterCard, 0, 0);
 
         addCardListeners(card1);
