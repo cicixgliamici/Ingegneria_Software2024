@@ -189,6 +189,7 @@ public class ViewGUI extends View {
             } else
                 isFirst = false;
         }
+        System.out.println(players);
     }
 
     @Override
@@ -226,6 +227,19 @@ public class ViewGUI extends View {
                 isFirst = false;
         }
     }
+
+    @Override
+//    public void players(String username1, String username2, String username3, String username4) {
+//        System.out.println("ricevuto: " + username1 + username2 + username3 + username4);
+//        System.out.println("players prima: "+players);
+//        List<String> inputPlayers = Arrays.asList(username1, username2, username3, username4);
+//        for (String player : inputPlayers) {
+//            if (!"null".equals(player)) {
+//                players.add(player);
+//            }
+//        }
+//        System.out.println(players);
+//    }
 
     public void setFirst() {
         isFirst = true;

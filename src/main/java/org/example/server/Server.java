@@ -4,8 +4,6 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.GameFlow;
 import org.example.controller.Player;
-import org.example.enumeration.Color;
-import org.example.enumeration.Type;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
@@ -16,11 +14,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -126,6 +120,9 @@ public class Server implements ModelChangeListener {
                 System.out.println("points:" + player.getUsername() + "," + "0");
                 onModelGeneric("points:" + player.getUsername() + "," + "0");
             }
+            String message= "players:"+ String.join(",",generatePlayerList());
+            System.out.println(message);
+            //onModelGeneric("players:"+ String.join(",",generatePlayerList()));
             waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
@@ -191,6 +188,20 @@ public class Server implements ModelChangeListener {
         // Join the player names (or "nulls") with commas to create the final message.
         return String.join(",", colors);
     }
+    public String generatePlayerList(){
+        String[] playerArray = new String[4]; // Array to hold up to four usernames or "null".
+        // Fill the array with usernames or "null" based on the number of connected players.
+        for (int i = 0; i < playerArray.length; i++) {
+            if (i < availableColors.size()) {
+                playerArray[i] = players.get(i).getUsername();
+            } else {
+                playerArray[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
+            }
+        }
+        // Join the player names (or "nulls") with commas to create the final message.
+        return String.join(",", playerArray);
+    }
+
 
 
     /**

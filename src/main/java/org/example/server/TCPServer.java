@@ -81,7 +81,6 @@ public class TCPServer {
                     mainServer.onModelGeneric("numCon:"+ mainServer.numMaxConnections);
                     System.out.println("inviato il num max di player " + mainServer.numMaxConnections);
                 }
-
                 mainServer.onModelGeneric("message:8");
                 mainServer.onModelGeneric("color:" + String.join(",", mainServer.generateColor()));
                 String chosenColor = in.readLine();

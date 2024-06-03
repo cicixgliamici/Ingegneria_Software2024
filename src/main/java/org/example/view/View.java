@@ -131,6 +131,8 @@ public abstract class View {
         return null;
     }
 
+    //public abstract void players(String username1, String username2, String username3, String username4);
+
     public void updateHand(int id) {
         Hand.add(id);
         notifyListeners(new Event(this, "handUpdated"));
