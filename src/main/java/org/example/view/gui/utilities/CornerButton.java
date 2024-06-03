@@ -13,6 +13,9 @@ public class CornerButton extends JButton {
         this.nx = nx;
         this.ny = ny;
         setBounds(x, y, DIMX, DIMY);
+        setOpaque(false);
+        setContentAreaFilled(false);
+        setBorderPainted(false);
     }
 
     public int getNx() {

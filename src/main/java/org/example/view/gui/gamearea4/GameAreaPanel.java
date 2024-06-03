@@ -25,7 +25,7 @@ public class GameAreaPanel extends JPanel {
     View view;
     TCPClient tcpClient;
     private int ChosenId;
-    private int ChosenSide;
+    private int chosenSide;
     private final static int MIDX = 320;
     private final static int MIDY = 347;
     private JLabel token1;
@@ -276,6 +276,14 @@ public class GameAreaPanel extends JPanel {
                     //tcpClient.sendPlay(ChosenId, ChosenSide, 1, 1);
                 } else if (e.getClickCount() == 2) {
                     changeCardImage(card);
+                    if(chosenSide==0){
+                        chosenSide++;
+                        playCardArea.setPathImageInsert(getCardImagePath(ChosenId));
+                    }
+                    else if(chosenSide==1){
+                        chosenSide--;
+                        playCardArea.setPathImageInsert(getCardImagePath(ChosenId));
+                    }
                 }
             }
         };
@@ -308,17 +316,39 @@ public class GameAreaPanel extends JPanel {
         selectedCard = card;
         selectedCard.setBorder(new LineBorder(Color.BLUE, 2));
         ChosenId = cardIds.get(card);
-        ChosenSide = cardStates.get(card) ? 0 : 1;
+        chosenSide = cardStates.get(card) ? 0 : 1;
         System.out.println(getCardImagePath(ChosenId));
         playCardArea.setPathImageInsert(getCardImagePath(ChosenId));
     }
 
     private String getCardImagePath(int cardId) {
-        if (cardId < 10) {
-            return "src/main/resources/images/small/front/00" + cardId + ".png";
-        } else {
-            return "src/main/resources/images/small/front/0" + cardId + ".png";
+        if(getChosenSide()==0) {
+            if (cardId < 10) {
+                return "src/main/resources/images/mid/front/00" + cardId + ".png";
+            } else {
+                return "src/main/resources/images/mid/front/0" + cardId + ".png";
+            }
         }
+        else if(getChosenSide()==1) {
+            if (cardId <= 10) {
+                return "src/main/resources/images/mid/back/001.png";
+            } else if (cardId <= 20) {
+                return "src/main/resources/images/mid/back/011.png";
+            } else if (cardId <= 30) {
+                return "src/main/resources/images/mid/back/021.png";
+            } else if (cardId <= 40) {
+                return "src/main/resources/images/mid/back/031.png";
+            } else if (cardId <= 50) {
+                return "src/main/resources/images/mid/back/041.png";
+            } else if (cardId <= 60) {
+                return "src/main/resources/images/mid/back/051.png";
+            } else if (cardId <= 70) {
+                return "src/main/resources/images/mid/back/061.png";
+            } else if (cardId <= 80) {
+               return "src/main/resources/images/mid/back/071.png";
+            }
+        }
+        return null;
     }
 
     private void changeCardImage(JLabel card) {
@@ -441,7 +471,7 @@ public class GameAreaPanel extends JPanel {
     }
 
     public int getChosenSide() {
-        return ChosenSide;
+        return chosenSide;
     }
 
     public int getChosenId() {
