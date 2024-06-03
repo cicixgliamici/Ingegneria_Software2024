@@ -124,7 +124,7 @@ public class PlayCardArea extends JPanel {
     public void sendPlayRequest(int id, int side, int x, int y) {
         try {
             System.out.println("tcp: " + gameAreaPanel.getChosenId() + " " + side + " " + x + " " + y);
-            tcpClient.sendPlay(gameAreaPanel.getChosenId(), side, x, y);
+            tcpClient.sendPlay(gameAreaPanel.getChosenId(), gameAreaPanel.getChosenSide(), x, y);
         } catch (Exception e) {
             System.out.println("Error during sendPlay: " + e.getMessage());
         }
@@ -132,6 +132,7 @@ public class PlayCardArea extends JPanel {
 
     protected void playCard(int id, int side, int x, int y) {
         ImageCard imageCard = new ImageCard(getPathImageInsert(), COSTX + x * SCALEX, COSTY - y * SCALEY, x, y);
+        System.out.println(getPathImageInsert());
         addCardButtons(imageCard);
         deactivateButton(x, y);
         cardPlaced.add(imageCard);
