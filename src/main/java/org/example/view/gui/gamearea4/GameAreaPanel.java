@@ -1,7 +1,6 @@
 package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;
-import org.example.controller.Player;
 import org.example.view.View;
 import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.utilities.Coordinates;
@@ -17,8 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 public class GameAreaPanel extends JPanel {
 
@@ -65,8 +64,8 @@ public class GameAreaPanel extends JPanel {
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
         List<String> p = new ArrayList<>();
-        for(String player : view.getPlayers()){
-            if(!player.equals(username)){
+        for (String player : view.getPlayers()) {
+            if (!player.equals(username)) {
                 p.add(player);
             }
         }
@@ -100,12 +99,14 @@ public class GameAreaPanel extends JPanel {
                 break;
         }
 
-        playCardArea = new PlayCardArea() {
+        playCardArea = new PlayCardArea(tcpClient, this) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
             Image img = icon.getImage();
+
             {
                 setOpaque(false);
             }
+
             public void paintComponent(Graphics graphics) {
                 graphics.drawImage(img, 0, 0, this);
                 super.paintComponent(graphics);
@@ -114,13 +115,16 @@ public class GameAreaPanel extends JPanel {
 
         MouseAdapter ma = new MouseAdapter() {
             private Point origin;
+
             @Override
             public void mousePressed(MouseEvent e) {
                 origin = new Point(e.getPoint());
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
             }
+
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (origin != null) {
@@ -142,7 +146,7 @@ public class GameAreaPanel extends JPanel {
         JScrollPane jScrollPane = new JScrollPane(playCardArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        playCardArea.insertCardStarter(MIDX, MIDY, starterCard, 0,0);
+        playCardArea.insertCardStarter(MIDX, MIDY, starterCard, 0, 0);
 
         addCardListeners(card1);
         addCardListeners(card2);
@@ -219,21 +223,21 @@ public class GameAreaPanel extends JPanel {
     private Icon loadCardIcon(int cardId, boolean isFront) throws IOException {
         BufferedImage newImg = null;
         if (!isFront) {
-            if (cardId < 10) {
+            if (cardId <= 10) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/001.png"));
-            } else if (cardId < 20) {
+            } else if (cardId <= 20) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/011.png"));
-            } else if (cardId < 30) {
+            } else if (cardId <= 30) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/021.png"));
-            } else if (cardId < 40) {
+            } else if (cardId <= 40) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/031.png"));
-            } else if (cardId < 50) {
+            } else if (cardId <= 50) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/041.png"));
-            } else if (cardId < 60) {
+            } else if (cardId <= 60) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/051.png"));
-            } else if (cardId < 70) {
+            } else if (cardId <= 70) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/061.png"));
-            } else if (cardId < 80) {
+            } else if (cardId <= 80) {
                 newImg = ImageIO.read(new File("src/main/resources/images/small/back/071.png"));
             }
         } else {
@@ -290,6 +294,16 @@ public class GameAreaPanel extends JPanel {
         selectedCard.setBorder(new LineBorder(Color.BLUE, 2));
         ChosenId = cardIds.get(card);
         ChosenSide = cardStates.get(card) ? 0 : 1;
+        System.out.println(getCardImagePath(ChosenId));
+        playCardArea.setPathImageInsert(getCardImagePath(ChosenId));
+    }
+
+    private String getCardImagePath(int cardId) {
+        if (cardId < 10) {
+            return "src/main/resources/images/small/front/00" + cardId + ".png";
+        } else {
+            return "src/main/resources/images/small/front/0" + cardId + ".png";
+        }
     }
 
     private void changeCardImage(JLabel card) {
@@ -387,7 +401,7 @@ public class GameAreaPanel extends JPanel {
         }
     }
 
-    public void handlePlayUpdate(int playedCardId) {
+    public void handlePlayUpdate(int playedCardId, int side, int x, int y) {
         System.out.println("Updating play with playedCardId: " + playedCardId);
         JLabel playedCardLabel = null;
         for (Map.Entry<JLabel, Integer> entry : cardIds.entrySet()) {
@@ -402,11 +416,20 @@ public class GameAreaPanel extends JPanel {
             remove(playedCardLabel);
             JLabel transparentCardLabel = new JLabel(transparentIcon);
             transparentCardLabel.setPreferredSize(new Dimension(transparentIcon.getIconWidth(), transparentIcon.getIconHeight()));
-            cardIds.put(transparentCardLabel, -1); // Aggiorna la mappa con l'ID -1 per la carta trasparente
+            cardIds.put(transparentCardLabel, -1);
             add(transparentCardLabel, gbc);
             transparentCardLabel.setEnabled(false);
+            playCardArea.playCard(playedCardId, side, x, y);
         }
         revalidate();
         repaint();
+    }
+
+    public int getChosenSide() {
+        return ChosenSide;
+    }
+
+    public int getChosenId() {
+        return ChosenId;
     }
 }

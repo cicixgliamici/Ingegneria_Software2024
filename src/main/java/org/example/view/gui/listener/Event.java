@@ -17,6 +17,9 @@ public class Event extends EventObject {
     private CornerButton cornerButton;
     private View view;
     private int id;
+    private int side;
+    private int x;
+    private int y;
     /**
      * Constructor to create an event without additional data.
      * @param source The object on which the event initially occurred.
@@ -55,6 +58,14 @@ public class Event extends EventObject {
         super(source);
         this.event = event;
         this.id = id;
+    }
+    public Event(Object source, String event, int id, int side, int x, int y) {
+        super(source);
+        this.event = event;
+        this.id = id;
+        this.side = side;
+        this.x = x;
+        this.y = y;
     }
     /**
      * Returns the type or name of the event.
@@ -97,6 +108,18 @@ public class Event extends EventObject {
     }
 
     public int getId() {return id;}
+
+    public int getSide() {
+        return side;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public void setView(View view) {
         this.view = view;

@@ -22,6 +22,7 @@
       "methodName": "playedCard",
       "parameters": [
         {"type": "int", "source": "server"},
+        {"type": "int", "source": "server"},
         {"type": "int", "source":  "server"},
         {"type": "int", "source":  "server"}
       ],

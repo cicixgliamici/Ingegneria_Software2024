@@ -1,50 +1,36 @@
 package org.example.view.gui.gamearea4;
 
+import org.example.client.TCPClient;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.ImageCard;
 
 import javax.swing.*;
 import java.awt.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class PlayCardArea extends JPanel {
 
-    private List<ImageCard> cardPlaced = new ArrayList<>();
-    private double scale = 1.0;
     private final static int COSTX = 320;
     private final static int COSTY = 347;
     private final static int SCALEX = 125;
     private final static int SCALEY = 64;
+    private double scale = 1.0;
     private String pathImageInsert;
+    private List<ImageCard> cardPlaced = new ArrayList<>();
+    private TCPClient tcpClient;
+    private GameAreaPanel gameAreaPanel;
 
-    public PlayCardArea() {
+    public PlayCardArea(TCPClient tcpClient, GameAreaPanel gameAreaPanel) {
+        this.tcpClient = tcpClient;
+        this.gameAreaPanel = gameAreaPanel;
         setLayout(null);
-        setPreferredSize(new Dimension(800,800));
-
-       /* addMouseWheelListener(new MouseAdapter() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                if (e.isControlDown()) {
-                    int notches = e.getWheelRotation();
-                    if (notches < 0) {
-                        scale += 0.1;
-                    } else {
-                        scale -= 0.1;
-                        if (scale < 0.1) {
-                            scale = 0.1;
-                        }
-                    }
-                    revalidate();
-                    repaint();
-                }
-            }
-        }); */
+        setPreferredSize(new Dimension(800, 800));
     }
 
-    public void insertCardStarter(int x, int y, String pathImage, int nx, int ny){
+    public void insertCardStarter(int x, int y, String pathImage, int nx, int ny) {
         System.out.println(pathImage);
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonBottomDx());
@@ -54,44 +40,13 @@ public class PlayCardArea extends JPanel {
         imageCard.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
-                if(ev.getEvent().equals("addFromHighDx")){
-                    int corX = COSTX + imageCard.getCornerButtonHighDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighDx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighDx().getNy();
-                    insertCardHighDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomDx")){
-                    int corX = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomDx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomDx().getNy();
-                    insertCardBottomDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromHighSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonHighSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighSx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighSx().getNy();
-                    insertCardHighSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomSx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomSx().getNy();
-                    insertCardBottomSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
+                handleEvent(ev, imageCard);
             }
         });
         cardPlaced.add(imageCard);
-    };
+    }
 
-    public void insertCardHighDx(int x, int y, String pathImage, int nx, int ny){
+    public void insertCardHighDx(int x, int y, String pathImage, int nx, int ny) {
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonHighDx());
         this.add(imageCard.getCornerButtonHighSx());
@@ -99,36 +54,13 @@ public class PlayCardArea extends JPanel {
         imageCard.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
-                if(ev.getEvent().equals("addFromHighDx")){
-                    int corX = COSTX + imageCard.getCornerButtonHighDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighDx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighDx().getNy();
-                    insertCardHighDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomDx")){
-                    int corX = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomDx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomDx().getNy();
-                    insertCardBottomDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomSx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomSx().getNy();
-                    insertCardBottomSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
+                handleEvent(ev, imageCard);
             }
         });
         cardPlaced.add(imageCard);
     }
 
-    public void insertCardBottomDx(int x, int y, String pathImage, int nx, int ny){
+    public void insertCardBottomDx(int x, int y, String pathImage, int nx, int ny) {
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonHighDx());
         this.add(imageCard.getCornerButtonBottomDx());
@@ -136,36 +68,13 @@ public class PlayCardArea extends JPanel {
         imageCard.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
-                if(ev.getEvent().equals("addFromHighDx")){
-                    int corX = COSTX + imageCard.getCornerButtonHighDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighDx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighDx().getNy();
-                    insertCardHighDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomDx")){
-                    int corX = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomDx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomDx().getNy();
-                    insertCardBottomDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomSx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomSx().getNy();
-                    insertCardBottomSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
+                handleEvent(ev, imageCard);
             }
         });
         cardPlaced.add(imageCard);
     }
 
-    public void insertCardHighSx(int x, int y, String pathImage, int nx, int ny){
+    public void insertCardHighSx(int x, int y, String pathImage, int nx, int ny) {
         System.out.println(pathImage);
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonBottomSx());
@@ -174,36 +83,13 @@ public class PlayCardArea extends JPanel {
         imageCard.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
-                if(ev.getEvent().equals("addFromHighDx")){
-                    int corX = COSTX + imageCard.getCornerButtonHighDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighDx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighDx().getNy();
-                    insertCardHighDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromHighSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonHighSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighSx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighSx().getNy();
-                    insertCardHighSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomSx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomSx().getNy();
-                    insertCardBottomSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
+                handleEvent(ev, imageCard);
             }
         });
         cardPlaced.add(imageCard);
     }
 
-    public void insertCardBottomSx(int x, int y, String pathImage, int nx, int ny){
+    public void insertCardBottomSx(int x, int y, String pathImage, int nx, int ny) {
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         this.add(imageCard.getCornerButtonHighSx());
         this.add(imageCard.getCornerButtonBottomSx());
@@ -211,34 +97,77 @@ public class PlayCardArea extends JPanel {
         imageCard.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
-                if(ev.getEvent().equals("addFromBottomDx")){
-                    int corX = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomDx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomDx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomDx().getNy();
-                    insertCardBottomDx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromHighSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonHighSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonHighSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonHighSx().getNx();
-                    int insertNy = imageCard.getCornerButtonHighSx().getNy();
-                    insertCardHighSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
-                else if(ev.getEvent().equals("addFromBottomSx")) {
-                    int corX = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
-                    int corY = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
-                    int insertNx = imageCard.getCornerButtonBottomSx().getNx();
-                    int insertNy = imageCard.getCornerButtonBottomSx().getNy();
-                    insertCardBottomSx(corX, corY, pathImageInsert, insertNx, insertNy);
-                    repaint();
-                }
+                handleEvent(ev, imageCard);
             }
         });
         cardPlaced.add(imageCard);
     }
+
+    private void handleEvent(Event ev, ImageCard imageCard) throws IOException {
+        int x, y, nx, ny;
+        System.out.println("id card: " +imageCard.getId());
+        switch (ev.getEvent()) {
+            case "addFromHighDx":
+                x = COSTX + imageCard.getCornerButtonHighDx().getNx() * SCALEX;
+                y = COSTY - imageCard.getCornerButtonHighDx().getNy() * SCALEY;
+                nx = imageCard.getCornerButtonHighDx().getNx();
+                ny = imageCard.getCornerButtonHighDx().getNy();
+                sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                break;
+            case "addFromBottomDx":
+                x = COSTX + imageCard.getCornerButtonBottomDx().getNx() * SCALEX;
+                y = COSTY - imageCard.getCornerButtonBottomDx().getNy() * SCALEY;
+                nx = imageCard.getCornerButtonBottomDx().getNx();
+                ny = imageCard.getCornerButtonBottomDx().getNy();
+                sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                break;
+            case "addFromHighSx":
+                x = COSTX + imageCard.getCornerButtonHighSx().getNx() * SCALEX;
+                y = COSTY - imageCard.getCornerButtonHighSx().getNy() * SCALEY;
+                nx = imageCard.getCornerButtonHighSx().getNx();
+                ny = imageCard.getCornerButtonHighSx().getNy();
+                sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                break;
+            case "addFromBottomSx":
+                x = COSTX + imageCard.getCornerButtonBottomSx().getNx() * SCALEX;
+                y = COSTY - imageCard.getCornerButtonBottomSx().getNy() * SCALEY;
+                nx = imageCard.getCornerButtonBottomSx().getNx();
+                ny = imageCard.getCornerButtonBottomSx().getNy();
+                sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+                break;
+        }
+        repaint();
+    }
+
+    public void sendPlayRequest(int id, int side, int x, int y) {
+        try {
+            System.out.println("tcp: "+ gameAreaPanel.getChosenId()+ " "+side+" "+x+" "+y);
+            tcpClient.sendPlay(gameAreaPanel.getChosenId(), side, x, y);
+        } catch (Exception e) {
+            System.out.println("Error during sendPlay: " + e.getMessage());
+        }
+    }
+
+    protected void playCard(int id, int side, int x, int y) {
+        // Aggiungi la logica per posizionare effettivamente la carta
+        ImageCard imageCard = new ImageCard(getPathImageInsert(), COSTX + x * SCALEX, COSTY - y * SCALEY, x, y);
+        this.add(imageCard.getCornerButtonBottomDx());
+        this.add(imageCard.getCornerButtonHighDx());
+        this.add(imageCard.getCornerButtonBottomSx());
+        this.add(imageCard.getCornerButtonHighSx());
+        cardPlaced.add(imageCard);
+        repaint();
+    }
+
+    private void removeCard(ImageCard imageCard) {
+        this.remove(imageCard.getCornerButtonHighDx());
+        this.remove(imageCard.getCornerButtonBottomDx());
+        this.remove(imageCard.getCornerButtonHighSx());
+        this.remove(imageCard.getCornerButtonBottomSx());
+        cardPlaced.remove(imageCard);
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

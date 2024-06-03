@@ -57,7 +57,7 @@ public abstract class View {
     public abstract void message(int x);
     public abstract void setHand(int side, int choice);
     public abstract void pubObj(int id1, int id2);
-    public abstract void playedCard(int id, int x, int y);
+    public abstract void playedCard(int id, int side, int x, int y);
     public abstract void unplayable(int id, int x, int y);
     public abstract void placeholder(int id, int x, int y);
     public abstract void hasDrawn(String username, int id);

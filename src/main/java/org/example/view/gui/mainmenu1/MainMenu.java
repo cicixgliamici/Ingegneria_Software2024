@@ -89,22 +89,8 @@ public class MainMenu extends JFrame {
             }
         });
 
-        // Aggiungi un KeyBinding per il tasto Invio
-        addKeyBinding(this.getRootPane(), KeyEvent.VK_ENTER, "CONFIRM", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Trova e attiva il pulsante di conferma
-                Component[] components = boxMenu.getComponents();
-                for (Component component : components) {
-                    if (component instanceof JButton) {
-                        JButton button = (JButton) component;
-                        if (button.getText().equals("Conferma")) {
-                            button.doClick();
-                        }
-                    }
-                }
-            }
-        });
+        // Aggiungi KeyListener ai componenti specifici
+        addKeyListeners();
 
         pack();
         setSize(810, 660);
@@ -114,11 +100,47 @@ public class MainMenu extends JFrame {
         setVisible(true);
     }
 
-    private void addKeyBinding(JComponent component, int keyCode, String name, Action action) {
-        InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = component.getActionMap();
-        inputMap.put(KeyStroke.getKeyStroke(keyCode, 0), name);
-        actionMap.put(name, action);
+    private void addKeyListeners() {
+        // Cerca il pulsante di conferma e i campi di testo all'interno di boxMenu
+        Component[] components = boxMenu.getComponents();
+        for (Component component : components) {
+            if (component instanceof JTextField) {
+                component.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                            clickConfirmButton();
+                        }
+                    }
+                });
+            } else if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if (button.getText().equals("Conferma")) {
+                    button.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                                button.doClick();
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    private void clickConfirmButton() {
+        // Cerca e clicca il pulsante di conferma
+        Component[] components = boxMenu.getComponents();
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                JButton button = (JButton) component;
+                if (button.getText().equals("Conferma")) {
+                    button.doClick();
+                    return;
+                }
+            }
+        }
     }
 
     private JMenuBar createMenuBar() {

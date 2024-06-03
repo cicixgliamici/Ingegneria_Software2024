@@ -1,6 +1,8 @@
 package org.example.view.gui.listener;
 
 import org.example.view.gui.gamearea4.GameAreaPanel;
+
+import javax.swing.*;
 import java.io.IOException;
 
 public class GameAreaPanelListener implements EvListener {
@@ -13,13 +15,13 @@ public class GameAreaPanelListener implements EvListener {
 
     @Override
     public void eventListener(Event ev) throws IOException {
-        System.out.println("Prima dell'if "+ ev.getEvent());
+        System.out.println("Prima dell'if " + ev.getEvent());
         if ("handUpdated".equals(ev.getEvent())) {
             System.out.println("Dentro handUpdated");
             gameAreaPanel.updateHandDisplay();
         } else if ("playUpdated".equals(ev.getEvent())) {
             System.out.println("Dentro playUpdated con id: " + ev.getId());
-            gameAreaPanel.handlePlayUpdate(ev.getId()); // Passa l'ID qui
+            gameAreaPanel.handlePlayUpdate(ev.getId(), ev.getSide(), ev.getX(), ev.getY());
         }
     }
 }

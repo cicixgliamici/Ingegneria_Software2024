@@ -1,8 +1,6 @@
 package org.example.view.gui.utilities;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CornerButton extends JButton {
     private int nx;

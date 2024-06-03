@@ -191,7 +191,7 @@ public class ViewTUI extends View {
      * @param y The y-coordinate on the grid.
      */
     @Override
-    public void playedCard(int id, int x, int y) {
+    public void playedCard(int id, int side, int x, int y) {
         PlayerCardArea.add(id);
         removeHand(id);
         super.addMapping(id,x,y);

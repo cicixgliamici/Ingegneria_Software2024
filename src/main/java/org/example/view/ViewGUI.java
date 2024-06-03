@@ -127,12 +127,12 @@ public class ViewGUI extends View {
     }
 
     @Override
-    public void playedCard(int id, int x, int y) {
+    public void playedCard(int id, int side, int x, int y) {
         turn = 1;
         validPlay = 1;
         removeHand(id);
         System.out.println("playedCard");
-        notifyListeners(new Event(this, "playUpdated", id)); //todo evento che aggiorna il tabellone di gioco
+        notifyListeners(new Event(this, "playUpdated", id, side, x, y)); //todo evento che aggiorna il tabellone di gioco
     }
 
     public void addListener(EvListener listener) {

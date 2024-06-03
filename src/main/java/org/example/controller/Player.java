@@ -84,7 +84,7 @@ public class Player {
             model.getPlayerCardArea(this).playACard(card, placeHolder);
             model.getPlayerCardArea(this).getHand().remove(card);
              if (placeHolder != null) {
-                model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," + x + "," + y,
+                model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," +  side + "," + x + "," + y,
                     "hasPlayed:" + username + "," + card.getId());
                  model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
              }
