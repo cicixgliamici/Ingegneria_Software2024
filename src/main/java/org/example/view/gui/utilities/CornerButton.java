@@ -30,4 +30,7 @@ public class CornerButton extends JButton {
     public void setNy(int ny) {
         this.ny = ny;
     }
+    public boolean matchesCoordinates(int nx, int ny) {
+        return this.nx == nx && this.ny == ny;
+    }
 }
