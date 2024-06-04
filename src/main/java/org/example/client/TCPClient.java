@@ -13,12 +13,12 @@ import java.util.Scanner;
  * It manages the connection, handles incoming messages, and sends user input to the server.
  */
 public class TCPClient {
-    private String ip;  // IP address of the server
+
     private int port;  // Port number of the server
+    private String ip;  // IP address of the server
+    private String lastSentMessage = "";  // Last message sent by the client
     private View view;  // View interface for interacting with the user
     private volatile boolean gameStarted = false;  // Use volatile to ensure visibility across threads
-    private String lastSentMessage = "";  // Last message sent by the client
-
     private Socket socket;
     private PrintWriter socketOut;
 
@@ -70,6 +70,7 @@ public class TCPClient {
         }
     }
 
+    //Send Zone to print in the Socket
 
     /**
      * Sends the username to the server after the connection is established.
@@ -197,11 +198,9 @@ public class TCPClient {
                 int StartSide = Integer.parseInt(parts[0]);
                 int NumObj = Integer.parseInt(parts[1]);
                 return (StartSide == 1 || StartSide == 2) && (NumObj == 1 || NumObj == 2);
-
             } catch (NumberFormatException e){
                 return false;
             }
-
         }
         else if (input.startsWith("draw:")) {
             try {
