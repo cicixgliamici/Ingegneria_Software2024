@@ -10,6 +10,9 @@ public class CornerButton extends JButton {
 
     public CornerButton(int x, int y, int nx, int ny) {
         super("");
+//        setOpaque(false);
+//        setContentAreaFilled(false);
+//        setBorderPainted(false);
         this.nx = nx;
         this.ny = ny;
         setBounds(x, y, DIMX, DIMY);

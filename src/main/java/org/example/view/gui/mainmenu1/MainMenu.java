@@ -43,6 +43,8 @@ public class MainMenu extends JFrame {
             }
         };
 
+
+
         setLayout(new BorderLayout());
         setJMenuBar(createMenuBar());
         add(boxMenu, BorderLayout.CENTER);

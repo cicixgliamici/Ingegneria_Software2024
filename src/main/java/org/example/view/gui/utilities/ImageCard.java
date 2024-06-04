@@ -26,7 +26,7 @@ public class ImageCard {
     private EvListener evListener;
 
     public ImageCard(String imagePath, int x, int y, int nx, int ny) {
-        System.out.println(imagePath);
+        //System.out.println(imagePath);
         this.image = loadImage(imagePath);
         this.x = x;
         this.y = y;
