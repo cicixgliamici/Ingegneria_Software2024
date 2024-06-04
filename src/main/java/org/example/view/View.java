@@ -67,9 +67,8 @@ public abstract class View {
     public abstract void updateSetupUI(String[] colors, boolean isFirst);
     public abstract void firstHand(int id1, int id2, int id3, int id4, int id5, int id6);
     public abstract void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6);
-    public abstract void order(String us1, String us2, String us3, String us4);
     public abstract void color(String color1, String color2, String color3, String color4);
-
+    public abstract void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8);
 
     public Map<String, String> getColorPlayer(){
         return colorPlayer;

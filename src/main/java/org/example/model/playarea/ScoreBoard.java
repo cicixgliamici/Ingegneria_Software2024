@@ -7,12 +7,13 @@ import org.example.controller.*;
 
 public class ScoreBoard {
     private final HashMap<Player, Integer> points;
-    private final HashMap<Color, Player> tokens; // Associate a Token to a specific color
+    private final HashMap<String, Color> tokens; // Associate a Token to a specific color
 
     public ScoreBoard(){
         tokens = new HashMap<>();
         points = new HashMap<>();
     }
+
 
     /**
      * Adds a player to the scoreboard, initializing their points to zero.
@@ -26,19 +27,18 @@ public class ScoreBoard {
      * Adds a new token to the scoreboard, ensuring the color is not already used and
      * there are no more than the maximum number of players.
      * @param color The color of the token.
-     * @param player The player associated with the token.
+     * @param username The player associated with the token.
      * @throws IllegalArgumentException If the color is already used or the maximum number of players is exceeded.
      */
-    public void addToken(Color color, Player player) throws IllegalArgumentException {
-        if (tokens.containsKey(color)) {
+    public void addToken( String username, Color color) throws IllegalArgumentException {
+        if (tokens.containsValue(color)) {
             throw new IllegalArgumentException("Select another color");
         }
-
         if (tokens.size() >= 4) {
             throw new IllegalArgumentException("max 4 players");
         }
-
-        tokens.put(color, player);
+        tokens.put(username, color);
+        System.out.println("Negri neri");
     }
 
     /**
@@ -76,7 +76,7 @@ public class ScoreBoard {
      * Gets the map of all tokens and their associated players.
      * @return A hashmap of tokens and their associated players.
      */
-    public HashMap<Color, Player> getTokens() {
+    public HashMap<String, Color> getTokens() {
         return tokens;
     }
 

@@ -288,7 +288,8 @@ public class ViewTUI extends View {
      * @param us3 Username of the third player or null
      * @param us4 Username of the fourth player or null
      */
-    public void order(String us1, String us2, String us3, String us4) {
+    @Override
+    public void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8) {
         List<String> users = Arrays.asList(us1, us2, us3, us4);
         StringBuilder orderBuilder = new StringBuilder("Player order: ");
         boolean isFirst = true; // Flag to handle commas correctly.

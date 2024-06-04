@@ -4,6 +4,7 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.GameFlow;
 import org.example.controller.Player;
+import org.example.enumeration.Color;
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
@@ -161,18 +162,26 @@ public class Server implements ModelChangeListener {
         }
     }
 
-    private String generatePlayerOrderMessage() {
-        String[] playerOrder = new String[4]; // Array to hold up to four usernames or "null".
-        // Fill the array with usernames or "null" based on the number of connected players.
-        for (int i = 0; i < playerOrder.length; i++) {
-            if (i < players.size()) {
-                playerOrder[i] = players.get(i).getUsername();
-            } else {
-                playerOrder[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
+
+    public String generatePlayerOrderMessage() {
+        StringBuilder message = new StringBuilder("order:");
+        int count = 0;
+        for (String player : model.getScoreBoard().getTokens().keySet()) {
+            if (count < 4) {
+                Color color =  model.getScoreBoard().getTokens().get(player);
+                String colored = color.toString().substring(0, 1).toUpperCase() + color.toString().substring(1).toLowerCase();
+                message.append(player).append(",").append(colored).append(",");
+                count++;
             }
         }
-        // Join the player names (or "nulls") with commas to create the final message.
-        return "order:" + String.join(",", playerOrder);
+        // Fill the remaining spots with "null"
+        for (int i = count; i < 4; i++) {
+            message.append("null,null,");
+        }
+        // Remove the last comma
+        message.setLength(message.length() - 1);
+        System.out.println(message.toString());
+        return message.toString();
     }
 
     public String generateColor() {
@@ -303,6 +312,8 @@ public class Server implements ModelChangeListener {
             if (availableColors.contains(color)) {
                 availableColors.remove(color);
                 System.out.println(username + " has chosen the color " + color);
+                System.out.println(model.getScoreBoard());
+                model.getScoreBoard().addToken(username, Color.valueOf(color.toUpperCase()));
             } else {
                 System.out.println("Color " + color + " not available.");
             }

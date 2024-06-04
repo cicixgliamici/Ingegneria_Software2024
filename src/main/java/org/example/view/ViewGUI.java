@@ -180,16 +180,16 @@ public class ViewGUI extends View {
     }
 
     @Override
-    public void order(String us1, String us2, String us3, String us4) {
-        List<String> orderPlayer = Arrays.asList(us1, us2, us3, us4);
+    public void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8) {
+        List<String> orderPlayer = Arrays.asList(us1, us3, us5, us7);
+        List<String> orderColor= Arrays.asList(us2, us4, us6, us8);
         isFirst = true;
-        for (String player : orderPlayer) {
-            if (!"null".equals(player)) {
-                players.add(player);
-            } else
-                isFirst = false;
+        for (int i = 0 ; i < orderPlayer.size() ; i++) {
+            if(!"null".equals(orderPlayer.get(i))) {
+                colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
+            }
         }
-        System.out.println(players);
+        System.out.println(colorPlayer);
     }
 
     @Override
