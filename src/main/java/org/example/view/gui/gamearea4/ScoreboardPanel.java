@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,16 +16,12 @@ public class ScoreboardPanel extends JPanel {
     private BufferedImage scoreboard;
     private BufferedImage obj1;
     private BufferedImage obj2;
-    private BufferedImage token1;
-    private BufferedImage token2;
-    private BufferedImage token3;
-    private BufferedImage token4;
+    private List<BufferedImage> tokens = new ArrayList<>();
 
-    public View view;
-    HashMap<Integer, List<Integer>> coordinates = new HashMap<>();
+    private View view;
+    private HashMap<Integer, List<Integer>> coordinates = new HashMap<>();
 
     public ScoreboardPanel(View view) throws IOException {
-
         this.view = view;
 
         coordinates.put(0, List.of(60, 575));
@@ -60,74 +57,25 @@ public class ScoreboardPanel extends JPanel {
 
         scoreboard = ImageIO.read(new File("src/main/resources/images/plateau.png"));
 
-        if(view.getPublicObjectives().get(0) < 100) {
-            System.out.println(view.getPublicObjectives().get(0));
-            obj1 = ImageIO.read(new File("src/main/resources/images/mid/front/0" + String.valueOf(view.getPublicObjectives().get(0)).toString() + ".png"));
-        }
-        else if(view.getPublicObjectives().get(0) >= 100){
-            System.out.println(view.getPublicObjectives().get(0));
-            obj1 = ImageIO.read(new File("src/main/resources/images/mid/front/" + String.valueOf(view.getPublicObjectives().get(0)).toString() + ".png"));
-        }
-        if(view.getPublicObjectives().get(1) < 100) {
-            System.out.println(view.getPublicObjectives().get(1));
-            obj2 = ImageIO.read(new File("src/main/resources/images/mid/front/0" + String.valueOf(view.getPublicObjectives().get(1)).toString() + ".png"));
-        }
-        else if(view.getPublicObjectives().get(1) >= 100){
-            System.out.println(view.getPublicObjectives().get(1));
-            obj2 = ImageIO.read(new File("src/main/resources/images/mid/front/" + String.valueOf(view.getPublicObjectives().get(1)).toString() + ".png"));
-        }
-
-        System.out.println(view.getColorPlayer());
-
-        if(view.getColorPlayer().get(view.getPlayers().get(0)).equals("Blue")){
-            token1 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
-        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Green")) {
-            token1 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
-        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Yellow")) {
-            token1 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
-        } else if (view.getColorPlayer().get(view.getPlayers().get(0)).equals("Red")) {
-            token1 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
-        }
-
-        if(view.getPlayers().size() > 1){
-            if(view.getColorPlayer().get(view.getPlayers().get(1)).equals("Blue")){
-                token2 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Green")) {
-                token2 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Yellow")) {
-                token2 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(1)).equals("Red")) {
-                token2 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+        for (int i = 0; i < 2; i++) {
+            int objective = view.getPublicObjectives().get(i);
+            String path = String.format("src/main/resources/images/mid/front/%s.png", objective < 100 ? "0" + objective : String.valueOf(objective));
+            BufferedImage objImage = ImageIO.read(new File(path));
+            if (i == 0) {
+                obj1 = objImage;
+            } else {
+                obj2 = objImage;
             }
         }
 
-        if(view.getPlayers().size() > 2){
-            if(view.getColorPlayer().get(view.getPlayers().get(2)).equals("Blue")){
-                token3 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Green")) {
-                token3 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Yellow")) {
-                token3 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(2)).equals("Red")) {
-                token3 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
+        for (String player : view.getPlayers()) {
+            String color = view.getColorPlayer().get(player);
+            if (color != null) {
+                String tokenPath = String.format("src/main/resources/images/%sSmall.png", color);
+                BufferedImage token = ImageIO.read(new File(tokenPath));
+                tokens.add(token);
             }
         }
-
-        if(view.getPlayers().size() > 3){
-            if(view.getColorPlayer().get(view.getPlayers().get(3)).equals("Blue")){
-                token4 = ImageIO.read(new File("src/main/resources/images/BlueSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Green")) {
-                token4 = ImageIO.read(new File("src/main/resources/images/GreenSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Yellow")) {
-                token4 = ImageIO.read(new File("src/main/resources/images/YellowSmall.png"));
-            } else if (view.getColorPlayer().get(view.getPlayers().get(3)).equals("Red")) {
-                token4 = ImageIO.read(new File("src/main/resources/images/RedSmall.png"));
-            }
-        }
-
-        System.out.println("La madre di matteo è na troia");
-        System.out.println(view.getPoints());
-
     }
 
     @Override
@@ -142,29 +90,17 @@ public class ScoreboardPanel extends JPanel {
         if (obj2 != null) {
             g.drawImage(obj2, 170, 640, this);
         }
-        if(token1 != null){
-            String username = view.getPlayers().get(0);
+
+        for (int i = 0; i < tokens.size(); i++) {
+            BufferedImage token = tokens.get(i);
+            String username = view.getPlayers().get(i);
             Integer points = view.getPoints().get(username);
             List<Integer> values = coordinates.get(points);
-            g.drawImage(token1, values.get(0), values.get(1), this);
-        }
-        if(token2 != null && view.getPlayers().size() > 1){
-            String username = view.getPlayers().get(1);
-            Integer points = view.getPoints().get(username);
-            List<Integer> values = coordinates.get(points);
-            g.drawImage(token2, values.get(0), values.get(1) - 35, this);
-        }
-        if(token3 != null && view.getPlayers().size() > 2){
-            String username = view.getPlayers().get(2);
-            Integer points = view.getPoints().get(username);
-            List<Integer> values = coordinates.get(points);
-            g.drawImage(token3, values.get(0) + 35, values.get(1), this);
-        }
-        if(token4 != null && view.getPlayers().size() > 3){
-            String username = view.getPlayers().get(3);
-            Integer points = view.getPoints().get(username);
-            List<Integer> values = coordinates.get(points);
-            g.drawImage(token4, values.get(0) + 35, values.get(1) - 35, this);
+            if (values != null) {
+                int xOffset = (i % 2) * 35;
+                int yOffset = (i / 2) * 35;
+                g.drawImage(token, values.get(0) + xOffset, values.get(1) - yOffset, this);
+            }
         }
     }
 }
