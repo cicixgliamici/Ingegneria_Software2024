@@ -8,6 +8,7 @@ import org.example.model.Model;
 import org.example.model.deck.*;
 import org.example.enumeration.cast.CastCardRes;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /** It is connected to a player through a Hash Map, and contains his Hand and the
@@ -174,14 +175,17 @@ public class PlayerCardArea {
      * Returns true if he can't
      */
     public boolean checkPlayForGold(Card card){
-        if (card.getType() == Type.GOLD) {
+        List<CardRes> cardResList= Arrays.asList(card.getRequireGold());
             for (CardRes cardRes : card.getRequireGold()) {
-                if (!counter.isPresent(cardRes))
+                int requiredAmount = (int) cardResList.stream()
+                        .filter(res -> res.equals(cardRes))
+                        .count();
+                if (!counter.isPresent(cardRes, requiredAmount))
                     return true;
             }
-        }
-        return false;
+            return false;
     }
+
 
     /**
      * Checks whether a player has completed the public objectives

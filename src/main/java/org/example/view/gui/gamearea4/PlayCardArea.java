@@ -123,6 +123,10 @@ public class PlayCardArea extends JPanel {
 
     public void sendPlayRequest(int id, int side, int x, int y) {
         try {
+            for (ImageCard card: cardPlaced) {
+                System.out.println(card.getCornerButtonHighDx().getNx());
+                System.out.println(card.getCornerButtonHighDx().getNy());
+            }
             System.out.println("tcp: " + gameAreaPanel.getChosenId() + " " + side + " " + x + " " + y);
             tcpClient.sendPlay(gameAreaPanel.getChosenId(), gameAreaPanel.getChosenSide(), x, y);
         } catch (Exception e) {

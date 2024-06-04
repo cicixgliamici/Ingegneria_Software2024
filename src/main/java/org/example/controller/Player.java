@@ -30,12 +30,15 @@ public class Player {
      * Checks the validity of a chosen card
      */
     public void checkChosenCard(Model model, Card card, PlaceHolder placeHolder) throws InvalidCardException {
-        boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
-        if (isInvalidCard) {
-            System.out.println("check fallito");
-            throw new InvalidCardException("La carta selezionata non è valida.", card.getId(), placeHolder.getX(), placeHolder.getY());
+        System.out.println("Checking chosen card"+ card.getId());
+        if (card.getType() == Type.GOLD) {
+            boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
+            if (isInvalidCard) {
+                System.out.println("check fallito");
+                throw new InvalidCardException("La carta selezionata non è valida.", card.getId(), placeHolder.getX(), placeHolder.getY());
+            }
+            System.out.println("check a buon fine");
         }
-        System.out.println("check a buon fine");
     }
 
     /**
@@ -66,28 +69,35 @@ public class Player {
      * on the chosen side
      */
     public void play(Model model, int id, int side, int x, int y) throws RemoteException, PlaceholderNotValid, InvalidCardException {
-            int choice = findIdinHand(model, id);
-            Card card = model.getPlayerCardArea(this).getHand().get(choice);
-            card.setSide(side);
-            PlaceHolder placeHolder = null;
-            for (PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()) {
-                if (p.x == x && p.y == y) {
-                    placeHolder = p;
-                    break;
-                }
+        int choice = findIdinHand(model, id);
+        System.out.println("Playing " + choice + " card");
+        Card card = model.getPlayerCardArea(this).getHand().get(choice);
+        System.out.println("playing " + card.getId());
+        card.setSide(side);
+        PlaceHolder placeHolder = null;
+        System.out.println(model.getPlayerCardArea(this).getAvailableNodes());
+        for (PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()) {
+            if (p.x == x && p.y == y) {
+                placeHolder = p;
+                break;
             }
-            if (placeHolder == null) {
-                System.out.println("placeholder fallito");
-                throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
-            }
-            checkChosenCard(model, card, placeHolder);
-            model.getPlayerCardArea(this).playACard(card, placeHolder);
-            model.getPlayerCardArea(this).getHand().remove(card);
-             if (placeHolder != null) {
-                model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," +  side + "," + x + "," + y,
+        }
+        if (placeHolder == null) {
+            System.out.println("placeholder fallito");
+            throw new PlaceholderNotValid("Placeholder not valid.", id, x, y);
+        }
+        checkChosenCard(model, card, placeHolder);
+        model.getPlayerCardArea(this).playACard(card, placeHolder);
+        model.getPlayerCardArea(this).getHand().remove(card);
+        if (placeHolder != null) {
+            model.notifyModelChange(this.username, "playedCard:" + card.getId() + "," +  side + "," + x + "," + y,
                     "hasPlayed:" + username + "," + card.getId());
-                 model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
-             }
+            model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
+        }
+        System.out.println(model.getPlayerCardArea(this).getCounter().getAnimalCounter()+ "," +
+                model.getPlayerCardArea(this).getCounter().getPlantCounter()+ "," +
+                model.getPlayerCardArea(this).getCounter().getInsectCounter()+ ","+
+                model.getPlayerCardArea(this).getCounter().getFungiCounter());
     }
 
     public int findIdinHand(Model model, int id) throws RemoteException {

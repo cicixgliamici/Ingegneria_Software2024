@@ -127,6 +127,13 @@ public class Counter {
         return false;
     }
 
+    public boolean isPresent(CardRes cardRes, int num){
+        for(int i= 0; i<num; i++){
+            if(!isPresent(cardRes)) return false;
+        }
+        return true;
+    }
+
     //getter and setter
     public int getAnimalCounter() {
         return animalCounter;
