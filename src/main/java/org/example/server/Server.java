@@ -115,10 +115,10 @@ public class Server implements ModelChangeListener {
             showDrawCardArea();
             showPubObj();
             String orderMessage = generatePlayerOrderMessage();
-            System.out.println(orderMessage);
+            System.out.println("checkForGameStarter in Server: " + orderMessage);
             onModelGeneric(orderMessage);
             for (Player player : players) {
-                System.out.println("points:" + player.getUsername() + "," + "0");
+                System.out.println("points in Server:" + player.getUsername() + "," + "0");
                 onModelGeneric("points:" + player.getUsername() + "," + "0");
             }
             String message= "players:"+ String.join(",",generatePlayerList());

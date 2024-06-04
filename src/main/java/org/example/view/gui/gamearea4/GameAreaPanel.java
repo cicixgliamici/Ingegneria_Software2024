@@ -54,7 +54,7 @@ public class GameAreaPanel extends JPanel {
         g2d.fillRect(0, 0, 100, 150);
         g2d.dispose();
         transparentIcon = new ImageIcon(transparentImage);
-        System.out.println(view.getHand());
+        System.out.println("Hand in GameAreaPanel: " + view.getHand());
         backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
         card1 = createCard(view.getHand().get(0));
         card2 = createCard(view.getHand().get(1));
@@ -317,7 +317,6 @@ public class GameAreaPanel extends JPanel {
         selectedCard.setBorder(new LineBorder(Color.BLUE, 2));
         ChosenId = cardIds.get(card);
         chosenSide = cardStates.get(card) ? 0 : 1;
-        System.out.println(getCardImagePath(ChosenId));
         playCardArea.setPathImageInsert(getCardImagePath(ChosenId));
     }
 

@@ -31,7 +31,6 @@ public class PlayCardArea extends JPanel {
     }
 
     public void insertCardStarter(int x, int y, String pathImage, int nx, int ny) {
-        System.out.println(pathImage);
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         addCardButtons(imageCard);
         cardPlaced.add(imageCard);
@@ -124,8 +123,15 @@ public class PlayCardArea extends JPanel {
     public void sendPlayRequest(int id, int side, int x, int y) {
         try {
             for (ImageCard card: cardPlaced) {
-                System.out.println(card.getCornerButtonHighDx().getNx());
-                System.out.println(card.getCornerButtonHighDx().getNy());
+                System.out.println("card: " + card.getId() + " HDX / Nx:" + card.getCornerButtonHighDx().getNx());
+                // CARD.getID da sempre zero, il vero id è sempre gameAreaPanel.getChosenId, che sia questo il problema?
+                System.out.println("card: " + card.getId() + " HDX / Ny:" + card.getCornerButtonHighDx().getNy());
+                System.out.println("card: " + card.getId() + " HSX / Nx:" + card.getCornerButtonHighSx().getNx());
+                System.out.println("card: " + card.getId() + " HSX / Ny:" + card.getCornerButtonHighSx().getNy());
+                System.out.println("card: " + card.getId() + " BDX / Nx:" + card.getCornerButtonBottomDx().getNx());
+                System.out.println("card: " + card.getId() + " BDX / Ny:" + card.getCornerButtonBottomDx().getNy());
+                System.out.println("card: " + card.getId() + " BSX / Nx:" + card.getCornerButtonBottomSx().getNx());
+                System.out.println("card: " + card.getId() + " BSX / Ny:" + card.getCornerButtonBottomSx().getNy());
             }
             System.out.println("tcp: " + gameAreaPanel.getChosenId() + " " + side + " " + x + " " + y);
             tcpClient.sendPlay(gameAreaPanel.getChosenId(), gameAreaPanel.getChosenSide(), x, y);
@@ -136,7 +142,6 @@ public class PlayCardArea extends JPanel {
 
     protected void playCard(int id, int side, int x, int y) {
         ImageCard imageCard = new ImageCard(getPathImageInsert(), COSTX + x * SCALEX, COSTY - y * SCALEY, x, y);
-        System.out.println(getPathImageInsert());
         addCardButtons(imageCard);
         deactivateButton(x, y);
         cardPlaced.add(imageCard);

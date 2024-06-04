@@ -30,7 +30,7 @@ public class Player {
      * Checks the validity of a chosen card
      */
     public void checkChosenCard(Model model, Card card, PlaceHolder placeHolder) throws InvalidCardException {
-        System.out.println("Checking chosen card"+ card.getId());
+        System.out.println("Checking chosen card in checkChosenCard: "+ card.getId());
         if (card.getType() == Type.GOLD) {
             boolean isInvalidCard = model.getPlayerCardArea(this).checkPlayForGold(card);
             if (isInvalidCard) {
@@ -70,12 +70,12 @@ public class Player {
      */
     public void play(Model model, int id, int side, int x, int y) throws RemoteException, PlaceholderNotValid, InvalidCardException {
         int choice = findIdinHand(model, id);
-        System.out.println("Playing " + choice + " card");
+        System.out.println("Playing in Player: " + choice + " card(choice)");
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
-        System.out.println("playing " + card.getId());
+        System.out.println("playing in Player; " + card.getId() + " card.getId()");
         card.setSide(side);
         PlaceHolder placeHolder = null;
-        System.out.println(model.getPlayerCardArea(this).getAvailableNodes());
+        System.out.println("Lista nodi in Player: " + model.getPlayerCardArea(this).getAvailableNodes());
         for (PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()) {
             if (p.x == x && p.y == y) {
                 placeHolder = p;
@@ -94,7 +94,7 @@ public class Player {
                     "hasPlayed:" + username + "," + card.getId());
             model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
-        System.out.println(model.getPlayerCardArea(this).getCounter().getAnimalCounter()+ "," +
+        System.out.println("Counter in Player: " + model.getPlayerCardArea(this).getCounter().getAnimalCounter()+ "," +
                 model.getPlayerCardArea(this).getCounter().getPlantCounter()+ "," +
                 model.getPlayerCardArea(this).getCounter().getInsectCounter()+ ","+
                 model.getPlayerCardArea(this).getCounter().getFungiCounter());

@@ -258,7 +258,6 @@ public abstract class View {
     public void notifyListeners(Event event) {
         for (EvListener listener : listeners) {
             try {
-                System.out.println("Chiamato da " + listener);
                 listener.eventListener(event);
             } catch (IOException e) {
                 e.printStackTrace();

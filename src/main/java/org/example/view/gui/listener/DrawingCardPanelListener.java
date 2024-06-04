@@ -14,7 +14,7 @@ public class DrawingCardPanelListener implements EvListener {
     @Override
     public void eventListener(Event ev) throws IOException {
         if ("visibleArea".equals(ev.getEvent())) {
-            System.out.println("visibleArea");
+            System.out.println("Evento visibleArea preso");
             drawingCardPanel.updateCards();
         }
     }

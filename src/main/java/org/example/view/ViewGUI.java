@@ -72,7 +72,7 @@ public class ViewGUI extends View {
     @Override
     public void newConnection(String player, String color) {
         colorPlayer.put(player, color);
-        System.out.println(colorPlayer);
+        System.out.println("newConnection GUI: " + colorPlayer);
     }
 
     public String getImagePath(JSONObject card, int dim, int side) {
@@ -131,7 +131,7 @@ public class ViewGUI extends View {
         turn = 1;
         validPlay = 1;
         removeHand(id);
-        System.out.println("playedCard");
+        System.out.println("playedCard in GUI");
         notifyListeners(new Event(this, "playUpdated", id, side, x, y)); //todo evento che aggiorna il tabellone di gioco
     }
 
@@ -141,13 +141,13 @@ public class ViewGUI extends View {
 
     @Override
     public void unplayable(int id, int x, int y) {
-        System.out.println("unplayable");
+        System.out.println("unplayable in GUI");
         JOptionPane.showMessageDialog(null, "You don't have enough resources for the " + id + " card", "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void placeholder(int id, int x, int y) {
-        System.out.println("placeholder");
+        System.out.println("placeholder in GUI");
         validPlay = 0;
         JOptionPane.showMessageDialog(null, "Card " + id + " can not be placed at " + x + ", " + y, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -158,7 +158,7 @@ public class ViewGUI extends View {
         updateHand(id1);
         updateHand(id2);
         updateHand(id3);
-        System.out.println("hand" + getHand());
+        System.out.println("hand from FirstHand GUI: " + getHand());
     }
 
     public void showStarterObjective(int id4, int id5, int id6) {
@@ -189,12 +189,12 @@ public class ViewGUI extends View {
                 colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
             }
         }
-        System.out.println(colorPlayer);
+        System.out.println("from order GUI: " + colorPlayer);
     }
 
     @Override
     public void points(String username, int point) {
-        System.out.println(username + point);
+        System.out.println("from points GUI: " + username + ", " + point);
         points.put(username, point);
     }
 
@@ -258,7 +258,7 @@ public class ViewGUI extends View {
         drawableCards.add(id4);
         drawableCards.add(id5);
         drawableCards.add(id6);
-        System.out.println("updatando le carte: visible area" + drawableCards);
+        System.out.println("from visibleArea GUI: " + drawableCards);
         notifyListeners(new Event(this, "visibleArea"));
     }
 

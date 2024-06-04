@@ -89,7 +89,6 @@ public class ImageCard {
     }
 
     private BufferedImage loadImage(String path) {
-        System.out.println(path);
         BufferedImage bimg = null;
         BufferedImage ret = null;
         try {

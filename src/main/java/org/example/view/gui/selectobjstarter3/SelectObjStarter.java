@@ -61,7 +61,7 @@ public class SelectObjStarter extends JFrame {
         };
 
         BufferedImage starterFront = null;
-        System.out.println(String.valueOf(view.getCardsId().get(0)).toString());
+        System.out.println("Starter ID from SelectObjStarter:" + String.valueOf(view.getCardsId().get(0)).toString());
         try {
             starterFront = ImageIO.read(new File(view.getCardsPath().get(0)));
         } catch (IOException e) {
