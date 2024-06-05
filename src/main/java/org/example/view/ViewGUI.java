@@ -131,6 +131,7 @@ public class ViewGUI extends View {
         turn = 1;
         validPlay = 1;
         removeHand(id);
+        System.out.println("Turn e VP in GUI: " + turn + ", " + validPlay);
         System.out.println("playedCard in GUI");
         notifyListeners(new Event(this, "playUpdated", id, side, x, y)); //todo evento che aggiorna il tabellone di gioco
     }
@@ -202,8 +203,9 @@ public class ViewGUI extends View {
     public void message(int x) {
         switch (x) {
             case 4:
-                JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
                 turn = 0;
+                System.out.println("Turn in GUI: " + turn + " should pop JPANEL");
+                JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 9:
                 matchStarted = false;

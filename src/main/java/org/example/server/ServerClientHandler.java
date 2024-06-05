@@ -83,7 +83,7 @@ public class ServerClientHandler implements Runnable {
         // Handle RMI connection commands if necessary
     }
     private void executeCommand(String inputLine, String username) {
-        System.out.println("ricevuto " + inputLine);
+        System.out.println("ricevuto SH: " + inputLine);
         try {
             String[] parts = inputLine.split(":");
             String commandKey = parts[0];
@@ -92,7 +92,7 @@ public class ServerClientHandler implements Runnable {
                 return;
             }
             if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
-                System.out.println("eseguendo " + inputLine);
+                System.out.println("eseguendo SH: " + inputLine);
                 JSONObject commandDetails = commands.get(commandKey);
                 String className = commandDetails.getString("className");
                 String methodName = commandDetails.getString("methodName");
@@ -147,6 +147,7 @@ public class ServerClientHandler implements Runnable {
                     server.getGameFlow().incrementTurn();
                 }
             } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {
+                System.out.println("Non è il suo turno in SH");
                 server.onModelSpecific(username, "message:4");
             }
         } catch (InvocationTargetException e) {

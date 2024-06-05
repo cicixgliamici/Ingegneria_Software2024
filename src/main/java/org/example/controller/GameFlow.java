@@ -46,6 +46,7 @@ public class GameFlow {
         } else {
             turn.incrementAndGet();
         }
+        System.out.println("Turn in GF increment: "+ turn);
     }
 
     /**
@@ -59,17 +60,18 @@ public class GameFlow {
         if (command.equals("setObjStarter")) {
             return true;
         }
-
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getUsername().equals(username)) {
                 switch (i) {
                     case 0:
                         if (Objects.equals(command, "play")) {
                             if (turn.get() == 1) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         } else if (command.equals("draw")) {
                             if (turn.get() == 2) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         }
@@ -77,10 +79,12 @@ public class GameFlow {
                     case 1:
                         if (Objects.equals(command, "play")) {
                             if (turn.get() == 3) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         } else if (command.equals("draw")) {
                             if (turn.get() == 4) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         }
@@ -88,10 +92,12 @@ public class GameFlow {
                     case 2:
                         if (Objects.equals(command, "play")) {
                             if (turn.get() == 5) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         } else if (command.equals("draw")) {
                             if (turn.get() == 6) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         }
@@ -99,10 +105,12 @@ public class GameFlow {
                     case 3:
                         if (Objects.equals(command, "play")) {
                             if (turn.get() == 7) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         } else if (command.equals("draw")) {
                             if (turn.get() == 8) {
+                                System.out.println("Turn in GF: "+ turn);
                                 return true;
                             }
                         }
