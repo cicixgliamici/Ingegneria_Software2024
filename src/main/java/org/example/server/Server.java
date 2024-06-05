@@ -121,12 +121,12 @@ public class Server implements ModelChangeListener {
                 System.out.println("points in Server:" + player.getUsername() + "," + "0");
                 onModelGeneric("points:" + player.getUsername() + "," + "0");
             }
-            String message= "players:"+ String.join(",",generatePlayerList());
-            System.out.println(message);
-            //onModelGeneric("players:"+ String.join(",",generatePlayerList()));
-            waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
+            System.out.println("uscito dal for");
             gameFlow = new GameFlow(players, model, this); // Crea il flusso di gioco.
+            System.out.println("GameFlow started.");
             gameFlow.setMaxTurn(new AtomicInteger(numConnections*2)); // Imposta il numero massimo di turni.
+            waitForSetObjStarter(numConnections); // Aspetta che tutti i giocatori scelgano la carta iniziale.
+
         }
         else {
             onModelGeneric("message:9");
@@ -197,21 +197,6 @@ public class Server implements ModelChangeListener {
         // Join the player names (or "nulls") with commas to create the final message.
         return String.join(",", colors);
     }
-    public String generatePlayerList(){
-        String[] playerArray = new String[4]; // Array to hold up to four usernames or "null".
-        // Fill the array with usernames or "null" based on the number of connected players.
-        for (int i = 0; i < playerArray.length; i++) {
-            if (i < availableColors.size()) {
-                playerArray[i] = players.get(i).getUsername();
-            } else {
-                playerArray[i] = "null"; // Use "null" as a placeholder if there are fewer than four players.
-            }
-        }
-        // Join the player names (or "nulls") with commas to create the final message.
-        return String.join(",", playerArray);
-    }
-
-
 
     /**
      * Incrementa il contatore delle scelte delle carte iniziali.

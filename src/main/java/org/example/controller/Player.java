@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.enumeration.Side;
 import org.example.enumeration.Type;
 import org.example.exception.PlaceholderNotValid;
 import org.example.exception.InvalidCardException;
@@ -91,6 +92,13 @@ public class Player {
      */
     public void play(Model model, int id, int side, int x, int y) throws RemoteException, PlaceholderNotValid, InvalidCardException {
         int choice = findIdinHand(model, id);
+        System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
+        if(side == 0) {
+            model.getPlayerCardArea(this).getHand().get(choice).getSide().setSide(Side.FRONT);
+        } else if (side == 1) {
+            model.getPlayerCardArea(this).getHand().get(choice).getSide().setSide(Side.BACK);
+        }
+        System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
         System.out.println("Playing in Player: " + choice + " card(choice)");
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         System.out.println("playing in Player; " + card.getId() + " card.getId()");
@@ -119,6 +127,8 @@ public class Player {
                 model.getPlayerCardArea(this).getCounter().getPlantCounter() + "," +
                 model.getPlayerCardArea(this).getCounter().getInsectCounter() + "," +
                 model.getPlayerCardArea(this).getCounter().getFungiCounter());
+        System.out.println("nodi disponibili dopo la giocata:"+ model.getPlayerCardArea(this).getAvailableNodes());
+        System.out.println("lista di placeholder dopo la giocata: " + model.getPlayerCardArea(this).getPlaceHolders());
     }
 
     /**

@@ -38,7 +38,6 @@ public class ScoreBoard {
             throw new IllegalArgumentException("max 4 players");
         }
         tokens.put(username, color);
-        System.out.println("Negri neri");
     }
 
     /**

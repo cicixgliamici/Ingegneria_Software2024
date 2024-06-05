@@ -91,6 +91,7 @@ public class ServerClientHandler implements Runnable {
                 System.out.println("Comando non riconosciuto");
                 return;
             }
+            System.out.println("server gameflow in SH: " + server.gameFlow +"server commandkey in SH: " + commandKey);
             if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
                 System.out.println("eseguendo SH: " + inputLine);
                 JSONObject commandDetails = commands.get(commandKey);
@@ -143,7 +144,7 @@ public class ServerClientHandler implements Runnable {
                 if (commandKey.equals("draw")) {
                     server.showDrawCardArea();
                 }
-                if (server.getGameFlow() != null) {
+                if (server.getGameFlow() != null && !commandKey.equals("setObjStarter")) {
                     server.getGameFlow().incrementTurn();
                 }
             } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {

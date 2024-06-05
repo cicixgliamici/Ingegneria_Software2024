@@ -123,15 +123,15 @@ public class PlayCardArea extends JPanel {
     public void sendPlayRequest(int id, int side, int x, int y) {
         try {
             for (ImageCard card: cardPlaced) {
-                System.out.println("card: " + card.getId() + " HDX / Nx:" + card.getCornerButtonHighDx().getNx());
+                System.out.println("card: " + card.getId() + " HDX / Nx:" + card.getCornerButtonHighDx().getNx() + ";" + card.getCornerButtonHighDx().getNy());
                 // CARD.getID da sempre zero, il vero id è sempre gameAreaPanel.getChosenId, che sia questo il problema?
-                System.out.println("card: " + card.getId() + " HDX / Ny:" + card.getCornerButtonHighDx().getNy());
-                System.out.println("card: " + card.getId() + " HSX / Nx:" + card.getCornerButtonHighSx().getNx());
-                System.out.println("card: " + card.getId() + " HSX / Ny:" + card.getCornerButtonHighSx().getNy());
-                System.out.println("card: " + card.getId() + " BDX / Nx:" + card.getCornerButtonBottomDx().getNx());
-                System.out.println("card: " + card.getId() + " BDX / Ny:" + card.getCornerButtonBottomDx().getNy());
-                System.out.println("card: " + card.getId() + " BSX / Nx:" + card.getCornerButtonBottomSx().getNx());
-                System.out.println("card: " + card.getId() + " BSX / Ny:" + card.getCornerButtonBottomSx().getNy());
+                System.out.println("card: " + card.getId() + " HSX / Nx:" + card.getCornerButtonHighSx().getNx()+ ";" + card.getCornerButtonHighSx().getNy());
+
+                System.out.println("card: " + card.getId() + " BDX / Nx:" + card.getCornerButtonBottomDx().getNx()+ ";" + card.getCornerButtonBottomDx().getNy());
+
+                System.out.println("card: " + card.getId() + " BSX / Nx:" + card.getCornerButtonBottomSx().getNx()+ ";" + card.getCornerButtonBottomSx().getNy());
+
+                System.out.println(" ");
             }
             System.out.println("tcp: " + gameAreaPanel.getChosenId() + " " + side + " " + x + " " + y);
             tcpClient.sendPlay(gameAreaPanel.getChosenId(), gameAreaPanel.getChosenSide(), x, y);

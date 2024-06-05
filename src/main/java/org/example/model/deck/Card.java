@@ -156,6 +156,9 @@ public class Card {
         if(objectivePoints!= null){
             sb.append("Objective: ").append(objectivePoints).append("\n");
         }
+        if(side.getSide()!= null){
+            sb.append("Side: ").append(side.getSide()).append("\n");
+        }
         // Print properties of all corners
         if (side != null && side.getFrontCorners() != null && side.getBackCorners() != null) {
             sb.append("Front Corners:\n");

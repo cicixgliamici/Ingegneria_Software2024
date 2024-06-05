@@ -58,6 +58,7 @@ public class GameFlow {
      */
     public boolean isYourTurn(String username, String command) {
         if (command.equals("setObjStarter")) {
+            System.out.println("Your turn is set to starter");
             return true;
         }
         for (int i = 0; i < players.size(); i++) {
@@ -118,6 +119,7 @@ public class GameFlow {
                 }
             }
         }
+        System.out.println("Not your turn");
         return false;
     }
 

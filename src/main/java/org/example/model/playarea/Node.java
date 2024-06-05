@@ -87,6 +87,7 @@ public class Node extends PlaceHolder{
     public void setPlaceHolderByCard(List<PlaceHolder> AvailableNodes, List<PlaceHolder> PlaceHolders){
         //Check whether the right corner isn't hidden, if so:
         if(this.getCard().BOTRCornerIsHidden()) {
+            System.out.println("creato il placeholder per angolo botR");
             //create a new placeholder to be placed on the grid in the correct position and if there were other empty nodes they get replaced with a placeholder
             if(this.botR==null) {
                 this.botR = new PlaceHolder(this.x + 1, this.y - 1);
@@ -111,6 +112,7 @@ public class Node extends PlaceHolder{
         }
 
         if(this.getCard().BOTLCornerIsHidden()) {
+            System.out.println("creato il placeholder per angolo botL");
             if(this.botL==null) {
                 this.botL = new PlaceHolder(this.x - 1, this.y - 1);
                 PlaceHolders.add(this.botL);
@@ -133,6 +135,7 @@ public class Node extends PlaceHolder{
         }
 
         if(this.getCard().TOPRCornerIsHidden()) {
+            System.out.println("creato il placeholder per angolo topR");
             if(this.topR==null) {
                 this.topR = new PlaceHolder(this.x + 1, this.y + 1);
                 PlaceHolders.add(this.topR);
@@ -156,6 +159,7 @@ public class Node extends PlaceHolder{
 
         }
         if(this.getCard().TOPLCornerIsHidden()) {
+            System.out.println("creato il placeholder per angolo topL");
             if(this.topL==null) {
                 this.topL = new PlaceHolder(this.x - 1, this.y + 1);
                 PlaceHolders.add(this.topL);
