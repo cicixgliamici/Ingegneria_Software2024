@@ -105,7 +105,9 @@ public class Node extends PlaceHolder{
                             if(node.getBotR()!= null){
                                 (node.getBotR()).setTopL(this.botR);
                             }
+                            AvailableNodes.remove(node);
                         }
+
                     }
                 }
             }
@@ -128,7 +130,9 @@ public class Node extends PlaceHolder{
                             if(node.getBotR()!= null){
                                 (node.getBotR()).setTopL(this.botL);
                             }
+                            AvailableNodes.remove(node);
                         }
+
                     }
                 }
             }
@@ -151,7 +155,9 @@ public class Node extends PlaceHolder{
                             if(node.getTopL()!= null){
                                 node.getTopL().setBotR(this.topR);
                             }
+                            AvailableNodes.remove(node);
                         }
+
                     }
                 }
             }
@@ -175,7 +181,9 @@ public class Node extends PlaceHolder{
                             if(node.getTopR()!= null){
                                 node.getTopR().setBotL(this.topL);
                             }
+                            AvailableNodes.remove(node);
                         }
+
                     }
                 }
             }

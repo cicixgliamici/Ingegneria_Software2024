@@ -92,13 +92,13 @@ public class Player {
      */
     public void play(Model model, int id, int side, int x, int y) throws RemoteException, PlaceholderNotValid, InvalidCardException {
         int choice = findIdinHand(model, id);
-        System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
+       // System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
         if(side == 0) {
             model.getPlayerCardArea(this).getHand().get(choice).getSide().setSide(Side.FRONT);
         } else if (side == 1) {
             model.getPlayerCardArea(this).getHand().get(choice).getSide().setSide(Side.BACK);
         }
-        System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
+        //System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
         System.out.println("Playing in Player: " + choice + " card(choice)");
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
         System.out.println("playing in Player; " + card.getId() + " card.getId()");

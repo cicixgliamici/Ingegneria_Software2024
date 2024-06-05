@@ -56,11 +56,41 @@ public class PlayCardArea extends JPanel {
         });
     }
 
+    /*
     private void deactivateButton(int nx, int ny) {
+        System.out.println("Deactivating button at coordinates: " + nx + ", " + ny);
         findAndRemoveButton(nx + 1, ny + 1);
         findAndRemoveButton(nx + 1, ny - 1);
         findAndRemoveButton(nx - 1, ny + 1);
-        findAndRemoveButton(nx - 1, ny - 1);
+        findAndRemoveButton(nx-1,ny-1);
+    }
+
+    private void findAndRemoveButton(int nx, int ny) {
+        for (ImageCard imageCard : cardPlaced) {
+            if (imageCard.getCornerButtonHighDx().matchesCoordinates(nx, ny)) {
+                System.out.println("Removing button: " + imageCard.getCornerButtonHighDx());
+                this.remove(imageCard.getCornerButtonHighDx());
+            }
+            if (imageCard.getCornerButtonBottomDx().matchesCoordinates(nx, ny)) {
+                System.out.println("Removing button: " + imageCard.getCornerButtonBottomDx());
+                this.remove(imageCard.getCornerButtonBottomDx());
+            }
+            if (imageCard.getCornerButtonHighSx().matchesCoordinates(nx, ny)) {
+                System.out.println("Removing button: " + imageCard.getCornerButtonHighSx());
+                this.remove(imageCard.getCornerButtonHighSx());
+            }
+            if (imageCard.getCornerButtonBottomSx().matchesCoordinates(nx, ny)) {
+                System.out.println("Removing button: " + imageCard.getCornerButtonBottomSx());
+                this.remove(imageCard.getCornerButtonBottomSx());
+            }
+        }
+    }
+
+     */
+
+    private void deactivateButton(int nx, int ny) {
+        // Directly find and remove the button at the exact coordinates
+        findAndRemoveButton(nx, ny);
     }
 
     private void findAndRemoveButton(int nx, int ny) {
@@ -79,7 +109,7 @@ public class PlayCardArea extends JPanel {
             }
         }
     }
-
+    /*
     private void handleEvent(Event ev, ImageCard imageCard) throws IOException {
         int x, y, nx, ny;
         System.out.println("id card: " + imageCard.getId());
@@ -120,6 +150,35 @@ public class PlayCardArea extends JPanel {
         repaint();
     }
 
+     */
+
+    private void handleEvent(Event ev, ImageCard imageCard) throws IOException {
+        int x, y, nx=0, ny=0;
+        System.out.println("id card: " + imageCard.getId());
+        switch (ev.getEvent()) {
+            case "addFromHighDx":
+                nx = imageCard.getCornerButtonHighDx().getNx();
+                ny = imageCard.getCornerButtonHighDx().getNy();
+                break;
+            case "addFromBottomDx":
+                nx = imageCard.getCornerButtonBottomDx().getNx();
+                ny = imageCard.getCornerButtonBottomDx().getNy();
+                break;
+            case "addFromHighSx":
+                nx = imageCard.getCornerButtonHighSx().getNx();
+                ny = imageCard.getCornerButtonHighSx().getNy();
+                break;
+            case "addFromBottomSx":
+                nx = imageCard.getCornerButtonBottomSx().getNx();
+                ny = imageCard.getCornerButtonBottomSx().getNy();
+                break;
+        }
+        x = COSTX + nx * SCALEX;
+        y = COSTY - ny * SCALEY;
+        sendPlayRequest(imageCard.getId(), gameAreaPanel.getChosenSide(), nx, ny);
+//        deactivateButton(nx, ny);
+        repaint();
+    }
     public void sendPlayRequest(int id, int side, int x, int y) {
         try {
             for (ImageCard card: cardPlaced) {
@@ -140,13 +199,15 @@ public class PlayCardArea extends JPanel {
         }
     }
 
+
     protected void playCard(int id, int side, int x, int y) {
         ImageCard imageCard = new ImageCard(getPathImageInsert(), COSTX + x * SCALEX, COSTY - y * SCALEY, x, y);
         addCardButtons(imageCard);
-        deactivateButton(x, y);
         cardPlaced.add(imageCard);
+        deactivateButton(x, y);
         repaint();
     }
+
 
     private void removeCard(ImageCard imageCard) {
         this.remove(imageCard.getCornerButtonHighDx());
