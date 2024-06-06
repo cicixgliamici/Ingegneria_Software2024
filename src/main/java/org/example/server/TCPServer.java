@@ -103,19 +103,4 @@ public class TCPServer {
             }
         }
     }
-
-
-    /**
-     * Stops the TCP server by closing the server socket.
-     */
-    public void stop() {
-        try {
-            if (serverSocket != null && !serverSocket.isClosed()) {
-                serverSocket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
-

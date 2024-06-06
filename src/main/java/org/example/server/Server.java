@@ -71,23 +71,6 @@ public class Server implements ModelChangeListener {
         executor.submit(rmiServer::start); // Avvia il server RMI.
     }
 
-    public void stopServer() {
-        // Stop TCP server
-        if (tcpServer != null) {
-            tcpServer.stop();
-        }
-        // Stop RMI server
-        if (rmiServer != null) {
-            rmiServer.stop();
-        }
-        // Shutdown executor service
-        if (executor != null && !executor.isShutdown()) {
-            executor.shutdownNow();
-        }
-        System.out.println("Server stopped.");
-    }
-
-
     /**
      * Gestisce l'arrivo di un nuovo client TCP.
      */
