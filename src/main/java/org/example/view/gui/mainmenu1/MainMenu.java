@@ -13,22 +13,34 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The MainMenu class represents the main window of the application, allowing users to enter connection details and navigate to different parts of the application.
+ */
 public class MainMenu extends JFrame {
 
-    BoxMenu boxMenu;
-    SetInitialGame setInitialGame;
+    private BoxMenu boxMenu;
+    private SetInitialGame setInitialGame;
     private int connectionType;
     private String username;
     private View view;
 
+    /**
+     * Constructor for the MainMenu class.
+     *
+     * @param connectionType The type of connection (0 for TCP, 1 for RMI).
+     * @param view The view object associated with the application.
+     * @throws IOException if the background image file cannot be found.
+     */
     public MainMenu(int connectionType, View view) throws IOException {
         super("Codex Naturalis");
         this.connectionType = connectionType;
         this.view = view;
 
+        // Set the window icon
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
         setIconImage(icon);
 
+        // Initialize the BoxMenu panel
         boxMenu = new BoxMenu(connectionType, view) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
             Image img = icon.getImage();
@@ -43,11 +55,12 @@ public class MainMenu extends JFrame {
             }
         };
 
-
-
+        // Set layout and add components
         setLayout(new BorderLayout());
         setJMenuBar(createMenuBar());
         add(boxMenu, BorderLayout.CENTER);
+
+        // Set event listener for BoxMenu
         boxMenu.setEvListener(new EvListener() {
             @Override
             public void eventListener(Event ev) throws IOException {
@@ -91,9 +104,10 @@ public class MainMenu extends JFrame {
             }
         });
 
-        // Aggiungi KeyListener ai componenti specifici
+        // Add KeyListeners to components
         addKeyListeners();
 
+        // Set frame properties
         pack();
         setSize(810, 660);
         setLocationRelativeTo(null);
@@ -102,8 +116,11 @@ public class MainMenu extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Adds key listeners to specific components in the BoxMenu.
+     */
     private void addKeyListeners() {
-        // Cerca il pulsante di conferma e i campi di testo all'interno di boxMenu
+        // Search for confirm button and text fields within boxMenu
         Component[] components = boxMenu.getComponents();
         for (Component component : components) {
             if (component instanceof JTextField) {
@@ -131,8 +148,11 @@ public class MainMenu extends JFrame {
         }
     }
 
+    /**
+     * Clicks the confirm button in the BoxMenu.
+     */
     private void clickConfirmButton() {
-        // Cerca e clicca il pulsante di conferma
+        // Search and click the confirm button
         Component[] components = boxMenu.getComponents();
         for (Component component : components) {
             if (component instanceof JButton) {
@@ -145,6 +165,11 @@ public class MainMenu extends JFrame {
         }
     }
 
+    /**
+     * Creates the menu bar with options and about sections.
+     *
+     * @return The constructed JMenuBar.
+     */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 

@@ -18,8 +18,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Concrete class extending View to provide a GUI-based implementation of the view component.
+ */
 public class ViewGUI extends View {
 
+    /**
+     * Constructor initializing various lists and flags for the GUI view.
+     */
     public ViewGUI() {
         this.isFirst = false;
         this.matchStarted = false;
@@ -75,6 +81,14 @@ public class ViewGUI extends View {
         System.out.println("newConnection GUI: " + colorPlayer);
     }
 
+    /**
+     * Gets the image path for a card based on its dimensions and side.
+     *
+     * @param card The card JSON object.
+     * @param dim  The dimension of the card (1 for big, 2 for small, 3 for medium).
+     * @param side The side of the card (1 for front, 2 for back).
+     * @return The image path as a string.
+     */
     public String getImagePath(JSONObject card, int dim, int side) {
         if (card == null) {
             return null;
@@ -103,6 +117,12 @@ public class ViewGUI extends View {
         }
     }
 
+    /**
+     * Loads an image from a given file path.
+     *
+     * @param imagePath The path to the image file.
+     * @return The loaded Image object, or null if loading failed.
+     */
     public Image loadImage(String imagePath) {
         try {
             return ImageIO.read(new File(imagePath));
@@ -112,6 +132,14 @@ public class ViewGUI extends View {
         }
     }
 
+    /**
+     * Gets an image by card ID, side, and dimension.
+     *
+     * @param id   The card ID.
+     * @param side The side of the card (1 for front, 2 for back).
+     * @param dim  The dimension of the card (1 for big, 2 for small, 3 for medium).
+     * @return The Image object representing the card.
+     */
     public Image getImageById(int id, int side, int dim) {
         String imagePath = getImagePath(getCardById(id), side, dim);
         if (imagePath != null) {
@@ -133,9 +161,10 @@ public class ViewGUI extends View {
         removeHand(id);
         System.out.println("Turn e VP in GUI: " + turn + ", " + validPlay);
         System.out.println("playedCard in GUI");
-        notifyListeners(new Event(this, "playUpdated", id, side, x, y)); //todo evento che aggiorna il tabellone di gioco
+        notifyListeners(new Event(this, "playUpdated", id, side, x, y)); // Evento che aggiorna il tabellone di gioco
     }
 
+    @Override
     public void addListener(EvListener listener) {
         listeners.add(listener);
     }
@@ -162,6 +191,13 @@ public class ViewGUI extends View {
         System.out.println("hand from FirstHand GUI: " + getHand());
     }
 
+    /**
+     * Displays the starter objectives for the player.
+     *
+     * @param id4 The ID of the first objective card.
+     * @param id5 The ID of the second objective card.
+     * @param id6 The ID of the third objective card.
+     */
     public void showStarterObjective(int id4, int id5, int id6) {
         cardsPath.clear();
         cardsId.clear();
@@ -183,10 +219,10 @@ public class ViewGUI extends View {
     @Override
     public void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8) {
         List<String> orderPlayer = Arrays.asList(us1, us3, us5, us7);
-        List<String> orderColor= Arrays.asList(us2, us4, us6, us8);
+        List<String> orderColor = Arrays.asList(us2, us4, us6, us8);
         isFirst = true;
-        for (int i = 0 ; i < orderPlayer.size() ; i++) {
-            if(!"null".equals(orderPlayer.get(i))) {
+        for (int i = 0; i < orderPlayer.size(); i++) {
+            if (!"null".equals(orderPlayer.get(i))) {
                 colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
             }
         }
@@ -225,33 +261,24 @@ public class ViewGUI extends View {
         for (String color : inputColors) {
             if (!"null".equals(color)) {
                 colors.add(color);
-            } else
+            } else {
                 isFirst = false;
+            }
         }
     }
 
     @Override
-//    public void players(String username1, String username2, String username3, String username4) {
-//        System.out.println("ricevuto: " + username1 + username2 + username3 + username4);
-//        System.out.println("players prima: "+players);
-//        List<String> inputPlayers = Arrays.asList(username1, username2, username3, username4);
-//        for (String player : inputPlayers) {
-//            if (!"null".equals(player)) {
-//                players.add(player);
-//            }
-//        }
-//        System.out.println(players);
-//    }
-
     public void setFirst() {
         isFirst = true;
     }
 
+    @Override
     public void numCon(int maxCon) {
         numConnection = maxCon;
         System.out.println("ricevuto il num max di player " + numConnection);
     }
 
+    @Override
     public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6) {
         drawableCards.clear();
         drawableCards.add(id1);
@@ -264,8 +291,8 @@ public class ViewGUI extends View {
         notifyListeners(new Event(this, "visibleArea"));
     }
 
+    @Override
     public void chatC(String username, String message) {
         Chat.displayMessage(username, message);
     }
-
 }

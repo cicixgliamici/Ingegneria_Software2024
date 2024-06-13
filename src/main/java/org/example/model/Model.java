@@ -14,37 +14,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/** Class in which the Model is properly set up to start the match
+/**
+ * Class in which the Model is properly set up to start the match.
  */
-
 public class Model {
-    private DrawingCardArea drawingCardArea;     // Initializes all the Decks and the Cards on the Board
+    private DrawingCardArea drawingCardArea; // Initializes all the Decks and the Cards on the Board
     private final HashMap<Player, PlayerCardArea> gameArea;
-    private final ScoreBoard scoreBoard;              // Object scoreboard to memorize points
+    private final ScoreBoard scoreBoard; // Object scoreboard to memorize points
     private List<Player> PlayersList;
     private List<Card> PublicObjective;
     private int currentPlayer;
     private List<ModelChangeListener> listeners = new ArrayList<>(); // List of other classes that are interested when something changes (only the Server)
-    private List<String> chat= new ArrayList<>();
-    /** Constructor of the Model
+    private List<String> chat = new ArrayList<>();
+
+    /**
+     * Constructor of the Model.
      *
+     * @throws IOException
+     * @throws ParseException
      */
     public Model() throws IOException, ParseException {
-        drawingCardArea = new DrawingCardArea();  //creates a drawing card area that creates the decks
-        scoreBoard = new ScoreBoard(); //creates a unique scoreboard for each player
+        drawingCardArea = new DrawingCardArea(); // Creates a drawing card area that creates the decks
+        scoreBoard = new ScoreBoard(); // Creates a unique scoreboard for each player
         gameArea = new HashMap<>();
         PublicObjective = new ArrayList<>();
     }
 
-    /** This method cycles on the PlayersList because you can't
-     * do that on a HashMap.
+    /**
+     * This method cycles on the PlayersList because you can't do that on a HashMap.
      * Then gives the player 3 cards.
      */
-    public void DealCards(){
+    public void DealCards() {
         PublicObjective = new ArrayList<>();
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
         PublicObjective.add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
-        for (Player player : PlayersList){
+        for (Player player : PlayersList) {
             PlayerCardArea playerCardArea = gameArea.get(player);
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
             playerCardArea.getHand().add(drawingCardArea.drawCardFromDeck(Type.RESOURCES));
@@ -53,12 +57,12 @@ public class Model {
             playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             playerCardArea.getTempSecretObjective().add(drawingCardArea.drawCardFromDeck(Type.OBJECT));
             try {
-                notifyModelSpecific(player.getUsername(),"firstHand:" +
+                notifyModelSpecific(player.getUsername(), "firstHand:" +
                         playerCardArea.getHand().get(0).getId() + "," +
                         playerCardArea.getHand().get(1).getId() + "," +
                         playerCardArea.getHand().get(2).getId() + "," +
                         playerCardArea.getCardStarter().getId() + "," +
-                        playerCardArea.getTempSecretObjective().get(0).getId()+ "," +
+                        playerCardArea.getTempSecretObjective().get(0).getId() + "," +
                         playerCardArea.getTempSecretObjective().get(1).getId());
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -66,41 +70,50 @@ public class Model {
         }
     }
 
-    public void showArea(){
+    /**
+     * Shows the visible area.
+     */
+    public void showArea() {
         try {
             notifyModelGeneric("visibleArea:"
-                    + DrawingCardArea.getCardIdFromDeck(Type.RESOURCES)+ ","
+                    + DrawingCardArea.getCardIdFromDeck(Type.RESOURCES) + ","
                     + DrawingCardArea.getCardIdFromDeck(Type.GOLD) + ","
-                    + DrawingCardArea.getVisibleReCard().get(0).getId()+ ","
-                    + DrawingCardArea.getVisibleReCard().get(1).getId()+ ","
-                    + DrawingCardArea.getVisibleGoCard().get(0).getId()+ ","
+                    + DrawingCardArea.getVisibleReCard().get(0).getId() + ","
+                    + DrawingCardArea.getVisibleReCard().get(1).getId() + ","
+                    + DrawingCardArea.getVisibleGoCard().get(0).getId() + ","
                     + DrawingCardArea.getVisibleGoCard().get(1).getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    public void showPublicObjective(){
+    /**
+     * Shows the public objectives.
+     */
+    public void showPublicObjective() {
         try {
-            notifyModelGeneric("pubObj:"+
+            notifyModelGeneric("pubObj:" +
                     getPublicObjective().get(0).getId() + ","
-                    +getPublicObjective().get(1).getId());
+                    + getPublicObjective().get(1).getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Sets the players and their game areas.
+     *
+     * @param playersList the list of players
+     */
     public void setPlayersAndGameArea(List<Player> playersList) {
         PlayersList = playersList;
-        for (Player p : playersList){
+        for (Player p : playersList) {
             PlayerCardArea playersCardArea = new PlayerCardArea();
             gameArea.put(p, playersCardArea);
         }
     }
 
-    /** Getter and Setter Area
-     */
+    // Getter and Setter Area
 
     public List<Player> getPlayersList() {
         return PlayersList;
@@ -118,25 +131,34 @@ public class Model {
         return PublicObjective;
     }
 
-    public void setDrawingCardArea(DrawingCardArea drawingCardArea){
+    public void setDrawingCardArea(DrawingCardArea drawingCardArea) {
         this.drawingCardArea = drawingCardArea;
     }
-
 
     public void setPlayersList(List<Player> playersList) {
         PlayersList = playersList;
     }
 
-    /** Getter of the HashMap
+    /**
+     * Getter of the HashMap.
      *
+     * @param P the player
+     * @return the player's card area
      */
-    public PlayerCardArea getPlayerCardArea(Player P){
+    public PlayerCardArea getPlayerCardArea(Player P) {
         return gameArea.get(P);
     }
 
-    public boolean Checkpoints(){
-        for (Player p : PlayersList){
-            if(getPlayerCardArea(p).getCounter().getPointCounter()>=20) return true;
+    /**
+     * Checks if any player has reached the point threshold.
+     *
+     * @return true if any player has 20 or more points, false otherwise
+     */
+    public boolean Checkpoints() {
+        for (Player p : PlayersList) {
+            if (getPlayerCardArea(p).getCounter().getPointCounter() >= 20) {
+                return true;
+            }
         }
         return false;
     }
@@ -153,31 +175,62 @@ public class Model {
         PublicObjective = publicObjective;
     }
 
-    /** Listeners Zone
+    // Listeners Zone
+
+    /**
+     * Adds a ModelChangeListener to the list.
+     *
+     * @param listener the listener to add
      */
     public void addModelChangeListener(ModelChangeListener listener) {
         listeners.add(listener);
     }
 
-    // Called when something changes in the Model from the methods like Draw and Play
+    /**
+     * Called when something changes in the Model from the methods like Draw and Play.
+     *
+     * @param username the username of the player
+     * @param specificMessage the specific message for the player
+     * @param generalMessage the general message for all players
+     * @throws RemoteException if a remote communication error occurs
+     */
     public void notifyModelChange(String username, String specificMessage, String generalMessage) throws RemoteException {
         for (ModelChangeListener listener : listeners) {
             listener.onModelChange(username, specificMessage, generalMessage);
         }
     }
 
+    /**
+     * Notifies a specific player about a model change.
+     *
+     * @param username the username of the player
+     * @param specificMessage the specific message for the player
+     * @throws RemoteException if a remote communication error occurs
+     */
     public void notifyModelSpecific(String username, String specificMessage) throws RemoteException {
         for (ModelChangeListener listener : listeners) {
             listener.onModelSpecific(username, specificMessage);
         }
     }
 
+    /**
+     * Notifies all players about a general model change.
+     *
+     * @param generalMessage the general message for all players
+     * @throws RemoteException if a remote communication error occurs
+     */
     public void notifyModelGeneric(String generalMessage) throws RemoteException {
-        for(ModelChangeListener listener: listeners) {
+        for (ModelChangeListener listener : listeners) {
             listener.onModelGeneric(generalMessage);
         }
     }
-    public void addChat(String message){
+
+    /**
+     * Adds a message to the chat.
+     *
+     * @param message the message to add
+     */
+    public void addChat(String message) {
         chat.add(message);
     }
 }

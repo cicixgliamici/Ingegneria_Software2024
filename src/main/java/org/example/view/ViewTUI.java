@@ -20,7 +20,6 @@ import java.util.Map;
  */
 public class ViewTUI extends View {
 
-
     private boolean matchStarted;
 
     // Map to associate resource names with their ANSI color codes for colored console output.
@@ -51,28 +50,37 @@ public class ViewTUI extends View {
 
     private static final String RESET_COLOR = "\u001B[0m"; // ANSI reset code to clear previous coloring.
 
+    /**
+     * Constructor for ViewTUI. Initializes the flag and superclass constructor.
+     */
     public ViewTUI() {
         // Initialize the grid in the constructor of the superclass.
         super();
-        this.flag=0;
+        this.flag = 0;
     }
 
     @Override
-    public void newConnection(String player, String color) {}
-    
-    @Override
-    public void updateSetupUI(String[] colors, boolean isFirst) {}
+    public void newConnection(String player, String color) {
+    }
 
     @Override
-    public void pubObj(int id1, int id2) {}
+    public void updateSetupUI(String[] colors, boolean isFirst) {
+    }
 
     @Override
-    public void setHand(int side, int choice) {}
-
-    public void points(String username, int points){}
+    public void pubObj(int id1, int id2) {
+    }
 
     @Override
-    public void chatC(String username, String message) {}
+    public void setHand(int side, int choice) {
+    }
+
+    public void points(String username, int points) {
+    }
+
+    @Override
+    public void chatC(String username, String message) {
+    }
 
     /**
      * Handles message outputs based on a message code input.
@@ -119,7 +127,7 @@ public class ViewTUI extends View {
                 break;
         }
     }
-    
+
     /**
      * Processes actions to take when a new card is drawn.
      * @param id The card identifier.
@@ -136,10 +144,14 @@ public class ViewTUI extends View {
      * Prints the details of all cards currently in the player's hand.
      */
     public void printHand() {
-        for (Integer id:Hand){
+        for (Integer id : Hand) {
             printCardDetails(getCardById(id));
         }
     }
+
+    /**
+     * Prints the current state of the game grid.
+     */
     public void printGrid() {
         System.out.println("Current grid state:");
         for (int i = 0; i < N; i++) {
@@ -187,6 +199,7 @@ public class ViewTUI extends View {
     /**
      * Handles the placement of a card on the game grid by a player.
      * @param id The card identifier.
+     * @param side The side of the card (1 for front, 2 for back).
      * @param x The x-coordinate on the grid.
      * @param y The y-coordinate on the grid.
      */
@@ -194,7 +207,7 @@ public class ViewTUI extends View {
     public void playedCard(int id, int side, int x, int y) {
         PlayerCardArea.add(id);
         removeHand(id);
-        super.addMapping(id,x,y);
+        super.addMapping(id, x, y);
         printGrid();
         System.out.println("\n");
         printPlayerCardArea();
@@ -205,7 +218,7 @@ public class ViewTUI extends View {
      * Prints all cards that have been played by the player in a specific area.
      */
     public void printPlayerCardArea() {
-        for(Integer id: PlayerCardArea){
+        for (Integer id : PlayerCardArea) {
             printCardDetailsFormatted(getCardById(id));
         }
     }
@@ -238,10 +251,9 @@ public class ViewTUI extends View {
 
     @Override
     public void placeholder(int id, int x, int y) {
-        System.out.println("The card " + id +  "is unplayable at position: (" + x + ", " + y + ")");
+        System.out.println("The card " + id + " is unplayable at position: (" + x + ", " + y + ")");
         printGrid();
     }
-
 
     /**
      * Processes the initial set of cards received by the player.
@@ -261,7 +273,7 @@ public class ViewTUI extends View {
         System.out.println("Now please choose the side of the starter card:");
         PlayerCardArea.add(id4);
         printCardDetails(getCardById(id4));
-        super.addMapping(id4,0,0);
+        super.addMapping(id4, 0, 0);
         System.out.println("And what Objective Card you want to keep:");
         printCardDetails(getCardById(id5));
         printCardDetails(getCardById(id6));
@@ -270,7 +282,16 @@ public class ViewTUI extends View {
                 "\ny is the objective card you want to keep.");
     }
 
-    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6){
+    /**
+     * Displays the visible cards in the area that can be drawn.
+     * @param id1 ID of the first card.
+     * @param id2 ID of the second card.
+     * @param id3 ID of the third card.
+     * @param id4 ID of the fourth card.
+     * @param id5 ID of the fifth card.
+     * @param id6 ID of the sixth card.
+     */
+    public void visibleArea(int id1, int id2, int id3, int id4, int id5, int id6) {
         System.out.println("Drawable:\n");
         printCardDetailsFormatted(getCardById(id1));
         printCardDetailsFormatted(getCardById(id2));
@@ -328,20 +349,10 @@ public class ViewTUI extends View {
     }
 
     @Override
-//    public void players(String username1, String username2, String username3, String username4) {
-//        List<String> inputPlayers = Arrays.asList(username1, username2, username3, username4);
-//        for (String player : inputPlayers) {
-//            if (!"null".equals(player)) {
-//                players.add(player);
-//            }
-//        }
-//        System.out.println(players);
-//    }
-
-    public void setFirst(){
+    public void setFirst() {
         System.out.println("Enter the maximum number of players (1-4):");
     }
-    
+
     /**
      * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
      * @param card The card as a JSONObject.
@@ -391,24 +402,21 @@ public class ViewTUI extends View {
         Long id = (Long) card.get("id");
         String type = (String) card.get("type");
         if ("STARTER".equals(type)) {
-            return
-                    "+ - - - - - - - - - - - - - - - - +\n" +
-                            "| " + topL + "                             " + topR + " |\n" +
-                            "|                                 |\n" +
-                            "|                                 |\n" +
-                            "|                                 |\n" +
-                            "| " + bottomL + "                             " + bottomR + " |\n" +
-                            "+ - - - - - - - - - - - - - - - - +\n";
-        }
-        else {
-            return
-                    "+ - - - - - - - - - - - - - - - - +\n" +
-                            "| " + topL + "                             " + topR + " |\n" +
-                            "|                                 |\n" +
-                            "|               " + colorCenter + resourceCenter + RESET_COLOR + "                 |\n" +
-                            "|                                 |\n" +
-                            "| " + bottomL + "                             " + bottomR + " |\n" +
-                            "+ - - - - - - - - - - - - - - - - +\n";
+            return "+ - - - - - - - - - - - - - - - - +\n" +
+                    "| " + topL + "                             " + topR + " |\n" +
+                    "|                                 |\n" +
+                    "|                                 |\n" +
+                    "|                                 |\n" +
+                    "| " + bottomL + "                             " + bottomR + " |\n" +
+                    "+ - - - - - - - - - - - - - - - - +\n";
+        } else {
+            return "+ - - - - - - - - - - - - - - - - +\n" +
+                    "| " + topL + "                             " + topR + " |\n" +
+                    "|                                 |\n" +
+                    "|               " + colorCenter + resourceCenter + RESET_COLOR + "                 |\n" +
+                    "|                                 |\n" +
+                    "| " + bottomL + "                             " + bottomR + " |\n" +
+                    "+ - - - - - - - - - - - - - - - - +\n";
         }
     }
 
@@ -493,6 +501,10 @@ public class ViewTUI extends View {
         }
     }
 
+    /**
+     * Prints detailed information about a card with formatted text, including type, ID, and specific attributes.
+     * @param card The JSONObject representing the card.
+     */
     public void printCardDetailsFormatted(JSONObject card) {
         // Provides detailed formatted output of a card including type, ID, front and back details, and handles special cases for GOLD and STARTER cards.
         if (card == null) {
@@ -524,8 +536,12 @@ public class ViewTUI extends View {
         System.out.println("\n");
     }
 
+    /**
+     * Helper method to set corner details for both front and back of the card based on the JSON data.
+     * @param corners JSON array of corner details.
+     * @param cornerDetails Array to hold formatted corner details.
+     */
     private void setCornerDetails(JSONArray corners, String[] cornerDetails) {
-        // Helper method to set corner details for both front and back of the card based on the JSON data.
         for (Object corner : corners) {
             JSONObject cornerDetail = (JSONObject) corner;
             String position = (String) cornerDetail.get("Position");
@@ -550,8 +566,11 @@ public class ViewTUI extends View {
         }
     }
 
+    /**
+     * Prints additional details for gold cards, including points and required resources.
+     * @param card The JSONObject representing the card.
+     */
     private void printGoldCardDetails(JSONObject card) {
-        // Prints additional details for gold cards, including points and required resources.
         int points = ((Long) card.get("points")).intValue();
         JSONArray requireGold = (JSONArray) card.get("requireGold");
 
@@ -567,8 +586,11 @@ public class ViewTUI extends View {
         System.out.println(); // Move to the next line after listing all resources.
     }
 
+    /**
+     * Prints details specific to starter cards, highlighting permanent resources.
+     * @param card The JSONObject representing the card.
+     */
     private void printStarterCardDetails(JSONObject card) {
-        // Prints details specific to starter cards, highlighting permanent resources.
         JSONArray requireGold = (JSONArray) card.get("requireGold");
         StringBuilder reqString = new StringBuilder("Permanent res: ");
         for (Object resource : requireGold) {
@@ -580,7 +602,11 @@ public class ViewTUI extends View {
         System.out.println(reqString.toString().trim());
     }
 
-    public void numCon(int maxCon){
+    /**
+     * Displays the number of connections allowed for the game.
+     * @param maxCon The maximum number of connections.
+     */
+    public void numCon(int maxCon) {
         System.out.println("The game will start with " + maxCon + " players");
     }
 }

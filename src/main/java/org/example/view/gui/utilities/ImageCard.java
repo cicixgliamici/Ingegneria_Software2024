@@ -11,25 +11,39 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The ImageCard class represents a card with an image and interactive corner buttons.
+ * This class handles the display of the card and interactions with its corners.
+ */
 public class ImageCard {
 
-    private int x;
-    private int y;
-    private final static int SCALEX = 125;
-    private final static int SCALEY = 64;
-    private int id;
-    private BufferedImage image;
-    private CornerButton cornerButtonHighDx;
-    private CornerButton cornerButtonBottomDx;
-    private CornerButton cornerButtonHighSx;
-    private CornerButton cornerButtonBottomSx;
-    private EvListener evListener;
+    private int x; // The x-coordinate of the card
+    private int y; // The y-coordinate of the card
+    private final static int SCALEX = 125; // The x scaling factor for the card
+    private final static int SCALEY = 64; // The y scaling factor for the card
+    private int id; // The id of the card
+    private BufferedImage image; // The image of the card
+    private CornerButton cornerButtonHighDx; // Button at the high-right corner
+    private CornerButton cornerButtonBottomDx; // Button at the bottom-right corner
+    private CornerButton cornerButtonHighSx; // Button at the high-left corner
+    private CornerButton cornerButtonBottomSx; // Button at the bottom-left corner
+    private EvListener evListener; // Event listener for handling events
 
+    /**
+     * Constructs an ImageCard with the specified image path and coordinates.
+     *
+     * @param imagePath The path to the card image.
+     * @param x The x-coordinate of the card.
+     * @param y The y-coordinate of the card.
+     * @param nx The grid x-coordinate of the card.
+     * @param ny The grid y-coordinate of the card.
+     */
     public ImageCard(String imagePath, int x, int y, int nx, int ny) {
-        //System.out.println(imagePath);
         this.image = loadImage(imagePath);
         this.x = x;
         this.y = y;
+
+        // Initialize corner buttons and add action listeners
         cornerButtonHighDx = new CornerButton(x + SCALEX, y, nx + 1, ny + 1);
         cornerButtonHighDx.addActionListener(new ActionListener() {
             @Override
@@ -44,6 +58,7 @@ public class ImageCard {
                 }
             }
         });
+
         cornerButtonBottomDx = new CornerButton(x + SCALEX, y + SCALEY, nx + 1, ny - 1);
         cornerButtonBottomDx.addActionListener(new ActionListener() {
             @Override
@@ -58,6 +73,7 @@ public class ImageCard {
                 }
             }
         });
+
         cornerButtonHighSx = new CornerButton(x, y, nx - 1, ny + 1);
         cornerButtonHighSx.addActionListener(new ActionListener() {
             @Override
@@ -72,6 +88,7 @@ public class ImageCard {
                 }
             }
         });
+
         cornerButtonBottomSx = new CornerButton(x, y + SCALEY, nx - 1, ny - 1);
         cornerButtonBottomSx.addActionListener(new ActionListener() {
             @Override
@@ -88,6 +105,12 @@ public class ImageCard {
         });
     }
 
+    /**
+     * Loads an image from the specified path.
+     *
+     * @param path The path to the image file.
+     * @return The loaded BufferedImage.
+     */
     private BufferedImage loadImage(String path) {
         BufferedImage bimg = null;
         BufferedImage ret = null;
@@ -102,6 +125,8 @@ public class ImageCard {
         g.dispose();
         return ret;
     }
+
+    // Getters and Setters
 
     public int getId() {
         return id;

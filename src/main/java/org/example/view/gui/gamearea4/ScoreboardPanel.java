@@ -12,18 +12,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A panel that displays the scoreboard for the game, including public objectives and player tokens.
+ */
 public class ScoreboardPanel extends JPanel {
-    private BufferedImage scoreboard;
-    private BufferedImage obj1;
-    private BufferedImage obj2;
-    private List<BufferedImage> tokens = new ArrayList<>();
+    private BufferedImage scoreboard; // The image of the scoreboard
+    private BufferedImage obj1; // The image of the first public objective
+    private BufferedImage obj2; // The image of the second public objective
+    private List<BufferedImage> tokens = new ArrayList<>(); // List of player tokens
 
-    private View view;
-    private HashMap<Integer, List<Integer>> coordinates = new HashMap<>();
+    private View view; // Reference to the game view
+    private HashMap<Integer, List<Integer>> coordinates = new HashMap<>(); // Map of coordinates for token positions
 
+    /**
+     * Constructs a ScoreboardPanel with the specified view.
+     *
+     * @param view The game view.
+     * @throws IOException If an I/O error occurs while loading images.
+     */
     public ScoreboardPanel(View view) throws IOException {
         this.view = view;
 
+        // Initialize the coordinates map with positions for tokens on the scoreboard
         coordinates.put(0, List.of(60, 575));
         coordinates.put(1, List.of(130, 575));
         coordinates.put(2, List.of(200, 575));
@@ -55,8 +65,10 @@ public class ScoreboardPanel extends JPanel {
         coordinates.put(28, List.of(240, 185));
         coordinates.put(29, List.of(135, 135));
 
+        // Load the scoreboard image
         scoreboard = ImageIO.read(new File("src/main/resources/images/plateau.png"));
 
+        // Load the public objective images
         for (int i = 0; i < 2; i++) {
             int objective = view.getPublicObjectives().get(i);
             String path = String.format("src/main/resources/images/mid/front/%s.png", objective < 100 ? "0" + objective : String.valueOf(objective));
@@ -68,6 +80,7 @@ public class ScoreboardPanel extends JPanel {
             }
         }
 
+        // Load the player tokens
         for (String player : view.getPlayers()) {
             String color = view.getColorPlayer().get(player);
             if (color != null) {
@@ -78,12 +91,21 @@ public class ScoreboardPanel extends JPanel {
         }
     }
 
+    /**
+     * Paints the component, including the scoreboard, public objectives, and player tokens.
+     *
+     * @param g The Graphics context.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        // Draw the scoreboard
         if (scoreboard != null) {
             g.drawImage(scoreboard, 15, 15, this);
         }
+
+        // Draw the public objectives
         if (obj1 != null) {
             g.drawImage(obj1, 3, 640, this);
         }
@@ -91,14 +113,15 @@ public class ScoreboardPanel extends JPanel {
             g.drawImage(obj2, 170, 640, this);
         }
 
+        // Draw the player tokens based on their points
         for (int i = 0; i < tokens.size(); i++) {
             BufferedImage token = tokens.get(i);
             String username = view.getPlayers().get(i);
             Integer points = view.getPoints().get(username);
             List<Integer> values = coordinates.get(points);
             if (values != null) {
-                int xOffset = (i % 2) * 35;
-                int yOffset = (i / 2) * 35;
+                int xOffset = (i % 2) * 35; // Adjust xOffset for overlapping tokens
+                int yOffset = (i / 2) * 35; // Adjust yOffset for overlapping tokens
                 g.drawImage(token, values.get(0) + xOffset, values.get(1) - yOffset, this);
             }
         }

@@ -6,9 +6,8 @@ import org.example.enumeration.cast.CastCardRes;
 
 /**
  * Class to count the number of resources each player has in their area,
- * useful for gold card placement requirements
+ * useful for gold card placement requirements.
  */
-
 public class Counter {
     private int animalCounter;
     private int plantCounter;
@@ -20,6 +19,9 @@ public class Counter {
     private int pointCounter;
     private int objectiveCounter;
 
+    /**
+     * Constructs a Counter and initializes all counters to zero.
+     */
     public Counter() {
         this.animalCounter = 0;
         this.plantCounter = 0;
@@ -29,151 +31,225 @@ public class Counter {
         this.inkwellCounter = 0;
         this.manuscriptCounter = 0;
         this.pointCounter = 0;
-        this.objectiveCounter =0;
+        this.objectiveCounter = 0;
     }
 
     /**
-     * Increments the counter for each resource on the game area
+     * Increments the counter for the specified resource.
+     *
+     * @param propertiesCorner the properties of the corner to add
      */
-    public void addResource(PropertiesCorner propertiesCorner){
-        if(propertiesCorner==PropertiesCorner.ANIMAL){
-            this.animalCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.FUNGI){
-            this.fungiCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.PLANT){
-            this.plantCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.QUILL){
-            this.quillCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.INKWELL){
-            this.inkwellCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.INSECT){
-            this.insectCounter++;
-        }
-        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            this.manuscriptCounter++;
-        }
-    }
-
-    /**
-     * Decrements the counter for each resource on the game area
-     */
-    public void removeResource(PropertiesCorner propertiesCorner){
-        if(propertiesCorner==PropertiesCorner.ANIMAL){
-            this.animalCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.INSECT){
-            this.insectCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.FUNGI){
-            this.fungiCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.PLANT){
-            this.plantCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.QUILL){
-            this.quillCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.INKWELL){
-            this.inkwellCounter--;
-        }
-        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            this.manuscriptCounter--;
+    public void addResource(PropertiesCorner propertiesCorner) {
+        switch (propertiesCorner) {
+            case ANIMAL:
+                this.animalCounter++;
+                break;
+            case FUNGI:
+                this.fungiCounter++;
+                break;
+            case PLANT:
+                this.plantCounter++;
+                break;
+            case QUILL:
+                this.quillCounter++;
+                break;
+            case INKWELL:
+                this.inkwellCounter++;
+                break;
+            case INSECT:
+                this.insectCounter++;
+                break;
+            case MANUSCRIPT:
+                this.manuscriptCounter++;
+                break;
+            default:
+                break;
         }
     }
 
     /**
-     * Adds points to each player setting a cap of 29 points
+     * Decrements the counter for the specified resource.
+     *
+     * @param propertiesCorner the properties of the corner to remove
      */
-    public void addPoint(int point){
+    public void removeResource(PropertiesCorner propertiesCorner) {
+        switch (propertiesCorner) {
+            case ANIMAL:
+                this.animalCounter--;
+                break;
+            case INSECT:
+                this.insectCounter--;
+                break;
+            case FUNGI:
+                this.fungiCounter--;
+                break;
+            case PLANT:
+                this.plantCounter--;
+                break;
+            case QUILL:
+                this.quillCounter--;
+                break;
+            case INKWELL:
+                this.inkwellCounter--;
+                break;
+            case MANUSCRIPT:
+                this.manuscriptCounter--;
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Adds points to the player's score, with a maximum cap of 29 points.
+     *
+     * @param point the number of points to add
+     */
+    public void addPoint(int point) {
         this.pointCounter += point;
-        if(this.pointCounter >29){
-            this.pointCounter =29;
+        if (this.pointCounter > 29) {
+            this.pointCounter = 29;
         }
     }
 
     /**
-     * Returns true if the passed resource is already present on the board
+     * Checks if the specified resource is present on the board.
+     *
+     * @param cardRes the card resource to check
+     * @return true if the resource is present, false otherwise
      */
-    public boolean isPresent(CardRes cardRes){
-        //ritorna true se il properties corner passato come parametro è presente
-        CastCardRes cardRes1= new CastCardRes(cardRes);
-        PropertiesCorner propertiesCorner= cardRes1.getPropertiesCorner();
-        if(propertiesCorner==PropertiesCorner.ANIMAL){
-            return this.animalCounter > 0;
+    public boolean isPresent(CardRes cardRes) {
+        CastCardRes cardRes1 = new CastCardRes(cardRes);
+        PropertiesCorner propertiesCorner = cardRes1.getPropertiesCorner();
+        switch (propertiesCorner) {
+            case ANIMAL:
+                return this.animalCounter > 0;
+            case FUNGI:
+                return this.fungiCounter > 0;
+            case PLANT:
+                return this.plantCounter > 0;
+            case QUILL:
+                return this.quillCounter > 0;
+            case INKWELL:
+                return this.inkwellCounter > 0;
+            case INSECT:
+                return this.insectCounter > 0;
+            case MANUSCRIPT:
+                return this.manuscriptCounter > 0;
+            default:
+                return false;
         }
-        else if(propertiesCorner==PropertiesCorner.FUNGI){
-            return this.fungiCounter > 0;
-        }
-        else if(propertiesCorner==PropertiesCorner.PLANT){
-            return this.plantCounter > 0;
-        }
-        else if(propertiesCorner==PropertiesCorner.QUILL){
-            return this.quillCounter > 0;
-        }
-        else if(propertiesCorner==PropertiesCorner.INKWELL){
-            return this.inkwellCounter > 0;
-        }
-        else if(propertiesCorner==PropertiesCorner.INSECT){
-            return this.insectCounter > 0;
-        }
-        else if(propertiesCorner==PropertiesCorner.MANUSCRIPT){
-            return this.manuscriptCounter > 0;
-        }
-        return false;
     }
 
-    public boolean isPresent(CardRes cardRes, int num){
-        for(int i= 0; i<num; i++){
-            if(!isPresent(cardRes)) return false;
+    /**
+     * Checks if the specified resource is present a certain number of times on the board.
+     *
+     * @param cardRes the card resource to check
+     * @param num the number of times the resource should be present
+     * @return true if the resource is present the specified number of times, false otherwise
+     */
+    public boolean isPresent(CardRes cardRes, int num) {
+        for (int i = 0; i < num; i++) {
+            if (!isPresent(cardRes)) return false;
         }
         return true;
     }
 
-    //getter and setter
+    // Getter and setter methods
+
+    /**
+     * Getter for the animal counter.
+     *
+     * @return the animal counter
+     */
     public int getAnimalCounter() {
         return animalCounter;
     }
 
+    /**
+     * Getter for the plant counter.
+     *
+     * @return the plant counter
+     */
     public int getPlantCounter() {
         return plantCounter;
     }
 
+    /**
+     * Getter for the fungi counter.
+     *
+     * @return the fungi counter
+     */
     public int getFungiCounter() {
         return fungiCounter;
     }
 
+    /**
+     * Getter for the insect counter.
+     *
+     * @return the insect counter
+     */
     public int getInsectCounter() {
         return insectCounter;
     }
 
+    /**
+     * Getter for the quill counter.
+     *
+     * @return the quill counter
+     */
     public int getQuillCounter() {
         return quillCounter;
     }
 
+    /**
+     * Getter for the inkwell counter.
+     *
+     * @return the inkwell counter
+     */
     public int getInkwellCounter() {
         return inkwellCounter;
     }
 
+    /**
+     * Getter for the manuscript counter.
+     *
+     * @return the manuscript counter
+     */
     public int getManuscriptCounter() {
         return manuscriptCounter;
     }
 
+    /**
+     * Getter for the point counter.
+     *
+     * @return the point counter
+     */
     public int getPointCounter() {
         return pointCounter;
     }
-    public void addObjectiveCounter(){
+
+    /**
+     * Adds to the objective counter.
+     */
+    public void addObjectiveCounter() {
         this.objectiveCounter++;
     }
 
+    /**
+     * Getter for the objective counter.
+     *
+     * @return the objective counter
+     */
     public int getObjectiveCounter() {
         return objectiveCounter;
     }
 
+    /**
+     * Setter for the point counter.
+     *
+     * @param pointCounter the new point counter value
+     */
     public void setPointCounter(int pointCounter) {
         this.pointCounter = pointCounter;
     }

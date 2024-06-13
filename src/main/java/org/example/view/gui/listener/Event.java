@@ -20,10 +20,12 @@ public class Event extends EventObject {
     private int side;
     private int x;
     private int y;
+
     /**
      * Constructor to create an event without additional data.
+     *
      * @param source The object on which the event initially occurred.
-     * @param event The event type or name.
+     * @param event  The event type or name.
      */
     public Event(Object source, String event) {
         super(source);
@@ -32,33 +34,70 @@ public class Event extends EventObject {
 
     /**
      * Constructor to create an event with additional data.
+     *
      * @param source The object on which the event initially occurred.
-     * @param event The event type or name.
-     * @param data Additional data or details associated with the event.
+     * @param event  The event type or name.
+     * @param data   Additional data or details associated with the event.
      */
-    public Event(Object source, String event, String data){
+    public Event(Object source, String event, String data) {
         super(source);
         this.event = event;
         this.data = data;
     }
 
-    public Event(Object source, String event, TCPClient tcpClient, String username, View view){
+    /**
+     * Constructor to create an event with TCPClient, username, and View.
+     *
+     * @param source    The object on which the event initially occurred.
+     * @param event     The event type or name.
+     * @param tcpClient The TCP client associated with the event.
+     * @param username  The username associated with the event.
+     * @param view      The view associated with the event.
+     */
+    public Event(Object source, String event, TCPClient tcpClient, String username, View view) {
         super(source);
         this.event = event;
         this.tcpClient = tcpClient;
         this.data = username;
         this.view = view;
     }
-    public Event(Object source, String event, CornerButton cornerButton){
+
+    /**
+     * Constructor to create an event with a CornerButton.
+     *
+     * @param source       The object on which the event initially occurred.
+     * @param event        The event type or name.
+     * @param cornerButton The corner button associated with the event.
+     */
+    public Event(Object source, String event, CornerButton cornerButton) {
         super(source);
         this.event = event;
         this.cornerButton = cornerButton;
     }
+
+    /**
+     * Constructor to create an event with an ID.
+     *
+     * @param source The object on which the event initially occurred.
+     * @param event  The event type or name.
+     * @param id     The ID associated with the event.
+     */
     public Event(Object source, String event, int id) {
         super(source);
         this.event = event;
         this.id = id;
     }
+
+    /**
+     * Constructor to create an event with ID, side, X, and Y coordinates.
+     *
+     * @param source The object on which the event initially occurred.
+     * @param event  The event type or name.
+     * @param id     The ID associated with the event.
+     * @param side   The side associated with the event.
+     * @param x      The X coordinate associated with the event.
+     * @param y      The Y coordinate associated with the event.
+     */
     public Event(Object source, String event, int id, int side, int x, int y) {
         super(source);
         this.event = event;
@@ -67,8 +106,11 @@ public class Event extends EventObject {
         this.x = x;
         this.y = y;
     }
+
     /**
      * Returns the type or name of the event.
+     *
+     * @return The event type or name.
      */
     public String getEvent() {
         return event;
@@ -76,6 +118,8 @@ public class Event extends EventObject {
 
     /**
      * Returns the data associated with the event.
+     *
+     * @return The data associated with the event.
      */
     public String getData() {
         return data;
@@ -83,6 +127,8 @@ public class Event extends EventObject {
 
     /**
      * Sets the data associated with the event.
+     *
+     * @param data The data to set.
      */
     public void setData(String data) {
         this.data = data;
@@ -90,47 +136,100 @@ public class Event extends EventObject {
 
     /**
      * Sets the type or name of the event.
+     *
+     * @param event The event type or name to set.
      */
     public void setEvent(String event) {
         this.event = event;
     }
 
+    /**
+     * Returns the TCP client associated with the event.
+     *
+     * @return The TCP client.
+     */
     public TCPClient getTcpClient() {
         return tcpClient;
     }
 
+    /**
+     * Sets the TCP client associated with the event.
+     *
+     * @param tcpClient The TCP client to set.
+     */
     public void setTcpClient(TCPClient tcpClient) {
         this.tcpClient = tcpClient;
     }
 
+    /**
+     * Returns the view associated with the event.
+     *
+     * @return The view.
+     */
     public View getView() {
         return view;
     }
 
-    public int getId() {return id;}
+    /**
+     * Returns the ID associated with the event.
+     *
+     * @return The ID.
+     */
+    public int getId() {
+        return id;
+    }
 
+    /**
+     * Returns the side associated with the event.
+     *
+     * @return The side.
+     */
     public int getSide() {
         return side;
     }
 
+    /**
+     * Returns the X coordinate associated with the event.
+     *
+     * @return The X coordinate.
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Returns the Y coordinate associated with the event.
+     *
+     * @return The Y coordinate.
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Sets the view associated with the event.
+     *
+     * @param view The view to set.
+     */
     public void setView(View view) {
         this.view = view;
     }
 
+    /**
+     * Returns the corner button associated with the event.
+     *
+     * @return The corner button.
+     */
     public CornerButton getCornerButton() {
         return cornerButton;
     }
 
+    /**
+     * Sets the corner button associated with the event.
+     *
+     * @param cornerButton The corner button to set.
+     */
     public void setCornerButton(CornerButton cornerButton) {
         this.cornerButton = cornerButton;
     }
-
 }

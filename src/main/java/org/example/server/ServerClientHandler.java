@@ -3,7 +3,6 @@ package org.example.server;
 import org.example.controller.Controller;
 import org.example.controller.Player;
 import org.example.exception.ExceptionManager;
-
 import org.example.model.Model;
 import org.example.server.rmi.RMIClientCallbackInterface;
 import org.example.view.gui.listener.EvListener;
@@ -36,6 +35,16 @@ public class ServerClientHandler implements Runnable {
     private ExceptionManager exceptionManager;
     private List<EvListener> listeners = new ArrayList<>();
 
+    /**
+     * Constructor for handling TCP connections.
+     *
+     * @param socket The client socket.
+     * @param commands The map of commands.
+     * @param model The game model.
+     * @param controller The game controller.
+     * @param socketToUsername Map of sockets to usernames.
+     * @param server The main server instance.
+     */
     public ServerClientHandler(Socket socket, Map<String, JSONObject> commands, Model model, Controller controller, Map<Socket, String> socketToUsername, Server server) {
         this.socket = socket;
         this.commands = commands;
@@ -43,9 +52,19 @@ public class ServerClientHandler implements Runnable {
         this.controller = controller;
         this.socketToUsername = socketToUsername;
         this.server = server;
-        this.exceptionManager = new ExceptionManager(); // Inizializza exceptionManager
+        this.exceptionManager = new ExceptionManager(); // Initialize exceptionManager
     }
 
+    /**
+     * Constructor for handling RMI connections.
+     *
+     * @param rmiClientCallback The RMI client callback interface.
+     * @param username The client's username.
+     * @param commands The map of commands.
+     * @param model The game model.
+     * @param controller The game controller.
+     * @param server The main server instance.
+     */
     public ServerClientHandler(RMIClientCallbackInterface rmiClientCallback, String username, Map<String, JSONObject> commands, Model model, Controller controller, Server server) {
         this.rmiClientCallback = rmiClientCallback;
         this.username = username;
@@ -53,9 +72,12 @@ public class ServerClientHandler implements Runnable {
         this.model = model;
         this.controller = controller;
         this.server = server;
-        this.exceptionManager = new ExceptionManager(); // Inizializza exceptionManager
+        this.exceptionManager = new ExceptionManager(); // Initialize exceptionManager
     }
 
+    /**
+     * The main run method that handles either TCP or RMI connections based on the provided parameters.
+     */
     public void run() {
         try {
             if (socket != null) {
@@ -68,6 +90,9 @@ public class ServerClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles TCP client connections.
+     */
     private void handleTCPConnection() {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
             String inputLine;
@@ -79,9 +104,19 @@ public class ServerClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles RMI client connections.
+     */
     private void handleRMIConnection() {
         // Handle RMI connection commands if necessary
     }
+
+    /**
+     * Executes a command received from a client.
+     *
+     * @param inputLine The input command line.
+     * @param username The username of the client.
+     */
     private void executeCommand(String inputLine, String username) {
         System.out.println("ricevuto SH: " + inputLine);
         try {
@@ -91,7 +126,7 @@ public class ServerClientHandler implements Runnable {
                 System.out.println("Comando non riconosciuto");
                 return;
             }
-            System.out.println("server gameflow in SH: " + server.gameFlow +"server commandkey in SH: " + commandKey);
+            System.out.println("server gameflow in SH: " + server.gameFlow + "server commandkey in SH: " + commandKey);
             if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
                 System.out.println("eseguendo SH: " + inputLine);
                 JSONObject commandDetails = commands.get(commandKey);

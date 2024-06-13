@@ -1,28 +1,31 @@
 package org.example;
 
-import org.example.client.Client;
 import org.example.client.ClientPortSelection;
 import org.example.server.PortSelection;
 
-import org.example.view.View;
-import org.example.view.ViewTUI;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.util.Scanner;
 
-/** First class run when you start the CodexNaturalis.jar
- *  So that you can choose to run a server or a client (then if TUI or GUI)
+/**
+ * The entry point for the CodexNaturalis application.
+ * Allows the user to choose to run a server or a client with either a TUI or GUI interface.
  */
-
 public class CodexNaturalis {
+
+    /**
+     * Main method to start the application.
+     *
+     * @param args Command line arguments.
+     * @throws Exception If an error occurs during execution.
+     */
     public static void main(String[] args) throws Exception {
         System.out.println("WELCOME! What do you want to launch?");
         System.out.println("1. SERVER\n2. CLIENT (TUI INTERFACE)\n3. CLIENT (GUI INTERFACE)");
+
         Scanner scanner = new Scanner(System.in);
         String input;
+
         do {
-            System.out.println("Insert your choice: ");
+            System.out.print("Insert your choice: ");
             input = scanner.nextLine();
             switch (input) {
                 case "1":
@@ -38,14 +41,23 @@ public class CodexNaturalis {
                     System.out.println("Insert a valid number!");
                     break;
             }
-        } while (!(input.equals("1") || input.equals("2") || input.equals("3")));
+        } while (!input.equals("1") && !input.equals("2") && !input.equals("3"));
     }
 
+    /**
+     * Prompts the user to select the client connection mode (TCP or RMI) and starts the client with the selected view.
+     *
+     * @param view The type of client view (2 for TUI, 3 for GUI).
+     * @throws Exception If an error occurs during execution.
+     */
     private static void selectClientMode(int view) throws Exception {
         Scanner in = new Scanner(System.in);
         System.out.println("Select connection mode: 0 for TCP, 1 for RMI");
+
         int mode;
+
         while (true) {
+            System.out.print("Insert your choice: ");
             String modeInput = in.nextLine();
             try {
                 mode = Integer.parseInt(modeInput);
@@ -58,6 +70,7 @@ public class CodexNaturalis {
                 System.out.println("Invalid mode. Please select 0 for TCP or 1 for RMI.");
             }
         }
+
         ClientPortSelection clientPortSelection = new ClientPortSelection();
         clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client with its view
     }

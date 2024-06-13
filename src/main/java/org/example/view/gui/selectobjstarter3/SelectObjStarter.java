@@ -16,11 +16,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The SelectObjStarter class represents a JFrame where the user selects a starter card and an objective card.
+ */
 public class SelectObjStarter extends JFrame {
 
     private View view;
-    private int side = 0;
-    private int choice = 0;
+    private int side = 0; // Side selection for the starter card
+    private int choice = 0; // Choice selection for the objective card
     private TCPClient tcpClient;
     private String username;
     private String color;
@@ -36,6 +39,16 @@ public class SelectObjStarter extends JFrame {
     private Border blueBorder = new LineBorder(Color.BLUE, 3);
     private Border emptyBorder = new LineBorder(Color.WHITE, 3); // white or null
 
+    /**
+     * Constructs a SelectObjStarter frame.
+     *
+     * @param tcpClient The TCP client for communication.
+     * @param username  The username of the player.
+     * @param view      The view instance.
+     * @param color     The color chosen by the player.
+     * @param num       The player number.
+     * @throws IOException If an I/O error occurs during image loading.
+     */
     public SelectObjStarter(TCPClient tcpClient, String username, View view, String color, String num) throws IOException {
         super("Select StarterCard and ObjectedCard " + "[" + username + "]");
         this.tcpClient = tcpClient;
@@ -46,7 +59,8 @@ public class SelectObjStarter extends JFrame {
 
         setLayout(new BorderLayout());
 
-        JPanel container = new JPanel(new GridBagLayout()){
+        // Panel with background image
+        JPanel container = new JPanel(new GridBagLayout()) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
             Image img = icon.getImage();
 
@@ -60,47 +74,20 @@ public class SelectObjStarter extends JFrame {
             }
         };
 
-        BufferedImage starterFront = null;
-        System.out.println("Starter ID from SelectObjStarter:" + String.valueOf(view.getCardsId().get(0)).toString());
-        try {
-            starterFront = ImageIO.read(new File(view.getCardsPath().get(0)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        // Load and set images for starter and objective cards
+        BufferedImage starterFront = loadImage(view.getCardsPath().get(0));
         Icon icon1 = new ImageIcon(starterFront);
 
-        BufferedImage starterBack = null;
-        try {
-            starterBack = ImageIO.read(new File(view.getCardsPath().get(1)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        BufferedImage starterBack = loadImage(view.getCardsPath().get(1));
         Icon icon2 = new ImageIcon(starterBack);
 
-        BufferedImage obj1 = null;
-        try {
-            obj1 = ImageIO.read(new File(view.getCardsPath().get(2)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        BufferedImage obj1 = loadImage(view.getCardsPath().get(2));
         Icon icon3 = new ImageIcon(obj1);
 
-        BufferedImage obj2 = null;
-        try {
-            obj2 = ImageIO.read(new File(view.getCardsPath().get(3)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        BufferedImage obj2 = loadImage(view.getCardsPath().get(3));
         Icon icon4 = new ImageIcon(obj2);
 
+        // Initialize JLabels with images
         backSideStarter = new JLabel(icon1);
         frontSideStarter = new JLabel(icon2);
         firstObjectCard = new JLabel(icon3);
@@ -108,46 +95,13 @@ public class SelectObjStarter extends JFrame {
 
         JButton button = new JButton("Confirm!");
 
-        ChooseCardButton chooseOne = new ChooseCardButton();
-        chooseOne.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                side = 1;
-                updateStarterBorders();
-                choiceSideStarter = view.getCardsPath().get(0);
-            }
-        });
+        // Create and add action listeners to buttons
+        ChooseCardButton chooseOne = createChooseCardButton(0, 1, view.getCardsPath().get(0));
+        ChooseCardButton chooseTwo = createChooseCardButton(1, 2, view.getCardsPath().get(1));
+        ChooseCardButton chooseThree = createChooseCardButton(2, 1, view.getCardsPath().get(2));
+        ChooseCardButton chooseFour = createChooseCardButton(3, 2, view.getCardsPath().get(3));
 
-        ChooseCardButton chooseTwo = new ChooseCardButton();
-        chooseTwo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                side = 2;
-                updateStarterBorders();
-                choiceSideStarter = view.getCardsPath().get(1);
-            }
-        });
-
-        ChooseCardButton chooseThree = new ChooseCardButton();
-        chooseThree.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                choice = 1;
-                updateChoiceBorders();
-                choiceObjCard = view.getCardsPath().get(2);
-            }
-        });
-
-        ChooseCardButton chooseFour = new ChooseCardButton();
-        chooseFour.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                choice = 2;
-                updateChoiceBorders();
-                choiceObjCard = view.getCardsPath().get(3);
-            }
-        });
-
+        // Confirm button action listener
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,7 +110,7 @@ public class SelectObjStarter extends JFrame {
                         tcpClient.sendSetObjStrater(side, choice);
                         dispose();
                         // Open GameAreaFrame
-                        new GameAreaFrame(tcpClient, view,username, color, num, choiceSideStarter, choiceObjCard); // Use actual color and num
+                        new GameAreaFrame(tcpClient, view, username, color, num, choiceSideStarter, choiceObjCard);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -166,6 +120,110 @@ public class SelectObjStarter extends JFrame {
             }
         });
 
+        // Layout configuration
+        layoutComponents(container, chooseOne, chooseTwo, chooseThree, chooseFour, button);
+
+        add(container, BorderLayout.CENTER);
+        pack();
+        setSize(500, 400);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+        firstUpdate();
+    }
+
+    /**
+     * Loads an image from the specified path.
+     *
+     * @param path The path to the image.
+     * @return The loaded BufferedImage.
+     * @throws IOException If an error occurs during image loading.
+     */
+    private BufferedImage loadImage(String path) throws IOException {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            throw e;
+        }
+    }
+
+    /**
+     * Creates a ChooseCardButton and adds an action listener to it.
+     *
+     * @param index        The index of the card in the view's card paths.
+     * @param sideOrChoice The side or choice value to set.
+     * @param cardPath     The path to the card image.
+     * @return The created ChooseCardButton.
+     */
+    private ChooseCardButton createChooseCardButton(int index, int sideOrChoice, String cardPath) {
+        ChooseCardButton button = new ChooseCardButton();
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index < 2) {
+                    side = sideOrChoice;
+                    updateStarterBorders();
+                    choiceSideStarter = cardPath;
+                } else {
+                    choice = sideOrChoice;
+                    updateChoiceBorders();
+                    choiceObjCard = cardPath;
+                }
+            }
+        });
+        return button;
+    }
+
+    /**
+     * Updates the borders of the starter card labels.
+     */
+    private void updateStarterBorders() {
+        if (side == 1) {
+            backSideStarter.setBorder(blueBorder);
+            frontSideStarter.setBorder(emptyBorder);
+        } else if (side == 2) {
+            backSideStarter.setBorder(emptyBorder);
+            frontSideStarter.setBorder(blueBorder);
+        }
+    }
+
+    /**
+     * Updates the borders of the choice card labels.
+     */
+    private void updateChoiceBorders() {
+        if (choice == 1) {
+            firstObjectCard.setBorder(blueBorder);
+            secondObjectCard.setBorder(emptyBorder);
+        } else if (choice == 2) {
+            firstObjectCard.setBorder(emptyBorder);
+            secondObjectCard.setBorder(blueBorder);
+        }
+    }
+
+    /**
+     * Sets the initial borders of all labels to empty.
+     */
+    private void firstUpdate() {
+        frontSideStarter.setBorder(emptyBorder);
+        backSideStarter.setBorder(emptyBorder);
+        firstObjectCard.setBorder(emptyBorder);
+        secondObjectCard.setBorder(emptyBorder);
+    }
+
+    /**
+     * Layouts the components in the specified container.
+     *
+     * @param container   The container to add components to.
+     * @param chooseOne   The button for choosing the first card.
+     * @param chooseTwo   The button for choosing the second card.
+     * @param chooseThree The button for choosing the third card.
+     * @param chooseFour  The button for choosing the fourth card.
+     * @param button      The confirm button.
+     */
+    private void layoutComponents(JPanel container, ChooseCardButton chooseOne, ChooseCardButton chooseTwo, ChooseCardButton chooseThree, ChooseCardButton chooseFour, JButton button) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 0.5;
         gbc.weightx = 0.5;
@@ -195,41 +253,5 @@ public class SelectObjStarter extends JFrame {
         gbcButton.weighty = 0.3;
 
         container.add(button, gbcButton);
-
-        add(container, BorderLayout.CENTER);
-        pack();
-        setSize(500, 400);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
-        firstUpdate();
-    }
-
-    private void updateStarterBorders() {
-        if (side == 1) {
-            backSideStarter.setBorder(blueBorder);
-            frontSideStarter.setBorder(emptyBorder);
-        } else if (side == 2) {
-            backSideStarter.setBorder(emptyBorder);
-            frontSideStarter.setBorder(blueBorder);
-        }
-    }
-
-    private void updateChoiceBorders() {
-        if (choice == 1) {
-            firstObjectCard.setBorder(blueBorder);
-            secondObjectCard.setBorder(emptyBorder);
-        } else if (choice == 2) {
-            firstObjectCard.setBorder(emptyBorder);
-            secondObjectCard.setBorder(blueBorder);
-        }
-    }
-
-    private void firstUpdate() {
-        frontSideStarter.setBorder(emptyBorder);
-        backSideStarter.setBorder(emptyBorder);
-        firstObjectCard.setBorder(emptyBorder);
-        secondObjectCard.setBorder(emptyBorder);
     }
 }

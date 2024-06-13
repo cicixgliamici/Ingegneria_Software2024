@@ -14,10 +14,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * The BoxMenu class represents the main menu panel where users can enter their username, IP address, and port number to connect to the server.
+ * The BoxMenu class represents the main menu panel where users can enter their username, IP address,
+ * and port number to connect to the server.
  */
 public class BoxMenu extends JPanel {
-    
+
     private TCPClient tcpClient;
     private String username;
     private View view;
@@ -32,17 +33,18 @@ public class BoxMenu extends JPanel {
     private TextField textFieldPort; // Text field for entering the port number
     private EvListener evListener; // Event listener for handling custom events
 
-
     /**
      * Constructor for the BoxMenu class.
      *
      * @param connectionType The type of connection (0 for TCP, 1 for RMI).
+     * @param view The view object associated with the application.
      * @throws IOException if the logo image file cannot be found.
      */
     public BoxMenu(int connectionType, View view) throws IOException {
         this.connectionType = connectionType;
         this.view = view;
         setLayout(new GridBagLayout());
+
         // Load the logo image
         BufferedImage logo = null;
         try {
@@ -54,6 +56,7 @@ public class BoxMenu extends JPanel {
         }
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
+
         // Initialize and style the username label and text field
         labelUsr = new JLabel("Username:");
         labelUsr.setForeground(Color.darkGray);
@@ -62,6 +65,7 @@ public class BoxMenu extends JPanel {
         textFieldUsr.setForeground(Color.gray);
         textFieldUsr.addMouseListener(textFieldUsr);
         textFieldUsr.addKeyListener(textFieldUsr);
+
         // Initialize and style the IP address label and text field
         labelIp = new JLabel("Ip:");
         labelIp.setForeground(Color.darkGray);
@@ -70,6 +74,7 @@ public class BoxMenu extends JPanel {
         textFieldIp.setForeground(Color.gray);
         textFieldIp.addKeyListener(textFieldIp);
         textFieldIp.addMouseListener(textFieldIp);
+
         // Initialize and style the port number label and text field
         labelPort = new JLabel("Port:");
         labelPort.setForeground(Color.darkGray);
@@ -84,6 +89,7 @@ public class BoxMenu extends JPanel {
                 // Allow letters in the port field to trigger default port logic
             }
         });
+
         // Initialize the connect button and add an action listener
         button = new JButton("Connect!");
         button.addActionListener(new ActionListener() {
@@ -137,6 +143,7 @@ public class BoxMenu extends JPanel {
                 }
             }
         });
+
         // Layout configuration using GridBagConstraints
         GridBagConstraints gbcTitle = new GridBagConstraints();
         gbcTitle.gridx = 0;
@@ -146,13 +153,15 @@ public class BoxMenu extends JPanel {
         gbcTitle.gridheight = 1;
         gbcTitle.gridwidth = 2;
         add(labelTitle, gbcTitle);
-        // Grid settings
+
+        // Grid settings for username label and text field
         GridBagConstraints gbcUsrLabel = new GridBagConstraints();
         gbcUsrLabel.gridx = 0;
         gbcUsrLabel.gridy = 1;
         gbcUsrLabel.weightx = 0.0;
         gbcUsrLabel.weighty = 0.02;
         add(labelUsr, gbcUsrLabel);
+
         GridBagConstraints gbcUsrField = new GridBagConstraints();
         gbcUsrField.gridx = 1;
         gbcUsrField.gridy = 1;
@@ -160,12 +169,15 @@ public class BoxMenu extends JPanel {
         gbcUsrField.weighty = 0.02;
         gbcUsrField.insets = new Insets(0, 10, 0, 10);
         add(textFieldUsr, gbcUsrField);
+
+        // Grid settings for IP address label and text field
         GridBagConstraints gbcIpLabel = new GridBagConstraints();
         gbcIpLabel.gridx = 0;
         gbcIpLabel.gridy = 2;
         gbcIpLabel.weightx = 0.0;
         gbcIpLabel.weighty = 0.02;
         add(labelIp, gbcIpLabel);
+
         GridBagConstraints gbcIpField = new GridBagConstraints();
         gbcIpField.gridx = 1;
         gbcIpField.gridy = 2;
@@ -173,12 +185,15 @@ public class BoxMenu extends JPanel {
         gbcIpField.weighty = 0.02;
         gbcIpField.insets = new Insets(0, 10, 0, 10);
         add(textFieldIp, gbcIpField);
+
+        // Grid settings for port number label and text field
         GridBagConstraints gbcPortLabel = new GridBagConstraints();
         gbcPortLabel.gridx = 0;
         gbcPortLabel.gridy = 3;
         gbcPortLabel.weightx = 0.0;
         gbcPortLabel.weighty = 0.02;
         add(labelPort, gbcPortLabel);
+
         GridBagConstraints gbcPortField = new GridBagConstraints();
         gbcPortField.gridx = 1;
         gbcPortField.gridy = 3;
@@ -186,6 +201,8 @@ public class BoxMenu extends JPanel {
         gbcPortField.weighty = 0.02;
         gbcPortField.insets = new Insets(0, 10, 0, 10);
         add(textFieldPort, gbcPortField);
+
+        // Grid settings for connect button
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
         gbcButton.gridy = 4;
@@ -199,9 +216,9 @@ public class BoxMenu extends JPanel {
     /**
      * Connects to the server using the specified IP address, port, username, and connection type.
      *
-     * @param ip             The IP address of the server.
-     * @param port           The port number of the server.
-     * @param username       The username to be used.
+     * @param ip The IP address of the server.
+     * @param port The port number of the server.
+     * @param username The username to be used.
      * @param connectionType The type of connection (0 for TCP, 1 for RMI).
      */
     private void connectToServer(String ip, int port, String username, int connectionType) throws IOException {
@@ -219,9 +236,9 @@ public class BoxMenu extends JPanel {
             JOptionPane.showMessageDialog(this, "Failed to connect via TCP", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // Mostra il messaggio di successo e poi passa alla prossima schermata
+        // Show success message and then switch to the next screen
         JOptionPane.showMessageDialog(this, "Connected successfully via TCP", "Success", JOptionPane.INFORMATION_MESSAGE);
-        switchToPlayerSetupPanel(tcpClient, username); // Cambio di schermata solo dopo il messaggio di successo
+        switchToPlayerSetupPanel(tcpClient, username); // Switch to the player setup panel only after the success message
     }
 
     /**
@@ -229,23 +246,6 @@ public class BoxMenu extends JPanel {
      * It triggers a custom event using the event listener if it's set, signaling other components to update accordingly.
      */
     private void switchToPlayerSetupPanel(TCPClient tcpClient, String username) throws IOException {
-        /*SetInitialGame setInitialGame = new SetInitialGame(tcpClient, textFieldUsr.getText(), view) {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-            Image img = icon.getImage();
-
-            {
-                setOpaque(false);
-            }
-            public void paintComponent(Graphics graphics) {
-                graphics.drawImage(img, 0, 0, this);
-                super.paintComponent(graphics);
-            }
-        };
-        // Assumendo che ci sia un JFrame o un Container principale che ospiti i pannelli
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setContentPane(setInitialGame); // Passa TCPClient e username
-        frame.validate();
-        frame.repaint();*/
         Event event = new Event(this, "setInitialGame", tcpClient, username, view);
         if (evListener != null) {
             try {
@@ -256,8 +256,8 @@ public class BoxMenu extends JPanel {
         }
     }
 
-     // Getter and Setter Zone 
-     /**
+    // Getter and Setter Zone
+    /**
      * Sets the event listener for this menu.
      *
      * @param evListener The event listener to be set.

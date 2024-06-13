@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/** It is connected to a player through a Hash Map, and contains his Hand and the
- * cards he has played.
- *
+/**
+ * It is connected to a player through a Hash Map, and contains his Hand and the cards he has played.
  */
 public class PlayerCardArea {
     private final List<Card> hand = new ArrayList<>();
@@ -21,178 +20,158 @@ public class PlayerCardArea {
     private Card secretObjective;
     private final Counter counter = new Counter();
     private final List<PlaceHolder> allNodes;
-
     private final List<PlaceHolder> availableNodes;
     private final List<PlaceHolder> placeHolders;
     private List<PlaceHolder> alreadyUsed;
     private Card cardStarter;
 
-    /*
-    public PlayerCardArea(Card cardStarter) {
-        this.AvailableNodes =new ArrayList<>();
-        this.AllNodes=new ArrayList<>();
-        this.PlaceHolders=new ArrayList<>();
-        Node starter = new Node(cardStarter, 0, 0, PlaceHolders, AvailableNodes, AllNodes);
-        UpdateCounter(cardStarter);
-        this.AlreadyUsed = new ArrayList<>();
-    }
-
-     */
-
-
-
-    public PlayerCardArea(){
-        this.availableNodes =new ArrayList<>();
-        this.allNodes =new ArrayList<>();
-        this.placeHolders =new ArrayList<>();
+    public PlayerCardArea() {
+        this.availableNodes = new ArrayList<>();
+        this.allNodes = new ArrayList<>();
+        this.placeHolders = new ArrayList<>();
         this.alreadyUsed = new ArrayList<>();
-        this.tempSecretObjective=new ArrayList<>();
+        this.tempSecretObjective = new ArrayList<>();
     }
 
-    public void setStarterNode(){
+    /**
+     * Sets the starter node and updates the counter.
+     */
+    public void setStarterNode() {
         Node starter = new Node(this.cardStarter, 0, 0, placeHolders, availableNodes, allNodes);
         updateCounter(cardStarter);
     }
 
     /**
-     * Places the card on the node chosen by the player
+     * Places the card on the node chosen by the player.
+     *
+     * @param card the card to place
+     * @param placeHolder the node to place the card on
      */
-    public void playACard(Card card, PlaceHolder placeHolder){
-        //PlaceHolder chosenNode = printAndChooseNode();
+    public void playACard(Card card, PlaceHolder placeHolder) {
         modifyGameArea(card, placeHolder);
     }
 
     /**
-     * Modifies the game area by adding the card on the chosen node
-     * and updating the counters and points
+     * Modifies the game area by adding the card on the chosen node and updating the counters and points.
+     *
+     * @param card the card to place
+     * @param node the node to place the card on
      */
-    public void modifyGameArea(Card card, PlaceHolder node){
-        //metodo incaricato di gestire una giocata di un player
-        //chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
+    public void modifyGameArea(Card card, PlaceHolder node) {
+        // Metodo incaricato di gestire una giocata di un player
+        // Chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
         node.setCardNode(card, placeHolders, availableNodes, allNodes);
         availableNodes.remove(node);
 
-        //Aggiornamento delle risorse
+        // Aggiornamento delle risorse
         updateCounter(card);
         updatePoints(card);
         removeResources(node);
     }
 
     /**
-     * Updates the counter by adding all the resources on the 4 corners
-     * and in case it's a resource or gold card placed on it's back side
-     * the method also adds the card resource
+     * Updates the counter by adding all the resources on the 4 corners.
+     * If it's a resource or gold card placed on its back side, the method also adds the card resource.
+     *
+     * @param card the card to update the counter with
      */
     public void updateCounter(Card card) {
         counter.addResource(card.getSide().getChosenList().get(0).getPropertiesCorner());
-
-
         counter.addResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
-
-
         counter.addResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
-
-
         counter.addResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
 
-
-        //se risorsa o gold e ho scelto il back allora aggiungi card res
-        if(card.getSide().getSide().equals(Side.BACK) && (card.getType()==Type.RESOURCES || card.getType()==Type.GOLD)){
-            CardRes cardRes= card.getCardRes();
-            CastCardRes castCardRes= new CastCardRes(cardRes);
+        // Se risorsa o gold e ho scelto il back allora aggiungi card res
+        if (card.getSide().getSide().equals(Side.BACK) && (card.getType() == Type.RESOURCES || card.getType() == Type.GOLD)) {
+            CardRes cardRes = card.getCardRes();
+            CastCardRes castCardRes = new CastCardRes(cardRes);
             counter.addResource(castCardRes.getPropertiesCorner());
         }
-        //se starter e hai scelto il front allora add require gold
-        if((card.getType()==Type.STARTER)&&(card.getSide().getSide()== Side.FRONT)){
-            for (CardRes cardRes: card.getRequireGold()){
-                CastCardRes castCardRes= new CastCardRes(cardRes);
+
+        // Se starter e hai scelto il front allora add require gold
+        if (card.getType() == Type.STARTER && card.getSide().getSide() == Side.FRONT) {
+            for (CardRes cardRes : card.getRequireGold()) {
+                CastCardRes castCardRes = new CastCardRes(cardRes);
                 counter.addResource(castCardRes.getPropertiesCorner());
             }
         }
     }
 
     /**
-     * Updates the counter by removing a resource when it
-     * gets covered by another card
+     * Updates the counter by removing a resource when it gets covered by another card.
+     *
+     * @param node the node whose resources to remove
      */
-    //Facciamo una lista chiedendo al Prof. della disconnessione ed eventualmente procediamo a levarla e fare con una ricorsione
-    public void removeResources(PlaceHolder node){
-        for (PlaceHolder node1 : allNodes){
-            if(node1.getTopR()==node){
+    public void removeResources(PlaceHolder node) {
+        for (PlaceHolder node1 : allNodes) {
+            if (node1.getTopR() == node) {
                 counter.removeResource(node1.getCard().getSide().getChosenList().get(1).getPropertiesCorner());
             }
-            if(node1.getTopL()==node){
+            if (node1.getTopL() == node) {
                 counter.removeResource(node1.getCard().getSide().getChosenList().get(0).getPropertiesCorner());
             }
-            if(node1.getBotR()==node){
+            if (node1.getBotR() == node) {
                 counter.removeResource(node1.getCard().getSide().getChosenList().get(2).getPropertiesCorner());
             }
-            if(node1.getBotL()==node){
+            if (node1.getBotL() == node) {
                 counter.removeResource(node1.getCard().getSide().getChosenList().get(3).getPropertiesCorner());
             }
         }
     }
 
-
-    // public PlaceHolder printAndChooseNode() {
-        /*System.out.println("Available Nodes:");
-        //for (int i = 0; i < AvailableNodes.size(); i++) {
-            //PlaceHolder node = AvailableNodes.get(i);
-            //System.out.println((i + 1) + ": Node at position (" + node.getX() + ", " + node.getY() + ")");
-        //}
-        //Scanner scanner = new Scanner(System.in);
-        //int choice;
-        //System.out.print("Choose the node number (1-" + AvailableNodes.size() + "): ");
-        //choice = scanner.nextInt();
-        return AvailableNodes.get(choice - 1);*/
-    // }
-
     /**
-     * Calculates and adds the correct amount of points
+     * Calculates and adds the correct amount of points.
+     *
+     * @param card the card to calculate points for
      */
     public void updatePoints(Card card) {
-        switch (card.getType()){
+        switch (card.getType()) {
             case RESOURCES:
                 counter.addPoint(card.getPoints());
                 break;
             case GOLD:
-                if(card.getGoldenPoint() == GoldenPoint.NULL){
+                if (card.getGoldenPoint() == GoldenPoint.NULL) {
                     counter.addPoint(card.getPoints());
-                } else if (card.getGoldenPoint() == GoldenPoint.CORNER){
+                } else if (card.getGoldenPoint() == GoldenPoint.CORNER) {
                     counter.addPoint(card.getCoveredCornerByCard() * card.getPoints());
-                } else if (card.getGoldenPoint() == GoldenPoint.INKWELL){
+                } else if (card.getGoldenPoint() == GoldenPoint.INKWELL) {
                     counter.addPoint(card.getPoints() * counter.getInkwellCounter());
-                } else if (card.getGoldenPoint() == GoldenPoint.MANUSCRIPT){
+                } else if (card.getGoldenPoint() == GoldenPoint.MANUSCRIPT) {
                     counter.addPoint(card.getPoints() * counter.getManuscriptCounter());
-                } else if (card.getGoldenPoint() == GoldenPoint.QUILL){
+                } else if (card.getGoldenPoint() == GoldenPoint.QUILL) {
                     counter.addPoint(card.getPoints() * counter.getQuillCounter());
                 }
         }
     }
 
     /**
-     * Checks whether a player can place a gold card
-     * Returns true if he can't
+     * Checks whether a player can place a gold card.
+     * Returns true if he can't.
+     *
+     * @param card the gold card to check
+     * @return true if the player cannot place the gold card, false otherwise
      */
-    public boolean checkPlayForGold(Card card){
-        List<CardRes> cardResList= Arrays.asList(card.getRequireGold());
-            for (CardRes cardRes : card.getRequireGold()) {
-                int requiredAmount = (int) cardResList.stream()
-                        .filter(res -> res.equals(cardRes))
-                        .count();
-                if (!counter.isPresent(cardRes, requiredAmount))
-                    return true;
+    public boolean checkPlayForGold(Card card) {
+        List<CardRes> cardResList = Arrays.asList(card.getRequireGold());
+        for (CardRes cardRes : card.getRequireGold()) {
+            int requiredAmount = (int) cardResList.stream()
+                    .filter(res -> res.equals(cardRes))
+                    .count();
+            if (!counter.isPresent(cardRes, requiredAmount)) {
+                return true;
             }
-            return false;
+        }
+        return false;
     }
 
-
     /**
-     * Checks whether a player has completed the public objectives
-     * and if so adds the points to the player scoreboard
+     * Checks whether a player has completed the public objectives.
+     * If so, adds the points to the player scoreboard.
+     *
+     * @param model the game model containing the public objectives
      */
     public void publicObjective(Model model) {
-        int points=0;
+        int points = 0;
         for (Card card : model.getPublicObjective()) {
             switch (card.getObjectivePoints()) {
                 case DIAG:
@@ -219,7 +198,7 @@ public class PlayerCardArea {
 
                         case INSECT:
                             for (PlaceHolder node : allNodes) {
-                                if (!alreadyUsed.contains(node)&&node.getCard().getCardRes() == CardRes.INSECT && findDiagonal(node, alreadyUsed)) {
+                                if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.INSECT && findDiagonal(node, alreadyUsed)) {
                                     counter.addPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -229,7 +208,7 @@ public class PlayerCardArea {
 
                         case ANIMAL:
                             for (PlaceHolder node : allNodes) {
-                                if (!alreadyUsed.contains(node)&&node.getCard().getCardRes() == CardRes.ANIMAL && findDiagonal(node, alreadyUsed)) {
+                                if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.ANIMAL && findDiagonal(node, alreadyUsed)) {
                                     counter.addPoint(2);
                                     counter.addObjectiveCounter();
                                 }
@@ -248,8 +227,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case PLANT:
                             int PlantCounter = counter.getPlantCounter();
                             while (PlantCounter >= 3) {
@@ -258,8 +237,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case INSECT:
                             int InsectCounter = counter.getInsectCounter();
                             while (InsectCounter >= 3) {
@@ -268,8 +247,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case ANIMAL:
                             int AnimalCounter = counter.getAnimalCounter();
                             while (AnimalCounter >= 3) {
@@ -278,8 +257,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case QUILL:
                             int QuillCounter = counter.getQuillCounter();
                             while (QuillCounter >= 3) {
@@ -288,8 +267,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case INKWELL:
                             int InkwellCounter = counter.getInkwellCounter();
                             while (InkwellCounter >= 3) {
@@ -298,8 +277,8 @@ public class PlayerCardArea {
                                 counter.addObjectiveCounter();
                             }
                             counter.addPoint(points);
-
                             break;
+
                         case MANUSCRIPT:
                             int ManuscriptCounter = counter.getManuscriptCounter();
                             while (ManuscriptCounter >= 3) {
@@ -362,28 +341,30 @@ public class PlayerCardArea {
             }
         }
     }
+
     /**
-     * Checks whether a player has completed his private objectives
-     * and if so adds the points to the player scoreboard
+     * Checks whether a player has completed his private objectives.
+     * If so, adds the points to the player scoreboard.
      */
     public void privateObjective() {
-        alreadyUsed =new ArrayList<>();
-        int points=0;
+        alreadyUsed = new ArrayList<>();
+        int points = 0;
         switch (secretObjective.getObjectivePoints()) {
             case DIAG:
                 switch (secretObjective.getCardRes()) {
                     case FUNGI:
                         for (PlaceHolder node : allNodes) {
-                            if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.FUNGI && findDiagonal(node, alreadyUsed)){
+                            if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.FUNGI && findDiagonal(node, alreadyUsed)) {
                                 counter.addPoint(2);
                                 counter.addObjectiveCounter();
                             }
                         }
                         alreadyUsed.clear();
                         break;
+
                     case PLANT:
                         for (PlaceHolder node : allNodes) {
-                            if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.PLANT && findDiagonal(node, alreadyUsed)){
+                            if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.PLANT && findDiagonal(node, alreadyUsed)) {
                                 counter.addPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -393,7 +374,7 @@ public class PlayerCardArea {
 
                     case INSECT:
                         for (PlaceHolder node : allNodes) {
-                            if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.INSECT && findDiagonal(node, alreadyUsed)){
+                            if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.INSECT && findDiagonal(node, alreadyUsed)) {
                                 counter.addPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -403,7 +384,7 @@ public class PlayerCardArea {
 
                     case ANIMAL:
                         for (PlaceHolder node : allNodes) {
-                            if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.ANIMAL && findDiagonal(node, alreadyUsed)){
+                            if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.ANIMAL && findDiagonal(node, alreadyUsed)) {
                                 counter.addPoint(2);
                                 counter.addObjectiveCounter();
                             }
@@ -415,15 +396,15 @@ public class PlayerCardArea {
             case RES:
                 switch (secretObjective.getCardRes()) {
                     case FUNGI:
-                        int FungiCounter= counter.getFungiCounter();
-                        while (FungiCounter >= 3){
-                            points+=2;
-                            FungiCounter=-3;
+                        int FungiCounter = counter.getFungiCounter();
+                        while (FungiCounter >= 3) {
+                            points += 2;
+                            FungiCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
-
                         break;
+
                     case PLANT:
                         int PlantCounter = counter.getPlantCounter();
                         while (PlantCounter >= 3) {
@@ -433,47 +414,52 @@ public class PlayerCardArea {
                         }
                         counter.addPoint(points);
                         break;
+
                     case INSECT:
-                        int InsectCounter= counter.getInsectCounter();
-                        while (InsectCounter >= 3){
-                            points+=2;
-                            InsectCounter=-3;
+                        int InsectCounter = counter.getInsectCounter();
+                        while (InsectCounter >= 3) {
+                            points += 2;
+                            InsectCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
                         break;
+
                     case ANIMAL:
-                        int AnimalCounter= counter.getAnimalCounter();
-                        while (AnimalCounter >= 3){
-                            points+=2;
-                            AnimalCounter=-3;
+                        int AnimalCounter = counter.getAnimalCounter();
+                        while (AnimalCounter >= 3) {
+                            points += 2;
+                            AnimalCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
                         break;
+
                     case QUILL:
-                        int QuillCounter= counter.getQuillCounter();
-                        while (QuillCounter >= 3){
-                            points+=2;
-                            QuillCounter=-3;
+                        int QuillCounter = counter.getQuillCounter();
+                        while (QuillCounter >= 3) {
+                            points += 2;
+                            QuillCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
                         break;
+
                     case INKWELL:
                         int InkwellCounter = counter.getInkwellCounter();
-                        while (InkwellCounter >= 3){
-                            points+=2;
-                            InkwellCounter=-3;
+                        while (InkwellCounter >= 3) {
+                            points += 2;
+                            InkwellCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
                         break;
+
                     case MANUSCRIPT:
-                        int ManuscriptCounter= counter.getManuscriptCounter();
-                        while (ManuscriptCounter >= 3){
-                            points+=2;
-                            ManuscriptCounter=-3;
+                        int ManuscriptCounter = counter.getManuscriptCounter();
+                        while (ManuscriptCounter >= 3) {
+                            points += 2;
+                            ManuscriptCounter = -3;
                             counter.addObjectiveCounter();
                         }
                         counter.addPoint(points);
@@ -482,7 +468,7 @@ public class PlayerCardArea {
                 break;
             case REDGREEN:
                 for (PlaceHolder node : allNodes) {
-                    if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.FUNGI && findRedGreen(node, alreadyUsed)){
+                    if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.FUNGI && findRedGreen(node, alreadyUsed)) {
                         counter.addPoint(3);
                         counter.addObjectiveCounter();
                     }
@@ -491,7 +477,7 @@ public class PlayerCardArea {
                 break;
             case GREENPURPLE:
                 for (PlaceHolder node : allNodes) {
-                    if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.PLANT && findGreenPurple(node, alreadyUsed)){
+                    if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.PLANT && findGreenPurple(node, alreadyUsed)) {
                         counter.addPoint(3);
                         counter.addObjectiveCounter();
                         alreadyUsed.clear();
@@ -500,7 +486,7 @@ public class PlayerCardArea {
                 break;
             case BLUERED:
                 for (PlaceHolder node : allNodes) {
-                    if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.ANIMAL && findBlueRed(node, alreadyUsed)){
+                    if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.ANIMAL && findBlueRed(node, alreadyUsed)) {
                         counter.addPoint(3);
                         counter.addObjectiveCounter();
                         alreadyUsed.clear();
@@ -509,7 +495,7 @@ public class PlayerCardArea {
                 break;
             case PURPLEBLUE:
                 for (PlaceHolder node : allNodes) {
-                    if(!alreadyUsed.contains(node) && node.getCard().getCardRes()==CardRes.INSECT && findPurpleBlue(node, alreadyUsed)){
+                    if (!alreadyUsed.contains(node) && node.getCard().getCardRes() == CardRes.INSECT && findPurpleBlue(node, alreadyUsed)) {
                         counter.addPoint(3);
                         counter.addObjectiveCounter();
                         alreadyUsed.clear();
@@ -517,10 +503,10 @@ public class PlayerCardArea {
                 }
                 break;
             case MIX:
-                int QuillCounter= counter.getQuillCounter();
+                int QuillCounter = counter.getQuillCounter();
                 int InkwellCounter = counter.getInkwellCounter();
-                int ManuscriptCounter= counter.getManuscriptCounter();
-                while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter>0){
+                int ManuscriptCounter = counter.getManuscriptCounter();
+                while (ManuscriptCounter > 0 && InkwellCounter > 0 && QuillCounter > 0) {
                     counter.addPoint(3);
                     counter.addObjectiveCounter();
                     ManuscriptCounter--;
@@ -532,51 +518,55 @@ public class PlayerCardArea {
     }
 
     /**
-     * Returns true if three cards of the same type are placed on a diagonal
-     * Useful for calculating the diagonal objectives
+     * Returns true if three cards of the same type are placed on a diagonal.
+     * Useful for calculating the diagonal objectives.
+     *
+     * @param node the node to check
+     * @param alreadyUsed the list of already used nodes
+     * @return true if the diagonal is found, false otherwise
      */
-    public boolean findDiagonal(PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean findDiagonal(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
         for (PlaceHolder node1 : allNodes) {
-            //topR
-            if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
+            // Top-right
+            if (node1.getX() == node.getX() + 1 && node1.getY() == node.getY() + 1 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
                 for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && sameType(node,node1)) {
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
+                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && sameType(node, node1)) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
                         return true;
                     }
                 }
             }
-            //topL
-            if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()+1 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
+            // Top-left
+            if (node1.getX() == node.getX() - 1 && node1.getY() == node.getY() + 1 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
                 for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && sameType(node,node1)) {
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
+                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && sameType(node, node1)) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
                         return true;
                     }
                 }
             }
-            //botR
-            if(node1.getX()==node.getX()+1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
+            // Bottom-right
+            if (node1.getX() == node.getX() + 1 && node1.getY() == node.getY() - 1 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
                 for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && sameType(node,node1)) {
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
+                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && sameType(node, node1)) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
                         return true;
                     }
                 }
             }
-            //botL
-            if(node1.getX()==node.getX()-1 && node1.getY()==node.getY()-1 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
+            // Bottom-left
+            if (node1.getX() == node.getX() - 1 && node1.getY() == node.getY() - 1 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
                 for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && sameType(node,node1)) {
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
+                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && sameType(node, node1)) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
                         return true;
                     }
                 }
@@ -586,68 +576,27 @@ public class PlayerCardArea {
     }
 
     /**
-     * Returns true od two cards are of the same type
+     * Returns true if two cards are of the same type.
+     *
+     * @param node1 the first node
+     * @param node2 the second node
+     * @return true if the cards are of the same type, false otherwise
      */
     public boolean sameType(PlaceHolder node1, PlaceHolder node2) {
         return node1.getCard().getCardRes() == node2.getCard().getCardRes();
     }
 
     /**
-     * The following methods are used to calculate L objectives
+     * The following methods are used to calculate the objectives.
      */
-    public boolean findRedGreen(PlaceHolder node, List<PlaceHolder> AlreadyUsed){
+    public boolean findRedGreen(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
         for (PlaceHolder node1 : allNodes) {
-            if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
+            if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
                 for (PlaceHolder node2 : allNodes) {
-                    if(node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && node2.getCard().getCardRes()==CardRes.PLANT){
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    public boolean findGreenPurple(PlaceHolder node, List<PlaceHolder> AlreadyUsed){
-        for (PlaceHolder node1 : allNodes) {
-            if(node1.getX()==node.getX() && node1.getY()==node.getY()-2 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
-                for (PlaceHolder node2 : allNodes) {
-                    if(node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()-1 && !AlreadyUsed.contains(node2) && node2.getCard().getCardRes()==CardRes.INSECT){
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    public boolean findBlueRed(PlaceHolder node, List<PlaceHolder> AlreadyUsed){
-        for (PlaceHolder node1 : allNodes) {
-            if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
-                for (PlaceHolder node2 : allNodes) {
-                    if(node2.getX()==node1.getX()+1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && node2.getCard().getCardRes()==CardRes.FUNGI){
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    public boolean findPurpleBlue(PlaceHolder node, List<PlaceHolder> AlreadyUsed){
-        for (PlaceHolder node1 : allNodes) {
-            if(node1.getX()==node.getX() && node1.getY()==node.getY()+2 && !AlreadyUsed.contains(node1) && sameType(node,node1)){
-                for (PlaceHolder node2 : allNodes) {
-                    if(node2.getX()==node1.getX()-1 && node2.getY()==node1.getY()+1 && !AlreadyUsed.contains(node2) && node2.getCard().getCardRes()==CardRes.ANIMAL){
-                        AlreadyUsed.add(node);
-                        AlreadyUsed.add(node1);
-                        AlreadyUsed.add(node2);
+                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.PLANT) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
                         return true;
                     }
                 }
@@ -656,9 +605,55 @@ public class PlayerCardArea {
         return false;
     }
 
+    public boolean findGreenPurple(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+        for (PlaceHolder node1 : allNodes) {
+            if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+                for (PlaceHolder node2 : allNodes) {
+                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.INSECT) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-    /** getter e setter zone
-     */
+    public boolean findBlueRed(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+        for (PlaceHolder node1 : allNodes) {
+            if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+                for (PlaceHolder node2 : allNodes) {
+                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.FUNGI) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean findPurpleBlue(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+        for (PlaceHolder node1 : allNodes) {
+            if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+                for (PlaceHolder node2 : allNodes) {
+                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.ANIMAL) {
+                        alreadyUsed.add(node);
+                        alreadyUsed.add(node1);
+                        alreadyUsed.add(node2);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // Getter e setter zone
 
     public List<Card> getHand() {
         return hand;
@@ -668,16 +663,16 @@ public class PlayerCardArea {
         return counter;
     }
 
-    public PlaceHolder getNodeByXY(int x, int y){
-        for (PlaceHolder p: allNodes){
-            if(p.getX()==x && p.getY()==y){
+    public PlaceHolder getNodeByXY(int x, int y) {
+        for (PlaceHolder p : allNodes) {
+            if (p.getX() == x && p.getY() == y) {
                 return p;
             }
         }
         return null;
     }
 
-    //todo modificare il metodo in modo tale che il giocatore mandi la sua scelta dopo averla vista !
+
     public void setSecretObjective(Card secretObjective) {
         this.secretObjective = secretObjective;
     }

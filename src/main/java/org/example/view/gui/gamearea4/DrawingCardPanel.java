@@ -16,24 +16,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A panel for displaying drawable cards in a grid layout, allowing users to select and draw cards.
+ */
 public class DrawingCardPanel extends JPanel {
-    public View view;
-    public int drawChoose;
-    public TCPClient tcpClient;
-    private List<String> paths;
-    private Border selectedBorder = new LineBorder(Color.BLUE, 2);
-    private Border defaultBorder = new LineBorder(Color.WHITE, 2);
-    private JLabel[] cardLabels = new JLabel[6];
+    public View view;  // Reference to the view, which contains game state information
+    public int drawChoose;  // Index of the chosen card
+    public TCPClient tcpClient;  // TCP client for sending draw actions to the server
+    private List<String> paths;  // Paths to the card images
+    private Border selectedBorder = new LineBorder(Color.BLUE, 2);  // Border for selected card
+    private Border defaultBorder = new LineBorder(Color.WHITE, 2);  // Default border for cards
+    private JLabel[] cardLabels = new JLabel[6];  // Labels for displaying cards
 
+    /**
+     * Constructor to initialize the drawing card panel.
+     *
+     * @param tcpClient The TCP client for sending messages to the server.
+     * @param view The view containing game state and information.
+     * @throws IOException If an error occurs during image loading.
+     */
     public DrawingCardPanel(TCPClient tcpClient, View view) throws IOException {
         this.view = view;
         this.paths = new ArrayList<>();
         this.tcpClient = tcpClient;
         setLayout(new GridBagLayout());
         view.addListener(new DrawingCardPanelListener(this));
-        updateCards();
+        updateCards();  // Initialize the panel with drawable cards
     }
 
+    /**
+     * Creates a JLabel for a card with the given image path and index.
+     *
+     * @param path The path to the card image.
+     * @param cardIndex The index of the card.
+     * @return The JLabel representing the card.
+     * @throws IOException If an error occurs during image loading.
+     */
     private JLabel createCardLabel(String path, int cardIndex) throws IOException {
         BufferedImage image = ImageIO.read(new File(path));
         JLabel label = new JLabel(new ImageIcon(image));
@@ -49,13 +67,18 @@ public class DrawingCardPanel extends JPanel {
                     drawChoose = cardIndex;
                     updateCardSelection(cardIndex);
                     tcpClient.sendDraw(cardIndex);
-                    updateCards();
+                    updateCards();  // Update the cards after drawing
                 }
             }
         });
         return label;
     }
 
+    /**
+     * Updates the border of the selected card and resets others to the default border.
+     *
+     * @param selectedCardIndex The index of the selected card.
+     */
     private void updateCardSelection(int selectedCardIndex) {
         for (int i = 0; i < cardLabels.length; i++) {
             if (i == selectedCardIndex) {
@@ -66,14 +89,18 @@ public class DrawingCardPanel extends JPanel {
         }
     }
 
+    /**
+     * Updates the panel with the current drawable cards from the view.
+     */
     public void updateCards() {
         paths.clear();
-        int i =0;
+        int i = 0;
         try {
             List<Integer> drawableCards = view.getDrawableCards();
             for (int drawableCard : drawableCards) {
-                if(i<2){
-                    String path;
+                String path;
+                if (i < 2) {
+                    // Set path for the back of the card based on the card index
                     if (drawableCard <= 10) {
                         path = "src/main/resources/images/big/back/001.png";
                     } else if (drawableCard <= 20) {
@@ -93,22 +120,16 @@ public class DrawingCardPanel extends JPanel {
                     } else {
                         path = "src/main/resources/images/big/back/081.png";
                     }
-                    i++;
-                    paths.add(path);
-
                 } else {
-                    if(drawableCard<10){
-                        String path= "src/main/resources/images/big/front/00"+drawableCard+".png";
-                        paths.add(path);
-                        i++;
+                    // Set path for the front of the card based on the card index
+                    if (drawableCard < 10) {
+                        path = "src/main/resources/images/big/front/00" + drawableCard + ".png";
                     } else {
-                        String path= "src/main/resources/images/big/front/0"+drawableCard+".png";
-                        paths.add(path);
-                        i++;
+                        path = "src/main/resources/images/big/front/0" + drawableCard + ".png";
                     }
-
                 }
-
+                paths.add(path);
+                i++;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,6 +138,9 @@ public class DrawingCardPanel extends JPanel {
         refreshCardLabels();
     }
 
+    /**
+     * Refreshes the labels in the panel to display the current set of card images.
+     */
     private void refreshCardLabels() {
         removeAll();
         GridBagConstraints gbFactory = new GridBagConstraints();
@@ -139,6 +163,11 @@ public class DrawingCardPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Gets the list of paths to the card images.
+     *
+     * @return The list of image paths.
+     */
     public List<String> getPaths() {
         return paths;
     }
