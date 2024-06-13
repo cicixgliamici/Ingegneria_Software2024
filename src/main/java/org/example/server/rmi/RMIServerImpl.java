@@ -5,6 +5,8 @@ import org.example.server.Server;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -108,3 +110,48 @@ public class RMIServerImpl extends UnicastRemoteObject implements RMIServerInter
         }
     }
 }
+
+
+/*
+
+package org.example.server;
+
+import org.example.server.rmi.RMIServerImpl;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
+
+public class RMIServer {
+    private int port; // Porta su cui il server RMI sarà in ascolto.
+    private Server mainServer; // Riferimento al server principale per la logica di business.
+    private RMIServerImpl rmiServerImpl; // Implementazione del server RMI.
+    private Registry registry; // RMI Registry instance
+
+    public RMIServer(int port, Server mainServer) {
+        this.port = port;
+        this.mainServer = mainServer;
+    }
+
+    public void start() {
+        try {
+            // Crea un'istanza dell'implementazione del server RMI.
+            rmiServerImpl = new RMIServerImpl(mainServer);
+            // Prova a ottenere un registro RMI esistente
+            try {
+                registry = LocateRegistry.getRegistry(port);
+                registry.list(); // Prova a comunicare con il registro
+            } catch (Exception e) {
+                // Se non esiste, crea un nuovo registro RMI
+                registry = LocateRegistry.createRegistry(port);
+            }
+            // Registra l'oggetto remoto (rmiServerImpl) nel registro RMI con il nome "RMIServer".
+            registry.rebind("RMIServer", rmiServerImpl);
+            System.out.println("RMI server started on port " + port);
+        } catch (Exception e) {
+            // Stampa stack trace di eccezioni come problemi di rete, errori di binding, ecc.
+            e.printStackTrace();
+        }
+    }
+}
+ */
