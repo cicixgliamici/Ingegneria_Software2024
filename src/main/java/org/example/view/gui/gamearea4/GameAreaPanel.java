@@ -64,12 +64,7 @@ public class GameAreaPanel extends JPanel {
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
-        List<String> p = new ArrayList<>();
-        for (String player : view.getPlayers()) {
-            if (!player.equals(username)) {
-                p.add(player);
-            }
-        }
+        List<String> keys = new ArrayList<>(view.getColorPlayer().keySet());
         switch (num) {
             case "1":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
@@ -80,23 +75,23 @@ public class GameAreaPanel extends JPanel {
 
             case "2":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "3":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
-                token3 = createToken(view.getColorPlayer().get(p.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                token3 = createToken(view.getColorPlayer().get(keys.get(2)), "Blue", "Yellow", "Red", "Green", true);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "4":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken(view.getColorPlayer().get(p.get(0)), "Blue", "Yellow", "Red", "Green", true);
-                token3 = createToken(view.getColorPlayer().get(p.get(1)), "Blue", "Yellow", "Red", "Green", true);
-                token4 = createToken(view.getColorPlayer().get(p.get(2)), "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                token3 = createToken(view.getColorPlayer().get(keys.get(2)), "Blue", "Yellow", "Red", "Green", true);
+                token4 = createToken(view.getColorPlayer().get(keys.get(3)), "Blue", "Yellow", "Red", "Green", true);
                 break;
         }
 
