@@ -9,6 +9,8 @@ import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A chat panel for the game, allowing users to send and receive messages.
@@ -67,8 +69,10 @@ public class Chat extends JPanel {
             }
         });
 
+        List<String> names = new ArrayList<>(view.getColorPlayer().keySet());
+
         // Welcome message for the chat
-        String mess1 = "Welcome everyone, this is the list of players:" + view.getPlayers();
+        String mess1 = "Welcome everyone, this is the list of players:" + names;
         displayMessage("Server", mess1);
         String mess2 = "If you want to send a private message, type [username]";
         displayMessage("Server", mess2);

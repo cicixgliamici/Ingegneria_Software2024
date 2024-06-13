@@ -34,7 +34,7 @@ public class ViewGUI extends View {
         cardsId = new ArrayList<>();
         drawableCards = new ArrayList<>();
         colors = new ArrayList<>();
-        players = new ArrayList<>();
+
         map = new HashMap<>();
         points = new HashMap<>();
     }

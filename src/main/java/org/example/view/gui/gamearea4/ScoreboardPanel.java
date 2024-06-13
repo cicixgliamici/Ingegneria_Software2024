@@ -79,9 +79,9 @@ public class ScoreboardPanel extends JPanel {
                 obj2 = objImage;
             }
         }
-
+        List<String> players = new ArrayList<>(view.getColorPlayer().keySet());
         // Load the player tokens
-        for (String player : view.getPlayers()) {
+        for (String player : players) {
             String color = view.getColorPlayer().get(player);
             if (color != null) {
                 String tokenPath = String.format("src/main/resources/images/%sSmall.png", color);
@@ -112,11 +112,11 @@ public class ScoreboardPanel extends JPanel {
         if (obj2 != null) {
             g.drawImage(obj2, 170, 640, this);
         }
-
+        List<String> players = new ArrayList<>(view.getColorPlayer().keySet());
         // Draw the player tokens based on their points
         for (int i = 0; i < tokens.size(); i++) {
             BufferedImage token = tokens.get(i);
-            String username = view.getPlayers().get(i);
+            String username = players.get(i);
             Integer points = view.getPoints().get(username);
             List<Integer> values = coordinates.get(points);
             if (values != null) {

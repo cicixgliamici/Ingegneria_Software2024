@@ -39,7 +39,6 @@ public abstract class View {
     protected List<Integer> PublicObjectives = new ArrayList<>();
     protected List<String> cardsPath;
     protected List<String> colors;
-    protected List<String> players;
     protected List<EvListener> listeners = new ArrayList<>();
     protected Map<String, String> colorPlayer = new HashMap<>();
     protected Map<Integer, Coordinates> map = new HashMap<>();
@@ -420,9 +419,6 @@ public abstract class View {
         return drawableCards;
     }
 
-    public List<String> getPlayers() {
-        return players;
-    }
 
     public List<Integer> getPublicObjectives() {
         return PublicObjectives;
