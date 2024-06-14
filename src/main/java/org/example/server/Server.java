@@ -10,6 +10,7 @@ import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import javax.management.remote.rmi.RMIServer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -66,9 +67,9 @@ public class Server implements ModelChangeListener {
     public void startServer() {
         executor = Executors.newFixedThreadPool(128); // Crea un pool di thread.
         tcpServer = new TCPServer(tcpPort, this); // Inizializza il server TCP.
-        rmiServer = new RMIServer(rmiPort, this); // Inizializza il server RMI.
+        //rmiServer = new RMIServer(rmiPort, this); // Inizializza il server RMI.
         executor.submit(tcpServer::start); // Avvia il server TCP.
-        executor.submit(rmiServer::start); // Avvia il server RMI.
+        //executor.submit(rmiServer::start); // Avvia il server RMI.
     }
 
     public void stopServer() {
