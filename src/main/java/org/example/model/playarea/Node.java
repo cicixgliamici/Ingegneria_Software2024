@@ -253,7 +253,7 @@ public class Node extends PlaceHolder {
         }
         if (this.topL == null) {
             for (PlaceHolder placeHolder : placeHolderList) {
-                if (placeHolder.x == this.x - 1 && placeHolder.y == this.y - 1) {
+                if (placeHolder.x == this.x - 1 && placeHolder.y == this.y + 1) {
                     this.topL = placeHolder;
                 }
             }

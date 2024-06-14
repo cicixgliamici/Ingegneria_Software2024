@@ -10,7 +10,6 @@ import org.example.server.rmi.RMIClientCallbackInterface;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
-import javax.management.remote.rmi.RMIServer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
