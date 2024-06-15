@@ -26,8 +26,8 @@ public class GameAreaPanel extends JPanel {
     TCPClient tcpClient;
     private int ChosenId;
     private int chosenSide;
-    private final static int MIDX = 320;
-    private final static int MIDY = 347;
+    private final static int MIDX = 720;
+    private final static int MIDY = 747;
     private JLabel token1;
     private JLabel token2;
     private JLabel token3;
@@ -119,15 +119,7 @@ public class GameAreaPanel extends JPanel {
         JScrollPane jScrollPane = new JScrollPane(playCardArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        /*InfinitePanel infinitePanel = new InfinitePanel();
-        infinitePanel.setView(playCardArea);
-
-        JScrollPane jScrollPane = new JScrollPane();
-        jScrollPane.setViewport(infinitePanel);
-        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-*/
+        jScrollPane.getViewport().setViewPosition(new Point(500,500));
 
         MouseAdapter ma = new MouseAdapter() {
             private Point origin;

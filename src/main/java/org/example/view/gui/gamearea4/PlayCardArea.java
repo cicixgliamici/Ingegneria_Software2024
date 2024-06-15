@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class PlayCardArea extends JPanel {
 
-    private final static int COSTX = 320; // Base X coordinate for card placement
-    private final static int COSTY = 347; // Base Y coordinate for card placement
+    private final static int COSTX = 720; // Base X coordinate for card placement
+    private final static int COSTY = 747; // Base Y coordinate for card placement
     private final static int SCALEX = 125; // X scale factor for card placement
     private final static int SCALEY = 64;  // Y scale factor for card placement
     private double scale = 1.0; // Scale factor for the panel
@@ -37,7 +37,7 @@ public class PlayCardArea extends JPanel {
         this.tcpClient = tcpClient;
         this.gameAreaPanel = gameAreaPanel;
         setLayout(null);
-        setPreferredSize(new Dimension(800, 800));
+        setPreferredSize(new Dimension(1600, 1600));
     }
 
     /**
@@ -234,12 +234,12 @@ public class PlayCardArea extends JPanel {
      *
      * @return The preferred size.
      */
-    @Override
-    public Dimension getPreferredSize() {
-        int width = (int) (800 * scale);
-        int height = (int) (800 * scale);
-        return new Dimension(width, height);
-    }
+//    @Override
+//    public Dimension getPreferredSize() {
+//        int width = (int) (1600 * scale);
+//        int height = (int) (1600 * scale);
+//        return new Dimension(width, height);
+//    }
 
     /**
      * Gets the list of placed cards.
