@@ -125,22 +125,24 @@ public class PlayerCardArea {
      * @param card the card to calculate points for
      */
     public void updatePoints(Card card) {
-        switch (card.getType()) {
-            case RESOURCES:
-                counter.addPoint(card.getPoints());
-                break;
-            case GOLD:
-                if (card.getGoldenPoint() == GoldenPoint.NULL) {
+        if(card.getSide().getSide().equals(Side.FRONT)) {
+            switch (card.getType()) {
+                case RESOURCES:
                     counter.addPoint(card.getPoints());
-                } else if (card.getGoldenPoint() == GoldenPoint.CORNER) {
-                    counter.addPoint(card.getCoveredCornerByCard() * card.getPoints());
-                } else if (card.getGoldenPoint() == GoldenPoint.INKWELL) {
-                    counter.addPoint(card.getPoints() * counter.getInkwellCounter());
-                } else if (card.getGoldenPoint() == GoldenPoint.MANUSCRIPT) {
-                    counter.addPoint(card.getPoints() * counter.getManuscriptCounter());
-                } else if (card.getGoldenPoint() == GoldenPoint.QUILL) {
-                    counter.addPoint(card.getPoints() * counter.getQuillCounter());
-                }
+                    break;
+                case GOLD:
+                    if (card.getGoldenPoint() == GoldenPoint.NULL) {
+                        counter.addPoint(card.getPoints());
+                    } else if (card.getGoldenPoint() == GoldenPoint.CORNER) {
+                        counter.addPoint(card.getCoveredCornerByCard() * card.getPoints());
+                    } else if (card.getGoldenPoint() == GoldenPoint.INKWELL) {
+                        counter.addPoint(card.getPoints() * counter.getInkwellCounter());
+                    } else if (card.getGoldenPoint() == GoldenPoint.MANUSCRIPT) {
+                        counter.addPoint(card.getPoints() * counter.getManuscriptCounter());
+                    } else if (card.getGoldenPoint() == GoldenPoint.QUILL) {
+                        counter.addPoint(card.getPoints() * counter.getQuillCounter());
+                    }
+            }
         }
     }
 

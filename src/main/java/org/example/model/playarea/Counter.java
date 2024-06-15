@@ -149,8 +149,8 @@ public class Counter {
      * @return true if the resource is present the specified number of times, false otherwise
      */
     public boolean isPresent(CardRes cardRes, int num) {
-        CastCardRes cardRes1 = new CastCardRes(cardRes);
-        PropertiesCorner propertiesCorner = cardRes1.getPropertiesCorner();
+        CastCardRes cardRes1 = new CastCardRes(cardRes); //ottieni la cardRes che gli stai passando
+        PropertiesCorner propertiesCorner = cardRes1.getPropertiesCorner(); //converti la cardRes in un properties corner
         switch (propertiesCorner) {
             case ANIMAL:
                 return this.animalCounter >= num;

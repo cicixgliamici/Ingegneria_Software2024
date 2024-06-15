@@ -40,7 +40,7 @@ public class GameAreaFrame extends JFrame {
         this.starterCard = starterCard;
         this.objCard = objCard;
         this.view = view;
-        setSize(1900, 820);
+        setSize(1900, 1000);
 
         // Set the window icon
         Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
