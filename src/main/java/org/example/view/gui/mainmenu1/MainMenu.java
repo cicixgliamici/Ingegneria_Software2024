@@ -1,6 +1,7 @@
 package org.example.view.gui.mainmenu1;
 
 import org.example.view.View;
+import org.example.view.gui.About;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.gamerules.GameRulesFrame;
@@ -223,6 +224,13 @@ public class MainMenu extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+            }
+        });
+
+        menuItemAbout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    new About();
             }
         });
 

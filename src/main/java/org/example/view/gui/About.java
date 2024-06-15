@@ -27,16 +27,30 @@ public class About extends JFrame {
         setIconImage(icon);
 
         // Configure the about panel
-        aboutPanel.setPreferredSize(new Dimension(300, 200));
-        Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-        Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-        aboutPanel.setBorder(finalBorder);
+//        aboutPanel.setPreferredSize(new Dimension(300, 200));
+//        Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
+//        Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+//        Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
+//        aboutPanel.setBorder(finalBorder);
 
         // Create a label with a link
         JLabel link = new JLabel("Visit the page!");
         link.setForeground(Color.BLUE.darker());
         link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        JLabel titleParagraph = new JLabel("Design by IS24-AM19");
+
+        JTextArea textParagraph  =new JTextArea(
+                "Leonardo Chiaretti \n" +
+                "James Enrico Busato\n" +
+                "Matteo Civitillo\n" +
+                "Alessandro Paolo Gianni Callegari"
+        );
+
+        textParagraph.setEditable(false);
+        textParagraph.setOpaque(false);
+
+
 
         // Add a mouse listener to handle click events on the link
         link.addMouseListener(new MouseAdapter() {
@@ -64,12 +78,33 @@ public class About extends JFrame {
 
         // Layout configuration
         GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-        gbcCreditsLabel.gridx = 0;
+        gbcCreditsLabel.gridx = 1;
         gbcCreditsLabel.gridy = 0;
-        gbcCreditsLabel.weightx = 0.0;
-        gbcCreditsLabel.weighty = 0.9;
+        gbcCreditsLabel.weightx = 0.5;
+        gbcCreditsLabel.weighty = 0.0;
         aboutPanel.setLayout(new GridBagLayout());
         aboutPanel.add(link, gbcCreditsLabel);
+
+        GridBagConstraints gbcCreditsTitle = new GridBagConstraints();
+
+        gbcCreditsTitle.gridx = 0;
+        gbcCreditsTitle.gridy = 0;
+
+        gbcCreditsTitle.weightx = 0.5;
+        gbcCreditsTitle.weighty = 0.2;
+        gbcCreditsTitle.anchor = GridBagConstraints.LINE_START;
+
+        aboutPanel.add(titleParagraph, gbcCreditsTitle);
+
+        GridBagConstraints gbcCreditsTextArea = new GridBagConstraints();
+
+        gbcCreditsTextArea.gridx = 0;
+        gbcCreditsTextArea.gridy = 1;
+
+        gbcCreditsTextArea.weightx = 0.5;
+        gbcCreditsTextArea.weighty = 0.6;
+
+        aboutPanel.add(textParagraph, gbcCreditsTextArea);
 
         // Add the about panel to the frame
         setLayout(new BorderLayout());
@@ -81,5 +116,9 @@ public class About extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public static void main(String[] args){
+        new About();
     }
 }
