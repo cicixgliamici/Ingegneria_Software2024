@@ -99,12 +99,21 @@ public class Player {
             model.getPlayerCardArea(this).getHand().get(choice).getSide().setSide(Side.BACK);
         }
         //System.out.println("carte in mano: "+ model.getPlayerCardArea(this).getHand());
-        System.out.println("Playing in Player: " + choice + " card(choice)");
+        //System.out.println("Playing in Player: " + choice + " card(choice)");
         Card card = model.getPlayerCardArea(this).getHand().get(choice);
-        System.out.println("playing in Player; " + card.getId() + " card.getId()");
+        //System.out.println("playing in Player; " + card.getId() + " card.getId()");
         card.setSide(side);
         PlaceHolder placeHolder = null;
-        System.out.println("List of nodes in Player: " + model.getPlayerCardArea(this).getAvailableNodes());
+        //System.out.println("List of nodes in Player: " + model.getPlayerCardArea(this).getAvailableNodes());
+        System.out.println("Risorse prima della giocata\n"
+                        + "plant: " + model.getPlayerCardArea(this).getCounter().getPlantCounter() +"\n"
+                        + "fungi: " +model.getPlayerCardArea(this).getCounter().getFungiCounter() +"\n"
+                        + "insect: " + model.getPlayerCardArea(this).getCounter().getInsectCounter()+"\n"
+                        + "animal: " + model.getPlayerCardArea(this).getCounter().getAnimalCounter()+"\n"
+                        + "inkwell: " + model.getPlayerCardArea(this).getCounter().getInkwellCounter()+"\n"
+                        + "manuscript: " + model.getPlayerCardArea(this).getCounter().getManuscriptCounter()+"\n"
+                        + "quill: " + model.getPlayerCardArea(this).getCounter().getQuillCounter()
+                );
         for (PlaceHolder p : model.getPlayerCardArea(this).getAvailableNodes()) {
             if (p.x == x && p.y == y) {
                 placeHolder = p;
@@ -123,12 +132,17 @@ public class Player {
                     "hasPlayed:" + username + "," + card.getId());
             model.notifyModelGeneric("points:" + this.username + "," + model.getPlayerCardArea(this).getCounter().getPointCounter());
         }
-        System.out.println("Counter in Player: " + model.getPlayerCardArea(this).getCounter().getAnimalCounter() + "," +
-                model.getPlayerCardArea(this).getCounter().getPlantCounter() + "," +
-                model.getPlayerCardArea(this).getCounter().getInsectCounter() + "," +
-                model.getPlayerCardArea(this).getCounter().getFungiCounter());
-        System.out.println("nodi disponibili dopo la giocata:"+ model.getPlayerCardArea(this).getAvailableNodes());
-        System.out.println("lista di placeholder dopo la giocata: " + model.getPlayerCardArea(this).getPlaceHolders());
+        //System.out.println("nodi disponibili dopo la giocata:"+ model.getPlayerCardArea(this).getAvailableNodes());
+        //System.out.println("lista di placeholder dopo la giocata: " + model.getPlayerCardArea(this).getPlaceHolders());
+        System.out.println("Risorse dopo la giocata\n"
+                + "plant: " + model.getPlayerCardArea(this).getCounter().getPlantCounter() +"\n"
+                + "fungi: " +model.getPlayerCardArea(this).getCounter().getFungiCounter() +"\n"
+                + "insect: " + model.getPlayerCardArea(this).getCounter().getInsectCounter()+"\n"
+                + "animal: " + model.getPlayerCardArea(this).getCounter().getAnimalCounter()+"\n"
+                + "inkwell: " + model.getPlayerCardArea(this).getCounter().getInkwellCounter()+"\n"
+                + "manuscript: " + model.getPlayerCardArea(this).getCounter().getManuscriptCounter()+"\n"
+                + "quill: " + model.getPlayerCardArea(this).getCounter().getQuillCounter()
+        );
     }
 
     /**

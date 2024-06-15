@@ -153,7 +153,7 @@ public class PlayerCardArea {
      */
     public boolean checkPlayForGold(Card card) {
         List<CardRes> cardResList = Arrays.asList(card.getRequireGold());
-        for (CardRes cardRes : card.getRequireGold()) {
+        for (CardRes cardRes : cardResList) {
             int requiredAmount = (int) cardResList.stream()
                     .filter(res -> res.equals(cardRes))
                     .count();
@@ -163,7 +163,6 @@ public class PlayerCardArea {
         }
         return false;
     }
-
     /**
      * Checks whether a player has completed the public objectives.
      * If so, adds the points to the player scoreboard.

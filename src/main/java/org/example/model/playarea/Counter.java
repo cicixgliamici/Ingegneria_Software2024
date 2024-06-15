@@ -149,11 +149,28 @@ public class Counter {
      * @return true if the resource is present the specified number of times, false otherwise
      */
     public boolean isPresent(CardRes cardRes, int num) {
-        for (int i = 0; i < num; i++) {
-            if (!isPresent(cardRes)) return false;
+        CastCardRes cardRes1 = new CastCardRes(cardRes);
+        PropertiesCorner propertiesCorner = cardRes1.getPropertiesCorner();
+        switch (propertiesCorner) {
+            case ANIMAL:
+                return this.animalCounter >= num;
+            case FUNGI:
+                return this.fungiCounter >= num;
+            case PLANT:
+                return this.plantCounter >= num;
+            case QUILL:
+                return this.quillCounter >= num;
+            case INKWELL:
+                return this.inkwellCounter >= num;
+            case INSECT:
+                return this.insectCounter >= num;
+            case MANUSCRIPT:
+                return this.manuscriptCounter >= num;
+            default:
+                return false;
         }
-        return true;
     }
+
 
     // Getter and setter methods
 
