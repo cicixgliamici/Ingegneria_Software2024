@@ -227,6 +227,11 @@ public abstract class View {
      */
     public abstract void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8);
 
+    public abstract void lastRound();
+
+    public abstract void Winner(String string);
+
+    public abstract void Tie(String string);
     /**
      * Gets the color to player mapping.
      *

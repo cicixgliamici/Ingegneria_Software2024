@@ -9,13 +9,13 @@ import org.example.view.gui.listener.EvListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -168,10 +168,6 @@ public class ServerClientHandler implements Runnable {
                     return;
                 }
                 Method method = cls.getDeclaredMethod(methodName, paramTypes);
-                if (method == null) {
-                    System.out.println("Metodo non trovato: " + methodName);
-                    return;
-                }
                 method.invoke(player, paramValues);
                 if (commandKey.equals("setObjStarter")) {
                     server.incrementSetObjStarterCount();
@@ -181,10 +177,16 @@ public class ServerClientHandler implements Runnable {
                 }
                 if (server.getGameFlow() != null && !commandKey.equals("setObjStarter")) {
                     server.getGameFlow().incrementTurn();
+                    if(checkIfEnd()) server.getGameFlow().setLastRound(1);
+
                 }
             } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {
-                System.out.println("Non è il suo turno in SH");
-                server.onModelSpecific(username, "message:4");
+                if(server.getGameFlow().getEndGame()==1){
+                    server.onModelSpecific(username, "message:12");
+                } else {
+                    System.out.println("Non è il suo turno in SH");
+                    server.onModelSpecific(username, "message:4");
+                }
             }
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
@@ -192,5 +194,15 @@ public class ServerClientHandler implements Runnable {
         } catch (Exception e) {
             exceptionManager.handleException(e, username, server);
         }
+    }
+
+    public boolean checkIfEnd() throws RemoteException {
+        for (Player player : server.getPlayers()) {
+            if(model.getPlayerCardArea(player).getCounter().getPointCounter()>= 20){
+                server.onModelGeneric("lastRound");
+                return true;
+            }
+        }
+        return false;
     }
 }

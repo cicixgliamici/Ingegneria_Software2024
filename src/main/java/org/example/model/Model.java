@@ -149,19 +149,6 @@ public class Model {
         return gameArea.get(P);
     }
 
-    /**
-     * Checks if any player has reached the point threshold.
-     *
-     * @return true if any player has 20 or more points, false otherwise
-     */
-    public boolean Checkpoints() {
-        for (Player p : PlayersList) {
-            if (getPlayerCardArea(p).getCounter().getPointCounter() >= 20) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public int getCurrentPlayer() {
         return currentPlayer;

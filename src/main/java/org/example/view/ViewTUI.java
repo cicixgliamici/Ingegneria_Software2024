@@ -331,6 +331,21 @@ public class ViewTUI extends View {
         }
     }
 
+    @Override
+    public void lastRound() {
+
+    }
+
+    @Override
+    public void Winner(String string) {
+
+    }
+
+    @Override
+    public void Tie(String string) {
+
+    }
+
     /**
      * Adds non-null colors to a formatted string of available colors.
      */

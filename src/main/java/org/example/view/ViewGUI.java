@@ -230,6 +230,21 @@ public class ViewGUI extends View {
     }
 
     @Override
+    public void lastRound() {
+        JOptionPane.showMessageDialog(null, "lastRound", "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void Winner(String string) {
+        JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void Tie(String string){
+        JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
     public void points(String username, int point) {
         System.out.println("from points GUI: " + username + ", " + point);
         points.put(username, point);
@@ -251,6 +266,10 @@ public class ViewGUI extends View {
                 matchStarted = true;
                 System.out.println(matchStarted);
                 break;
+            case 12:
+                JOptionPane.showMessageDialog(null, "the match is ended", "Info", JOptionPane.INFORMATION_MESSAGE);
+                break;
+
         }
     }
 

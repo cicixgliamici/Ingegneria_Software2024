@@ -177,5 +177,27 @@
       {"type": "string", "source": "server"}
     ],
     "fileName": "View.java"
+  },
+  "lastRound": {
+    "className": "org.example.view",
+    "methodName": "lastRound",
+    "parameters": [],
+    "fileName": "View.java"
+  },
+  "Winner":{
+    "className": "org.example.view",
+    "methodName": "Winner",
+    "parameters": [
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
+  },
+  "Tie":{
+    "className": "org.example.view",
+    "methodName": "newConnection",
+    "parameters": [
+      {"type": "string", "source": "server"}
+    ],
+    "fileName": "View.java"
   }
 }
