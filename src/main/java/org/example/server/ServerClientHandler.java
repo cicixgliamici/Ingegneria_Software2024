@@ -177,11 +177,14 @@ public class ServerClientHandler implements Runnable {
                 }
                 if (server.getGameFlow() != null && !commandKey.equals("setObjStarter")) {
                     server.getGameFlow().incrementTurn();
-                    if(checkIfEnd()) server.getGameFlow().setLastRound(1);
-
+                    if (checkIfEnd() && !server.getGameFlow().isLastRoundAnnounced()) {
+                        server.getGameFlow().startLastRound();
+                        server.getGameFlow().setLastRoundAnnounced(true);
+                        server.onModelGeneric("lastRound");
+                    }
                 }
             } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {
-                if(server.getGameFlow().getEndGame()==1){
+                if (server.getGameFlow().getEndGame() == 1) {
                     server.onModelSpecific(username, "message:12");
                 } else {
                     System.out.println("Non è il suo turno in SH");
@@ -198,11 +201,12 @@ public class ServerClientHandler implements Runnable {
 
     public boolean checkIfEnd() throws RemoteException {
         for (Player player : server.getPlayers()) {
-            if(model.getPlayerCardArea(player).getCounter().getPointCounter()>= 20){
-                server.onModelGeneric("lastRound");
+            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 2) {
                 return true;
             }
         }
         return false;
     }
+
+
 }
