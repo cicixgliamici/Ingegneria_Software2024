@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class ViewGUI extends View {
 
+
     /**
      * Constructor initializing various lists and flags for the GUI view.
      */
@@ -37,6 +38,7 @@ public class ViewGUI extends View {
 
         map = new HashMap<>();
         points = new HashMap<>();
+
     }
 
     @Override
@@ -237,11 +239,27 @@ public class ViewGUI extends View {
     @Override
     public void Winner(String string) {
         JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
+        Event event= new Event(this, "winner");
+        if(evListener!= null){
+            try {
+                evListener.eventListener(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
     public void Tie(String string){
         JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
+        Event event= new Event(this, "winner");
+        if(evListener!= null){
+            try {
+                evListener.eventListener(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -314,4 +332,5 @@ public class ViewGUI extends View {
     public void chatC(String username, String message) {
         Chat.displayMessage(username, message);
     }
+
 }

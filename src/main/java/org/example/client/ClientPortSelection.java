@@ -59,7 +59,6 @@ public class ClientPortSelection {
         else if(ChosenView==3){
             view = new ViewGUI();
             GuiClient.startClient(mode, view);
-            //todo gestione del client GUI
         }
     }
 

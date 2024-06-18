@@ -45,6 +45,7 @@ public abstract class View {
     protected Map<String, Integer> points;
     protected DrawingCardPanel drawingCardPanel;
     protected GameAreaPanel gameAreaPanel;
+    protected EvListener evListener;
 
     /**
      * Default constructor for the View class.
@@ -473,5 +474,9 @@ public abstract class View {
 
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
+    }
+
+    public void setEvListener(EvListener evListener) {
+        this.evListener = evListener;
     }
 }

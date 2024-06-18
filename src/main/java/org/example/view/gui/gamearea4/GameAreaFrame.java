@@ -4,6 +4,8 @@ import org.example.client.TCPClient;
 import org.example.view.View;
 import org.example.view.gui.About;
 import org.example.view.gui.gamerules.GameRulesFrame;
+import org.example.view.gui.listener.EvListener;
+import org.example.view.gui.listener.Event;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -40,6 +42,15 @@ public class GameAreaFrame extends JFrame {
         this.starterCard = starterCard;
         this.objCard = objCard;
         this.view = view;
+        view.setEvListener(new EvListener() {
+            @Override
+            public void eventListener(Event ev) throws IOException {
+                String event = ev.getEvent();
+                if(event.equals("winner")) {
+                    disableInteractiveComponents();
+                }
+            }
+        });
         setSize(1900, 860);
 
         // Set the window icon
@@ -174,5 +185,26 @@ public class GameAreaFrame extends JFrame {
         menuBar.add(menuAbout);
 
         return menuBar;
+    }
+
+    /**
+     * Disables all interactive components in the game area frame.
+     */
+    private void disableInteractiveComponents() {
+        disableComponents(this);
+    }
+
+    /**
+     * Recursively disables all components within the given container.
+     *
+     * @param container The container whose components are to be disabled.
+     */
+    private void disableComponents(Container container) {
+        for (Component component : container.getComponents()) {
+            component.setEnabled(false);
+            if (component instanceof Container) {
+                disableComponents((Container) component);
+            }
+        }
     }
 }
