@@ -22,6 +22,9 @@ public class WaitingScreen extends JFrame {
         super("Waiting for Players");
         setLayout(new BorderLayout());
 
+        Image icon2 = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
+        setIconImage(icon2);
+
         // Create a panel with a background image
         JPanel panel = new JPanel(new GridBagLayout()) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
