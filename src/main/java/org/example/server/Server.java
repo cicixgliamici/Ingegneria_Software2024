@@ -78,7 +78,7 @@ public class Server implements ModelChangeListener {
         }
         // Stop RMI server
         if (rmiServer != null) {
-            rmiServer.stop();
+            //rmiServer.stop();
         }
         // Shutdown executor service
         if (executor != null && !executor.isShutdown()) {
