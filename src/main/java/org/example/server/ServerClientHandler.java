@@ -175,7 +175,7 @@ public class ServerClientHandler implements Runnable {
                 if (commandKey.equals("draw")) {
                     server.showDrawCardArea();
                 }
-                if (server.getGameFlow() != null && !commandKey.equals("setObjStarter")) {
+                if (server.getGameFlow() != null && !commandKey.equals("setObjStarter") && !commandKey.equals("chatS")) {
                     server.getGameFlow().incrementTurn();
                     if (checkIfEnd() && !server.getGameFlow().isLastRoundAnnounced()) {
                         server.getGameFlow().startLastRound();
@@ -201,7 +201,7 @@ public class ServerClientHandler implements Runnable {
 
     public boolean checkIfEnd() throws RemoteException {
         for (Player player : server.getPlayers()) {
-            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 2) {
+            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 20) {
                 return true;
             }
         }
