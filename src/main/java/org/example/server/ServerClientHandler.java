@@ -201,7 +201,7 @@ public class ServerClientHandler implements Runnable {
 
     public boolean checkIfEnd() throws RemoteException {
         for (Player player : server.getPlayers()) {
-            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 20) {
+            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 5) {
                 return true;
             }
         }
