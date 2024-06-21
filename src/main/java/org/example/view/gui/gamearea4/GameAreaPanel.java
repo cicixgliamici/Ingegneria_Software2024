@@ -32,6 +32,10 @@ public class GameAreaPanel extends JPanel {
     private JLabel token2;
     private JLabel token3;
     private JLabel token4;
+    private JLabel username1;
+    private JLabel username2;
+    private JLabel username3;
+    private JLabel username4;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
@@ -79,23 +83,34 @@ public class GameAreaPanel extends JPanel {
 
             case "2":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                username1 = new JLabel(username);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                username2 = new JLabel(keys.get(0));
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
                 token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "3":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                username1 = new JLabel(username);
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                username2 = new JLabel(keys.get(0));
                 token3 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                username3 = new JLabel(keys.get(1));
                 token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
                 break;
 
             case "4":
                 token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                username1 = new JLabel(username);
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                username2 = new JLabel(keys.get(0));
                 token3 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                username3 = new JLabel(keys.get(1));
                 token4 = createToken(view.getColorPlayer().get(keys.get(2)), "Blue", "Yellow", "Red", "Green", true);
+                username4 = new JLabel(keys.get(2));
                 break;
         }
 
@@ -161,6 +176,25 @@ public class GameAreaPanel extends JPanel {
         for (JLabel card : cards) {
             card.setBorder(new LineBorder(Color.WHITE, 1));
         }
+
+        JLayeredPane tokenuser1 = new JLayeredPane();
+        JLayeredPane tokenuser2 = new JLayeredPane();
+        JLayeredPane tokenuser3 = new JLayeredPane();
+        JLayeredPane tokenuser4 = new JLayeredPane();
+
+        setupLayeredPane(tokenuser1, token1, username1);
+        setupLayeredPane(tokenuser2, token2, username2);
+        setupLayeredPane(tokenuser3, token3, username3);
+        setupLayeredPane(tokenuser4, token4, username4);
+        //layeredPane.setPreferredSize(new Dimension(800, 600));
+
+
+        /*tokenuser1.add(token1, JLayeredPane.DEFAULT_LAYER);
+        tokenuser1.add(username1, JLayeredPane.PALETTE_LAYER);
+
+        tokenuser2.add(token2, 2);
+        tokenuser2.add(username2, 1);*/
+
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 1;
@@ -185,25 +219,25 @@ public class GameAreaPanel extends JPanel {
         gbc.gridy = 2;
         gbc.weightx = 0.1;
         gbc.weighty = 0.000025;
-        add(token1, gbc);
+        add(tokenuser1, gbc);
 
         gbc.gridx = 5;
         gbc.gridy = 0;
         gbc.weightx = 0.1;
         gbc.weighty = 0.00025;
-        add(token2, gbc);
+        add(tokenuser2, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.000025;
         gbc.weighty = 0.000025;
-        add(token3, gbc);
+        add(tokenuser3, gbc);
 
         gbc.gridx = 5;
         gbc.gridy = 2;
         gbc.weightx = 0.000025;
         gbc.weighty = 0.000025;
-        add(token4, gbc);
+        add(tokenuser4, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -214,6 +248,19 @@ public class GameAreaPanel extends JPanel {
         add(jScrollPane, gbc);
 
         view.addListener(new GameAreaPanelListener(this));
+    }
+
+    private void setupLayeredPane(JLayeredPane layeredPane, JLabel token, JLabel username) {
+        layeredPane.setLayout(null);
+        if (token != null) {
+            token.setBounds(0, 0, token.getPreferredSize().width, token.getPreferredSize().height);
+            layeredPane.add(token, JLayeredPane.DEFAULT_LAYER);
+        }
+        if (username != null) {
+            username.setBounds(0, -username.getPreferredSize().height, username.getPreferredSize().width, username.getPreferredSize().height);
+            layeredPane.add(username, JLayeredPane.PALETTE_LAYER);
+        }
+        layeredPane.setPreferredSize(new Dimension(token.getPreferredSize().width, token.getPreferredSize().height));
     }
 
     @Override
