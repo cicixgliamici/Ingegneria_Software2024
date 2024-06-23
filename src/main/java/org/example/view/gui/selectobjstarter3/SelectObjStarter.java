@@ -59,6 +59,9 @@ public class SelectObjStarter extends JFrame {
 
         setLayout(new BorderLayout());
 
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
+        setIconImage(icon);
+
         // Panel with background image
         JPanel container = new JPanel(new GridBagLayout()) {
             ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
