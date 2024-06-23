@@ -22,8 +22,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Classe principale del server che gestisce le connessioni client TCP e RMI,
- * amministra lo stato del gioco, e comunica con i clienti.
+ * Main server class that manages both TCP and RMI client connections,
+ * administers game state, and communicates with clients.
  */
 public class Server implements ModelChangeListener {
     private int tcpPort; // Porta TCP per le connessioni dei client.
@@ -45,9 +45,12 @@ public class Server implements ModelChangeListener {
     public GameFlow gameFlow; // Flusso di gioco che gestisce le fasi del gioco.
 
     /**
-     * Costruttore della classe Server.
-     * @param tcpPort Porta TCP.
-     * @param rmiPort Porta RMI.
+     * Constructs a Server instance with specified TCP and RMI ports.
+     *
+     * @param tcpPort the TCP port for client connections.
+     * @param rmiPort the RMI port for client connections.
+     * @throws IOException if an I/O error occurs when opening the server socket.
+     * @throws ParseException if parsing the JSON configuration file fails.
      */
     public Server(int tcpPort, int rmiPort) throws IOException, ParseException {
         this.tcpPort = tcpPort;
@@ -71,32 +74,23 @@ public class Server implements ModelChangeListener {
         //executor.submit(rmiServer::start); // Avvia il server RMI.
     }
 
-    public void stopServer() {
-        // Stop TCP server
-        if (tcpServer != null) {
-            tcpServer.stop();
-        }
-        // Stop RMI server
-        if (rmiServer != null) {
-            rmiServer.stop();
-        }
-        // Shutdown executor service
-        if (executor != null && !executor.isShutdown()) {
-            executor.shutdownNow();
-        }
-        System.out.println("Server stopped.");
-    }
-
-
     /**
-     * Gestisce l'arrivo di un nuovo client TCP.
+     * Handles the arrival of a new TCP client by checking if the game can start.
+     *
+     * @param username the username of the client connecting
+     * @param out the PrintWriter associated with the client's socket
+     * @throws RemoteException if a remote method call fails
      */
     public void handleNewTCPClient(String username, PrintWriter out) throws RemoteException {
         checkForGameStart(); // Controlla se il gioco può iniziare.
     }
 
     /**
-     * Gestisce l'arrivo di un nuovo client RMI.
+     * Handles the arrival of a new RMI client by adding the player to the list and setting up callbacks.
+     *
+     * @param username the username of the client connecting
+     * @param clientCallback the RMI callback interface for the client
+     * @throws RemoteException if a remote method call fails
      */
     public void handleNewRMIClient(String username, RMIClientCallbackInterface clientCallback) throws RemoteException {
         addPlayer(username); // Aggiunge il giocatore alla lista.
@@ -134,15 +128,25 @@ public class Server implements ModelChangeListener {
         }
     }
 
+    /**
+     * Displays the area where players can draw cards.
+     */
     public void showDrawCardArea() {
         controller.drawableArea();
     }
+
+
+    /**
+     * Displays the public objectives to all players.
+     */
     public void showPubObj (){
         controller.publicObj();
     }
 
     /**
-     * Aspetta che tutti i giocatori abbiano scelto la carta iniziale.
+     * Waits for all players to choose their starter cards before proceeding.
+     *
+     * @param numConnections the number of connections that must confirm their starter card choice
      */
     public void waitForSetObjStarter(int numConnections) {
         while (setObjStarterCount.get() < numConnections) {
@@ -162,8 +166,11 @@ public class Server implements ModelChangeListener {
         }
     }
 
-
-    public String generatePlayerOrderMessage() {
+    /**
+     * Generates a message describing the order of players based on their color selection.
+     *
+     * @return a formatted string containing the player order and their colors
+     */    public String generatePlayerOrderMessage() {
         StringBuilder message = new StringBuilder("order:");
         int count = 0;
         for (String player : model.getScoreBoard().getTokens().keySet()) {
@@ -206,7 +213,9 @@ public class Server implements ModelChangeListener {
     }
 
     /**
-     * Carica i comandi disponibili dal file JSON.
+     * Loads supported commands from a JSON configuration file.
+     *
+     * @throws IOException if reading from the file fails
      */
     public void loadCommands() throws IOException {
         String path = "src/main/resources/Commands.json";

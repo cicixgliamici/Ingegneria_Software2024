@@ -7,23 +7,25 @@ import org.example.enumeration.Type;
 import org.example.model.Model;
 import org.example.model.deck.*;
 import org.example.enumeration.cast.CastCardRes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * It is connected to a player through a Hash Map, and contains his Hand and the cards he has played.
+ * Represents the area of a player within a card game, holding their hand, played cards,
+ * and managing interactions with game nodes.
  */
 public class PlayerCardArea {
-    private final List<Card> hand = new ArrayList<>();
-    private List<Card> tempSecretObjective;
-    private Card secretObjective;
-    private final Counter counter = new Counter();
-    private final List<PlaceHolder> allNodes;
-    private final List<PlaceHolder> availableNodes;
-    private final List<PlaceHolder> placeHolders;
-    private List<PlaceHolder> alreadyUsed;
-    private Card cardStarter;
+    private final List<Card> hand = new ArrayList<>(); // Cards currently held by the player.
+    private List<Card> tempSecretObjective; // Temporary storage for secret objectives.
+    private Card secretObjective; // The player's secret objective card.
+    private final Counter counter = new Counter(); // Tracks various game metrics like resources and points.
+    private final List<PlaceHolder> allNodes; // All nodes available in the game.
+    private final List<PlaceHolder> availableNodes; // Nodes available for new cards.
+    private final List<PlaceHolder> placeHolders; // Current placeholders where cards are or can be placed.
+    private List<PlaceHolder> alreadyUsed; // Nodes that have already been used for specific checks.
+    private Card cardStarter; // The starter card for the player.
 
     public PlayerCardArea() {
         this.availableNodes = new ArrayList<>();
@@ -34,7 +36,7 @@ public class PlayerCardArea {
     }
 
     /**
-     * Sets the starter node and updates the counter.
+     * Sets the starting node with the starting card and updates the game counters accordingly.
      */
     public void setStarterNode() {
         Node starter = new Node(this.cardStarter, 0, 0, placeHolders, availableNodes, allNodes);
@@ -42,54 +44,52 @@ public class PlayerCardArea {
     }
 
     /**
-     * Places the card on the node chosen by the player.
+     * Places a card on a specified node and updates the game area.
      *
-     * @param card the card to place
-     * @param placeHolder the node to place the card on
+     * @param card The card to place.
+     * @param placeHolder The node where the card will be placed.
      */
     public void playACard(Card card, PlaceHolder placeHolder) {
         modifyGameArea(card, placeHolder);
     }
 
     /**
-     * Modifies the game area by adding the card on the chosen node and updating the counters and points.
+     * Updates the game area by setting a card at a node and updating the related counters and points.
      *
-     * @param card the card to place
-     * @param node the node to place the card on
+     * @param card The card to be placed.
+     * @param node The node where the card will be placed.
      */
     public void modifyGameArea(Card card, PlaceHolder node) {
-        // Metodo incaricato di gestire una giocata di un player
-        // Chiama il metodo di node che imposta la carta scelta al nodo scelto e aggiunge i nodi di default
-        node.setCardNode(card, placeHolders, availableNodes, allNodes);
-        availableNodes.remove(node);
+        node.setCardNode(card, placeHolders, availableNodes, allNodes); // Place the card on the node.
+        availableNodes.remove(node); // Remove this node from available nodes as it's now occupied.
 
-        // Aggiornamento delle risorse
-        updateCounter(card);
-        updatePoints(card);
-        removeResources(node);
+        updateCounter(card); // Update resource counters based on the new card.
+        updatePoints(card); // Update points based on the new card.
+        removeResources(node); // Remove resources that are covered by the new card.
     }
 
     /**
-     * Updates the counter by adding all the resources on the 4 corners.
-     * If it's a resource or gold card placed on its back side, the method also adds the card resource.
+     * Updates the counter for resources and points based on the corners of the placed card.
+     * Special handling for resource and gold cards placed on the back side.
      *
-     * @param card the card to update the counter with
+     * @param card The card used for updating the counter.
      */
     public void updateCounter(Card card) {
+        // Add resources from all corners of the card.
         counter.addResource(card.getSide().getChosenList().get(0).getPropertiesCorner());
         counter.addResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
         counter.addResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
         counter.addResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
 
-        // Se risorsa o gold e ho scelto il back allora aggiungi card res
-        if (card.getSide().getSide().equals(Side.BACK) && (card.getType() == Type.RESOURCES || card.getType() == Type.GOLD)) {
-            CardRes cardRes = card.getCardRes();
-            CastCardRes castCardRes = new CastCardRes(cardRes);
+        if (card.getSide().getSide().equals(Side.BACK) &&
+                (card.getType() == Type.RESOURCES || card.getType() == Type.GOLD)) {
+            // If it's a resource or gold card on its back side, add its resources.
+            CastCardRes castCardRes = new CastCardRes(card.getCardRes());
             counter.addResource(castCardRes.getPropertiesCorner());
         }
 
-        // Se starter e hai scelto il front allora add require gold
         if (card.getType() == Type.STARTER && card.getSide().getSide() == Side.FRONT) {
+            // If it's a starter card on its front side, add required gold resources.
             for (CardRes cardRes : card.getRequireGold()) {
                 CastCardRes castCardRes = new CastCardRes(cardRes);
                 counter.addResource(castCardRes.getPropertiesCorner());
@@ -98,23 +98,24 @@ public class PlayerCardArea {
     }
 
     /**
-     * Updates the counter by removing a resource when it gets covered by another card.
+     * Removes resources from the counter when a card covers another card's resources.
      *
-     * @param node the node whose resources to remove
+     * @param node The node whose resources are being covered and should be removed.
      */
     public void removeResources(PlaceHolder node) {
-        for (PlaceHolder node1 : allNodes) {
-            if (node1.getTopR() == node) {
-                counter.removeResource(node1.getCard().getSide().getChosenList().get(1).getPropertiesCorner());
+        for (PlaceHolder adjacentNode : allNodes) {
+            // Remove resources from all covered nodes.
+            if (adjacentNode.getTopR() == node) {
+                counter.removeResource(adjacentNode.getCard().getSide().getChosenList().get(1).getPropertiesCorner());
             }
-            if (node1.getTopL() == node) {
-                counter.removeResource(node1.getCard().getSide().getChosenList().get(0).getPropertiesCorner());
+            if (adjacentNode.getTopL() == node) {
+                counter.removeResource(adjacentNode.getCard().getSide().getChosenList().get(0).getPropertiesCorner());
             }
-            if (node1.getBotR() == node) {
-                counter.removeResource(node1.getCard().getSide().getChosenList().get(2).getPropertiesCorner());
+            if (adjacentNode.getBotR() == node) {
+                counter.removeResource(adjacentNode.getCard().getSide().getChosenList().get(2).getPropertiesCorner());
             }
-            if (node1.getBotL() == node) {
-                counter.removeResource(node1.getCard().getSide().getChosenList().get(3).getPropertiesCorner());
+            if (adjacentNode.getBotL() == node) {
+                counter.removeResource(adjacentNode.getCard().getSide().getChosenList().get(3).getPropertiesCorner());
             }
         }
     }
@@ -165,6 +166,7 @@ public class PlayerCardArea {
         }
         return false;
     }
+
     /**
      * Checks whether a player has completed the public objectives.
      * If so, adds the points to the player scoreboard.

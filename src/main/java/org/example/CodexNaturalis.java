@@ -52,25 +52,21 @@ public class CodexNaturalis {
      */
     private static void selectClientMode(int view) throws Exception {
         Scanner in = new Scanner(System.in);
-        System.out.println("Select connection mode: 0 for TCP, 1 for RMI");
-
+        System.out.println("Press 0 to start a TCP Server");
         int mode;
-
         while (true) {
-            System.out.print("Insert your choice: ");
             String modeInput = in.nextLine();
             try {
                 mode = Integer.parseInt(modeInput);
-                if (mode == 0 || mode == 1) {
+                if (mode == 0) {
                     break;
                 } else {
-                    System.out.println("Invalid mode. Please select 0 for TCP or 1 for RMI.");
+                    System.out.println("Invalid mode. Please press 0.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid mode. Please select 0 for TCP or 1 for RMI.");
+                System.out.println("Invalid mode. Please press 0.");
             }
         }
-
         ClientPortSelection clientPortSelection = new ClientPortSelection();
         clientPortSelection.main(null, mode, view);  // This will set IP and port and start the client with its view
     }

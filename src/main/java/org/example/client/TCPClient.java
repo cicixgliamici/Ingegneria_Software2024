@@ -70,7 +70,7 @@ public class TCPClient {
         }
     }
 
-    //Send Zone to print in the Socket
+    //Send-Zone to print in the Socket
 
     /**
      * Sends the username to the server after the connection is established.
