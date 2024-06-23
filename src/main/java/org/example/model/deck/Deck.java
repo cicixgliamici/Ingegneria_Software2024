@@ -8,7 +8,8 @@ import java.util.List;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 
 /**
@@ -34,7 +35,8 @@ public class Deck {
                 this.cardNumbers = 40;
                 try {
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/Card.json"));
+                    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Card.json");
+                    JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(inputStream));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
                         int id = Integer.parseInt(card.get("id").toString());
@@ -58,7 +60,8 @@ public class Deck {
                 this.cardNumbers = 40;
                 try {
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/GoldCard.json"));
+                    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("GoldCard.json");
+                    JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(inputStream));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
                         int id = Integer.parseInt(card.get("id").toString());
@@ -88,7 +91,8 @@ public class Deck {
                 this.cardNumbers = 16;
                 try {
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/ObjectiveCard.json"));
+                    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("ObjectiveCard.json");
+                    JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(inputStream));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
                         int id = Integer.parseInt(card.get("id").toString());
@@ -111,7 +115,8 @@ public class Deck {
                 this.cardNumbers = 6;
                 try {
                     JSONParser parser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) parser.parse(new FileReader("src/main/resources/StarterCard.json"));
+                    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("StarterCard.json");
+                    JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(inputStream));
                     for (Object obj : jsonArray) {
                         JSONObject card = (JSONObject) obj;
                         int id = Integer.parseInt(card.get("id").toString());

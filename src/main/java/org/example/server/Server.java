@@ -1,4 +1,3 @@
-
 package org.example.server;
 
 import org.example.controller.Controller;
@@ -11,6 +10,8 @@ import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -209,12 +210,22 @@ public class Server implements ModelChangeListener {
      * Carica i comandi disponibili dal file JSON.
      */
     public void loadCommands() throws IOException {
-        String path = "src/main/resources/Commands.json";
-        String text = new String(Files.readAllBytes(Paths.get(path)));
-        JSONObject obj = new JSONObject(text);
-        JSONObject jsonCommands = obj.getJSONObject("commands");
-        for (String key : jsonCommands.keySet()) {
-            commands.put(key, jsonCommands.getJSONObject(key));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("Commands.json");
+             InputStreamReader reader = new InputStreamReader(inputStream)) {
+            StringBuilder textBuilder = new StringBuilder();
+            int c;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+            String text = textBuilder.toString();
+            JSONObject obj = new JSONObject(text);
+            JSONObject jsonCommands = obj.getJSONObject("commands");
+            for (String key : jsonCommands.keySet()) {
+                commands.put(key, jsonCommands.getJSONObject(key));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IOException("Failed to load commands from Commands.json", e);
         }
     }
 

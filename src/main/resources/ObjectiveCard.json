@@ -7,12 +7,12 @@
     "objectivePoints" :"DIAG",
     "cardposition": "DECKHIDDEN",
     "side": {
-    "side": "BOTH"
+      "side": "BOTH"
     },
     "description": "You need to place 3 fungi in diagonal from BotL to TopR",
-    "imagePathMF": "src/main/resources/images/mid/front/087.png",
-    "imagePathSF": "src/main/resources/images/small/front/087.png",
-    "imagePathSB": "src/main/resources/images/small/back/087.png"
+    "imagePathMF": "images/mid/front/087.png",
+    "imagePathSF": "images/small/front/087.png",
+    "imagePathSB": "images/small/back/087.png"
   },
   {
     "id": 88,
@@ -25,9 +25,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 3 plant in diagonal from TopL to BotpR",
-    "imagePathMF": "src/main/resources/images/mid/front/088.png",
-    "imagePathSF": "src/main/resources/images/small/front/088.png",
-    "imagePathSB": "src/main/resources/images/small/back/088.png"
+    "imagePathMF": "images/mid/front/088.png",
+    "imagePathSF": "images/small/front/088.png",
+    "imagePathSB": "images/small/back/088.png"
   },
   {
     "id": 89,
@@ -40,9 +40,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 3 animal in diagonal from BotL to TopR",
-    "imagePathMF": "src/main/resources/images/mid/front/089.png",
-    "imagePathSF": "src/main/resources/images/small/front/089.png",
-    "imagePathSB": "src/main/resources/images/small/back/089.png"
+    "imagePathMF": "images/mid/front/089.png",
+    "imagePathSF": "images/small/front/089.png",
+    "imagePathSB": "images/small/back/089.png"
   },
 
   {
@@ -56,9 +56,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 3 insect in diagonal from TopL to BotpR",
-    "imagePathMF": "src/main/resources/images/mid/front/090.png",
-    "imagePathSF": "src/main/resources/images/small/front/090.png",
-    "imagePathSB": "src/main/resources/images/small/back/090.png"
+    "imagePathMF": "images/mid/front/090.png",
+    "imagePathSF": "images/small/front/090.png",
+    "imagePathSB": "images/small/back/090.png"
   },
   {
     "id": 91,
@@ -71,9 +71,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 2 fungi one above the other and a plant BotR",
-    "imagePathMF": "src/main/resources/images/mid/front/091.png",
-    "imagePathSF": "src/main/resources/images/small/front/091.png",
-    "imagePathSB": "src/main/resources/images/small/back/091.png"
+    "imagePathMF": "images/mid/front/091.png",
+    "imagePathSF": "images/small/front/091.png",
+    "imagePathSB": "images/small/back/091.png"
   },
   {
     "id": 92,
@@ -86,9 +86,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 2 plant one above the other and a insect BotL",
-    "imagePathMF": "src/main/resources/images/mid/front/092.png",
-    "imagePathSF": "src/main/resources/images/small/front/092.png",
-    "imagePathSB": "src/main/resources/images/small/back/092.png"
+    "imagePathMF": "images/mid/front/092.png",
+    "imagePathSF": "images/small/front/092.png",
+    "imagePathSB": "images/small/back/092.png"
   },
   {
     "id": 93,
@@ -101,9 +101,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 2 animal one above the other and a fungi TopR",
-    "imagePathMF": "src/main/resources/images/mid/front/093.png",
-    "imagePathSF": "src/main/resources/images/small/front/093.png",
-    "imagePathSB": "src/main/resources/images/small/back/093.png"
+    "imagePathMF": "images/mid/front/093.png",
+    "imagePathSF": "images/small/front/093.png",
+    "imagePathSB": "images/small/back/093.png"
   },
   {
     "id": 94,
@@ -116,9 +116,9 @@
       "side": "BOTH"
     },
     "description": "You need to place 2 insect one above the other and a animal TopL",
-    "imagePathMF": "src/main/resources/images/mid/front/094.png",
-    "imagePathSF": "src/main/resources/images/small/front/094.png",
-    "imagePathSB": "src/main/resources/images/small/back/094.png"
+    "imagePathMF": "images/mid/front/094.png",
+    "imagePathSF": "images/small/front/094.png",
+    "imagePathSB": "images/small/back/094.png"
   },
   {
     "id": 95,
@@ -131,9 +131,9 @@
       "side": "BOTH"
     },
     "description": "You need 3 fungi",
-    "imagePathMF": "src/main/resources/images/mid/front/095.png",
-    "imagePathSF": "src/main/resources/images/small/front/095.png",
-    "imagePathSB": "src/main/resources/images/small/back/095.png"
+    "imagePathMF": "images/mid/front/095.png",
+    "imagePathSF": "images/small/front/095.png",
+    "imagePathSB": "images/small/back/095.png"
   },
   {
     "id": 96,
@@ -146,9 +146,9 @@
       "side": "BOTH"
     },
     "description": "You need 3 plant",
-    "imagePathMF": "src/main/resources/images/mid/front/096.png",
-    "imagePathSF": "src/main/resources/images/small/front/096.png",
-    "imagePathSB": "src/main/resources/images/small/back/096.png"
+    "imagePathMF": "images/mid/front/096.png",
+    "imagePathSF": "images/small/front/096.png",
+    "imagePathSB": "images/small/back/096.png"
   },
   {
     "id": 97,
@@ -161,9 +161,9 @@
       "side": "BOTH"
     },
     "description": "You need 3 animal",
-    "imagePathMF": "src/main/resources/images/mid/front/097.png",
-    "imagePathSF": "src/main/resources/images/small/front/097.png",
-    "imagePathSB": "src/main/resources/images/small/back/097.png"
+    "imagePathMF": "images/mid/front/097.png",
+    "imagePathSF": "images/small/front/097.png",
+    "imagePathSB": "images/small/back/097.png"
   },
   {
     "id": 98,
@@ -176,9 +176,9 @@
       "side": "BOTH"
     },
     "description": "You need 3 insect",
-    "imagePathMF": "src/main/resources/images/mid/front/098.png",
-    "imagePathSF": "src/main/resources/images/small/front/098.png",
-    "imagePathSB": "src/main/resources/images/small/back/098.png"
+    "imagePathMF": "images/mid/front/098.png",
+    "imagePathSF": "images/small/front/098.png",
+    "imagePathSB": "images/small/back/098.png"
   },
   {
     "id": 99,
@@ -191,9 +191,9 @@
       "side": "BOTH"
     },
     "description": "You need a quill, a manuscript and a inkwell",
-    "imagePathMF": "src/main/resources/images/mid/front/099.png",
-    "imagePathSF": "src/main/resources/images/small/front/099.png",
-    "imagePathSB": "src/main/resources/images/small/back/099.png"
+    "imagePathMF": "images/mid/front/099.png",
+    "imagePathSF": "images/small/front/099.png",
+    "imagePathSB": "images/small/back/099.png"
   },
   {
     "id": 100,
@@ -206,9 +206,9 @@
       "side": "BOTH"
     },
     "description": "You need 2 manuscript",
-    "imagePathMF": "src/main/resources/images/mid/front/100.png",
-    "imagePathSF": "src/main/resources/images/small/front/100.png",
-    "imagePathSB": "src/main/resources/images/small/back/100.png"
+    "imagePathMF": "images/mid/front/100.png",
+    "imagePathSF": "images/small/front/100.png",
+    "imagePathSB": "images/small/back/100.png"
   },
   {
     "id": 101,
@@ -221,9 +221,9 @@
       "side": "BOTH"
     },
     "description": "You need 2 inkwell",
-    "imagePathMF": "src/main/resources/images/mid/front/101.png",
-    "imagePathSF": "src/main/resources/images/small/front/101.png",
-    "imagePathSB": "src/main/resources/images/small/back/101.png"
+    "imagePathMF": "images/mid/front/101.png",
+    "imagePathSF": "images/small/front/101.png",
+    "imagePathSB": "images/small/back/101.png"
   },
   {
     "id": 102,
@@ -236,8 +236,8 @@
       "side": "BOTH"
     },
     "description": "You need 2 quill",
-    "imagePathMF": "src/main/resources/images/mid/front/102.png",
-    "imagePathSF": "src/main/resources/images/small/front/102.png",
-    "imagePathSB": "src/main/resources/images/small/back/102.png"
+    "imagePathMF": "images/mid/front/102.png",
+    "imagePathSF": "images/small/front/102.png",
+    "imagePathSB": "images/small/back/102.png"
   }
 ]

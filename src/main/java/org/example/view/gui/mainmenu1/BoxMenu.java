@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 /**
@@ -47,8 +48,12 @@ public class BoxMenu extends JPanel {
 
         // Load the logo image
         BufferedImage logo = null;
-        try {
-            logo = ImageIO.read(getClass().getResource("/images/logo.png"));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("images/logo.png")) {
+            if (inputStream != null) {
+                logo = ImageIO.read(inputStream);
+            } else {
+                throw new IOException("Image file not found!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);

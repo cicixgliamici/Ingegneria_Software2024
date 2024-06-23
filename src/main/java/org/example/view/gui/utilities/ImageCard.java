@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The ImageCard class represents a card with an image and interactive corner buttons.
@@ -112,19 +113,20 @@ public class ImageCard {
      * @return The loaded BufferedImage.
      */
     private BufferedImage loadImage(String path) {
-        BufferedImage bimg = null;
-        BufferedImage ret = null;
-        try {
-            bimg = ImageIO.read(new File(path));
-        } catch (Exception e) {
-            e.printStackTrace();
+        InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+        if (in == null) {
+            System.err.println("Resource not found at path: " + path);
+            return null;
         }
-        ret = new BufferedImage(bimg.getWidth(), bimg.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = ret.createGraphics();
-        g.drawImage(bimg, 0, 0, null);
-        g.dispose();
-        return ret;
+        try {
+            return ImageIO.read(in);
+        } catch (IOException e) {
+            System.err.println("Failed to load image from path: " + path);
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     // Getters and Setters
 

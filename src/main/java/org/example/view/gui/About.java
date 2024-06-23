@@ -1,13 +1,13 @@
 package org.example.view.gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.net.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 
 /**
  * About class represents an information window that displays details about the application.
@@ -23,15 +23,16 @@ public class About extends JFrame {
         JPanel aboutPanel = new JPanel();
 
         // Set the window icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/about_icon.png");
-        setIconImage(icon);
-
-        // Configure the about panel
-//        aboutPanel.setPreferredSize(new Dimension(300, 200));
-//        Border insideBorder = BorderFactory.createTitledBorder("Informazioni");
-//        Border outsideBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-//        Border finalBorder = BorderFactory.createCompoundBorder(insideBorder, outsideBorder);
-//        aboutPanel.setBorder(finalBorder);
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/icon/about_icon.png")) {
+            if (iconStream != null) {
+                Image icon = ImageIO.read(iconStream);
+                setIconImage(icon);
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Create a label with a link
         JLabel link = new JLabel("Visit the page!");
@@ -42,15 +43,13 @@ public class About extends JFrame {
 
         JTextArea textParagraph  =new JTextArea(
                 "Leonardo Chiaretti \n" +
-                "James Enrico Busato\n" +
-                "Matteo Civitillo\n" +
-                "Alessandro Paolo Gianni Callegari"
+                        "James Enrico Busato\n" +
+                        "Matteo Civitillo\n" +
+                        "Alessandro Paolo Gianni Callegari"
         );
 
         textParagraph.setEditable(false);
         textParagraph.setOpaque(false);
-
-
 
         // Add a mouse listener to handle click events on the link
         link.addMouseListener(new MouseAdapter() {
@@ -86,24 +85,18 @@ public class About extends JFrame {
         aboutPanel.add(link, gbcCreditsLabel);
 
         GridBagConstraints gbcCreditsTitle = new GridBagConstraints();
-
         gbcCreditsTitle.gridx = 0;
         gbcCreditsTitle.gridy = 0;
-
         gbcCreditsTitle.weightx = 0.5;
         gbcCreditsTitle.weighty = 0.2;
         gbcCreditsTitle.anchor = GridBagConstraints.LINE_START;
-
         aboutPanel.add(titleParagraph, gbcCreditsTitle);
 
         GridBagConstraints gbcCreditsTextArea = new GridBagConstraints();
-
         gbcCreditsTextArea.gridx = 0;
         gbcCreditsTextArea.gridy = 1;
-
         gbcCreditsTextArea.weightx = 0.5;
         gbcCreditsTextArea.weighty = 0.6;
-
         aboutPanel.add(textParagraph, gbcCreditsTextArea);
 
         // Add the about panel to the frame
@@ -118,7 +111,7 @@ public class About extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new About();
     }
 }

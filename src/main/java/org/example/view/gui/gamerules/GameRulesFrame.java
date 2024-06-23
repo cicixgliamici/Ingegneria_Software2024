@@ -1,8 +1,5 @@
 package org.example.view.gui.gamerules;
 
-import org.example.client.TCPClient;
-import org.example.view.gui.setgame2.SetInitialGame;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A JFrame subclass for displaying game rules as a series of images.
@@ -35,19 +33,26 @@ public class GameRulesFrame extends JFrame {
         super("Game Rules");
         setSize(714, 740); // Set the size of the frame
         setLayout(new BorderLayout()); // Use BorderLayout for layout management
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/rulebook/ita/01.png");
-        setIconImage(icon); // Set the icon image of the frame
+
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/rulebook/ita/01.png")) {
+            if (iconStream != null) {
+                Image icon = ImageIO.read(iconStream);
+                setIconImage(icon); // Set the icon image of the frame
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        }
 
         // Load all images for the Italian rules into an array
         imagesIta = new ImageIcon[12];
         for (int i = 0; i < imagesIta.length; i++) {
-            imagesIta[i] = new ImageIcon("src/main/resources/images/rulebook/ita/" + String.format("%02d", i + 1) + ".png");
+            imagesIta[i] = loadImage("images/rulebook/ita/" + String.format("%02d", i + 1) + ".png");
         }
 
         // Load all images for the English rules into an array
         imagesEng = new ImageIcon[12];
         for (int i = 0; i < imagesEng.length; i++) {
-            imagesEng[i] = new ImageIcon("src/main/resources/images/rulebook/eng/" + String.format("%02d", i + 1) + ".jpg");
+            imagesEng[i] = loadImage("images/rulebook/eng/" + String.format("%02d", i + 1) + ".jpg");
         }
 
         // Initialize the Italian image panel and override its paintComponent to draw the current image
@@ -135,6 +140,23 @@ public class GameRulesFrame extends JFrame {
         // Show information dialog instructing the user on how to navigate
         String information = "Please use the arrow keys to navigate.";
         JOptionPane.showMessageDialog(null, information, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Loads an image from the specified path using the class loader.
+     *
+     * @param path The path to the image.
+     * @return The loaded ImageIcon.
+     * @throws IOException If an error occurs during image loading.
+     */
+    private ImageIcon loadImage(String path) throws IOException {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (inputStream != null) {
+                return new ImageIcon(ImageIO.read(inputStream));
+            } else {
+                throw new IOException("Image file not found: " + path);
+            }
+        }
     }
 
     /**

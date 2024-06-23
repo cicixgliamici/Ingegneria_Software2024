@@ -6,7 +6,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,13 +65,13 @@ public class ScoreboardPanel extends JPanel {
         coordinates.put(29, List.of(135, 135));
 
         // Load the scoreboard image
-        scoreboard = ImageIO.read(new File("src/main/resources/images/plateau.png"));
+        scoreboard = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/plateau.png"));
 
         // Load the public objective images
         for (int i = 0; i < 2; i++) {
             int objective = view.getPublicObjectives().get(i);
-            String path = String.format("src/main/resources/images/mid/front/%s.png", objective < 100 ? "0" + objective : String.valueOf(objective));
-            BufferedImage objImage = ImageIO.read(new File(path));
+            String path = String.format("images/mid/front/%s.png", objective < 100 ? "0" + objective : String.valueOf(objective));
+            BufferedImage objImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));
             if (i == 0) {
                 obj1 = objImage;
             } else {
@@ -84,8 +83,8 @@ public class ScoreboardPanel extends JPanel {
         for (String player : players) {
             String color = view.getColorPlayer().get(player);
             if (color != null) {
-                String tokenPath = String.format("src/main/resources/images/%sSmall.png", color);
-                BufferedImage token = ImageIO.read(new File(tokenPath));
+                String tokenPath = String.format("images/%sSmall.png", color);
+                BufferedImage token = ImageIO.read(getClass().getClassLoader().getResourceAsStream(tokenPath));
                 tokens.add(token);
             }
         }

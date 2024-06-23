@@ -13,8 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The SelectObjStarter class represents a JFrame where the user selects a starter card and an objective card.
@@ -59,15 +59,32 @@ public class SelectObjStarter extends JFrame {
 
         setLayout(new BorderLayout());
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
-        setIconImage(icon);
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (iconStream != null) {
+                Image icon = ImageIO.read(iconStream);
+                setIconImage(icon);
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        }
 
         // Panel with background image
         JPanel container = new JPanel(new GridBagLayout()) {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
-            Image img = icon.getImage();
+            ImageIcon icon;
+            Image img;
 
             {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundSelecObjStarter.jpg")) {
+                    if (bgStream != null) {
+                        icon = new ImageIcon(ImageIO.read(bgStream));
+                        img = icon.getImage();
+                    } else {
+                        throw new IOException("Background image file not found!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 setOpaque(false);
             }
 
@@ -144,12 +161,12 @@ public class SelectObjStarter extends JFrame {
      * @throws IOException If an error occurs during image loading.
      */
     private BufferedImage loadImage(String path) throws IOException {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            throw e;
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (inputStream != null) {
+                return ImageIO.read(inputStream);
+            } else {
+                throw new IOException("Image file not found: " + path);
+            }
         }
     }
 

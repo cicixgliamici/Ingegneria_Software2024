@@ -4,8 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The WaitingScreen class represents a waiting screen displayed to the user while waiting for other players to join.
@@ -22,15 +22,32 @@ public class WaitingScreen extends JFrame {
         super("Waiting for Players");
         setLayout(new BorderLayout());
 
-        Image icon2 = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
-        setIconImage(icon2);
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (iconStream != null) {
+                Image icon2 = ImageIO.read(iconStream);
+                setIconImage(icon2);
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        }
 
         // Create a panel with a background image
         JPanel panel = new JPanel(new GridBagLayout()) {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/backgroundSelecObjStarter.jpg")));
-            Image img = icon.getImage();
+            ImageIcon icon;
+            Image img;
 
             {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundSelecObjStarter.jpg")) {
+                    if (bgStream != null) {
+                        icon = new ImageIcon(ImageIO.read(bgStream));
+                        img = icon.getImage();
+                    } else {
+                        throw new IOException("Background image file not found!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 setOpaque(false);
             }
 
@@ -43,12 +60,12 @@ public class WaitingScreen extends JFrame {
 
         // Load the logo image
         BufferedImage logo = null;
-        try {
-            logo = ImageIO.read(getClass().getResource("/images/icon/iconamini.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        try (InputStream logoStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (logoStream != null) {
+                logo = ImageIO.read(logoStream);
+            } else {
+                throw new IOException("Logo image file not found!");
+            }
         }
         Icon icon = new ImageIcon(logo);
         JLabel labelLogo = new JLabel(icon);

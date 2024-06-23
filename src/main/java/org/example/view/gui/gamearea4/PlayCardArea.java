@@ -5,9 +5,12 @@ import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.example.view.gui.utilities.ImageCard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +53,7 @@ public class PlayCardArea extends JPanel {
      * @param ny The grid Y coordinate.
      */
     public void insertCardStarter(int x, int y, String pathImage, int nx, int ny) {
+        // Ensure the path starts with "/" if it's meant to be absolute from the classpath root
         ImageCard imageCard = new ImageCard(pathImage, x, y, nx, ny);
         addCardButtons(imageCard);
         cardPlaced.add(imageCard);

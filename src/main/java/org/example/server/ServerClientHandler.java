@@ -127,6 +127,7 @@ public class ServerClientHandler implements Runnable {
                 return;
             }
             System.out.println("server gameflow in SH: " + server.gameFlow + "server commandkey in SH: " + commandKey);
+            System.out.println("turn gameflow in SH: " + server.gameFlow.getTurn());
             if (server.gameFlow == null || server.getGameFlow().isYourTurn(username, commandKey) || commandKey.equals("chatS")) {
                 System.out.println("eseguendo SH: " + inputLine);
                 JSONObject commandDetails = commands.get(commandKey);

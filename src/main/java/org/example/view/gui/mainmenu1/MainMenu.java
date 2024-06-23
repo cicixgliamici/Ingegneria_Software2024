@@ -11,8 +11,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The MainMenu class represents the main window of the application, allowing users to enter connection details and navigate to different parts of the application.
@@ -38,15 +38,32 @@ public class MainMenu extends JFrame {
         this.view = view;
 
         // Set the window icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
-        setIconImage(icon);
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (iconStream != null) {
+                Image icon = ImageIO.read(iconStream);
+                setIconImage(icon);
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        }
 
         // Initialize the BoxMenu panel
         boxMenu = new BoxMenu(connectionType, view) {
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-            Image img = icon.getImage();
+            ImageIcon icon;
+            Image img;
 
             {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/background.png")) {
+                    if (bgStream != null) {
+                        icon = new ImageIcon(ImageIO.read(bgStream));
+                        img = icon.getImage();
+                    } else {
+                        throw new IOException("Background image file not found!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 setOpaque(false);
             }
 
@@ -76,10 +93,21 @@ public class MainMenu extends JFrame {
                     JOptionPane.showMessageDialog(null, "Error! Please enter a valid port number.", "Error!", JOptionPane.ERROR_MESSAGE);
                 } else if (event.equals("setInitialGame")) {
                     setInitialGame = new SetInitialGame(ev.getTcpClient(), ev.getData(), ev.getView()) {
-                        ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/background.png")));
-                        Image img = icon.getImage();
+                        ImageIcon icon;
+                        Image img;
 
                         {
+                            try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/background.png")) {
+                                if (bgStream != null) {
+                                    icon = new ImageIcon(ImageIO.read(bgStream));
+                                    img = icon.getImage();
+                                } else {
+                                    throw new IOException("Background image file not found!");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                             setOpaque(false);
                         }
 
@@ -230,7 +258,7 @@ public class MainMenu extends JFrame {
         menuItemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    new About();
+                new About();
             }
         });
 

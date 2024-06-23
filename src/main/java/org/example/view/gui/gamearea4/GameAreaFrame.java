@@ -7,11 +7,15 @@ import org.example.view.gui.gamerules.GameRulesFrame;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Main frame for the Codex Naturalis game. This frame includes components for the game area, scoreboard, chat, and drawing card panel.
@@ -54,8 +58,14 @@ public class GameAreaFrame extends JFrame {
         setSize(1900, 860);
 
         // Set the window icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/icon/iconamini.png");
-        setIconImage(icon);
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (iconStream != null) {
+                Image icon = ImageIO.read(iconStream);
+                setIconImage(icon);
+            } else {
+                throw new IOException("Icon image file not found!");
+            }
+        }
 
         // Set the layout manager for the frame
         setLayout(new GridBagLayout());
@@ -120,27 +130,15 @@ public class GameAreaFrame extends JFrame {
         menuOption.setMnemonic(KeyEvent.VK_O);
 
         // Exit menu item
-        JMenuItem menuItemExit = new JMenuItem("Exit", new ImageIcon("src/main/resources/images/icon/logout.png"));
-        menuItemExit.setMnemonic(KeyEvent.VK_E);
-        menuItemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-        menuItemExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int action = JOptionPane.showConfirmDialog(GameAreaFrame.this, "Vuoi uscire dall'applicazione?", "Chiusura Applicazione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (action == JOptionPane.OK_OPTION) {
-                    System.exit(0);
-                }
+        JMenuItem menuItemExit = createMenuItem("Exit", "images/icon/logout.png", KeyEvent.VK_E, "E", e -> {
+            int action = JOptionPane.showConfirmDialog(GameAreaFrame.this, "Vuoi uscire dall'applicazione?", "Chiusura Applicazione", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (action == JOptionPane.OK_OPTION) {
+                System.exit(0);
             }
         });
 
         // Minimize menu item
-        JMenuItem minimizedIconItem = new JMenuItem("Minimized", new ImageIcon("src/main/resources/images/icon/minimize.png"));
-        minimizedIconItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setExtendedState(JFrame.ICONIFIED);
-            }
-        });
+        JMenuItem minimizedIconItem = createMenuItem("Minimized", "images/icon/minimize.png", -1, null, e -> setExtendedState(JFrame.ICONIFIED));
 
         // Add items to the options menu
         menuOption.add(minimizedIconItem);
@@ -152,26 +150,14 @@ public class GameAreaFrame extends JFrame {
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
         // About menu item
-        JMenuItem menuItemAbout = new JMenuItem("?", new ImageIcon("src/main/resources/images/icon/about_icon.png"));
-        menuItemAbout.setMnemonic(KeyEvent.VK_I);
-        menuItemAbout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new About();
-            }
-        });
+        JMenuItem menuItemAbout = createMenuItem("?", "images/icon/about_icon.png", KeyEvent.VK_I, null, e -> new About());
 
         // Rule book menu item
-        JMenuItem menuItemRuleBook = new JMenuItem("Rule Book", new ImageIcon("src/main/resources/images/icon/rulesbook-icon.png"));
-        menuItemRuleBook.setMnemonic(KeyEvent.VK_R);
-        menuItemRuleBook.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new GameRulesFrame();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+        JMenuItem menuItemRuleBook = createMenuItem("Rule Book", "images/icon/rulesbook-icon.png", KeyEvent.VK_R, null, e -> {
+            try {
+                new GameRulesFrame();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
@@ -185,6 +171,47 @@ public class GameAreaFrame extends JFrame {
         menuBar.add(menuAbout);
 
         return menuBar;
+    }
+
+    /**
+     * Creates a menu item with the specified properties.
+     *
+     * @param text The text of the menu item.
+     * @param iconPath The path to the icon image.
+     * @param mnemonic The mnemonic key for the menu item.
+     * @param accelerator The accelerator key for the menu item.
+     * @param actionListener The action listener for the menu item.
+     * @return The created JMenuItem.
+     */
+    private JMenuItem createMenuItem(String text, String iconPath, int mnemonic, String accelerator, ActionListener actionListener) {
+        JMenuItem menuItem = new JMenuItem(text, loadIcon(iconPath));
+        if (mnemonic != -1) {
+            menuItem.setMnemonic(mnemonic);
+        }
+        if (accelerator != null) {
+            menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator));
+        }
+        menuItem.addActionListener(actionListener);
+        return menuItem;
+    }
+
+    /**
+     * Loads an icon from the specified path.
+     *
+     * @param path The path to the icon image.
+     * @return The loaded ImageIcon.
+     */
+    private ImageIcon loadIcon(String path) {
+        try (InputStream iconStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (iconStream != null) {
+                return new ImageIcon(loadImage(path));
+            } else {
+                throw new IOException("Icon image file not found: " + path);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -206,5 +233,13 @@ public class GameAreaFrame extends JFrame {
                 disableComponents((Container) component);
             }
         }
+    }
+
+    private BufferedImage loadImage(String path) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path);
+        if (inputStream == null) {
+            throw new IOException("Resource not found: " + path);
+        }
+        return ImageIO.read(inputStream);
     }
 }

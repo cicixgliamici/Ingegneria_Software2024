@@ -31,10 +31,10 @@ public class DrawingCardArea {
         this.resourceDeck.shuffle();
         this.goldDeck = new Deck(Type.GOLD);            // covered gold deck
         this.goldDeck.shuffle();
-        this.objectDeck = new Deck(Type.OBJECT);        // object deck
-        this.objectDeck.shuffle();
         this.starterDeck = new Deck(Type.STARTER);      // starter deck
         this.starterDeck.shuffle();
+        this.objectDeck = new Deck(Type.OBJECT);        // object deck
+        this.objectDeck.shuffle();
         visibleGoCard = new ArrayList<>();              // 2 visible gold cards
         visibleReCard = new ArrayList<>();              // 2 visible resource cards
         initializeVGoCard();

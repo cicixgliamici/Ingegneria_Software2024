@@ -11,8 +11,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class DrawingCardPanel extends JPanel {
      * @throws IOException If an error occurs during image loading.
      */
     private JLabel createCardLabel(String path, int cardIndex) throws IOException {
-        BufferedImage image = ImageIO.read(new File(path));
+        BufferedImage image = loadImage(path);
         JLabel label = new JLabel(new ImageIcon(image));
         label.setBorder(defaultBorder);
 
@@ -101,32 +101,10 @@ public class DrawingCardPanel extends JPanel {
                 String path;
                 if (i < 2) {
                     // Set path for the back of the card based on the card index
-                    if (drawableCard <= 10) {
-                        path = "src/main/resources/images/big/back/001.png";
-                    } else if (drawableCard <= 20) {
-                        path = "src/main/resources/images/big/back/011.png";
-                    } else if (drawableCard <= 30) {
-                        path = "src/main/resources/images/big/back/021.png";
-                    } else if (drawableCard <= 40) {
-                        path = "src/main/resources/images/big/back/031.png";
-                    } else if (drawableCard <= 50) {
-                        path = "src/main/resources/images/big/back/041.png";
-                    } else if (drawableCard <= 60) {
-                        path = "src/main/resources/images/big/back/051.png";
-                    } else if (drawableCard <= 70) {
-                        path = "src/main/resources/images/big/back/061.png";
-                    } else if (drawableCard <= 80) {
-                        path = "src/main/resources/images/big/back/071.png";
-                    } else {
-                        path = "src/main/resources/images/big/back/081.png";
-                    }
+                    path = getBackCardImagePath(drawableCard);
                 } else {
                     // Set path for the front of the card based on the card index
-                    if (drawableCard < 10) {
-                        path = "src/main/resources/images/big/front/00" + drawableCard + ".png";
-                    } else {
-                        path = "src/main/resources/images/big/front/0" + drawableCard + ".png";
-                    }
+                    path = getFrontCardImagePath(drawableCard);
                 }
                 paths.add(path);
                 i++;
@@ -136,6 +114,48 @@ public class DrawingCardPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         refreshCardLabels();
+    }
+
+    /**
+     * Gets the path for the back of the card based on the card index.
+     *
+     * @param drawableCard The index of the drawable card.
+     * @return The path to the back card image.
+     */
+    private String getBackCardImagePath(int drawableCard) {
+        if (drawableCard <= 10) {
+            return "images/big/back/001.png";
+        } else if (drawableCard <= 20) {
+            return "images/big/back/011.png";
+        } else if (drawableCard <= 30) {
+            return "images/big/back/021.png";
+        } else if (drawableCard <= 40) {
+            return "images/big/back/031.png";
+        } else if (drawableCard <= 50) {
+            return "images/big/back/041.png";
+        } else if (drawableCard <= 60) {
+            return "images/big/back/051.png";
+        } else if (drawableCard <= 70) {
+            return "images/big/back/061.png";
+        } else if (drawableCard <= 80) {
+            return "images/big/back/071.png";
+        } else {
+            return "images/big/back/081.png";
+        }
+    }
+
+    /**
+     * Gets the path for the front of the card based on the card index.
+     *
+     * @param drawableCard The index of the drawable card.
+     * @return The path to the front card image.
+     */
+    private String getFrontCardImagePath(int drawableCard) {
+        if (drawableCard < 10) {
+            return "images/big/front/00" + drawableCard + ".png";
+        } else {
+            return "images/big/front/0" + drawableCard + ".png";
+        }
     }
 
     /**
@@ -161,6 +181,23 @@ public class DrawingCardPanel extends JPanel {
         }
         revalidate();
         repaint();
+    }
+
+    /**
+     * Loads an image from the specified path using the class loader.
+     *
+     * @param path The path to the image.
+     * @return The loaded BufferedImage.
+     * @throws IOException If an error occurs during image loading.
+     */
+    private BufferedImage loadImage(String path) throws IOException {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+            if (inputStream != null) {
+                return ImageIO.read(inputStream);
+            } else {
+                throw new IOException("Image file not found: " + path);
+            }
+        }
     }
 
     /**

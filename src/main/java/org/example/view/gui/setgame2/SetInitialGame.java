@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * The SetInitialGame class represents a panel where the user sets up the initial game parameters.
@@ -47,14 +48,15 @@ public class SetInitialGame extends JPanel {
 
         // Load the logo image
         BufferedImage logo = null;
-        try {
-            logo = ImageIO.read(getClass().getResource("/images/logo.png"));
+        try (InputStream logoStream = getClass().getClassLoader().getResourceAsStream("images/logo.png")) {
+            if (logoStream != null) {
+                logo = ImageIO.read(logoStream);
+            } else {
+                throw new IOException("Logo image file not found!");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            throw new RuntimeException(e);
         }
-
         Icon icon = new ImageIcon(logo);
         labelTitle = new JLabel(icon);
 

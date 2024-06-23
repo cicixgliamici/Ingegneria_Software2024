@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,11 +61,11 @@ public class GameAreaPanel extends JPanel {
         g2d.dispose();
         transparentIcon = new ImageIcon(transparentImage);
         System.out.println("Hand in GameAreaPanel: " + view.getHand());
-        backgroundImg = ImageIO.read(new File("src/main/resources/images/gamearea.png"));
+        backgroundImg = loadImage("images/gamearea.png");
         card1 = createCard(view.getHand().get(0));
         card2 = createCard(view.getHand().get(1));
         card3 = createCard(view.getHand().get(2));
-        BufferedImage img4 = ImageIO.read(new File(objCard));
+        BufferedImage img4 = loadImage(objCard);
         Icon ic4 = new ImageIcon(img4);
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
@@ -75,49 +76,53 @@ public class GameAreaPanel extends JPanel {
 
         switch (num) {
             case "1":
-                token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
-                token2 = createToken("Yellow", "Blue", "Yellow", "Red", "Green", false);
-                token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
-                token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
+                token1 = createToken(color, true);
+                token2 = createToken("Yellow", false);
+                token3 = createToken("Red", false);
+                token4 = createToken("Green", false);
                 break;
-
             case "2":
-                token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                token1 = createToken(color, true);
                 username1 = new JLabel(username);
                 username1.setFont(new Font("Helvetica", Font.BOLD, 15));
-                token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 username2 = new JLabel(keys.get(0));
                 username2.setFont(new Font("Helvetica", Font.BOLD, 15));
-                token3 = createToken("Red", "Blue", "Yellow", "Red", "Green", false);
-                token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
+                token3 = createToken("Red", false);
+                token4 = createToken("Green", false);
                 break;
-
             case "3":
-                token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                token1 = createToken(color, true);
                 username1 = new JLabel(username);
-                token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 username2 = new JLabel(keys.get(0));
-                token3 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token3 = createToken(view.getColorPlayer().get(keys.get(1)), true);
                 username3 = new JLabel(keys.get(1));
-                token4 = createToken("Green", "Blue", "Yellow", "Red", "Green", false);
+                username3.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token4 = createToken("Green", false);
                 break;
-
             case "4":
-                token1 = createToken(color, "Blue", "Yellow", "Red", "Green", true);
+                token1 = createToken(color, true);
                 username1 = new JLabel(username);
-                token2 = createToken(view.getColorPlayer().get(keys.get(0)), "Blue", "Yellow", "Red", "Green", true);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 username2 = new JLabel(keys.get(0));
-                token3 = createToken(view.getColorPlayer().get(keys.get(1)), "Blue", "Yellow", "Red", "Green", true);
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token3 = createToken(view.getColorPlayer().get(keys.get(1)), true);
                 username3 = new JLabel(keys.get(1));
-                token4 = createToken(view.getColorPlayer().get(keys.get(2)), "Blue", "Yellow", "Red", "Green", true);
+                username3.setFont(new Font("Helvetica", Font.BOLD, 15));
+                token4 = createToken(view.getColorPlayer().get(keys.get(2)), true);
                 username4 = new JLabel(keys.get(2));
+                username4.setFont(new Font("Helvetica", Font.BOLD, 15));
                 break;
         }
 
         playCardArea = new PlayCardArea(tcpClient, this) {
 
 
-            ImageIcon icon = new ImageIcon(ImageIO.read(new File("src/main/resources/images/pannotavolo.jpg")));
+            ImageIcon icon = new ImageIcon(loadImage("images/pannotavolo.jpg"));
             //ImageIcon icon = new ImageIcon(ImageIO.read(new File("C:\\Users\\jamie\\OneDrive\\Desktop\\pannotavolo.jpg")));
             Image img = icon.getImage();
 
@@ -250,6 +255,14 @@ public class GameAreaPanel extends JPanel {
         view.addListener(new GameAreaPanelListener(this));
     }
 
+    private BufferedImage loadImage(String path) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path);
+        if (inputStream == null) {
+            throw new IOException("Resource not found: " + path);
+        }
+        return ImageIO.read(inputStream);
+    }
+
     private void setupLayeredPane(JLayeredPane layeredPane, JLabel token, JLabel username) {
         layeredPane.setLayout(null);
         if (token != null) {
@@ -277,27 +290,27 @@ public class GameAreaPanel extends JPanel {
         BufferedImage newImg = null;
         if (!isFront) {
             if (cardId <= 10) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/001.png"));
+                newImg = loadImage("images/small/back/001.png");
             } else if (cardId <= 20) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/011.png"));
+                newImg = loadImage("images/small/back/011.png");
             } else if (cardId <= 30) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/021.png"));
+                newImg = loadImage("images/small/back/021.png");
             } else if (cardId <= 40) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/031.png"));
+                newImg = loadImage("images/small/back/031.png");
             } else if (cardId <= 50) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/041.png"));
+                newImg = loadImage("images/small/back/041.png");
             } else if (cardId <= 60) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/051.png"));
+                newImg = loadImage("images/small/back/051.png");
             } else if (cardId <= 70) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/061.png"));
+                newImg = loadImage("images/small/back/061.png");
             } else if (cardId <= 80) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/back/071.png"));
+                newImg = loadImage("images/small/back/071.png");
             }
         } else {
             if (cardId < 10) {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/front/00" + cardId + ".png"));
+                newImg = loadImage("images/small/front/00" + cardId + ".png");
             } else {
-                newImg = ImageIO.read(new File("src/main/resources/images/small/front/0" + cardId + ".png"));
+                newImg = loadImage("images/small/front/0" + cardId + ".png");
             }
         }
         return new ImageIcon(newImg);
@@ -361,28 +374,28 @@ public class GameAreaPanel extends JPanel {
     private String getCardImagePath(int cardId) {
         if(getChosenSide()==0) {
             if (cardId < 10) {
-                return "src/main/resources/images/mid/front/00" + cardId + ".png";
+                return "images/mid/front/00" + cardId + ".png";
             } else {
-                return "src/main/resources/images/mid/front/0" + cardId + ".png";
+                return "images/mid/front/0" + cardId + ".png";
             }
         }
         else if(getChosenSide()==1) {
             if (cardId <= 10) {
-                return "src/main/resources/images/mid/back/001.png";
+                return "images/mid/back/001.png";
             } else if (cardId <= 20) {
-                return "src/main/resources/images/mid/back/011.png";
+                return "images/mid/back/011.png";
             } else if (cardId <= 30) {
-                return "src/main/resources/images/mid/back/021.png";
+                return "images/mid/back/021.png";
             } else if (cardId <= 40) {
-                return "src/main/resources/images/mid/back/031.png";
+                return "images/mid/back/031.png";
             } else if (cardId <= 50) {
-                return "src/main/resources/images/mid/back/041.png";
+                return "images/mid/back/041.png";
             } else if (cardId <= 60) {
-                return "src/main/resources/images/mid/back/051.png";
+                return "images/mid/back/051.png";
             } else if (cardId <= 70) {
-                return "src/main/resources/images/mid/back/061.png";
+                return "images/mid/back/061.png";
             } else if (cardId <= 80) {
-               return "src/main/resources/images/mid/back/071.png";
+                return "images/mid/back/071.png";
             }
         }
         return null;
@@ -402,9 +415,9 @@ public class GameAreaPanel extends JPanel {
     private JLabel createCard(int cardId) throws IOException {
         BufferedImage img;
         if (cardId < 10) {
-            img = ImageIO.read(new File("src/main/resources/images/small/front/00" + cardId + ".png"));
+            img = loadImage("images/small/front/00" + cardId + ".png");
         } else {
-            img = ImageIO.read(new File("src/main/resources/images/small/front/0" + cardId + ".png"));
+            img = loadImage("images/small/front/0" + cardId + ".png");
         }
         Icon icon = new ImageIcon(img);
         JLabel cardLabel = new JLabel(icon);
@@ -413,17 +426,12 @@ public class GameAreaPanel extends JPanel {
         cardLabel.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         return cardLabel;
     }
-
-    private JLabel createToken(String color, String blueColor, String yellowColor, String redColor, String greenColor, boolean visible) throws IOException {
-        BufferedImage logo;
-        if (color.equals("Blue")) {
-            logo = ImageIO.read(new File("src/main/resources/images/CODEX_pion_bleu.png"));
-        } else if (color.equals("Yellow")) {
-            logo = ImageIO.read(new File("src/main/resources/images/CODEX_pion_jaune.png"));
-        } else if (color.equals("Red")) {
-            logo = ImageIO.read(new File("src/main/resources/images/red.png"));
-        } else {
-            logo = ImageIO.read(new File("src/main/resources/images/CODEX_pion_vert.png"));
+    private JLabel createToken(String color, boolean visible) throws IOException {
+        String imagePath = "images/CODEX_pion_" + color.toLowerCase() + ".png";
+        BufferedImage logo = loadImage(imagePath);
+        if (logo == null) {
+            System.err.println("Failed to load token image for color: " + color);
+            return null; // Return null or handle this situation appropriately.
         }
         Icon icon = new ImageIcon(logo);
         JLabel tokenLabel = new JLabel(icon);

@@ -45,10 +45,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/001.png",
-    "imagePathBB": "src/main/resources/images/big/back/001.png",
-    "imagePathSF": "src/main/resources/images/small/front/001.png",
-    "imagePathSB": "src/main/resources/images/small/back/001.png"
+    "imagePathBF": "images/big/front/001.png",
+    "imagePathBB": "images/big/back/001.png",
+    "imagePathSF": "images/small/front/001.png",
+    "imagePathSB": "images/small/back/001.png"
   },
   {
     "id": 2,
@@ -96,10 +96,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/002.png",
-    "imagePathBB": "src/main/resources/images/big/back/002.png",
-    "imagePathSF": "src/main/resources/images/small/front/002.png",
-    "imagePathSB": "src/main/resources/images/small/back/002.png"
+    "imagePathBF": "images/big/front/002.png",
+    "imagePathBB": "images/big/back/002.png",
+    "imagePathSF": "images/small/front/002.png",
+    "imagePathSB": "images/small/back/002.png"
   },
   {
     "id": 3,
@@ -147,10 +147,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/003.png",
-    "imagePathBB": "src/main/resources/images/big/back/003.png",
-    "imagePathSF": "src/main/resources/images/small/front/003.png",
-    "imagePathSB": "src/main/resources/images/small/back/003.png"
+    "imagePathBF": "images/big/front/003.png",
+    "imagePathBB": "images/big/back/003.png",
+    "imagePathSF": "images/small/front/003.png",
+    "imagePathSB": "images/small/back/003.png"
   },
   {
     "id": 4,
@@ -198,10 +198,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/004.png",
-    "imagePathBB": "src/main/resources/images/big/back/004.png",
-    "imagePathSF": "src/main/resources/images/small/front/004.png",
-    "imagePathSB": "src/main/resources/images/small/back/004.png"
+    "imagePathBF": "images/big/front/004.png",
+    "imagePathBB": "images/big/back/004.png",
+    "imagePathSF": "images/small/front/004.png",
+    "imagePathSB": "images/small/back/004.png"
   },
   {
     "id": 5,
@@ -249,10 +249,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/005.png",
-    "imagePathBB": "src/main/resources/images/big/back/005.png",
-    "imagePathSF": "src/main/resources/images/small/front/005.png",
-    "imagePathSB": "src/main/resources/images/small/back/005.png"
+    "imagePathBF": "images/big/front/005.png",
+    "imagePathBB": "images/big/back/005.png",
+    "imagePathSF": "images/small/front/005.png",
+    "imagePathSB": "images/small/back/005.png"
   },
   {
     "id": 6,
@@ -300,10 +300,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/006.png",
-    "imagePathBB": "src/main/resources/images/big/back/006.png",
-    "imagePathSF": "src/main/resources/images/small/front/006.png",
-    "imagePathSB": "src/main/resources/images/small/back/006.png"
+    "imagePathBF": "images/big/front/006.png",
+    "imagePathBB": "images/big/back/006.png",
+    "imagePathSF": "images/small/front/006.png",
+    "imagePathSB": "images/small/back/006.png"
   },
   {
     "id": 7,
@@ -351,10 +351,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/007.png",
-    "imagePathBB": "src/main/resources/images/big/back/007.png",
-    "imagePathSF": "src/main/resources/images/small/front/007.png",
-    "imagePathSB": "src/main/resources/images/small/back/007.png"
+    "imagePathBF": "images/big/front/007.png",
+    "imagePathBB": "images/big/back/007.png",
+    "imagePathSF": "images/small/front/007.png",
+    "imagePathSB": "images/small/back/007.png"
   },
   {
     "id": 8,
@@ -402,10 +402,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/008.png",
-    "imagePathBB": "src/main/resources/images/big/back/008.png",
-    "imagePathSF": "src/main/resources/images/small/front/008.png",
-    "imagePathSB": "src/main/resources/images/small/back/008.png"
+    "imagePathBF": "images/big/front/008.png",
+    "imagePathBB": "images/big/back/008.png",
+    "imagePathSF": "images/small/front/008.png",
+    "imagePathSB": "images/small/back/008.png"
   },
   {
     "id": 9,
@@ -453,10 +453,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/009.png",
-    "imagePathBB": "src/main/resources/images/big/back/009.png",
-    "imagePathSF": "src/main/resources/images/small/front/009.png",
-    "imagePathSB": "src/main/resources/images/small/back/009.png"
+    "imagePathBF": "images/big/front/009.png",
+    "imagePathBB": "images/big/back/009.png",
+    "imagePathSF": "images/small/front/009.png",
+    "imagePathSB": "images/small/back/009.png"
   },
   {
     "id": 10,
@@ -504,10 +504,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/010.png",
-    "imagePathBB": "src/main/resources/images/big/back/010.png",
-    "imagePathSF": "src/main/resources/images/small/front/010.png",
-    "imagePathSB": "src/main/resources/images/small/back/010.png"
+    "imagePathBF": "images/big/front/010.png",
+    "imagePathBB": "images/big/back/010.png",
+    "imagePathSF": "images/small/front/010.png",
+    "imagePathSB": "images/small/back/010.png"
   },
   {
     "id": 11,
@@ -555,10 +555,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/011.png",
-    "imagePathBB": "src/main/resources/images/big/back/011.png",
-    "imagePathSF": "src/main/resources/images/small/front/011.png",
-    "imagePathSB": "src/main/resources/images/small/back/011.png"
+    "imagePathBF": "images/big/front/011.png",
+    "imagePathBB": "images/big/back/011.png",
+    "imagePathSF": "images/small/front/011.png",
+    "imagePathSB": "images/small/back/011.png"
   },
   {
     "id": 12,
@@ -606,10 +606,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/012.png",
-    "imagePathBB": "src/main/resources/images/big/back/012.png",
-    "imagePathSF": "src/main/resources/images/small/front/012.png",
-    "imagePathSB": "src/main/resources/images/small/back/012.png"
+    "imagePathBF": "images/big/front/012.png",
+    "imagePathBB": "images/big/back/012.png",
+    "imagePathSF": "images/small/front/012.png",
+    "imagePathSB": "images/small/back/012.png"
   },
   {
     "id": 13,
@@ -657,10 +657,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/013.png",
-    "imagePathBB": "src/main/resources/images/big/back/013.png",
-    "imagePathSF": "src/main/resources/images/small/front/013.png",
-    "imagePathSB": "src/main/resources/images/small/back/013.png"
+    "imagePathBF": "images/big/front/013.png",
+    "imagePathBB": "images/big/back/013.png",
+    "imagePathSF": "images/small/front/013.png",
+    "imagePathSB": "images/small/back/013.png"
   },
   {
     "id": 14,
@@ -708,10 +708,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/014.png",
-    "imagePathBB": "src/main/resources/images/big/back/014.png",
-    "imagePathSF": "src/main/resources/images/small/front/014.png",
-    "imagePathSB": "src/main/resources/images/small/back/014.png"
+    "imagePathBF": "images/big/front/014.png",
+    "imagePathBB": "images/big/back/014.png",
+    "imagePathSF": "images/small/front/014.png",
+    "imagePathSB": "images/small/back/014.png"
   },
   {
     "id": 15,
@@ -759,10 +759,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/015.png",
-    "imagePathBB": "src/main/resources/images/big/back/015.png",
-    "imagePathSF": "src/main/resources/images/small/front/015.png",
-    "imagePathSB": "src/main/resources/images/small/back/015.png"
+    "imagePathBF": "images/big/front/015.png",
+    "imagePathBB": "images/big/back/015.png",
+    "imagePathSF": "images/small/front/015.png",
+    "imagePathSB": "images/small/back/015.png"
   },
   {
     "id": 16,
@@ -810,10 +810,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/016.png",
-    "imagePathBB": "src/main/resources/images/big/back/016.png",
-    "imagePathSF": "src/main/resources/images/small/front/016.png",
-    "imagePathSB": "src/main/resources/images/small/back/016.png"
+    "imagePathBF": "images/big/front/016.png",
+    "imagePathBB": "images/big/back/016.png",
+    "imagePathSF": "images/small/front/016.png",
+    "imagePathSB": "images/small/back/016.png"
   },
   {
     "id": 17,
@@ -861,10 +861,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/017.png",
-    "imagePathBB": "src/main/resources/images/big/back/017.png",
-    "imagePathSF": "src/main/resources/images/small/front/017.png",
-    "imagePathSB": "src/main/resources/images/small/back/017.png"
+    "imagePathBF": "images/big/front/017.png",
+    "imagePathBB": "images/big/back/017.png",
+    "imagePathSF": "images/small/front/017.png",
+    "imagePathSB": "images/small/back/017.png"
   },
   {
     "id": 18,
@@ -912,10 +912,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/018.png",
-    "imagePathBB": "src/main/resources/images/big/back/018.png",
-    "imagePathSF": "src/main/resources/images/small/front/018.png",
-    "imagePathSB": "src/main/resources/images/small/back/018.png"
+    "imagePathBF": "images/big/front/018.png",
+    "imagePathBB": "images/big/back/018.png",
+    "imagePathSF": "images/small/front/018.png",
+    "imagePathSB": "images/small/back/018.png"
   },
   {
     "id": 19,
@@ -963,10 +963,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/019.png",
-    "imagePathBB": "src/main/resources/images/big/back/019.png",
-    "imagePathSF": "src/main/resources/images/small/front/019.png",
-    "imagePathSB": "src/main/resources/images/small/back/019.png"
+    "imagePathBF": "images/big/front/019.png",
+    "imagePathBB": "images/big/back/019.png",
+    "imagePathSF": "images/small/front/019.png",
+    "imagePathSB": "images/small/back/019.png"
   },
   {
     "id": 20,
@@ -1014,10 +1014,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/020.png",
-    "imagePathBB": "src/main/resources/images/big/back/020.png",
-    "imagePathSF": "src/main/resources/images/small/front/020.png",
-    "imagePathSB": "src/main/resources/images/small/back/020.png"
+    "imagePathBF": "images/big/front/020.png",
+    "imagePathBB": "images/big/back/020.png",
+    "imagePathSF": "images/small/front/020.png",
+    "imagePathSB": "images/small/back/020.png"
   },
   {
     "id": 21,
@@ -1065,10 +1065,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/021.png",
-    "imagePathBB": "src/main/resources/images/big/back/021.png",
-    "imagePathSF": "src/main/resources/images/small/front/021.png",
-    "imagePathSB": "src/main/resources/images/small/back/021.png"
+    "imagePathBF": "images/big/front/021.png",
+    "imagePathBB": "images/big/back/021.png",
+    "imagePathSF": "images/small/front/021.png",
+    "imagePathSB": "images/small/back/021.png"
   },
   {
     "id": 22,
@@ -1116,10 +1116,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/022.png",
-    "imagePathBB": "src/main/resources/images/big/back/022.png",
-    "imagePathSF": "src/main/resources/images/small/front/022.png",
-    "imagePathSB": "src/main/resources/images/small/back/022.png"
+    "imagePathBF": "images/big/front/022.png",
+    "imagePathBB": "images/big/back/022.png",
+    "imagePathSF": "images/small/front/022.png",
+    "imagePathSB": "images/small/back/022.png"
   },
   {
     "id": 23,
@@ -1167,10 +1167,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/023.png",
-    "imagePathBB": "src/main/resources/images/big/back/023.png",
-    "imagePathSF": "src/main/resources/images/small/front/023.png",
-    "imagePathSB": "src/main/resources/images/small/back/023.png"
+    "imagePathBF": "images/big/front/023.png",
+    "imagePathBB": "images/big/back/023.png",
+    "imagePathSF": "images/small/front/023.png",
+    "imagePathSB": "images/small/back/023.png"
   },
   {
     "id": 24,
@@ -1218,10 +1218,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/024.png",
-    "imagePathBB": "src/main/resources/images/big/back/024.png",
-    "imagePathSF": "src/main/resources/images/small/front/024.png",
-    "imagePathSB": "src/main/resources/images/small/back/024.png"
+    "imagePathBF": "images/big/front/024.png",
+    "imagePathBB": "images/big/back/024.png",
+    "imagePathSF": "images/small/front/024.png",
+    "imagePathSB": "images/small/back/024.png"
   },
   {
     "id": 25,
@@ -1269,10 +1269,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/025.png",
-    "imagePathBB": "src/main/resources/images/big/back/025.png",
-    "imagePathSF": "src/main/resources/images/small/front/025.png",
-    "imagePathSB": "src/main/resources/images/small/back/025.png"
+    "imagePathBF": "images/big/front/025.png",
+    "imagePathBB": "images/big/back/025.png",
+    "imagePathSF": "images/small/front/025.png",
+    "imagePathSB": "images/small/back/025.png"
   },
   {
     "id": 26,
@@ -1320,10 +1320,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/026.png",
-    "imagePathBB": "src/main/resources/images/big/back/026.png",
-    "imagePathSF": "src/main/resources/images/small/front/026.png",
-    "imagePathSB": "src/main/resources/images/small/back/026.png"
+    "imagePathBF": "images/big/front/026.png",
+    "imagePathBB": "images/big/back/026.png",
+    "imagePathSF": "images/small/front/026.png",
+    "imagePathSB": "images/small/back/026.png"
   },
   {
     "id": 27,
@@ -1371,10 +1371,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/027.png",
-    "imagePathBB": "src/main/resources/images/big/back/027.png",
-    "imagePathSF": "src/main/resources/images/small/front/027.png",
-    "imagePathSB": "src/main/resources/images/small/back/027.png"
+    "imagePathBF": "images/big/front/027.png",
+    "imagePathBB": "images/big/back/027.png",
+    "imagePathSF": "images/small/front/027.png",
+    "imagePathSB": "images/small/back/027.png"
   },
   {
     "id": 28,
@@ -1422,10 +1422,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/028.png",
-    "imagePathBB": "src/main/resources/images/big/back/028.png",
-    "imagePathSF": "src/main/resources/images/small/front/028.png",
-    "imagePathSB": "src/main/resources/images/small/back/028.png"
+    "imagePathBF": "images/big/front/028.png",
+    "imagePathBB": "images/big/back/028.png",
+    "imagePathSF": "images/small/front/028.png",
+    "imagePathSB": "images/small/back/028.png"
   },
   {
     "id": 29,
@@ -1473,10 +1473,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/029.png",
-    "imagePathBB": "src/main/resources/images/big/back/029.png",
-    "imagePathSF": "src/main/resources/images/small/front/029.png",
-    "imagePathSB": "src/main/resources/images/small/back/029.png"
+    "imagePathBF": "images/big/front/029.png",
+    "imagePathBB": "images/big/back/029.png",
+    "imagePathSF": "images/small/front/029.png",
+    "imagePathSB": "images/small/back/029.png"
   },
   {
     "id": 30,
@@ -1524,10 +1524,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/030.png",
-    "imagePathBB": "src/main/resources/images/big/back/030.png",
-    "imagePathSF": "src/main/resources/images/small/front/030.png",
-    "imagePathSB": "src/main/resources/images/small/back/030.png"
+    "imagePathBF": "images/big/front/030.png",
+    "imagePathBB": "images/big/back/030.png",
+    "imagePathSF": "images/small/front/030.png",
+    "imagePathSB": "images/small/back/030.png"
   },
   {
     "id": 31,
@@ -1575,10 +1575,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/031.png",
-    "imagePathBB": "src/main/resources/images/big/back/031.png",
-    "imagePathSF": "src/main/resources/images/small/front/031.png",
-    "imagePathSB": "src/main/resources/images/small/back/031.png"
+    "imagePathBF": "images/big/front/031.png",
+    "imagePathBB": "images/big/back/031.png",
+    "imagePathSF": "images/small/front/031.png",
+    "imagePathSB": "images/small/back/031.png"
   },
   {
     "id": 32,
@@ -1626,10 +1626,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/032.png",
-    "imagePathBB": "src/main/resources/images/big/back/032.png",
-    "imagePathSF": "src/main/resources/images/small/front/032.png",
-    "imagePathSB": "src/main/resources/images/small/back/032.png"
+    "imagePathBF": "images/big/front/032.png",
+    "imagePathBB": "images/big/back/032.png",
+    "imagePathSF": "images/small/front/032.png",
+    "imagePathSB": "images/small/back/032.png"
   },
   {
     "id": 33,
@@ -1677,10 +1677,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/033.png",
-    "imagePathBB": "src/main/resources/images/big/back/033.png",
-    "imagePathSF": "src/main/resources/images/small/front/033.png",
-    "imagePathSB": "src/main/resources/images/small/back/033.png"
+    "imagePathBF": "images/big/front/033.png",
+    "imagePathBB": "images/big/back/033.png",
+    "imagePathSF": "images/small/front/033.png",
+    "imagePathSB": "images/small/back/033.png"
   },
   {
     "id": 34,
@@ -1728,10 +1728,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/034.png",
-    "imagePathBB": "src/main/resources/images/big/back/034.png",
-    "imagePathSF": "src/main/resources/images/small/front/034.png",
-    "imagePathSB": "src/main/resources/images/small/back/034.png"
+    "imagePathBF": "images/big/front/034.png",
+    "imagePathBB": "images/big/back/034.png",
+    "imagePathSF": "images/small/front/034.png",
+    "imagePathSB": "images/small/back/034.png"
   },
   {
     "id": 35,
@@ -1779,10 +1779,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/035.png",
-    "imagePathBB": "src/main/resources/images/big/back/035.png",
-    "imagePathSF": "src/main/resources/images/small/front/035.png",
-    "imagePathSB": "src/main/resources/images/small/back/035.png"
+    "imagePathBF": "images/big/front/035.png",
+    "imagePathBB": "images/big/back/035.png",
+    "imagePathSF": "images/small/front/035.png",
+    "imagePathSB": "images/small/back/035.png"
   },
   {
     "id": 36,
@@ -1830,10 +1830,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/036.png",
-    "imagePathBB": "src/main/resources/images/big/back/036.png",
-    "imagePathSF": "src/main/resources/images/small/front/036.png",
-    "imagePathSB": "src/main/resources/images/small/back/036.png"
+    "imagePathBF": "images/big/front/036.png",
+    "imagePathBB": "images/big/back/036.png",
+    "imagePathSF": "images/small/front/036.png",
+    "imagePathSB": "images/small/back/036.png"
   },
   {
     "id": 37,
@@ -1881,10 +1881,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/037.png",
-    "imagePathBB": "src/main/resources/images/big/back/037.png",
-    "imagePathSF": "src/main/resources/images/small/front/037.png",
-    "imagePathSB": "src/main/resources/images/small/back/037.png"
+    "imagePathBF": "images/big/front/037.png",
+    "imagePathBB": "images/big/back/037.png",
+    "imagePathSF": "images/small/front/037.png",
+    "imagePathSB": "images/small/back/037.png"
   },
   {
     "id": 38,
@@ -1932,10 +1932,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/038.png",
-    "imagePathBB": "src/main/resources/images/big/back/038.png",
-    "imagePathSF": "src/main/resources/images/small/front/038.png",
-    "imagePathSB": "src/main/resources/images/small/back/038.png"
+    "imagePathBF": "images/big/front/038.png",
+    "imagePathBB": "images/big/back/038.png",
+    "imagePathSF": "images/small/front/038.png",
+    "imagePathSB": "images/small/back/038.png"
   },
   {
     "id": 39,
@@ -1983,10 +1983,10 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/039.png",
-    "imagePathBB": "src/main/resources/images/big/back/039.png",
-    "imagePathSF": "src/main/resources/images/small/front/039.png",
-    "imagePathSB": "src/main/resources/images/small/back/039.png"
+    "imagePathBF": "images/big/front/039.png",
+    "imagePathBB": "images/big/back/039.png",
+    "imagePathSF": "images/small/front/039.png",
+    "imagePathSB": "images/small/back/039.png"
   },
   {
     "id": 40,
@@ -2034,10 +2034,9 @@
         }
       ]
     },
-    "imagePathBF": "src/main/resources/images/big/front/040.png",
-    "imagePathBB": "src/main/resources/images/big/back/040.png",
-    "imagePathSF": "src/main/resources/images/small/front/040.png",
-    "imagePathSB": "src/main/resources/images/small/back/040.png"
+    "imagePathBF": "images/big/front/040.png",
+    "imagePathBB": "images/big/back/040.png",
+    "imagePathSF": "images/small/front/040.png",
+    "imagePathSB": "images/small/back/040.png"
   }
 ]
-

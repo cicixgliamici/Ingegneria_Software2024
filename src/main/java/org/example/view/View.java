@@ -2,6 +2,8 @@ package org.example.view;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -287,15 +289,20 @@ public abstract class View {
      */
     public JSONObject getCardById(int id) {
         JSONParser parser = new JSONParser();
-        String[] filePaths = {
-                "src/main/resources/Card.json",
-                "src/main/resources/GoldCard.json",
-                "src/main/resources/ObjectiveCard.json",
-                "src/main/resources/StarterCard.json"
+        String[] resourcePaths = {
+                "/Card.json",
+                "/GoldCard.json",
+                "/ObjectiveCard.json",
+                "/StarterCard.json"
         };
-        for (String filePath : filePaths) {
-            try {
-                JSONArray cards = (JSONArray) parser.parse(new FileReader(filePath));
+        for (String resourcePath : resourcePaths) {
+            try (InputStream inputStream = getClass().getResourceAsStream(resourcePath);
+                 InputStreamReader reader = new InputStreamReader(inputStream)) {
+                if (inputStream == null) {
+                    System.err.println("Resource not found: " + resourcePath);
+                    continue;
+                }
+                JSONArray cards = (JSONArray) parser.parse(reader);
                 for (Object cardObj : cards) {
                     JSONObject card = (JSONObject) cardObj;
                     if (((Long) card.get("id")).intValue() == id) {
@@ -303,7 +310,7 @@ public abstract class View {
                     }
                 }
             } catch (IOException | ParseException e) {
-                System.err.println("Error reading or parsing the JSON file: " + e.getMessage());
+                System.err.println("Error reading or parsing the JSON resource: " + resourcePath + ", " + e.getMessage());
             }
         }
         return null;

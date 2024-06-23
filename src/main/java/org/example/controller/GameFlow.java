@@ -10,27 +10,26 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * The GameFlow class manages the sequence and logic of player turns in a game.
- * It relies on interaction with a model and a server to handle game state and network communication respectively.
+ * Controls the flow of the game, managing turns and game ending conditions.
  */
 public class GameFlow {
-    List<Player> players; // List of players participating in the game.
-    Model model; // The game's model, handling the state and logic.
-    Server server; // The server interface for sending updates to clients.
+    List<Player> players;
+    Model model;
+    Server server;
 
-    private AtomicInteger turn = new AtomicInteger(1); // Current turn number, using thread-safe atomic operations.
-    private AtomicInteger maxTurn = new AtomicInteger(0); // Maximum number of turns in the game.
-    private int LastRound = 0; // Indicator for the last round of the game.
-    private int EndGame = 0; // Indicator that the game has ended.
-    private boolean lastRoundStarted = false; // Flag to check if the last round has started.
-    private boolean lastRoundAnnounced = false; // Flag to check if the last round has been announced.
+    private AtomicInteger turn = new AtomicInteger(1);
+    private AtomicInteger maxTurn = new AtomicInteger(0);
+    private int LastRound = 0;
+    private int EndGame = 0;
+    private boolean lastRoundStarted = false;
+    private boolean lastRoundAnnounced = false;
 
     /**
-     * Constructor initializing the GameFlow with given players, model, and server.
+     * Constructor to initialize the game flow controller.
      *
      * @param players the list of players in the game
-     * @param model the game model
-     * @param server the server for communication
+     * @param model   the game model
+     * @param server  the game server
      */
     public GameFlow(List<Player> players, Model model, Server server) {
         this.players = players;
@@ -39,8 +38,7 @@ public class GameFlow {
     }
 
     /**
-     * Increments the turn counter and handles the transition from the last turn to the first.
-     * If it's the last turn and the last round has started, the game end sequence is triggered.
+     * Increments the turn count and manages the flow between rounds.
      */
     public void incrementTurn() {
         int currentTurn = turn.get();
@@ -52,7 +50,6 @@ public class GameFlow {
         }
         System.out.println("Turn in GF increment: " + turn);
 
-        // End game if it's the last turn of the last round
         if (lastRoundStarted && currentTurn == maxTurnValue) {
             try {
                 endGame();
@@ -63,13 +60,12 @@ public class GameFlow {
     }
 
     /**
-     * Determines if it is the specified player's turn to execute a command.
-     * Commands can be either 'play' or 'draw', and are only valid at certain turns for each player.
+     * Determines if it's a player's turn to perform a specific command.
      *
      * @param username the username of the player
-     * @param command the command the player is attempting to execute
-     * @return true if it is the player's turn and the command is valid, false otherwise
-     * @throws RemoteException if network issues prevent command execution
+     * @param command  the command to be checked
+     * @return true if it's the player's turn, false otherwise
+     * @throws RemoteException if an RMI error occurs
      */
     public boolean isYourTurn(String username, String command) throws RemoteException {
         if (command.equals("setObjStarter")) {
@@ -79,12 +75,7 @@ public class GameFlow {
         if (LastRound != 1 || !players.get(0).getUsername().equals(username)) {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getUsername().equals(username)) {
-                    switch (i) {
-                        case 0:
-                            // Player 1's turn logic
-                            break;
-                        // Similar logic for other players
-                    }
+                    return checkTurn(command, i);
                 }
             }
         }
@@ -98,12 +89,12 @@ public class GameFlow {
     }
 
     /**
-     * Ends the game by calculating scores, determining winners or ties, and notifying players.
-     * This method is called when the game reaches its conclusion.
-     * @throws RemoteException if network issues occur during execution
+     * Ends the game by determining the winner based on points.
+     *
+     * @throws RemoteException if an RMI error occurs
      */
     public void endGame() throws RemoteException {
-        System.out.println("Entered in end Game");
+        System.out.println("entrato in end Game");
         int highestScore = Integer.MIN_VALUE;
         List<String> winners = new ArrayList<>();
 
@@ -131,30 +122,38 @@ public class GameFlow {
                     tiedPlayers.append(", ");
                 }
             }
-            server.onModelGeneric("Tie:" + "tie, players " + tiedPlayers.toString() + " have scored " + highestScore + " points");
+            server.onModelGeneric("Tie:" + "pareggio, i giocatori " + tiedPlayers.toString() + " hanno realizzato " + highestScore + " punti");
         }
     }
 
-    // Getter and setter methods follow, providing access to private variables.
-
-    public AtomicInteger getTurn() {
-        return turn;
+    // Helper method to check if it's the right turn for a command
+    private boolean checkTurn(String command, int playerIndex) {
+        int turnIndex = 1 + playerIndex * 2;
+        if (Objects.equals(command, "play") && turn.get() == turnIndex) {
+            System.out.println("Turn in GF: " + turn);
+            return true;
+        } else if (command.equals("draw") && turn.get() == turnIndex + 1) {
+            System.out.println("Turn in GF: " + turn);
+            return true;
+        }
+        return false;
     }
 
-    public AtomicInteger getMaxTurn() {
-        return maxTurn;
+    // Getters and setters
+    public AtomicInteger getTurn() {
+        return turn;
     }
 
     public void setTurn(AtomicInteger turn) {
         this.turn = turn;
     }
 
-    public void setMaxTurn(AtomicInteger maxTurn) {
-        this.maxTurn = maxTurn;
+    public AtomicInteger getMaxTurn() {
+        return maxTurn;
     }
 
-    public void setLastRound(int lastRound) {
-        LastRound = lastRound;
+    public void setMaxTurn(AtomicInteger maxTurn) {
+        this.maxTurn = maxTurn;
     }
 
     public int getEndGame() {
@@ -165,12 +164,8 @@ public class GameFlow {
         return LastRound;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void startLastRound() {
-        lastRoundStarted = true;
+    public void setLastRound(int lastRound) {
+        LastRound = lastRound;
     }
 
     public boolean isLastRoundAnnounced() {
@@ -180,6 +175,12 @@ public class GameFlow {
     public void setLastRoundAnnounced(boolean announced) {
         lastRoundAnnounced = announced;
     }
+
+    public void startLastRound() {
+        lastRoundStarted = true;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
 }
-
-

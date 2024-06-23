@@ -11,8 +11,8 @@ import org.json.simple.JSONObject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +22,6 @@ import java.util.List;
  * Concrete class extending View to provide a GUI-based implementation of the view component.
  */
 public class ViewGUI extends View {
-
 
     /**
      * Constructor initializing various lists and flags for the GUI view.
@@ -38,7 +37,6 @@ public class ViewGUI extends View {
 
         map = new HashMap<>();
         points = new HashMap<>();
-
     }
 
     @Override
@@ -120,14 +118,19 @@ public class ViewGUI extends View {
     }
 
     /**
-     * Loads an image from a given file path.
+     * Loads an image from a given resource path.
      *
-     * @param imagePath The path to the image file.
+     * @param imagePath The path to the image resource.
      * @return The loaded Image object, or null if loading failed.
      */
     public Image loadImage(String imagePath) {
-        try {
-            return ImageIO.read(new File(imagePath));
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(imagePath)) {
+            if (is != null) {
+                return ImageIO.read(is);
+            } else {
+                System.err.println("Resource not found: " + imagePath);
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -239,8 +242,8 @@ public class ViewGUI extends View {
     @Override
     public void Winner(String string) {
         JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
-        Event event= new Event(this, "winner");
-        if(evListener!= null){
+        Event event = new Event(this, "winner");
+        if (evListener != null) {
             try {
                 evListener.eventListener(event);
             } catch (IOException e) {
@@ -250,10 +253,10 @@ public class ViewGUI extends View {
     }
 
     @Override
-    public void Tie(String string){
+    public void Tie(String string) {
         JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
-        Event event= new Event(this, "winner");
-        if(evListener!= null){
+        Event event = new Event(this, "winner");
+        if (evListener != null) {
             try {
                 evListener.eventListener(event);
             } catch (IOException e) {
@@ -287,7 +290,6 @@ public class ViewGUI extends View {
             case 12:
                 JOptionPane.showMessageDialog(null, "the match is ended", "Info", JOptionPane.INFORMATION_MESSAGE);
                 break;
-
         }
     }
 
@@ -332,5 +334,4 @@ public class ViewGUI extends View {
     public void chatC(String username, String message) {
         Chat.displayMessage(username, message);
     }
-
 }
