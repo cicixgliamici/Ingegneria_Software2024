@@ -39,8 +39,8 @@ public class Server implements ModelChangeListener {
     private List<String> availableColors; // Colori disponibili per la selezione da parte dei giocatori.
     private AtomicInteger setObjStarterCount = new AtomicInteger(0); // Contatore per tracciare quanti giocatori hanno scelto la carta iniziale.
     protected ExecutorService executor; // Executor per gestire thread multipli.
-    private TCPServer tcpServer; // Server TCP.
-    private RMIServer rmiServer; // Server RMI.
+    private TCPServer tcpServer; // Server TCP TOGLIERE
+    private RMIServer rmiServer; // Server RMI TOGLIERE
     private int numConnections = 0; // Contatore delle connessioni attive.
     public int numMaxConnections = 4; // Numero massimo di connessioni.
     public GameFlow gameFlow; // Flusso di gioco che gestisce le fasi del gioco.
