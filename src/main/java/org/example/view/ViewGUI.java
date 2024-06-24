@@ -390,6 +390,7 @@ public class ViewGUI extends View {
             case 6:
                 break;
             case 7:
+                JOptionPane.showMessageDialog(null, "username already in use, please reconnect with different name", "Info", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 8:
                 break;
