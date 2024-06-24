@@ -75,6 +75,7 @@ public class ViewTUI extends View {
     public void setHand(int side, int choice) {
     }
 
+    @Override
     public void points(String username, int points) {
     }
 
@@ -333,17 +334,17 @@ public class ViewTUI extends View {
 
     @Override
     public void lastRound() {
-
+        // Implement this method if needed.
     }
 
     @Override
     public void Winner(String string) {
-
+        // Implement this method if needed.
     }
 
     @Override
     public void Tie(String string) {
-
+        // Implement this method if needed.
     }
 
     /**
@@ -358,7 +359,6 @@ public class ViewTUI extends View {
                 colorBuilder.append(", ");
                 colorBuilder.append(color);
             }
-            // Print the constructed order if at least one color was added.
         }
         System.out.println(colorBuilder.toString());
     }

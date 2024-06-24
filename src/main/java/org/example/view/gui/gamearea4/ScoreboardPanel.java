@@ -98,12 +98,10 @@ public class ScoreboardPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         // Draw the scoreboard
         if (scoreboard != null) {
             g.drawImage(scoreboard, 15, 15, this);
         }
-
         // Draw the public objectives
         if (obj1 != null) {
             g.drawImage(obj1, 3, 640, this);

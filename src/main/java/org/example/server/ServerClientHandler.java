@@ -200,6 +200,12 @@ public class ServerClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Checks if the game has reached an end condition.
+     *
+     * @return true if any player's point counter is 5 or more; false otherwise.
+     * @throws RemoteException If there is an issue with remote method invocation.
+     */
     public boolean checkIfEnd() throws RemoteException {
         for (Player player : server.getPlayers()) {
             if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 5) {
@@ -208,6 +214,4 @@ public class ServerClientHandler implements Runnable {
         }
         return false;
     }
-
-
 }

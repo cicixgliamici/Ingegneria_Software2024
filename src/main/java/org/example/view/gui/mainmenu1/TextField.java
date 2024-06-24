@@ -22,8 +22,8 @@ public class TextField extends JTextField implements MouseListener, KeyListener 
      */
     public TextField(String text, int columns) {
         super(text, columns);
-        addMouseListener(this);
-        addKeyListener(this);
+        addMouseListener(this); // Add mouse listener to the text field
+        addKeyListener(this);   // Add key listener to the text field
     }
 
     /**
@@ -34,22 +34,43 @@ public class TextField extends JTextField implements MouseListener, KeyListener 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (isFirstTouch) {
-            this.setText("");
-            this.setForeground(Color.black);
-            isFirstTouch = false;
+            this.setText("");           // Clear the text field
+            this.setForeground(Color.black); // Set text color to black
+            isFirstTouch = false;       // Mark that the field has been interacted with
         }
     }
 
     // Unused mouse event methods
+
+    /**
+     * Invoked when a mouse button has been pressed on a component.
+     *
+     * @param e The mouse event.
+     */
     @Override
     public void mousePressed(MouseEvent e) {}
 
+    /**
+     * Invoked when a mouse button has been released on a component.
+     *
+     * @param e The mouse event.
+     */
     @Override
     public void mouseReleased(MouseEvent e) {}
 
+    /**
+     * Invoked when the mouse enters a component.
+     *
+     * @param e The mouse event.
+     */
     @Override
     public void mouseEntered(MouseEvent e) {}
 
+    /**
+     * Invoked when the mouse exits a component.
+     *
+     * @param e The mouse event.
+     */
     @Override
     public void mouseExited(MouseEvent e) {}
 
@@ -61,16 +82,27 @@ public class TextField extends JTextField implements MouseListener, KeyListener 
     @Override
     public void keyTyped(KeyEvent e) {
         if (isFirstTouch) {
-            this.setText("");
-            this.setForeground(Color.black);
-            isFirstTouch = false;
+            this.setText("");           // Clear the text field
+            this.setForeground(Color.black); // Set text color to black
+            isFirstTouch = false;       // Mark that the field has been interacted with
         }
     }
 
     // Unused key event methods
+
+    /**
+     * Invoked when a key has been pressed.
+     *
+     * @param e The key event.
+     */
     @Override
     public void keyPressed(KeyEvent e) {}
 
+    /**
+     * Invoked when a key has been released.
+     *
+     * @param e The key event.
+     */
     @Override
     public void keyReleased(KeyEvent e) {}
 }

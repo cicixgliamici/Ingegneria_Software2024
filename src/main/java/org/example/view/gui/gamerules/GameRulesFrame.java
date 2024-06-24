@@ -77,7 +77,7 @@ public class GameRulesFrame extends JFrame {
         getContentPane().add(scrollPaneIta, BorderLayout.CENTER); // Add the scrollPane to the center of the frame
 
         // Initialize the English image panel and override its paintComponent to draw the current image
-        imagePanelEng = new JPanel(){
+        imagePanelEng = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);

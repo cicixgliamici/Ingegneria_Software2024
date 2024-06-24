@@ -1,4 +1,3 @@
-
 package org.example.view.gui.gamearea4;
 
 import org.example.client.TCPClient;

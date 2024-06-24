@@ -432,7 +432,6 @@ public abstract class View {
         return drawableCards;
     }
 
-
     public List<Integer> getPublicObjectives() {
         return PublicObjectives;
     }
@@ -469,6 +468,11 @@ public abstract class View {
         listeners.add(listener);
     }
 
+    /**
+     * Notifies all listeners of an event.
+     *
+     * @param event The event to notify listeners about.
+     */
     public void notifyListeners(Event event) {
         for (EvListener listener : listeners) {
             try {
@@ -479,6 +483,13 @@ public abstract class View {
         }
     }
 
+    /**
+     * Adds a mapping from an integer to coordinates.
+     *
+     * @param integer The integer key.
+     * @param x       The x-coordinate.
+     * @param y       The y-coordinate.
+     */
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }

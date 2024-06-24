@@ -235,11 +235,21 @@ public class GameAreaFrame extends JFrame {
         }
     }
 
+    /**
+     * Loads an image from the specified path using the class loader.
+     *
+     * @param path The path to the image resource.
+     * @return The loaded BufferedImage.
+     * @throws IOException If the resource is not found or an error occurs during image loading.
+     */
     private BufferedImage loadImage(String path) throws IOException {
+        // Get the input stream for the resource at the specified path
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path);
+        // If the input stream is null, the resource was not found
         if (inputStream == null) {
             throw new IOException("Resource not found: " + path);
         }
+        // Read and return the image from the input stream
         return ImageIO.read(inputStream);
     }
 }

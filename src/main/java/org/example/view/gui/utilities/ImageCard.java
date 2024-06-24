@@ -127,7 +127,6 @@ public class ImageCard {
         }
     }
 
-
     // Getters and Setters
 
     public int getId() {
