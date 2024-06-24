@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test class for Card, SideCard, and Corner related functionalities.
+ */
 public class CardSideCornerTest extends TestCase {
+
     /**
-     * Card Zone Tests
+     * Tests the card type assignment.
      */
     public void testCardType() throws IOException, ParseException {
         for (Type type : Type.values()) {
@@ -22,6 +26,9 @@ public class CardSideCornerTest extends TestCase {
         }
     }
 
+    /**
+     * Tests the properties of card corners based on card type.
+     */
     public void testPropCorn() throws IOException, ParseException {
         for (Type type : Type.values()) {
             Deck deck = new Deck(type);
@@ -41,8 +48,11 @@ public class CardSideCornerTest extends TestCase {
             }
         }
     }
-    
-    public void testCornerIsHidden(){
+
+    /**
+     * Tests if all corners of a card are hidden.
+     */
+    public void testCornerIsHidden() {
         Corner c1 = new Corner(Position.BOTTOML, PropertiesCorner.HIDDEN);
         Corner c2 = new Corner(Position.TOPL, PropertiesCorner.HIDDEN);
         Corner c3 = new Corner(Position.BOTTOMR, PropertiesCorner.HIDDEN);
@@ -52,7 +62,7 @@ public class CardSideCornerTest extends TestCase {
         Corner c6 = new Corner(Position.BOTTOMR, PropertiesCorner.HIDDEN);
         Corner c7 = new Corner(Position.BOTTOML, PropertiesCorner.HIDDEN);
         Corner c8 = new Corner(Position.TOPL, PropertiesCorner.HIDDEN);
-        List<Corner> back = new ArrayList<>(Arrays.asList(c5,c6,c7,c8));
+        List<Corner> back = new ArrayList<>(Arrays.asList(c5, c6, c7, c8));
         SideCard side = new SideCard(Side.FRONT, front, back);
         Card card = new Card(side);
         assertTrue(card.BOTLCornerIsHidden());
@@ -61,7 +71,10 @@ public class CardSideCornerTest extends TestCase {
         assertTrue(card.TOPRCornerIsHidden());
     }
 
-    public void testSetSide(){
+    /**
+     * Tests the setting of a card's side.
+     */
+    public void testSetSide() {
         Corner c1 = new Corner(Position.BOTTOML, PropertiesCorner.HIDDEN);
         Corner c2 = new Corner(Position.TOPL, PropertiesCorner.HIDDEN);
         Corner c3 = new Corner(Position.BOTTOMR, PropertiesCorner.HIDDEN);
@@ -71,7 +84,7 @@ public class CardSideCornerTest extends TestCase {
         Corner c6 = new Corner(Position.BOTTOMR, PropertiesCorner.HIDDEN);
         Corner c7 = new Corner(Position.BOTTOML, PropertiesCorner.HIDDEN);
         Corner c8 = new Corner(Position.TOPL, PropertiesCorner.HIDDEN);
-        List<Corner> back = new ArrayList<>(Arrays.asList(c5,c6,c7,c8));
+        List<Corner> back = new ArrayList<>(Arrays.asList(c5, c6, c7, c8));
         SideCard side = new SideCard(Side.FRONT, front, back);
         Card card = new Card(side);
 
@@ -85,26 +98,32 @@ public class CardSideCornerTest extends TestCase {
         assertEquals(Side.BACK, card.getSide().getSide());
     }
 
-    public void testGetChosenListAndGetters(){
+    /**
+     * Tests the retrieval of corner lists and other getters in SideCard.
+     */
+    public void testGetChosenListAndGetters() {
         List<Corner> frontCorners = new ArrayList<>();
         List<Corner> backCorners = new ArrayList<>();
         SideCard sideCardFront = new SideCard(Side.FRONT, frontCorners, backCorners);
         SideCard sideCardBack = new SideCard(Side.BACK, frontCorners, backCorners);
-        //getChosenList()
+        // getChosenList()
         assertEquals(frontCorners, sideCardFront.getChosenList());
         assertEquals(backCorners, sideCardBack.getChosenList());
-        //getSide()
+        // getSide()
         assertEquals(Side.FRONT, sideCardFront.getSide());
         assertEquals(Side.BACK, sideCardBack.getSide());
-        //getFrontCorners()
+        // getFrontCorners()
         assertEquals(frontCorners, sideCardFront.getFrontCorners());
         assertEquals(frontCorners, sideCardBack.getFrontCorners());
-        //getBackCorners()
+        // getBackCorners()
         assertEquals(backCorners, sideCardFront.getBackCorners());
         assertEquals(backCorners, sideCardBack.getBackCorners());
     }
 
-    public void testCardGetSet(){
+    /**
+     * Tests the getters and setters of Card class.
+     */
+    public void testCardGetSet() {
         Corner c1 = new Corner(Position.BOTTOML, PropertiesCorner.QUILL);
         Corner c2 = new Corner(Position.TOPL, PropertiesCorner.PLANT);
         Corner c3 = new Corner(Position.BOTTOMR, PropertiesCorner.ANIMAL);
@@ -140,7 +159,7 @@ public class CardSideCornerTest extends TestCase {
         c.setCardRes(cardRes);
         assertEquals(CardRes.ANIMAL, c.getCardRes());
         c.setPoints(points);
-        assertEquals(points,c.getPoints());
+        assertEquals(points, c.getPoints());
         c.setGoldenPoint(goldenPoint);
         assertEquals(GoldenPoint.CORNER, c.getGoldenPoint());
         c.setObjectivePoints(objectivePoints);
@@ -154,7 +173,10 @@ public class CardSideCornerTest extends TestCase {
         assertEquals(2, c.getCoveredCornerByCard());
     }
 
-    public void testCornerGet(){
+    /**
+     * Tests the getters of Corner class.
+     */
+    public void testCornerGet() {
         Position position = Position.BOTTOML;
         PropertiesCorner propertiesCorner = PropertiesCorner.QUILL;
         Corner corner = new Corner(position, propertiesCorner);

@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Test class for the Model class.
+ */
 public class ModelTest extends TestCase {
 
     /** Test for the method DealCard which is in the Model, simulate
@@ -59,6 +63,9 @@ public class ModelTest extends TestCase {
         assertEquals(2, model.getDrawingCardArea().getVisibleReCard().size());
     }
 
+    /**
+     * Test the play and draw methods in the Model class.
+     */
     public void testPlayAndDraw() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
         Model model = new Model();
         List<Player> playerslist=new ArrayList<>();
