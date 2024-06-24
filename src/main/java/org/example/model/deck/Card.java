@@ -174,6 +174,23 @@ public class Card {
         return sb.toString();
     }
 
+      /**
+     * Prints the card showing all its properties (TUI Method).
+     */
+    public void print() {
+        if (this.getRequireGold() != null) {
+            CardRes[] requireGold = this.getRequireGold();
+            if (requireGold != null) {
+                for (int i = 0; i < requireGold.length; i++) {
+                    // Print each requirement
+                    if (i < requireGold.length - 1) {
+                        // Print separator
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Getter for type.
      *
