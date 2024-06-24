@@ -497,4 +497,6 @@ public abstract class View {
     public void setEvListener(EvListener evListener) {
         this.evListener = evListener;
     }
+
+    public abstract void close();
 }

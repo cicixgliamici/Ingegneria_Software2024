@@ -4,7 +4,10 @@ package org.example.server;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 /**
@@ -23,23 +26,32 @@ public class PortSelection {
         System.out.println("Insert TCP port number or digit one casual letter for default (50000)");
         tcpPort = getValidPort(in, "TCP");
 
-        // Prompt the user to insert the RMI port number or type a letter for the default value (50001).
-        System.out.println("Insert RMI port number or digit one casual letter for default (50001)");
-        rmiPort = getValidPort(in, "RMI");
-
-        // Ensure that the RMI port is different from the TCP port to avoid conflicts.
-        while (rmiPort == tcpPort) {
-            System.out.println("RMI port cannot be the same as TCP port. Please enter a different RMI port number:");
-            rmiPort = getValidPort(in, "RMI");
-        }
 
         // Cleanup scanner resource
         in.close();
 
         // Initialize and start the server with the specified ports.
         try {
-            Server server = new Server(tcpPort, rmiPort);
+            Server server = new Server(tcpPort);
             server.startServer();
+            try {
+                boolean ipFound = false;
+                Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+                while (networkInterfaces.hasMoreElements() && !ipFound) {
+                    NetworkInterface networkInterface = networkInterfaces.nextElement();
+                    Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+                    while (inetAddresses.hasMoreElements()) {
+                        InetAddress inetAddress = inetAddresses.nextElement();
+                        if (!inetAddress.isLoopbackAddress() && inetAddress.isSiteLocalAddress()) {
+                            System.out.println("IP Address: " + inetAddress.getHostAddress());
+                            ipFound = true;
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             System.err.println("Impossible to initialize the server: " + e.getMessage() + "!");
         } catch (ParseException e) {

@@ -4,6 +4,7 @@ import org.example.exception.PlaceholderNotValid;
 import org.example.view.View;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -39,38 +40,69 @@ public class TCPClient {
      * Starts the TCP client, establishes a connection to the server, and manages input/output.
      */
     public void startTCPClient() throws Exception {
-        // Establish a connection to the server.
-        socket = new Socket(ip, port);
-        System.out.println("Connected to " + ip + ":" + port);
-        // Set up I/O streams.
-        Scanner socketIn = new Scanner(socket.getInputStream());
-        socketOut = new PrintWriter(socket.getOutputStream(), true);
-        // Thread to handle server messages.
-        Thread serverListener = new Thread(() -> {
-            while (socketIn.hasNextLine()) {
-                handleServerMessages(socketIn);
-            }
-        });
-        serverListener.start();
-        Scanner stdin = new Scanner(System.in);
-        if (view.getFlag() == 0) {
-            Thread userInputThread = new Thread(() -> {
-                while (stdin.hasNextLine()) {
-                    String input = stdin.nextLine();
-                    if (isValidInput(input)) {
-                        socketOut.println(input);  // Send valid input to the server
-                        lastSentMessage = input;
-                    } else {
-                        System.out.println("Invalid input. Please try again.");
+        try {
+            // Establish a connection to the server.
+            socket = new Socket(ip, port);
+            System.out.println("Connected to " + ip + ":" + port);
+            // Set up I/O streams.
+            Scanner socketIn = new Scanner(socket.getInputStream());
+            socketOut = new PrintWriter(socket.getOutputStream(), true);
+            // Thread to handle server messages.
+            Thread serverListener = new Thread(() -> {
+                try {
+                    while (socketIn.hasNextLine()) {
+                        handleServerMessages(socketIn);
                     }
+                } catch (Exception e) {
+                    System.out.println("Connection to server lost. Closing client.");
+                    closeConnection();
                 }
             });
-            userInputThread.start();
-            userInputThread.join();
+            serverListener.start();
+            Scanner stdin = new Scanner(System.in);
+            if (view.getFlag() == 0) {
+                Thread userInputThread = new Thread(() -> {
+                    try {
+                        while (stdin.hasNextLine()) {
+                            String input = stdin.nextLine();
+                            if (isValidInput(input)) {
+                                socketOut.println(input);  // Send valid input to the server
+                                lastSentMessage = input;
+                            } else {
+                                System.out.println("Invalid input. Please try again.");
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error in user input thread. Closing client.");
+                        closeConnection();
+                    }
+                });
+                userInputThread.start();
+                userInputThread.join();
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to connect to server: " + e.getMessage());
+            closeConnection();
         }
     }
 
-    //Send-Zone to print in the Socket
+    /**
+     * Closes the connection and exits the application.
+     */
+    private void closeConnection() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+            if (socketOut != null) {
+                socketOut.close();
+            }
+            this.view.close();
+            System.exit(0);
+        } catch (Exception e) {
+            System.out.println("Error closing connection: " + e.getMessage());
+        }
+    }
 
     /**
      * Sends the username to the server after the connection is established.
@@ -85,7 +117,7 @@ public class TCPClient {
         }
     }
 
-     /**
+    /**
      * Sends the chosen color and number of players to the server.
      *
      * @param color The chosen color.
@@ -152,7 +184,6 @@ public class TCPClient {
         }
     }
 
-
     /**
      * Handles messages received from the server.
      *
@@ -161,15 +192,22 @@ public class TCPClient {
     private void handleServerMessages(Scanner socketIn) {
         while (socketIn.hasNextLine()) {
             String line = socketIn.nextLine();
+            if (line.equals("serverShutdown")) {
+                System.out.println("Server is shutting down. Closing client.");
+                closeConnection();
+                return;
+            }
             if (line.startsWith("setup:")) {
                 processSetup(line);
             } else if(line.equals("Enter your username:")){
                 System.out.println("Enter your username:");
-            }
-            else {
+            } else {
                 this.view.Interpreter(line);
             }
         }
+        // Se il loop termina, significa che il server non invia più dati
+        System.out.println("Server has closed the connection. Closing client.");
+        closeConnection();
     }
 
     /**
@@ -187,7 +225,6 @@ public class TCPClient {
         // Update the UI with the setup information on the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> view.updateSetupUI(colors, isFirst));
     }
-
 
     /**
      * Handles user input and sends it to the server.

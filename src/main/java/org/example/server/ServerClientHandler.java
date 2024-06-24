@@ -87,6 +87,7 @@ public class ServerClientHandler implements Runnable {
             }
         } catch (Exception e) {
             exceptionManager.handleException(e, username, server);
+            notifyClientsAndStopServer(); // Notify all clients and terminate the server on exception
         }
     }
 
@@ -100,7 +101,8 @@ public class ServerClientHandler implements Runnable {
                 executeCommand(inputLine, socketToUsername.get(socket));
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Client disconnected: " + e.getMessage());
+            notifyClientsAndStopServer(); // Notify all clients and stop the server on client disconnection
         }
     }
 
@@ -109,6 +111,18 @@ public class ServerClientHandler implements Runnable {
      */
     private void handleRMIConnection() {
         // Handle RMI connection commands if necessary
+    }
+
+    /**
+     * Notifies all clients and stops the server.
+     */
+    private void notifyClientsAndStopServer() {
+        try {
+            server.onModelGeneric("serverShutdown");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        server.stopServer(); // Terminate the server
     }
 
     /**

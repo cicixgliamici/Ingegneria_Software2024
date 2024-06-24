@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Server implements ModelChangeListener {
     private int tcpPort; // TCP port for client connections.
-    private int rmiPort; // RMI port for client connections.
+    //private int rmiPort; // RMI port for client connections.
     protected Model model; // Game model maintaining the state.
     protected Controller controller; // Controller managing game logic.
     private List<Player> players; // List of players, both RMI and TCP.
@@ -48,11 +48,11 @@ public class Server implements ModelChangeListener {
     /**
      * Server class constructor.
      * @param tcpPort TCP port.
-     * @param rmiPort RMI port.
+     *
      */
-    public Server(int tcpPort, int rmiPort) throws IOException, ParseException {
+    public Server(int tcpPort) throws IOException, ParseException {
         this.tcpPort = tcpPort;
-        this.rmiPort = rmiPort;
+        //this.rmiPort = rmiPort;
         this.model = new Model();
         this.model.addModelChangeListener(this);
         this.players = new ArrayList<>();
@@ -424,15 +424,6 @@ public class Server implements ModelChangeListener {
      */
     public int getTcpPort() {
         return tcpPort;
-    }
-
-    /**
-     * Returns the RMI port.
-     *
-     * @return The RMI port.
-     */
-    public int getRmiPort() {
-        return rmiPort;
     }
 
     /**

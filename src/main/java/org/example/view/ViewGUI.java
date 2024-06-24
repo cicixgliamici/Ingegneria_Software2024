@@ -374,10 +374,24 @@ public class ViewGUI extends View {
     @Override
     public void message(int x) {
         switch (x) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
             case 4:
                 turn = 0;
-                System.out.println("Turn in GUI: " + turn + " should pop JPANEL");
+                //System.out.println("Turn in GUI: " + turn + " should pop JPANEL");
                 JOptionPane.showMessageDialog(null, "Not your turn", "Info", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
                 break;
             case 9:
                 matchStarted = false;
@@ -391,7 +405,7 @@ public class ViewGUI extends View {
                 JOptionPane.showMessageDialog(null, "The match has ended", "Info", JOptionPane.INFORMATION_MESSAGE);
                 break;
             default:
-                System.out.println("Unknown message code.");
+                System.out.println("Unknown message code." + x);
                 break;
         }
     }
@@ -470,4 +484,6 @@ public class ViewGUI extends View {
     public void chatC(String username, String message) {
         Chat.displayMessage(username, message);
     }
+
+    public void close(){JOptionPane.showMessageDialog(null, "Server crashed", "Info", JOptionPane.INFORMATION_MESSAGE);}
 }
