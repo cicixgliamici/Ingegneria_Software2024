@@ -85,7 +85,7 @@ public class TCPClient {
         }
     }
 
-    /**
+     /**
      * Sends the chosen color and number of players to the server.
      *
      * @param color The chosen color.
@@ -100,33 +100,58 @@ public class TCPClient {
         }
     }
 
-    public void sendSetObjStrater(int side, int choice){
+    /**
+     * Sends the object starter set command to the server.
+     *
+     * @param side The side for setting the object starter.
+     * @param choice The choice made for the object starter.
+     */
+    public void sendSetObjStarter(int side, int choice) {
         if (socketOut != null) {
             socketOut.println("setObjStarter:" + side + "," + choice);
             socketOut.flush();
         }
     }
 
-    public void sendChat(String message){
+    /**
+     * Sends a chat message to the server.
+     *
+     * @param message The chat message to send.
+     */
+    public void sendChat(String message) {
         if (socketOut != null) {
             socketOut.println("chatS:" + message);
             socketOut.flush();
         }
     }
 
-    public void sendDraw(int choice){
+    /**
+     * Sends the draw command to the server.
+     *
+     * @param choice The choice for the draw action.
+     */
+    public void sendDraw(int choice) {
         if (socketOut != null) {
             socketOut.println("draw:" + choice);
             socketOut.flush();
         }
     }
 
-    public void sendPlay(int choice, int side, int x, int y)   {
+    /**
+     * Sends the play command to the server.
+     *
+     * @param choice The choice of the play.
+     * @param side The side for the play.
+     * @param x The x-coordinate for the play.
+     * @param y The y-coordinate for the play.
+     */
+    public void sendPlay(int choice, int side, int x, int y) {
         if (socketOut != null) {
             socketOut.println("play:" + choice + "," + side + "," + x + "," + y);
             socketOut.flush();
         }
     }
+
 
     /**
      * Handles messages received from the server.
@@ -147,13 +172,22 @@ public class TCPClient {
         }
     }
 
+    /**
+     * Processes the setup message received from the server.
+     *
+     * @param setupMsg The setup message received from the server.
+     */
     private void processSetup(String setupMsg) {
-        // Expected format: "setup:colors=Red,Blue;first=true"
+        // Split the setup message into its components
         String[] parts = setupMsg.substring(6).split(";");
+        // Extract the colors from the setup message
         String[] colors = parts[0].split("=")[1].split(",");
+        // Extract and parse the first player indicator
         boolean isFirst = Boolean.parseBoolean(parts[1].split("=")[1]);
+        // Update the UI with the setup information on the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> view.updateSetupUI(colors, isFirst));
     }
+
 
     /**
      * Handles user input and sends it to the server.
@@ -225,6 +259,11 @@ public class TCPClient {
         return true;
     }
 
+    /**
+     * Checks if the client is currently connected to the server.
+     *
+     * @return true if the socket is not null, connected, and not closed; false otherwise.
+     */
     public boolean isConnected() {
         return socket != null && socket.isConnected() && !socket.isClosed();
     }

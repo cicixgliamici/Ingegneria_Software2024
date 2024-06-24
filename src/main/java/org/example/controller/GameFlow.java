@@ -16,7 +16,6 @@ public class GameFlow {
     List<Player> players;
     Model model;
     Server server;
-
     private AtomicInteger turn = new AtomicInteger(1);
     private AtomicInteger maxTurn = new AtomicInteger(0);
     private int LastRound = 0;
@@ -97,11 +96,9 @@ public class GameFlow {
         System.out.println("entrato in end Game");
         int highestScore = Integer.MIN_VALUE;
         List<String> winners = new ArrayList<>();
-
         for (Player player : players) {
             model.getPlayerCardArea(player).publicObjective(model);
             model.getPlayerCardArea(player).privateObjective();
-
             int playerScore = model.getPlayerCardArea(player).getCounter().getPointCounter();
             if (playerScore > highestScore) {
                 highestScore = playerScore;
@@ -111,7 +108,6 @@ public class GameFlow {
                 winners.add(player.getUsername());
             }
         }
-
         if (winners.size() == 1) {
             server.onModelGeneric("Winner:" + "the winner is " + winners.get(0) + " with " + highestScore + " points");
         } else {
@@ -126,7 +122,13 @@ public class GameFlow {
         }
     }
 
-    // Helper method to check if it's the right turn for a command
+    /**
+     * Helper method to check if it's the right turn for a given command.
+     *
+     * @param command The command to check, either "play" or "draw".
+     * @param playerIndex The index of the player (0-based).
+     * @return true if it's the correct turn for the command; false otherwise.
+     */
     private boolean checkTurn(String command, int playerIndex) {
         int turnIndex = 1 + playerIndex * 2;
         if (Objects.equals(command, "play") && turn.get() == turnIndex) {

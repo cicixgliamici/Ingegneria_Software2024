@@ -127,7 +127,7 @@ public class SelectObjStarter extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (side != 0 && choice != 0) {
                     try {
-                        tcpClient.sendSetObjStrater(side, choice);
+                        tcpClient.sendSetObjStarter(side, choice);
                         dispose();
                         // Open GameAreaFrame
                         new GameAreaFrame(tcpClient, view, username, color, num, choiceSideStarter, choiceObjCard);

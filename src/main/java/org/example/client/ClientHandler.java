@@ -15,6 +15,9 @@ import org.json.simple.parser.JSONParser;
 /**
  * The ClientHandler class is responsible for handling communication between the client and server.
  * It reads commands from the server, parses them, and executes corresponding methods in the view.
+ *
+ * Implementing the Runnable interface allows instances of this class to be executed by a thread.
+ * The run method defines the code that constitutes the new thread's execution.
  */
 public class ClientHandler implements Runnable {
     private Socket socket;  // The socket for communicating with the server
