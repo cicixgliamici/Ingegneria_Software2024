@@ -76,7 +76,30 @@ public class GameAreaFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Add the scoreboard panel
-        scoreboardPanel = new ScoreboardPanel(view);
+        scoreboardPanel = new ScoreboardPanel(view){
+            ImageIcon icon3;
+            Image img3;
+
+            {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea.jpg")) {
+                    if (bgStream != null) {
+                        icon3 = new ImageIcon(ImageIO.read(bgStream));
+                        img3 = icon3.getImage();
+                    } else {
+                        throw new IOException("Background image file not found!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img3, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weighty = 0.0;
@@ -97,7 +120,30 @@ public class GameAreaFrame extends JFrame {
         // Add the drawing card panel
         gbc.gridx = 2;
         gbc.weightx = 0.05;
-        drawingCardPanel = new DrawingCardPanel(tcpClient, view);
+        drawingCardPanel = new DrawingCardPanel(tcpClient, view){
+            ImageIcon icon2;
+            Image img2;
+
+            {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea.jpg")) {
+                    if (bgStream != null) {
+                        icon2 = new ImageIcon(ImageIO.read(bgStream));
+                        img2 = icon2.getImage();
+                    } else {
+                        throw new IOException("Background image file not found!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                setOpaque(false);
+            }
+
+            public void paintComponent(Graphics graphics) {
+                graphics.drawImage(img2, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
         view.setDrawingCardPanel(drawingCardPanel);
         add(drawingCardPanel, gbc);
 
