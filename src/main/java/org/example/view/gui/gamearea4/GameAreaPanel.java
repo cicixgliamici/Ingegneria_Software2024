@@ -217,6 +217,45 @@ public class GameAreaPanel extends JPanel {
         gbc.gridy = 0;
         add(username2, gbc);
 
+        if(username3!=null){
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            add(username3, gbc);
+        }
+
+        if(username4 != null){
+            gbc.gridx = 5;
+            gbc.gridy = 2;
+            add(username4, gbc);
+        }
+
+        if(view.getFirstPlayer == username){
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.anchor = GridBagConstraints.PAGE_END;
+            add(blackToken, gbc);
+        } else if (view.getFirstPlayer == keys.get(0)) {
+            gbc.gridx = 5;
+            gbc.gridy = 1;
+            gbc.anchor = GridBagConstraints.PAGE_START;
+            add(blackToken, gbc);
+        } else if (keys.get(1) != null){
+            if(view.getFirstPlayer == keys.get(1)){
+                gbc.gridx = 0;
+                gbc.gridy = 1;
+                gbc.anchor = GridBagConstraints.PAGE_START;
+                add(blackToken, gbc);
+            }
+        } else if (keys.get(2) != null) {
+            if(view.getFirstPlayer == keys.get(2)){
+                gbc.gridx = 5;
+                gbc.gridy = 1;
+                gbc.anchor = GridBagConstraints.PAGE_END;
+                add(blackToken, gbc);
+            }
+        }
+
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 0.1;
