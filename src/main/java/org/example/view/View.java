@@ -48,6 +48,7 @@ public abstract class View {
     protected DrawingCardPanel drawingCardPanel;
     protected GameAreaPanel gameAreaPanel;
     protected EvListener evListener;
+    protected String firstPlayer;
 
     /**
      * Default constructor for the View class.

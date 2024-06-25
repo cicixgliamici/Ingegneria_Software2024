@@ -33,6 +33,10 @@ public class GameAreaPanel extends JPanel {
     private JLabel token3;
     private JLabel token4;
     private JLabel blackToken;
+    private JLabel username1;
+    private JLabel username2;
+    private JLabel username3;
+    private JLabel username4;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
@@ -66,16 +70,19 @@ public class GameAreaPanel extends JPanel {
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
-        BufferedImage logo = loadImage("C:Users/jamie/OneDrive/Desktop/CODEX_pion_noir.png");
+        BufferedImage logo = loadImage("images/CODEX_pion_noir.png");
         Icon icon = new ImageIcon(logo);
         JLabel tokenLabel = new JLabel(icon);
         tokenLabel.setVisible(true);
+        blackToken = tokenLabel;
         List<String> keys = new ArrayList<>(view.getColorPlayer().keySet());
         keys.removeIf(player -> player.equals(username));
 
         switch (num) {
             case "1":
                 token1 = createToken(color, true);
+                username1 = new JLabel(username);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
                 token2 = createToken("Yellow", false);
                 token3 = createToken("Red", false);
                 token4 = createToken("Green", false);
@@ -85,18 +92,36 @@ public class GameAreaPanel extends JPanel {
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 token3 = createToken("Red", false);
                 token4 = createToken("Green", false);
+                username1 = new JLabel(username);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username2 = new JLabel(keys.get(0));
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
                 break;
             case "3":
                 token1 = createToken(color, true);
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 token3 = createToken(view.getColorPlayer().get(keys.get(1)), true);
                 token4 = createToken("Green", false);
+                username1 = new JLabel(username);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username2 = new JLabel(keys.get(0));
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username3 = new JLabel(keys.get(1));
+                username3.setFont(new Font("Helvetica", Font.BOLD, 15));
                 break;
             case "4":
                 token1 = createToken(color, true);
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
                 token3 = createToken(view.getColorPlayer().get(keys.get(1)), true);
                 token4 = createToken(view.getColorPlayer().get(keys.get(2)), true);
+                username1 = new JLabel(username);
+                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username2 = new JLabel(keys.get(0));
+                username2.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username3 = new JLabel(keys.get(1));
+                username3.setFont(new Font("Helvetica", Font.BOLD, 15));
+                username4 = new JLabel(keys.get(2));
+                username4.setFont(new Font("Helvetica", Font.BOLD, 15));
                 break;
         }
 
@@ -183,6 +208,14 @@ public class GameAreaPanel extends JPanel {
         gbc.gridx = 4;
         gbc.weightx = 0.0001;
         add(secretObjective, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(username1, gbc);
+
+        gbc.gridx = 5;
+        gbc.gridy = 0;
+        add(username2, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
