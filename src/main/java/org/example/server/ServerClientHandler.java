@@ -198,6 +198,10 @@ public class ServerClientHandler implements Runnable {
                         server.onModelGeneric("lastRound");
                     }
                 }
+                if(commandKey.equals("draw")){
+                    server.onModelSpecific(server.getGameFlow().getNextPlayer(), "message:13");
+
+                }
             } else if (!server.getGameFlow().isYourTurn(username, commandKey)) {
                 if (server.getGameFlow().getEndGame() == 1) {
                     server.onModelSpecific(username, "message:12");
@@ -222,7 +226,7 @@ public class ServerClientHandler implements Runnable {
      */
     public boolean checkIfEnd() throws RemoteException {
         for (Player player : server.getPlayers()) {
-            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 5) {
+            if (model.getPlayerCardArea(player).getCounter().getPointCounter() >= 10) {
                 return true;
             }
         }

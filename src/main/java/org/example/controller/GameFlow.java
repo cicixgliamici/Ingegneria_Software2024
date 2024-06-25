@@ -22,6 +22,7 @@ public class GameFlow {
     private int EndGame = 0;
     private boolean lastRoundStarted = false;
     private boolean lastRoundAnnounced = false;
+    private String nextPlayer;
 
     /**
      * Constructor to initialize the game flow controller.
@@ -74,7 +75,13 @@ public class GameFlow {
         if (LastRound != 1 || !players.get(0).getUsername().equals(username)) {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getUsername().equals(username)) {
-                    return checkTurn(command, i);
+                    if (checkTurn(command, i)) {
+                        // Aggiorna nextPlayer
+                        int nextIndex = (i + 1) % players.size();
+                        nextPlayer = players.get(nextIndex).getUsername();
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
@@ -86,6 +93,7 @@ public class GameFlow {
         }
         return false;
     }
+
 
     /**
      * Ends the game by determining the winner based on points.
@@ -184,5 +192,9 @@ public class GameFlow {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public String getNextPlayer() {
+        return nextPlayer;
     }
 }

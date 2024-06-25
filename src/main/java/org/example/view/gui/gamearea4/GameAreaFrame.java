@@ -50,8 +50,9 @@ public class GameAreaFrame extends JFrame {
             @Override
             public void eventListener(Event ev) throws IOException {
                 String event = ev.getEvent();
-                if(event.equals("winner")) {
+                if (event.equals("winner")) {
                     disableInteractiveComponents();
+                    scoreboardPanel.refresh();  // Call the refresh method to repaint the scoreboard
                 }
             }
         });
@@ -76,7 +77,7 @@ public class GameAreaFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Add the scoreboard panel
-        scoreboardPanel = new ScoreboardPanel(view){
+        scoreboardPanel = new ScoreboardPanel(view) {
             ImageIcon icon3;
             Image img3;
 
@@ -120,7 +121,7 @@ public class GameAreaFrame extends JFrame {
         // Add the drawing card panel
         gbc.gridx = 2;
         gbc.weightx = 0.05;
-        drawingCardPanel = new DrawingCardPanel(tcpClient, view){
+        drawingCardPanel = new DrawingCardPanel(tcpClient, view) {
             ImageIcon icon2;
             Image img2;
 

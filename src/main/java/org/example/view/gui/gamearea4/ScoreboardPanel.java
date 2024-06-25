@@ -120,8 +120,15 @@ public class ScoreboardPanel extends JPanel {
                 int xOffset = (i % 2) * 35; // Adjust xOffset for overlapping tokens
                 int yOffset = (i / 2) * 35; // Adjust yOffset for overlapping tokens
                 g.drawImage(token, values.get(0) + xOffset, values.get(1) - yOffset, this);
-                repaint();
             }
         }
+    }
+
+    /**
+     * Triggers a repaint of the scoreboard panel.
+     */
+    public void refresh() {
+        revalidate();
+        repaint();
     }
 }

@@ -1,9 +1,6 @@
 package org.example.view;
 
 import org.example.view.gui.gamearea4.Chat;
-import org.example.view.gui.gamearea4.DrawingCardPanel;
-import org.example.view.gui.listener.DrawingCardPanelListener;
-import org.example.view.gui.listener.GameAreaPanelListener;
 import org.example.view.gui.listener.EvListener;
 import org.example.view.gui.listener.Event;
 import org.json.simple.JSONObject;
@@ -315,7 +312,7 @@ public class ViewGUI extends View {
      */
     @Override
     public void lastRound() {
-        JOptionPane.showMessageDialog(null, "lastRound", "Info", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "last round has started", "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -325,6 +322,7 @@ public class ViewGUI extends View {
      */
     @Override
     public void Winner(String string) {
+
         JOptionPane.showMessageDialog(null, string, "Info", JOptionPane.INFORMATION_MESSAGE);
         Event event = new Event(this, "winner");
         if (evListener != null) {
@@ -404,6 +402,9 @@ public class ViewGUI extends View {
                 break;
             case 12:
                 JOptionPane.showMessageDialog(null, "The match has ended", "Info", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 13:
+                JOptionPane.showMessageDialog(null, "Is your turn, make your move", "Info", JOptionPane.INFORMATION_MESSAGE);
                 break;
             default:
                 System.out.println("Unknown message code." + x);
