@@ -81,7 +81,7 @@ public class GameAreaFrame extends JFrame {
             Image img3;
 
             {
-                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea.jpg")) {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea1.jpg")) {
                     if (bgStream != null) {
                         icon3 = new ImageIcon(ImageIO.read(bgStream));
                         img3 = icon3.getImage();
@@ -125,7 +125,7 @@ public class GameAreaFrame extends JFrame {
             Image img2;
 
             {
-                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea.jpg")) {
+                try (InputStream bgStream = getClass().getClassLoader().getResourceAsStream("images/backgroundgamearea2.jpg")) {
                     if (bgStream != null) {
                         icon2 = new ImageIcon(ImageIO.read(bgStream));
                         img2 = icon2.getImage();

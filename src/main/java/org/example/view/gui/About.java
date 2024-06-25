@@ -3,6 +3,9 @@ package org.example.view.gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.net.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,13 +38,28 @@ public class About extends JFrame {
         }
 
         // Create a label with a link
-        JLabel link = new JLabel("Visit the page!");
+        BufferedImage logo = null;
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("images/icon/iconamini.png")) {
+            if (inputStream != null) {
+                logo = ImageIO.read(inputStream);
+            } else {
+                throw new IOException("Image file not found!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Image file not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Icon icon1 = new ImageIcon(logo);
+        JLabel labelTitle = new JLabel(icon1);
+        JLabel link = new JLabel("Codex Naturalis - © 2024 - Cranio Creations");
         link.setForeground(Color.BLUE.darker());
         link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JLabel titleParagraph = new JLabel("Design by IS24-AM19");
 
-        JTextArea textParagraph  =new JTextArea(
+        JTextArea textParagraph = new JTextArea(
+//                "Design by IS24-AM19: \n" +
                 "Leonardo Chiaretti \n" +
                         "James Enrico Busato\n" +
                         "Matteo Civitillo\n" +
@@ -50,6 +68,15 @@ public class About extends JFrame {
 
         textParagraph.setEditable(false);
         textParagraph.setOpaque(false);
+
+        JButton closeButton = new JButton("Close");
+
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
         // Add a mouse listener to handle click events on the link
         link.addMouseListener(new MouseAdapter() {
@@ -66,7 +93,7 @@ public class About extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                link.setText("Visit the page!");
+                link.setText("Codex Naturalis - © 2024 - Cranio Creations");
             }
 
             @Override
@@ -75,29 +102,44 @@ public class About extends JFrame {
             }
         });
 
-        // Layout configuration
-        GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
-        gbcCreditsLabel.gridx = 1;
-        gbcCreditsLabel.gridy = 0;
-        gbcCreditsLabel.weightx = 0.5;
-        gbcCreditsLabel.weighty = 0.0;
         aboutPanel.setLayout(new GridBagLayout());
+
+        // Layout configuration
+        GridBagConstraints gbcLogoLabel = new GridBagConstraints();
+        gbcLogoLabel.gridx = 0;
+        gbcLogoLabel.gridy = 0;
+        gbcLogoLabel.weightx = 0.0;
+        gbcLogoLabel.weighty = 0.01;
+        aboutPanel.add(labelTitle, gbcLogoLabel);
+
+        GridBagConstraints gbcCreditsLabel = new GridBagConstraints();
+        gbcCreditsLabel.gridx = 0;
+        gbcCreditsLabel.gridy = 2;
+        gbcCreditsLabel.weightx = 0.0;
+        gbcCreditsLabel.weighty = 0.01;
         aboutPanel.add(link, gbcCreditsLabel);
 
         GridBagConstraints gbcCreditsTitle = new GridBagConstraints();
         gbcCreditsTitle.gridx = 0;
-        gbcCreditsTitle.gridy = 0;
-        gbcCreditsTitle.weightx = 0.5;
-        gbcCreditsTitle.weighty = 0.2;
-        gbcCreditsTitle.anchor = GridBagConstraints.LINE_START;
+        gbcCreditsTitle.gridy = 3;
+        gbcCreditsTitle.weightx = 0.0;
+        gbcCreditsTitle.weighty = 0.01;
+        //gbcCreditsTitle.anchor = GridBagConstraints.LINE_START;
         aboutPanel.add(titleParagraph, gbcCreditsTitle);
 
         GridBagConstraints gbcCreditsTextArea = new GridBagConstraints();
         gbcCreditsTextArea.gridx = 0;
-        gbcCreditsTextArea.gridy = 1;
-        gbcCreditsTextArea.weightx = 0.5;
-        gbcCreditsTextArea.weighty = 0.6;
+        gbcCreditsTextArea.gridy = 4;
+        gbcCreditsTextArea.weightx = 0.0;
+        gbcCreditsTextArea.weighty = 0.02;
         aboutPanel.add(textParagraph, gbcCreditsTextArea);
+
+        GridBagConstraints gbcCloseButton = new GridBagConstraints();
+        gbcCloseButton.gridx = 0;
+        gbcCloseButton.gridy = 5;
+        gbcCloseButton.weightx = 0.0;
+        gbcCloseButton.weighty = 0.1;
+        aboutPanel.add(closeButton, gbcCloseButton);
 
         // Add the about panel to the frame
         setLayout(new BorderLayout());
@@ -105,13 +147,9 @@ public class About extends JFrame {
 
         // Configure the frame
         pack();
-        setSize(300, 200);
+        setSize(300, 550);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new About();
     }
 }
