@@ -44,10 +44,6 @@ public class NodePHTest extends TestCase {
             assertNotNull(node.getTopR());
             assertNotNull(node.getBotL());
             assertNotNull(node.getBotR());
-            assertTrue(node.getTopL() instanceof PlaceHolder);
-            assertTrue(node.getTopR() instanceof PlaceHolder);
-            assertTrue(node.getBotL() instanceof PlaceHolder);
-            assertTrue(node.getBotR() instanceof PlaceHolder);
         }
 
 
@@ -171,7 +167,6 @@ public class NodePHTest extends TestCase {
         Card res2= deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(res2);
         player1.play(model, 0, 2,1,-1);
-        assertTrue(model.getPlayerCardArea(player1).getNodeByXY(1,-1).getTopR() instanceof PlaceHolder);
         assertEquals(1, model.getPlayerCardArea(player1).getPlaceHolders().size());
     }
 

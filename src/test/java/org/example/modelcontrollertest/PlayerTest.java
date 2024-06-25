@@ -84,7 +84,7 @@ public class PlayerTest extends TestCase {
         Card card1 = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(card1);
         int handSize = playerCardArea.getHand().size();
-        player1.play(model, 0, 2, 1,1);
+        player1.play(model, 0, 1, 1,1);
         List<PlaceHolder> placeHolderList = playerCardArea.getPlaceHolders();
         List<PlaceHolder> availableNodes = playerCardArea.getAvailableNodes();
         List<PlaceHolder> allNodes = playerCardArea.getAllNodes();

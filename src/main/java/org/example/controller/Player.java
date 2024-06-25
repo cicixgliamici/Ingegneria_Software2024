@@ -149,6 +149,7 @@ public class Player {
 //                + "manuscript: " + model.getPlayerCardArea(this).getCounter().getManuscriptCounter()+"\n"
 //                + "quill: " + model.getPlayerCardArea(this).getCounter().getQuillCounter()
 //        );
+
     }
 
     /**

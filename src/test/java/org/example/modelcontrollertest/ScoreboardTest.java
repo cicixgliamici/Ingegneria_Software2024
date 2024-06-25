@@ -11,20 +11,28 @@ import java.text.ParseException;
 public class ScoreboardTest extends TestCase {
     public void testAddToken() throws IOException, ParseException {
         ScoreBoard scoreboard = new ScoreBoard();
-        Player player1 = new Player("eren_yeager");
-        Player player2 = new Player("grisha_yeager");
-        Player player3 = new Player("zeke_yeager");
-        Player player4 = new Player("carla_yeager");
-        Player player5 = new Player("dina_fritz");
-        //scoreboard.addToken(Color.BLUE, player1);
-        //scoreboard.addToken(Color.RED, player2);
-        //scoreboard.addToken(Color.GREEN, player3);
+        String u1 = "eren_yeager";
+        String u2 = "grisha_yeager";
+        String u3 = "zeke_yeager";
+        String u4 = "carla_yeager";
+        String u5 = "dina_fritz";
+        scoreboard.addToken(u1, Color.BLUE);
+        scoreboard.addToken(u2, Color.RED);
+        scoreboard.addToken(u3, Color.GREEN);
         assertEquals(3, scoreboard.getTokens().size());
-        //scoreboard.addToken(Color.RED, player4);
-        fail("Expected IllegalArgumentException1 was not thrown");
-        //scoreboard.addToken(Color.YELLOW, player4);
-        //scoreboard.addToken(Color.WHITE, player5);
-        fail("Expected IllegalArgumentException2 was not thrown");
+        try {
+            scoreboard.addToken(u4, Color.RED);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("Select another color"));
+        }
+        scoreboard.addToken(u4, Color.YELLOW);
+        try {
+            scoreboard.addToken(u5, Color.WHITE);
+            fail("Expected IllegalArgumentException to be thrown");
+        } catch (IllegalArgumentException e) {
+            assertTrue(e.getMessage().contains("Max 4 players"));
+        }
     }
 
     public void testPoints() throws IOException, ParseException {
@@ -49,7 +57,8 @@ public class ScoreboardTest extends TestCase {
 
     public void testScoreboardGeTSet(){
         ScoreBoard scoreBoard = new ScoreBoard();
-        Player player1 = new Player("kanye");
+        String u1 = "kanye";
+        Player player1 = new Player(u1);
         Player player2 = new Player("donda");
         scoreBoard.getPoints().put(player1, 10);
         scoreBoard.getPoints().put(player2, 15);
@@ -60,7 +69,7 @@ public class ScoreboardTest extends TestCase {
         scoreBoard.updatePlayerPoint(player1, 2);
         Integer points3 = 2;
         assertEquals(points3, scoreBoard.getPoints().get(player1));
-        //scoreBoard.addToken(Color.RED, player1);
-        assertEquals(player1, scoreBoard.getTokens().get(Color.RED));
+        scoreBoard.addToken(u1, Color.RED);
+        assertEquals(Color.RED, scoreBoard.getTokens().get(u1));
     }
 }

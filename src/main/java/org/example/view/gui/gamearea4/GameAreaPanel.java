@@ -32,6 +32,7 @@ public class GameAreaPanel extends JPanel {
     private JLabel token2;
     private JLabel token3;
     private JLabel token4;
+    private JLabel blackToken;
     private JLabel card1;
     private JLabel card2;
     private JLabel card3;
@@ -65,8 +66,11 @@ public class GameAreaPanel extends JPanel {
         secretObjective = new JLabel(ic4);
         cardStates.put(secretObjective, true);
         cardIds.put(secretObjective, -1);
+        BufferedImage logo = loadImage("C:Users/jamie/OneDrive/Desktop/CODEX_pion_noir.png");
+        Icon icon = new ImageIcon(logo);
+        JLabel tokenLabel = new JLabel(icon);
+        tokenLabel.setVisible(true);
         List<String> keys = new ArrayList<>(view.getColorPlayer().keySet());
-
         keys.removeIf(player -> player.equals(username));
 
         switch (num) {
