@@ -58,7 +58,12 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * Executes the command received from the server.
+     * This method parses the input command received from the server, matches it with the predefined
+     * commands and their associated methods and parameters, and invokes the corresponding method
+     * on the `view` object.
+     * The commands and their details (method names and parameter types) are stored in a JSON file
+     * which is parsed and stored in the `commands` map. Each command is expected to have a specific
+     * format and parameters that match the predefined structure.
      *
      * @param inputLine The command input line received from the server.
      */
