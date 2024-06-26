@@ -128,6 +128,12 @@ public class ServerClientHandler implements Runnable {
     /**
      * Executes a command received from a client.
      *
+      * This method processes a command input line received from a client. It validates the command,
+ * checks if it is the client's turn (or if the command is a chat message), and then dynamically 
+ * invokes the corresponding method with the appropriate parameters. If the command is related to 
+ * the game flow (e.g., drawing a card, setting an objective), it updates the game state accordingly.
+ * It handles various scenarios such as unrecognized commands, parameter mismatches, and exceptions.
+ * 
      * @param inputLine The input command line.
      * @param username The username of the client.
      */
