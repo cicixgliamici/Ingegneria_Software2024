@@ -38,8 +38,8 @@ public class ControllerTest extends TestCase {
     public void testSetPlayers() {
         // Create a list of players
         List<Player> players = new ArrayList<>();
-        Player player1 = new Player("player1");
-        Player player2 = new Player("player2");
+        Player player1 = new Player("Naruto Uzumaki");
+        Player player2 = new Player("Sasuke Uchiha");
         players.add(player1);
         players.add(player2);
         // Set the list of players in the controller
@@ -64,8 +64,8 @@ public class ControllerTest extends TestCase {
     public void testInitializeController() {
         // Create a list of players
         List<Player> players = new ArrayList<>();
-        Player player1 = new Player("player1");
-        Player player2 = new Player("player2");
+        Player player1 = new Player("LeBron James");
+        Player player2 = new Player("Michael Jeffrey Jordan");
         players.add(player1);
         players.add(player2);
         // Set the list of players in the controller
@@ -106,18 +106,18 @@ public class ControllerTest extends TestCase {
     public void testGetPlayerByUsername() {
         // Create a list of players
         List<Player> players = new ArrayList<>();
-        Player player1 = new Player("player1");
-        Player player2 = new Player("player2");
+        Player player1 = new Player("Leonhard Euler");
+        Player player2 = new Player("Johann Friedrich Carl Gauss");
         players.add(player1);
         players.add(player2);
         // Set the list of players in the controller
         controller.setPlayers(players);
         // Retrieve a player by username
-        Player result = controller.getPlayerByUsername("player1");
+        Player result = controller.getPlayerByUsername("Leonhard Euler");
         // Verify that the correct player is retrieved
         assertEquals(player1, result);
         // Attempt to retrieve a player that does not exist
-        result = controller.getPlayerByUsername("player3");
+        result = controller.getPlayerByUsername("Georg Friedrich Bernhard Riemann");
         // Verify that null is returned when the player is not found
         assertNull(result);
     }
