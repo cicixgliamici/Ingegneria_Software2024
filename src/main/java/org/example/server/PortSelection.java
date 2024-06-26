@@ -17,6 +17,16 @@ import java.util.Scanner;
  */
 public class PortSelection {
 
+
+    /**
+ * Main method to start the server with specified TCP and RMI ports.
+ *
+ * This method prompts the user to insert the TCP port number or type a letter for the default value (50000).
+ * It then initializes and starts the server with the specified ports. After starting the server, it attempts
+ * to find and print the local IP address of the machine.
+ *
+ * @param args command-line arguments (not used in this method)
+ */
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int tcpPort;
