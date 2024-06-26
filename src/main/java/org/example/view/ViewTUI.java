@@ -250,11 +250,18 @@ public class ViewTUI extends View {
         System.out.println("\n");
     }
 
-    @Override
-    public void placeholder(int id, int x, int y) {
-        System.out.println("The card " + id + " is unplayable at position: (" + x + ", " + y + ")");
-        printGrid();
-    }
+   /**
+ * Indicates that a card is unplayable at the specified position and prints the grid.
+ * 
+ * @param id the ID of the card
+ * @param x the x-coordinate of the position
+ * @param y the y-coordinate of the position
+ */
+@Override
+public void placeholder(int id, int x, int y) {
+    System.out.println("The card " + id + " is unplayable at position: (" + x + ", " + y + ")");
+    printGrid();
+}
 
     /**
      * Processes the initial set of cards received by the player.
@@ -347,27 +354,37 @@ public class ViewTUI extends View {
         // Implement this method if needed.
     }
 
-    /**
-     * Adds non-null colors to a formatted string of available colors.
-     */
-    @Override
-    public void color(String c1, String c2, String c3, String c4) {
-        List<String> colors = Arrays.asList(c1, c2, c3, c4); // Create a list of the input colors
-        StringBuilder colorBuilder = new StringBuilder("Colors available:");
-        for (String color : colors) {
-            if (!color.equals("null")) { // Check if the color is not "null".
-                colorBuilder.append(", ");
-                colorBuilder.append(color);
-            }
+/**
+ * Adds non-null colors to a formatted string of available colors.
+ * 
+ * @param c1 the first color
+ * @param c2 the second color
+ * @param c3 the third color
+ * @param c4 the fourth color
+ */
+@Override
+public void color(String c1, String c2, String c3, String c4) {
+    List<String> colors = Arrays.asList(c1, c2, c3, c4); // Create a list of the input colors
+    StringBuilder colorBuilder = new StringBuilder("Colors available:");
+    for (String color : colors) {
+        if (!color.equals("null")) { // Check if the color is not "null".
+            colorBuilder.append(", ");
+            colorBuilder.append(color);
         }
-        System.out.println(colorBuilder.toString());
     }
+    System.out.println(colorBuilder.toString());
+}
 
-    @Override
-    public void setFirst(String username) {
-        System.out.println("Hello," + username + " enter the maximum number of players (2-4):");
-        firstPlayer=username;
-    }
+/**
+ * Sets the first player and prompts for the maximum number of players.
+ * 
+ * @param username the username of the first player
+ */
+@Override
+public void setFirst(String username) {
+    System.out.println("Hello," + username + " enter the maximum number of players (2-4):");
+    firstPlayer = username;
+}
 
     /**
      * Generates a string representation of a standard card for display in the console, showing resource positions and colors.
