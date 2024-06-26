@@ -39,6 +39,7 @@ public class GameFlow {
 
     /**
      * Increments the turn count and manages the flow between rounds.
+     * Updates the turn counter, resetting it to 1 if the current turn reaches the maximum turn value.
      */
     public void incrementTurn() {
         int currentTurn = turn.get();
