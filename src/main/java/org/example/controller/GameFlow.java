@@ -150,52 +150,111 @@ public class GameFlow {
         return false;
     }
 
-    // Getters and setters
-    public AtomicInteger getTurn() {
-        return turn;
-    }
+// Getters and setters
 
-    public void setTurn(AtomicInteger turn) {
-        this.turn = turn;
-    }
+/**
+ * Returns the current turn counter.
+ * 
+ * @return the current turn counter.
+ */
+public AtomicInteger getTurn() {
+    return turn;
+}
 
-    public AtomicInteger getMaxTurn() {
-        return maxTurn;
-    }
+/**
+ * Sets the current turn counter.
+ * 
+ * @param turn the new turn counter.
+ */
+public void setTurn(AtomicInteger turn) {
+    this.turn = turn;
+}
 
-    public void setMaxTurn(AtomicInteger maxTurn) {
-        this.maxTurn = maxTurn;
-    }
+/**
+ * Returns the maximum turn value.
+ * 
+ * @return the maximum turn value.
+ */
+public AtomicInteger getMaxTurn() {
+    return maxTurn;
+}
 
-    public int getEndGame() {
-        return EndGame;
-    }
+/**
+ * Sets the maximum turn value.
+ * 
+ * @param maxTurn the new maximum turn value.
+ */
+public void setMaxTurn(AtomicInteger maxTurn) {
+    this.maxTurn = maxTurn;
+}
 
-    public int getLastRound() {
-        return LastRound;
-    }
+/**
+ * Returns the end game status.
+ * 
+ * @return the end game status.
+ */
+public int getEndGame() {
+    return EndGame;
+}
 
-    public void setLastRound(int lastRound) {
-        LastRound = lastRound;
-    }
+/**
+ * Returns the last round number.
+ * 
+ * @return the last round number.
+ */
+public int getLastRound() {
+    return LastRound;
+}
 
-    public boolean isLastRoundAnnounced() {
-        return lastRoundAnnounced;
-    }
+/**
+ * Sets the last round number.
+ * 
+ * @param lastRound the new last round number.
+ */
+public void setLastRound(int lastRound) {
+    LastRound = lastRound;
+}
 
-    public void setLastRoundAnnounced(boolean announced) {
-        lastRoundAnnounced = announced;
-    }
+/**
+ * Returns whether the last round has been announced.
+ * 
+ * @return true if the last round has been announced, false otherwise.
+ */
+public boolean isLastRoundAnnounced() {
+    return lastRoundAnnounced;
+}
 
-    public void startLastRound() {
-        lastRoundStarted = true;
-    }
+/**
+ * Sets the announcement status of the last round.
+ * 
+ * @param announced the new announcement status.
+ */
+public void setLastRoundAnnounced(boolean announced) {
+    lastRoundAnnounced = announced;
+}
 
-    public List<Player> getPlayers() {
-        return players;
-    }
+/**
+ * Starts the last round.
+ */
+public void startLastRound() {
+    lastRoundStarted = true;
+}
 
-    public String getNextPlayer() {
-        return nextPlayer;
+/**
+ * Returns the list of players.
+ * 
+ * @return the list of players.
+ */
+public List<Player> getPlayers() {
+    return players;
+}
+
+/**
+ * Returns the name of the next player.
+ * 
+ * @return the name of the next player.
+ */
+public String getNextPlayer() {
+    return nextPlayer;
     }
 }
