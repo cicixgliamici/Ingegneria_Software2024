@@ -56,14 +56,20 @@ public abstract class View {
     public View() {
     }
 
-
+/**
+ * Removes a card from the visible area based on its ID.
+ *
+ * @param id The ID of the card to be removed from the visible area.
+ */
     public void removeVisibleArea(int id) {}
 
-    /**
-     * Abstract method to set the first player.
-     */
-    public abstract void setFirst(String username);
-
+/**
+ * Sets the first player in the game.
+ *
+ * @param username The username of the player to be set as the first player.
+ */
+public abstract void setFirst(String username);
+    
     /**
      * Abstract method to print the game grid.
      */
@@ -232,11 +238,25 @@ public abstract class View {
      */
     public abstract void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8);
 
-    public abstract void lastRound();
+    /**
+ * Initiates the last round of the game.
+ */
+public abstract void lastRound();
 
-    public abstract void Winner(String string);
+/**
+ * Declares the winner of the game.
+ *
+ * @param string A string containing the information about the winner (e.g., username or other details).
+ */
+public abstract void Winner(String string);
 
-    public abstract void Tie(String string);
+/**
+ * Declares a tie in the game.
+ *
+ * @param string A string containing the information about the tie (e.g., players involved in the tie or other details).
+ */
+public abstract void Tie(String string);
+
     /**
      * Gets the color to player mapping.
      *
@@ -248,6 +268,9 @@ public abstract class View {
 
     /**
      * Interprets and executes commands sent as messages.
+     * This method parses a command message, identifies the corresponding method to execute based on the command name,
+     * and invokes the method with the provided parameters. It utilizes reflection to dynamically invoke methods
+     * on the current object.
      *
      * @param message The command message.
      */
@@ -378,97 +401,213 @@ public abstract class View {
         return gridX >= 0 && gridX < N && gridY >= 0 && gridY < N;
     }
 
-    public int getFlag() {
-        return flag;
-    }
+/**
+ * Returns the flag value.
+ * 
+ * @return the flag value
+ */
+public int getFlag() {
+    return flag;
+}
 
-    public Coordinates getPosition(JSONObject jsonObject) {
-        return map.get(jsonObject);
-    }
+/**
+ * Returns the position coordinates based on the given JSON object.
+ * 
+ * @param jsonObject the JSON object containing position data
+ * @return the position coordinates
+ */
+public Coordinates getPosition(JSONObject jsonObject) {
+    return map.get(jsonObject);
+}
 
-    public List<Integer> getHand() {
-        return Hand;
-    }
+/**
+ * Returns the list of card IDs in the player's hand.
+ * 
+ * @return the list of card IDs in the hand
+ */
+public List<Integer> getHand() {
+    return Hand;
+}
 
-    public List<Integer> getPlayerCardArea() {
-        return PlayerCardArea;
-    }
+/**
+ * Returns the list of card IDs in the player's card area.
+ * 
+ * @return the list of card IDs in the player's card area
+ */
+public List<Integer> getPlayerCardArea() {
+    return PlayerCardArea;
+}
 
-    public Integer getSecretObjective() {
-        return SecretObjective;
-    }
+/**
+ * Returns the secret objective card ID.
+ * 
+ * @return the secret objective card ID
+ */
+public Integer getSecretObjective() {
+    return SecretObjective;
+}
 
-    public int getN() {
-        return N;
-    }
+/**
+ * Returns the value of N.
+ * 
+ * @return the value of N
+ */
+public int getN() {
+    return N;
+}
 
-    public int getM() {
-        return M;
-    }
+/**
+ * Returns the value of M.
+ * 
+ * @return the value of M
+ */
+public int getM() {
+    return M;
+}
 
-    public boolean isFirst() {
-        return isFirst;
-    }
+/**
+ * Returns true if it is the first turn.
+ * 
+ * @return true if it is the first turn, false otherwise
+ */
+public boolean isFirst() {
+    return isFirst;
+}
 
-    public boolean isMatchStarted() {
-        return matchStarted;
-    }
+/**
+ * Returns true if the match has started.
+ * 
+ * @return true if the match has started, false otherwise
+ */
+public boolean isMatchStarted() {
+    return matchStarted;
+}
 
-    public List<String> getColors() {
-        return colors;
-    }
+/**
+ * Returns the list of player colors.
+ * 
+ * @return the list of player colors
+ */
+public List<String> getColors() {
+    return colors;
+}
 
-    public int getNumConnection() {
-        return numConnection;
-    }
+/**
+ * Returns the number of connections.
+ * 
+ * @return the number of connections
+ */
+public int getNumConnection() {
+    return numConnection;
+}
 
-    public List<String> getCardsPath() {
-        return cardsPath;
-    }
+/**
+ * Returns the list of card paths.
+ * 
+ * @return the list of card paths
+ */
+public List<String> getCardsPath() {
+    return cardsPath;
+}
 
-    public List<Integer> getCardsId() {
-        return cardsId;
-    }
+/**
+ * Returns the list of card IDs.
+ * 
+ * @return the list of card IDs
+ */
+public List<Integer> getCardsId() {
+    return cardsId;
+}
 
-    public List<Integer> getDrawableCards() {
-        return drawableCards;
-    }
+/**
+ * Returns the list of drawable card IDs.
+ * 
+ * @return the list of drawable card IDs
+ */
+public List<Integer> getDrawableCards() {
+    return drawableCards;
+}
 
-    public List<Integer> getPublicObjectives() {
-        return PublicObjectives;
-    }
+/**
+ * Returns the list of public objective card IDs.
+ * 
+ * @return the list of public objective card IDs
+ */
+public List<Integer> getPublicObjectives() {
+    return PublicObjectives;
+}
 
-    public Map<String, Integer> getPoints() {
-        return points;
-    }
+/**
+ * Returns the map of player points.
+ * 
+ * @return the map of player points
+ */
+public Map<String, Integer> getPoints() {
+    return points;
+}
 
-    public int getValidPlay() {
-        return validPlay;
-    }
+/**
+ * Returns the valid play count.
+ * 
+ * @return the valid play count
+ */
+public int getValidPlay() {
+    return validPlay;
+}
 
-    public int isTurn() {
-        return turn;
-    }
+/**
+ * Returns the current turn number.
+ * 
+ * @return the current turn number
+ */
+public int isTurn() {
+    return turn;
+}
 
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
+/**
+ * Sets the current turn number.
+ * 
+ * @param turn the current turn number
+ */
+public void setTurn(int turn) {
+    this.turn = turn;
+}
 
-    public void setMatchStarted(boolean matchStarted) {
-        this.matchStarted = matchStarted;
-    }
+/**
+ * Sets the match started status.
+ * 
+ * @param matchStarted the match started status
+ */
+public void setMatchStarted(boolean matchStarted) {
+    this.matchStarted = matchStarted;
+}
 
-    public void setGameAreaPanel(GameAreaPanel gameAreaPanel) {
-        this.gameAreaPanel = gameAreaPanel;
-    }
+/**
+ * Sets the game area panel.
+ * 
+ * @param gameAreaPanel the game area panel
+ */
+public void setGameAreaPanel(GameAreaPanel gameAreaPanel) {
+    this.gameAreaPanel = gameAreaPanel;
+}
 
-    public void setDrawingCardPanel(DrawingCardPanel drawingCardPanel) {
-        this.drawingCardPanel = drawingCardPanel;
-    }
+/**
+ * Sets the drawing card panel.
+ * 
+ * @param drawingCardPanel the drawing card panel
+ */
+public void setDrawingCardPanel(DrawingCardPanel drawingCardPanel) {
+    this.drawingCardPanel = drawingCardPanel;
+}
 
-    public void addListener(EvListener listener) {
-        listeners.add(listener);
-    }
+/**
+ * Adds an event listener.
+ * 
+ * @param listener the event listener to add
+ */
+public void addListener(EvListener listener) {
+    listeners.add(listener);
+}
 
     /**
      * Notifies all listeners of an event.
@@ -495,10 +634,18 @@ public abstract class View {
     public void addMapping(Integer integer, int x, int y) {
         map.put(integer, new Coordinates(x, y));
     }
+    
+/**
+ * Sets the event listener.
+ * 
+ * @param evListener the event listener to set
+ */
+public void setEvListener(EvListener evListener) {
+    this.evListener = evListener;
+}
 
-    public void setEvListener(EvListener evListener) {
-        this.evListener = evListener;
-    }
-
-    public abstract void close();
+/**
+ * Closes resources or connections related to this object.
+ */
+public abstract void close();
 }
