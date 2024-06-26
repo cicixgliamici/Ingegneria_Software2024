@@ -127,6 +127,10 @@ public class Node extends PlaceHolder {
     /**
      * Sets placeholders based on the card's hidden corners.
      *
+     * This method checks each corner of the card to see if it is hidden. If a corner is hidden, it creates
+     * a new placeholder at the appropriate position and updates the list of placeholders and available nodes
+     * accordingly. It ensures that the placeholders are properly linked with the adjacent nodes.
+     *
      * @param AvailableNodes the list of available nodes
      * @param PlaceHolders the list of placeholders
      */
