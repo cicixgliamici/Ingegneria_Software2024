@@ -33,8 +33,8 @@ public class GameFlowTest extends TestCase {
         model = Mockito.mock(Model.class);
         server = Mockito.mock(Server.class);
         players = new ArrayList<>();
-        players.add(new Player("player1"));
-        players.add(new Player("player2"));
+        players.add(new Player("Carlo VIII di Valois, detto l'Affabile"));
+        players.add(new Player("Edoardo IV di York"));
         gameFlow = new GameFlow(players, model, server);
     }
 
@@ -59,13 +59,11 @@ public class GameFlowTest extends TestCase {
         gameFlow.setMaxTurn(new AtomicInteger(2));
         gameFlow.setTurn(new AtomicInteger(1));
 
-        assertTrue(gameFlow.isYourTurn("player1", "play"));
-        assertFalse(gameFlow.isYourTurn("player1", "draw"));
-
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "play"));
+        assertFalse(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "draw"));
         gameFlow.incrementTurn();
-
-        assertTrue(gameFlow.isYourTurn("player1", "draw"));
-        assertFalse(gameFlow.isYourTurn("player1", "play"));
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "draw"));
+        assertFalse(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "play"));
     }
 
     /**
@@ -104,13 +102,13 @@ public class GameFlowTest extends TestCase {
         gameFlow.setMaxTurn(new AtomicInteger(4));
         gameFlow.setTurn(new AtomicInteger(1));
 
-        assertTrue(gameFlow.isYourTurn("player1", "play"));
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Germanico", "play"));
         gameFlow.incrementTurn();
-        assertTrue(gameFlow.isYourTurn("player1", "draw"));
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Germanico", "draw"));
         gameFlow.incrementTurn();
-        assertTrue(gameFlow.isYourTurn("player2", "play"));
+        assertTrue(gameFlow.isYourTurn("Tito Flavio Vespasiano", "play"));
         gameFlow.incrementTurn();
-        assertTrue(gameFlow.isYourTurn("player2", "draw"));
+        assertTrue(gameFlow.isYourTurn("Tito Flavio Vespasiano", "draw"));
     }
 
     /**
@@ -130,11 +128,11 @@ public class GameFlowTest extends TestCase {
         gameFlow.setMaxTurn(new AtomicInteger(2));
         gameFlow.setTurn(new AtomicInteger(1));
 
-        gameFlow.isYourTurn("player1", "play");
-        assertEquals("player2", gameFlow.getNextPlayer());
+        gameFlow.isYourTurn("Iovio Diocle Gaio Aurelio Valerio Diocleziano", "play");
+        assertEquals("Gaio Valerio Galerio Massimiano", gameFlow.getNextPlayer());
 
         gameFlow.incrementTurn();
-        gameFlow.isYourTurn("player1", "draw");
-        assertEquals("player2", gameFlow.getNextPlayer());
+        gameFlow.isYourTurn("Iovio Diocle Gaio Aurelio Valerio Diocleziano", "draw");
+        assertEquals("Gaio Valerio Galerio Massimiano", gameFlow.getNextPlayer());
     }
 }
