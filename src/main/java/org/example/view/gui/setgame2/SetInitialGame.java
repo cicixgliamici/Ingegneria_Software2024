@@ -282,28 +282,58 @@ public class SetInitialGame extends JPanel {
     }
 
     // Getter and setter methods for TCPClient, username, and view
+/**
+ * Returns the TCP client.
+ * 
+ * @return the TCP client
+ */
+public TCPClient getTcpClient() {
+    return tcpClient;
+}
 
-    public TCPClient getTcpClient() {
-        return tcpClient;
-    }
+/**
+ * Sets the TCP client.
+ * 
+ * @param tcpClient the TCP client to set
+ */
+public void setTcpClient(TCPClient tcpClient) {
+    this.tcpClient = tcpClient;
+}
 
-    public void setTcpClient(TCPClient tcpClient) {
-        this.tcpClient = tcpClient;
-    }
+/**
+ * Returns the username.
+ * 
+ * @return the username
+ */
+public String getUsername() {
+    return username;
+}
 
-    public String getUsername() {
-        return username;
-    }
+/**
+ * Sets the username.
+ * 
+ * @param username the username to set
+ */
+public void setUsername(String username) {
+    this.username = username;
+}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+/**
+ * Returns the view.
+ * 
+ * @return the view
+ */
+public View getView() {
+    return view;
+}
 
-    public View getView() {
-        return view;
-    }
+/**
+ * Sets the view.
+ * 
+ * @param view the view to set
+ */
+public void setView(View view) {
+    this.view = view;
+}
 
-    public void setView(View view) {
-        this.view = view;
-    }
 }
