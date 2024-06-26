@@ -296,7 +296,6 @@ public class ViewGUI extends View {
     @Override
     public void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8) {
         List<String> orderPlayer = Arrays.asList(us1, us3, us5, us7);
-        firstPlayer=us1;
         List<String> orderColor = Arrays.asList(us2, us4, us6, us8);
         isFirst = true;
         for (int i = 0; i < orderPlayer.size(); i++) {
@@ -304,7 +303,9 @@ public class ViewGUI extends View {
                 colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
             }
         }
+        if(isFirst) firstPlayer=us1;
         System.out.println("from order GUI: " + colorPlayer);
+        System.out.println("first player: "+ firstPlayer);
     }
 
 
