@@ -118,6 +118,12 @@ public class Server implements ModelChangeListener {
     /**
      * Checks if the game can start, based on the number of connections.
      *
+      * This method verifies if the number of current connections matches the maximum number of connections required to start the game.
+     * If so, it notifies the clients that the match has started, sets up the players and initializes the controller,
+     * displays the draw card area and public objectives, generates and sends the player order message,
+     * and initializes the game flow. It also sets the maximum number of turns and waits for all players to choose their initial cards.
+     * If the number of connections is insufficient, it sends a message indicating that the game cannot start yet.
+     *
      * @throws RemoteException If there is an error in remote communication.
      */
     public void checkForGameStart() throws RemoteException {
@@ -265,6 +271,7 @@ public class Server implements ModelChangeListener {
      * @param generalMessage The general message for all clients.
      * @throws RemoteException If there is an error in remote communication.
      */
+    @Override
     public void onModelChange(String username, String specificMessage, String generalMessage) throws RemoteException {
         synchronized (this) {
             for (Map.Entry<String, PrintWriter> entry : clientWriters.entrySet()) {
