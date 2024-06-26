@@ -83,7 +83,7 @@ public class SetInitialGame extends JPanel {
         // Setting up setNumberPlayerPanel
         JLabel labelNumPlayer = new JLabel("Number of players: ");
         labelNumPlayer.setForeground(Color.darkGray);
-        String[] optionsNumPlayer = {"1", "2", "3", "4"};
+        String[] optionsNumPlayer = {"2", "3", "4"};
         JComboBox<String> menuNumPlayer = new JComboBox<>(optionsNumPlayer);
         Border insideNumPlayerBorder = BorderFactory.createTitledBorder("Choose number of players");
         Border finalNumPlayerBorder = BorderFactory.createCompoundBorder(insideNumPlayerBorder, outsideBorder);
@@ -96,7 +96,7 @@ public class SetInitialGame extends JPanel {
         labelNumPlayer.setEnabled(view.isFirst());
 
         if (!menuNumPlayer.isEnabled()) {
-            menuNumPlayer.setSelectedIndex(view.getNumConnection() - 1);
+            menuNumPlayer.setSelectedIndex(view.getNumConnection() - 2);
         }
 
         // Layout setNumberPlayerPanel

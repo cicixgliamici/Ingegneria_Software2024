@@ -79,14 +79,6 @@ public class GameAreaPanel extends JPanel {
         keys.removeIf(player -> player.equals(username));
 
         switch (num) {
-            case "1":
-                token1 = createToken(color, true);
-                username1 = new JLabel(username);
-                username1.setFont(new Font("Helvetica", Font.BOLD, 15));
-                token2 = createToken("Yellow", false);
-                token3 = createToken("Red", false);
-                token4 = createToken("Green", false);
-                break;
             case "2":
                 token1 = createToken(color, true);
                 token2 = createToken(view.getColorPlayer().get(keys.get(0)), true);
@@ -229,31 +221,31 @@ public class GameAreaPanel extends JPanel {
             add(username4, gbc);
         }
 
-        if(view.getFirstPlayer == username){
+        /*if(firstPlayer.equals(username)){
             gbc.gridx = 0;
             gbc.gridy = 1;
             gbc.anchor = GridBagConstraints.PAGE_END;
             add(blackToken, gbc);
-        } else if (view.getFirstPlayer == keys.get(0)) {
+        } else if (firstPlayer.equals(keys.get(0))) {
             gbc.gridx = 5;
             gbc.gridy = 1;
             gbc.anchor = GridBagConstraints.PAGE_START;
             add(blackToken, gbc);
         } else if (keys.get(1) != null){
-            if(view.getFirstPlayer == keys.get(1)){
+            if(firstPlayer.equals(keys.get(1))){
                 gbc.gridx = 0;
                 gbc.gridy = 1;
                 gbc.anchor = GridBagConstraints.PAGE_START;
                 add(blackToken, gbc);
             }
         } else if (keys.get(2) != null) {
-            if(view.getFirstPlayer == keys.get(2)){
+            if(firstPlayer.equals(keys.get(2))){
                 gbc.gridx = 5;
                 gbc.gridy = 1;
                 gbc.anchor = GridBagConstraints.PAGE_END;
                 add(blackToken, gbc);
             }
-        }
+        }*/
 
 
         gbc.gridx = 0;
