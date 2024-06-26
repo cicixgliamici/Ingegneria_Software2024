@@ -49,11 +49,20 @@ public class TCPServer {
         }
     }
 
-    /**
-     * Handles individual client connections by setting up input and output streams
-     * and processing initial communication such as username and player settings.
-     * @param clientSocket The socket representing the client connection.
-     */
+   /**
+ * Handles individual client connections by setting up input and output streams
+ * and processing initial communication such as username and player settings.
+ * 
+ * This method manages the connection of a new client. It first checks if the server has reached the maximum number 
+ * of allowed connections and, if so, informs the client and closes the connection. Otherwise, it prompts the client 
+ * for a username, checks for username uniqueness, and if valid, proceeds with additional setup including color selection 
+ * and notifying other clients of the new connection. If the client is the first to connect, it also sets up the maximum 
+ * number of connections.
+ * 
+ *
+ * @param clientSocket The socket representing the client connection.
+ * @throws IOException If an I/O error occurs when handling the connection.
+ */
     private void handleConnection(Socket clientSocket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
