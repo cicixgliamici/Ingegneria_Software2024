@@ -129,71 +129,156 @@ public class ImageCard {
 
     // Getters and Setters
 
-    public int getId() {
-        return id;
-    }
+ /**
+ * Returns the ID.
+ * 
+ * @return the ID
+ */
+public int getId() {
+    return id;
+}
 
-    public int getX() {
-        return x;
-    }
+/**
+ * Returns the x-coordinate.
+ * 
+ * @return the x-coordinate
+ */
+public int getX() {
+    return x;
+}
 
-    public int getY() {
-        return y;
-    }
+/**
+ * Returns the y-coordinate.
+ * 
+ * @return the y-coordinate
+ */
+public int getY() {
+    return y;
+}
 
-    public BufferedImage getImage() {
-        return image;
-    }
+/**
+ * Returns the image.
+ * 
+ * @return the image
+ */
+public BufferedImage getImage() {
+    return image;
+}
 
-    public CornerButton getCornerButtonHighDx() {
-        return cornerButtonHighDx;
-    }
+/**
+ * Returns the high right corner button.
+ * 
+ * @return the high right corner button
+ */
+public CornerButton getCornerButtonHighDx() {
+    return cornerButtonHighDx;
+}
 
-    public CornerButton getCornerButtonBottomDx() {
-        return cornerButtonBottomDx;
-    }
+/**
+ * Returns the bottom right corner button.
+ * 
+ * @return the bottom right corner button
+ */
+public CornerButton getCornerButtonBottomDx() {
+    return cornerButtonBottomDx;
+}
 
-    public CornerButton getCornerButtonBottomSx() {
-        return cornerButtonBottomSx;
-    }
+/**
+ * Returns the bottom left corner button.
+ * 
+ * @return the bottom left corner button
+ */
+public CornerButton getCornerButtonBottomSx() {
+    return cornerButtonBottomSx;
+}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+/**
+ * Sets the ID.
+ * 
+ * @param id the ID to set
+ */
+public void setId(int id) {
+    this.id = id;
+}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+/**
+ * Sets the x-coordinate.
+ * 
+ * @param x the x-coordinate to set
+ */
+public void setX(int x) {
+    this.x = x;
+}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+/**
+ * Sets the y-coordinate.
+ * 
+ * @param y the y-coordinate to set
+ */
+public void setY(int y) {
+    this.y = y;
+}
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
+/**
+ * Sets the image.
+ * 
+ * @param image the image to set
+ */
+public void setImage(BufferedImage image) {
+    this.image = image;
+}
 
-    public void setEvListener(EvListener evListener) {
-        this.evListener = evListener;
-    }
+/**
+ * Sets the event listener.
+ * 
+ * @param evListener the event listener to set
+ */
+public void setEvListener(EvListener evListener) {
+    this.evListener = evListener;
+}
 
-    public void setCornerButtonHighDx(CornerButton cornerButtonHighDx) {
-        this.cornerButtonHighDx = cornerButtonHighDx;
-    }
+/**
+ * Sets the high right corner button.
+ * 
+ * @param cornerButtonHighDx the high right corner button to set
+ */
+public void setCornerButtonHighDx(CornerButton cornerButtonHighDx) {
+    this.cornerButtonHighDx = cornerButtonHighDx;
+}
 
-    public void setCornerButtonBottomDx(CornerButton cornerButtonBottomDx) {
-        this.cornerButtonBottomDx = cornerButtonBottomDx;
-    }
+/**
+ * Sets the bottom right corner button.
+ * 
+ * @param cornerButtonBottomDx the bottom right corner button to set
+ */
+public void setCornerButtonBottomDx(CornerButton cornerButtonBottomDx) {
+    this.cornerButtonBottomDx = cornerButtonBottomDx;
+}
 
-    public CornerButton getCornerButtonHighSx() {
-        return cornerButtonHighSx;
-    }
+/**
+ * Returns the high left corner button.
+ * 
+ * @return the high left corner button
+ */
+public CornerButton getCornerButtonHighSx() {
+    return cornerButtonHighSx;
+}
 
-    public void setCornerButtonHighSx(CornerButton cornerButtonHighSx) {
-        this.cornerButtonHighSx = cornerButtonHighSx;
-    }
+/**
+ * Sets the high left corner button.
+ * 
+ * @param cornerButtonHighSx the high left corner button to set
+ */
+public void setCornerButtonHighSx(CornerButton cornerButtonHighSx) {
+    this.cornerButtonHighSx = cornerButtonHighSx;
+}
 
-    public void setCornerButtonBottomSx(CornerButton cornerButtonBottomSx) {
-        this.cornerButtonBottomSx = cornerButtonBottomSx;
-    }
+/**
+ * Sets the bottom left corner button.
+ * 
+ * @param cornerButtonBottomSx the bottom left corner button to set
+ */
+public void setCornerButtonBottomSx(CornerButton cornerButtonBottomSx) {
+    this.cornerButtonBottomSx = cornerButtonBottomSx;
+}
 }
