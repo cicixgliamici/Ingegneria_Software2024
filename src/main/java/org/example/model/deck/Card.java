@@ -146,6 +146,13 @@ public class Card {
         }
     }
 
+ /**
+ * Returns a string representation of the object.
+ * This method constructs a string that includes the type of the object, card resources, 
+ * objective points, the side of the card, and details of the front and back corners if available.
+ * 
+ * @return a string representation of the object.
+    */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
