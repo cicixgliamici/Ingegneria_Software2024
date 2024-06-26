@@ -89,7 +89,7 @@ public class ViewGUI extends View {
      */
     @Override
     public void newConnection(String player, String color) {
-        colorPlayer.put(player, color);
+        //colorPlayer.put(player, color);
         System.out.println("newConnection GUI: " + colorPlayer);
     }
 
@@ -303,7 +303,7 @@ public class ViewGUI extends View {
                 colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
             }
         }
-        if(isFirst) firstPlayer=us1;
+        firstPlayer=us1;
         System.out.println("from order GUI: " + colorPlayer);
         System.out.println("first player: "+ firstPlayer);
     }
