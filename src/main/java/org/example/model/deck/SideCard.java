@@ -1,5 +1,6 @@
 package org.example.model.deck;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.example.enumeration.Side;
 
@@ -22,6 +23,15 @@ public class SideCard {
         this.side = side;
         this.front = front;
         this.back = back;
+    }
+
+    /**
+     * Constructs a default SideCard with default values.
+     */
+    public SideCard() {
+        this.side = Side.FRONT; // Default side
+        this.front = new ArrayList<>(); // Empty list for front corners
+        this.back = new ArrayList<>(); // Empty list for back corners
     }
 
     /**

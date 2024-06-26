@@ -20,7 +20,7 @@ public class GameFlow {
     private AtomicInteger maxTurn = new AtomicInteger(0);
     private int LastRound = 0;
     private int EndGame = 0;
-    private boolean lastRoundStarted = false;
+    public boolean lastRoundStarted = false;
     private boolean lastRoundAnnounced = false;
     private String nextPlayer;
 
