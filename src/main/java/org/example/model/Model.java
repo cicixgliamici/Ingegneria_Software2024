@@ -41,8 +41,10 @@ public class Model {
     }
 
     /**
-     * This method cycles on the PlayersList because you can't do that on a HashMap.
-     * Then gives the player 3 cards.
+     * This method iterates over the `PlayersList` (since iterating directly over a HashMap is not feasible).
+     * It draws cards from various decks and assigns them to each player.
+     *
+     * It then sends a notification to each player with their initial hand and objectives using the `notifyModelSpecific` method.
      */
     public void DealCards() {
         PublicObjective = new ArrayList<>();
@@ -115,52 +117,97 @@ public class Model {
 
     // Getter and Setter Area
 
-    public List<Player> getPlayersList() {
-        return PlayersList;
-    }
+   /**
+ * Returns the list of players in the game.
+ * 
+ * @return the list of players
+ */
+public List<Player> getPlayersList() {
+    return PlayersList;
+}
 
-    public DrawingCardArea getDrawingCardArea() {
-        return drawingCardArea;
-    }
+/**
+ * Returns the drawing card area of the game.
+ * 
+ * @return the drawing card area
+ */
+public DrawingCardArea getDrawingCardArea() {
+    return drawingCardArea;
+}
 
-    public ScoreBoard getScoreBoard() {
-        return scoreBoard;
-    }
+/**
+ * Returns the score board of the game.
+ * 
+ * @return the score board
+ */
+public ScoreBoard getScoreBoard() {
+    return scoreBoard;
+}
 
-    public List<Card> getPublicObjective() {
-        return PublicObjective;
-    }
+/**
+ * Returns the list of public objective cards.
+ * 
+ * @return the list of public objective cards
+ */
+public List<Card> getPublicObjective() {
+    return PublicObjective;
+}
 
-    public void setDrawingCardArea(DrawingCardArea drawingCardArea) {
-        this.drawingCardArea = drawingCardArea;
-    }
+/**
+ * Sets the drawing card area of the game.
+ * 
+ * @param drawingCardArea the new drawing card area
+ */
+public void setDrawingCardArea(DrawingCardArea drawingCardArea) {
+    this.drawingCardArea = drawingCardArea;
+}
 
-    public void setPlayersList(List<Player> playersList) {
-        PlayersList = playersList;
-    }
+/**
+ * Sets the list of players in the game.
+ * 
+ * @param playersList the new list of players
+ */
+public void setPlayersList(List<Player> playersList) {
+    PlayersList = playersList;
+}
 
-    /**
-     * Getter of the HashMap.
-     *
-     * @param P the player
-     * @return the player's card area
-     */
-    public PlayerCardArea getPlayerCardArea(Player P) {
-        return gameArea.get(P);
-    }
+/**
+ * Returns the player's card area from the game area HashMap.
+ *
+ * @param P the player
+ * @return the player's card area
+ */
+public PlayerCardArea getPlayerCardArea(Player P) {
+    return gameArea.get(P);
+}
 
+/**
+ * Returns the index of the current player.
+ * 
+ * @return the index of the current player
+ */
+public int getCurrentPlayer() {
+    return currentPlayer;
+}
 
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
+/**
+ * Returns the game area HashMap, which maps players to their card areas.
+ * 
+ * @return the game area HashMap
+ */
+public HashMap<Player, PlayerCardArea> getGameArea() {
+    return gameArea;
+}
 
-    public HashMap<Player, PlayerCardArea> getGameArea() {
-        return gameArea;
-    }
+/**
+ * Sets the list of public objective cards.
+ * 
+ * @param publicObjective the new list of public objective cards
+ */
+public void setPublicObjective(List<Card> publicObjective) {
+    PublicObjective = publicObjective;
+}
 
-    public void setPublicObjective(List<Card> publicObjective) {
-        PublicObjective = publicObjective;
-    }
 
     // Listeners Zone
 
