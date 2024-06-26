@@ -14,6 +14,6 @@ Il gioco selezionato per quest'anno è [**Codex Naturalis**](https://www.cranioc
 <li>Regole Complete</li>
 <li>Textual User Interface</li>
 <li>Graphical User Interface</li>
-<li>Socket connection</li>
+<li>Socket connection (TCP)</li>
 <li>Chat (FA)</li>
 </ol>
