@@ -38,6 +38,10 @@ public class TCPClient {
 
     /**
      * Starts the TCP client, establishes a connection to the server, and manages input/output.
+      * This method attempts to connect to the server using the provided IP and port. Upon successful connection,
+     * it sets up input and output streams to handle communication with the server. It also starts a thread to
+     * listen for messages from the server and another thread to handle user input, sending valid inputs to the server.
+     *
      */
     public void startTCPClient() throws Exception {
         try {
