@@ -27,6 +27,14 @@ public class PlayerCardArea {
     private List<PlaceHolder> alreadyUsed; // Nodes that have already been used for specific checks.
     private Card cardStarter; // The starter card for the player.
 
+
+    /**
+     * Constructs a new PlayerCardArea with initialized lists.
+     * 
+     * This constructor initializes the PlayerCardArea by creating empty lists for 
+     * available nodes, all nodes, placeholders, already used nodes, and temporary 
+     * secret objectives.
+     */
     public PlayerCardArea() {
         this.availableNodes = new ArrayList<>();
         this.allNodes = new ArrayList<>();
@@ -589,126 +597,232 @@ public class PlayerCardArea {
         return node1.getCard().getCardRes() == node2.getCard().getCardRes();
     }
 
-    /**
-     * The following methods are used to calculate the objectives.
-     */
-    public boolean findRedGreen(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
-        for (PlaceHolder node1 : allNodes) {
-            if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
-                for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.PLANT) {
-                        alreadyUsed.add(node);
-                        alreadyUsed.add(node1);
-                        alreadyUsed.add(node2);
-                        return true;
-                    }
+   /**
+ * Checks for a specific pattern involving two red and green cards.
+ * 
+ * This method looks for a node at the same x-coordinate and 2 units below the given node,
+ * and then checks for another node at a specific position relative to the second node with
+ * a PLANT resource. If found, it adds these nodes to the already used list.
+ * 
+ *
+ * @param node the starting node
+ * @param alreadyUsed the list of already used nodes
+ * @return true if the pattern is found, false otherwise
+ */
+public boolean findRedGreen(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+    for (PlaceHolder node1 : allNodes) {
+        if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+            for (PlaceHolder node2 : allNodes) {
+                if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.PLANT) {
+                    alreadyUsed.add(node);
+                    alreadyUsed.add(node1);
+                    alreadyUsed.add(node2);
+                    return true;
                 }
             }
         }
-        return false;
     }
+    return false;
+}
 
-    public boolean findGreenPurple(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
-        for (PlaceHolder node1 : allNodes) {
-            if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
-                for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.INSECT) {
-                        alreadyUsed.add(node);
-                        alreadyUsed.add(node1);
-                        alreadyUsed.add(node2);
-                        return true;
-                    }
+/**
+ * Checks for a specific pattern involving two green and purple cards.
+ * 
+ * This method looks for a node at the same x-coordinate and 2 units below the given node,
+ * and then checks for another node at a specific position relative to the second node with
+ * an INSECT resource. If found, it adds these nodes to the already used list.
+ * 
+ *
+ * @param node the starting node
+ * @param alreadyUsed the list of already used nodes
+ * @return true if the pattern is found, false otherwise
+ */
+public boolean findGreenPurple(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+    for (PlaceHolder node1 : allNodes) {
+        if (node1.getX() == node.getX() && node1.getY() == node.getY() - 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+            for (PlaceHolder node2 : allNodes) {
+                if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() - 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.INSECT) {
+                    alreadyUsed.add(node);
+                    alreadyUsed.add(node1);
+                    alreadyUsed.add(node2);
+                    return true;
                 }
             }
         }
-        return false;
     }
+    return false;
+}
 
-    public boolean findBlueRed(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
-        for (PlaceHolder node1 : allNodes) {
-            if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
-                for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.FUNGI) {
-                        alreadyUsed.add(node);
-                        alreadyUsed.add(node1);
-                        alreadyUsed.add(node2);
-                        return true;
-                    }
+/**
+ * Checks for a specific pattern involving two blue and red cards.
+ * 
+ * This method looks for a node at the same x-coordinate and 2 units above the given node,
+ * and then checks for another node at a specific position relative to the second node with
+ * a FUNGI resource. If found, it adds these nodes to the already used list.
+ * 
+ *
+ * @param node the starting node
+ * @param alreadyUsed the list of already used nodes
+ * @return true if the pattern is found, false otherwise
+ */
+public boolean findBlueRed(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+    for (PlaceHolder node1 : allNodes) {
+        if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+            for (PlaceHolder node2 : allNodes) {
+                if (node2.getX() == node1.getX() + 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.FUNGI) {
+                    alreadyUsed.add(node);
+                    alreadyUsed.add(node1);
+                    alreadyUsed.add(node2);
+                    return true;
                 }
             }
         }
-        return false;
     }
+    return false;
+}
 
-    public boolean findPurpleBlue(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
-        for (PlaceHolder node1 : allNodes) {
-            if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
-                for (PlaceHolder node2 : allNodes) {
-                    if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.ANIMAL) {
-                        alreadyUsed.add(node);
-                        alreadyUsed.add(node1);
-                        alreadyUsed.add(node2);
-                        return true;
-                    }
+/**
+ * Checks for a specific pattern involving 2 purple and blue cards.
+ * 
+ * This method looks for a node at the same x-coordinate and 2 units above the given node,
+ * and then checks for another node at a specific position relative to the second node with
+ * an ANIMAL resource. If found, it adds these nodes to the already used list.
+ * 
+ *
+ * @param node the starting node
+ * @param alreadyUsed the list of already used nodes
+ * @return true if the pattern is found, false otherwise
+ */
+public boolean findPurpleBlue(PlaceHolder node, List<PlaceHolder> alreadyUsed) {
+    for (PlaceHolder node1 : allNodes) {
+        if (node1.getX() == node.getX() && node1.getY() == node.getY() + 2 && !alreadyUsed.contains(node1) && sameType(node, node1)) {
+            for (PlaceHolder node2 : allNodes) {
+                if (node2.getX() == node1.getX() - 1 && node2.getY() == node1.getY() + 1 && !alreadyUsed.contains(node2) && node2.getCard().getCardRes() == CardRes.ANIMAL) {
+                    alreadyUsed.add(node);
+                    alreadyUsed.add(node1);
+                    alreadyUsed.add(node2);
+                    return true;
                 }
             }
         }
-        return false;
     }
+    return false;
+}
 
-    // Getter e setter zone
+// Getter e setter zone
 
-    public List<Card> getHand() {
-        return hand;
-    }
+  /**
+ * Returns the list of cards in the player's hand.
+ * 
+ * @return the list of cards in the hand
+ */
+public List<Card> getHand() {
+    return hand;
+}
 
-    public Counter getCounter() {
-        return counter;
-    }
+/**
+ * Returns the counter associated with the player.
+ * 
+ * @return the counter
+ */
+public Counter getCounter() {
+    return counter;
+}
 
-    public PlaceHolder getNodeByXY(int x, int y) {
-        for (PlaceHolder p : allNodes) {
-            if (p.getX() == x && p.getY() == y) {
-                return p;
-            }
+/**
+ * Finds and returns a placeholder node by its x and y coordinates.
+ * 
+ * @param x the x-coordinate of the node
+ * @param y the y-coordinate of the node
+ * @return the placeholder node at the specified coordinates, or null if not found
+ */
+public PlaceHolder getNodeByXY(int x, int y) {
+    for (PlaceHolder p : allNodes) {
+        if (p.getX() == x && p.getY() == y) {
+            return p;
         }
-        return null;
     }
+    return null;
+}
 
+/**
+ * Sets the player's secret objective card.
+ * 
+ * @param secretObjective the secret objective card
+ */
+public void setSecretObjective(Card secretObjective) {
+    this.secretObjective = secretObjective;
+}
 
-    public void setSecretObjective(Card secretObjective) {
-        this.secretObjective = secretObjective;
-    }
+/**
+ * Returns the player's secret objective card.
+ * 
+ * @return the secret objective card
+ */
+public Card getSecretObjective() {
+    return secretObjective;
+}
 
-    public Card getSecretObjective() {
-        return secretObjective;
-    }
+/**
+ * Returns the list of available nodes for placing cards.
+ * 
+ * @return the list of available nodes
+ */
+public List<PlaceHolder> getAvailableNodes() {
+    return availableNodes;
+}
 
-    public List<PlaceHolder> getAvailableNodes() {
-        return availableNodes;
-    }
+/**
+ * Returns the list of placeholders.
+ * 
+ * @return the list of placeholders
+ */
+public List<PlaceHolder> getPlaceHolders() {
+    return placeHolders;
+}
 
-    public List<PlaceHolder> getPlaceHolders() {
-        return placeHolders;
-    }
+/**
+ * Returns the list of nodes that have already been used.
+ * 
+ * @return the list of already used nodes
+ */
+public List<PlaceHolder> getAlreadyUsed() {
+    return alreadyUsed;
+}
 
-    public List<PlaceHolder> getAlreadyUsed() {
-        return alreadyUsed;
-    }
+/**
+ * Returns the list of all nodes.
+ * 
+ * @return the list of all nodes
+ */
+public List<PlaceHolder> getAllNodes() {
+    return allNodes;
+}
 
-    public List<PlaceHolder> getAllNodes() {
-        return allNodes;
-    }
+/**
+ * Returns the list of temporary secret objective cards.
+ * 
+ * @return the list of temporary secret objective cards
+ */
+public List<Card> getTempSecretObjective() {
+    return tempSecretObjective;
+}
 
-    public List<Card> getTempSecretObjective() {
-        return tempSecretObjective;
-    }
+/**
+ * Returns the player's starter card.
+ * 
+ * @return the starter card
+ */
+public Card getCardStarter() {
+    return cardStarter;
+}
 
-    public Card getCardStarter() {
-        return cardStarter;
-    }
-
-    public void setCardStarter(Card cardStarter) {
-        this.cardStarter = cardStarter;
-    }
+/**
+ * Sets the player's starter card.
+ * 
+ * @param cardStarter the starter card
+ */
+public void setCardStarter(Card cardStarter) {
+    this.cardStarter = cardStarter;
+}
 }
