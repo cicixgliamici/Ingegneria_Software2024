@@ -242,7 +242,9 @@ public class Player {
     }
 
     /**
-     * Sends a chat message.
+     * Handles the sending of chat messages within the game.
+     * This method supports both general messages and private messages directed to specific users.
+     * It interacts with the model to update chat history and notify relevant users.
      * 
      * @param model The model instance to interact with.
      * @param username The username of the player sending the message.
