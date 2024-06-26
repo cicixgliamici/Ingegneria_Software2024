@@ -15,12 +15,18 @@ public class ClientPortSelection {
     private String ip;  // IP address of the server
     private int port;  // Port number for the server
 
-    /**
-     * Main method for starting the client with IP and port selection.
-     *
-     * @param args Command-line arguments (not used in this method).
-     * @param mode The mode of the client: 0 for TUI (Text User Interface), 1 for GUI (Graphical User Interface).
-     */
+/**
+ * Main method for starting the client with IP and port selection.
+ *
+ * This method initializes and starts the client based on the user's selection of interface type
+ * (Text User Interface or Graphical User Interface) and the chosen view type. For the TUI, it prompts
+ * the user for IP and port, ensuring valid inputs. For the GUI, it directly starts the client with the GUI settings.
+ *
+ * @param args Command-line arguments (not used in this method).
+ * @param mode The mode of the client: 0 for TUI (Text User Interface), 1 for GUI (Graphical User Interface).
+ * @param ChosenView The view type chosen: 2 for TUI, 3 for GUI.
+ * @throws Exception if an error occurs during client initialization or startup.
+ */
     public void main(String[] args, int mode,int ChosenView) throws Exception {
         View view;
         if(ChosenView==2){
