@@ -24,6 +24,10 @@ public class Deck {
     /**
      * Constructs a Deck of the specified type and loads cards from JSON files.
      *
+     * Depending on the type of deck specified, this constructor initializes the deck with a set number
+     * of cards and loads their details from corresponding JSON files. Each type of deck (RESOURCES, GOLD, OBJECT, STARTER)
+     * has a specific JSON file that is parsed to create card objects with appropriate attributes.
+     * 
      * @param typeDeck the type of the deck
      * @throws IOException if there is an error reading the JSON file
      */
