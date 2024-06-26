@@ -137,6 +137,9 @@
   "setFirst": {
     "className": "org.example.view",
     "methodName": "setFirst",
+    "parameters": [
+      {"type": "string", "source": "server"}
+      ],
     "fileName": "View.java"
   },
   "numCon": {

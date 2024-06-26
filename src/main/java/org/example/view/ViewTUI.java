@@ -364,8 +364,9 @@ public class ViewTUI extends View {
     }
 
     @Override
-    public void setFirst() {
-        System.out.println("Enter the maximum number of players (1-4):");
+    public void setFirst(String username) {
+        System.out.println("Hello," + username + " enter the maximum number of players (2-4):");
+        firstPlayer=username;
     }
 
     /**

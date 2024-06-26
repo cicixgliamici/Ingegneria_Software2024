@@ -297,13 +297,12 @@ public class ViewGUI extends View {
     public void order(String us1, String us2, String us3, String us4, String us5, String us6, String us7, String us8) {
         List<String> orderPlayer = Arrays.asList(us1, us3, us5, us7);
         List<String> orderColor = Arrays.asList(us2, us4, us6, us8);
-        isFirst = true;
+        //isFirst = true;
         for (int i = 0; i < orderPlayer.size(); i++) {
             if (!"null".equals(orderPlayer.get(i))) {
                 colorPlayer.put(orderPlayer.get(i), orderColor.get(i));
             }
         }
-        firstPlayer=us1;
         System.out.println("from order GUI: " + colorPlayer);
         System.out.println("first player: "+ firstPlayer);
     }
@@ -439,10 +438,10 @@ public class ViewGUI extends View {
      * Sets the current player as the first player.
      */
     @Override
-    public void setFirst() {
+    public void setFirst(String username) {
         isFirst = true;
+        firstPlayer=username;
     }
-
 
     /**
      * Sets the maximum number of connections for the game.

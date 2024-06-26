@@ -12,6 +12,7 @@ public class TCPServer {
     private int num;
     private Server mainServer;
     private ServerSocket serverSocket; // ServerSocket as an instance variable
+    private String firstUsername;
 
     /**
      * Constructor to initialize the TCP server.
@@ -73,8 +74,8 @@ public class TCPServer {
                 mainServer.addPlayer(username); // Add player early to synchronize player list and first check
                 mainServer.socketToUsername.put(clientSocket, username);
                 mainServer.clientWriters.put(username, out);
-
                 if(!isFirst){
+                    mainServer.onModelSpecific(username, "setFirst:" + firstUsername);
                     mainServer.onModelGeneric("numCon:"+ mainServer.numMaxConnections);
                     System.out.println("inviato il num max di player " + mainServer.numMaxConnections);
                 }
@@ -89,7 +90,8 @@ public class TCPServer {
                 mainServer.onModelGeneric("newConnection:" + username +","+ chosenColor);
                 System.out.println("newConnection:" + username +","+ chosenColor);
                 if(isFirst) {
-                    mainServer.onModelSpecific(username, "setFirst");
+                    firstUsername=username;
+                    mainServer.onModelSpecific(username, "setFirst:" + firstUsername);
                     String numPLayer = in.readLine();
                     num = Integer.parseInt(numPLayer);
                     mainServer.setNumMaxConnections(num);

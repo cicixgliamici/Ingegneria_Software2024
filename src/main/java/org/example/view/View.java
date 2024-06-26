@@ -62,7 +62,7 @@ public abstract class View {
     /**
      * Abstract method to set the first player.
      */
-    public abstract void setFirst();
+    public abstract void setFirst(String username);
 
     /**
      * Abstract method to print the game grid.
