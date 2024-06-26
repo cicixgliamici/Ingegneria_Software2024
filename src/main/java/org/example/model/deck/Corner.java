@@ -38,7 +38,12 @@ public class Corner {
     public PropertiesCorner getPropertiesCorner() {
         return this.propertiesCorner;
     }
-
+    
+   /**
+ * Returns a string representation of the position and properties of the corner.
+ * 
+ * @return a string representation of the position and properties of the corner.
+ */
     @Override
     public String toString() {
         return "Position: " + position + ", Properties: " + propertiesCorner;
