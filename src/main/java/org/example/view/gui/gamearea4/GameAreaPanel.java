@@ -77,6 +77,7 @@ public class GameAreaPanel extends JPanel {
         blackToken = tokenLabel;
         List<String> keys = new ArrayList<>(view.getColorPlayer().keySet());
         keys.removeIf(player -> player.equals(username));
+        String firstPlayer = view.getFirstPlayer();
 
         switch (num) {
             case "2":
@@ -221,7 +222,7 @@ public class GameAreaPanel extends JPanel {
             add(username4, gbc);
         }
 
-        /*if(firstPlayer.equals(username)){
+        if(firstPlayer.equals(username)){
             gbc.gridx = 0;
             gbc.gridy = 1;
             gbc.anchor = GridBagConstraints.PAGE_END;
@@ -245,7 +246,7 @@ public class GameAreaPanel extends JPanel {
                 gbc.anchor = GridBagConstraints.PAGE_END;
                 add(blackToken, gbc);
             }
-        }*/
+        }
 
 
         gbc.gridx = 0;

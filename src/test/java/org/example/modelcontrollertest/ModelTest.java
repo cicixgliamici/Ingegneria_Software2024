@@ -123,7 +123,8 @@ public class ModelTest extends TestCase {
         player1.play(model, 0, 2, -1,-1);
         Card card4 = deckGold.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(card4);
-        player1.play(model, 0, 1, 1, -1);
+        int id = model.getPlayerCardArea(player1).getHand().indexOf(card4);
+        player1.play(model, id, 1, 1, -1);
         assertEquals(card4, model.getPlayerCardArea(player1).getNodeByXY(1,-1).getCard());
         assertEquals(1, model.getPlayerCardArea(player1).getCounter().getPointCounter());
         try {

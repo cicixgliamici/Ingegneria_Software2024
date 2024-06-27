@@ -51,12 +51,15 @@ public class PlayerCardAreaTest extends TestCase {
     public void testUpdatePoints(){
         PlayerCardArea playerCardArea = new PlayerCardArea();
         Counter counter = playerCardArea.getCounter();
-        Card c1 = new Card(1, Type.RESOURCES, null, null, 1, null, null, null, null);
-        Card c2 = new Card(2, Type.GOLD, null, null, 1, GoldenPoint.NULL, null, null, null);
-        Card c3 = new Card(3, Type.GOLD, null, null, 1, GoldenPoint.CORNER, null, null, null);
-        Card c4 = new Card(4, Type.GOLD, null, null, 1, GoldenPoint.MANUSCRIPT, null, null, null);
-        Card c5 = new Card(5, Type.GOLD, null, null, 1, GoldenPoint.INKWELL, null, null, null);
-        Card c6 = new Card(6, Type.GOLD, null, null, 1, GoldenPoint.QUILL, null, null, null);
+        List<Corner> front = new ArrayList<>();
+        List<Corner> back = new ArrayList<>();
+        SideCard sideCard = new SideCard(Side.FRONT, front, back);
+        Card c1 = new Card(1, Type.RESOURCES, null, null, 1, null, null, null, sideCard);
+        Card c2 = new Card(2, Type.GOLD, null, null, 1, GoldenPoint.NULL, null, null, sideCard);
+        Card c3 = new Card(3, Type.GOLD, null, null, 1, GoldenPoint.CORNER, null, null, sideCard);
+        Card c4 = new Card(4, Type.GOLD, null, null, 1, GoldenPoint.MANUSCRIPT, null, null, sideCard);
+        Card c5 = new Card(5, Type.GOLD, null, null, 1, GoldenPoint.INKWELL, null, null, sideCard);
+        Card c6 = new Card(6, Type.GOLD, null, null, 1, GoldenPoint.QUILL, null, null, sideCard);
         counter.addResource(PropertiesCorner.QUILL);
         counter.addResource(PropertiesCorner.INKWELL);
         counter.addResource(PropertiesCorner.MANUSCRIPT);
