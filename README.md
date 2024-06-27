@@ -8,7 +8,7 @@ Gruppo **AM19** composto da
 Il gioco selezionato per quest'anno è [**Codex Naturalis**](https://www.craniocreations.it/prodotto/codex-naturalis)
 
 
-<p>Features implementate:</p>
+<p>*Features implementate:*</p>
 
 <ol>
 <li>Regole Complete</li>
@@ -18,7 +18,8 @@ Il gioco selezionato per quest'anno è [**Codex Naturalis**](https://www.cranioc
 <li>Chat (FA)</li>
 </ol>
 
-<p>Struttura Git</p>
+
+<p>*Struttura Git*</p>
 <li>Delivarables: Tutti i file richiesti alla consegna, quali:
             <ul>
                 <li>UML di Alto Livello</li>
