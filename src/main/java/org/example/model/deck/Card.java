@@ -391,4 +391,6 @@ public class Card {
     public int getCoveredCornerByCard() {
         return this.coveredCornerByCard;
     }
+
+
 }

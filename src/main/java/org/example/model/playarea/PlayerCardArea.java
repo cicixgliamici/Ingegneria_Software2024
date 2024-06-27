@@ -70,7 +70,6 @@ public class PlayerCardArea {
     public void modifyGameArea(Card card, PlaceHolder node) {
         node.setCardNode(card, placeHolders, availableNodes, allNodes); // Place the card on the node.
         availableNodes.remove(node); // Remove this node from available nodes as it's now occupied.
-
         updateCounter(card); // Update resource counters based on the new card.
         updatePoints(card); // Update points based on the new card.
         removeResources(node); // Remove resources that are covered by the new card.
@@ -88,14 +87,12 @@ public class PlayerCardArea {
         counter.addResource(card.getSide().getChosenList().get(1).getPropertiesCorner());
         counter.addResource(card.getSide().getChosenList().get(2).getPropertiesCorner());
         counter.addResource(card.getSide().getChosenList().get(3).getPropertiesCorner());
-
         if (card.getSide().getSide().equals(Side.BACK) &&
                 (card.getType() == Type.RESOURCES || card.getType() == Type.GOLD)) {
             // If it's a resource or gold card on its back side, add its resources.
             CastCardRes castCardRes = new CastCardRes(card.getCardRes());
             counter.addResource(castCardRes.getPropertiesCorner());
         }
-
         if (card.getType() == Type.STARTER && card.getSide().getSide() == Side.FRONT) {
             // If it's a starter card on its front side, add required gold resources.
             for (CardRes cardRes : card.getRequireGold()) {

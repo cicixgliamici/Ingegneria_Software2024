@@ -33,8 +33,8 @@ public class GameFlowTest extends TestCase {
         model = Mockito.mock(Model.class);
         server = Mockito.mock(Server.class);
         players = new ArrayList<>();
-        players.add(new Player("Carlo VIII di Valois, detto l'Affabile"));
-        players.add(new Player("Edoardo IV di York"));
+        players.add(new Player("Gaio Giulio Cesare Ottaviano"));
+        players.add(new Player("Tito Flavio Vespasiano"));
         gameFlow = new GameFlow(players, model, server);
     }
 
@@ -91,7 +91,7 @@ public class GameFlowTest extends TestCase {
         gameFlow.endGame();
 
         // Verify the server is notified with the correct winner message
-        Mockito.verify(server).onModelGeneric("Winner:the winner is player2 with 15 points");
+        Mockito.verify(server).onModelGeneric("Winner:the winner is Tito Flavio Vespasiano with 15 points");
     }
 
     /**
@@ -102,9 +102,9 @@ public class GameFlowTest extends TestCase {
         gameFlow.setMaxTurn(new AtomicInteger(4));
         gameFlow.setTurn(new AtomicInteger(1));
 
-        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Germanico", "play"));
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "play"));
         gameFlow.incrementTurn();
-        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Germanico", "draw"));
+        assertTrue(gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "draw"));
         gameFlow.incrementTurn();
         assertTrue(gameFlow.isYourTurn("Tito Flavio Vespasiano", "play"));
         gameFlow.incrementTurn();
@@ -128,11 +128,11 @@ public class GameFlowTest extends TestCase {
         gameFlow.setMaxTurn(new AtomicInteger(2));
         gameFlow.setTurn(new AtomicInteger(1));
 
-        gameFlow.isYourTurn("Iovio Diocle Gaio Aurelio Valerio Diocleziano", "play");
-        assertEquals("Gaio Valerio Galerio Massimiano", gameFlow.getNextPlayer());
+        gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "play");
+        assertEquals("Tito Flavio Vespasiano", gameFlow.getNextPlayer());
 
         gameFlow.incrementTurn();
-        gameFlow.isYourTurn("Iovio Diocle Gaio Aurelio Valerio Diocleziano", "draw");
-        assertEquals("Gaio Valerio Galerio Massimiano", gameFlow.getNextPlayer());
+        gameFlow.isYourTurn("Gaio Giulio Cesare Ottaviano", "draw");
+        assertEquals("Tito Flavio Vespasiano", gameFlow.getNextPlayer());
     }
 }

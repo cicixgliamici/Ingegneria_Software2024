@@ -12,14 +12,21 @@ import org.example.model.deck.Card;
 import org.example.model.deck.Deck;
 import org.example.model.playarea.PlayerCardArea;
 import org.json.simple.parser.ParseException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Test class for Node and PlaceHolder classes.
+ */
 public class NodePHTest extends TestCase {
 
+    /**
+     * Tests the PlaceHolder constructor and its methods.
+     */
     public void testPlaceHolder() {
-        PlaceHolder placeholder = new PlaceHolder(12,24);
+        PlaceHolder placeholder = new PlaceHolder(12, 24);
         assertEquals(12, placeholder.getX());
         assertEquals(24, placeholder.getY());
         String expectedToString = "Placeholder 12 : 24";
@@ -27,30 +34,33 @@ public class NodePHTest extends TestCase {
         assertNull(placeholder.getBotL());
     }
 
-    /** Constructors
+    /**
+     * Tests the Node constructor with the full constructor.
      */
-        public void testFCNode() throws IOException, ParseException {
-            Deck starterDeck = new Deck(Type.STARTER);
-            Card starterCard = starterDeck.drawCard();
-            List<PlaceHolder> placeHolderList = new ArrayList<>();
-            List<PlaceHolder> availableNodes = new ArrayList<>();
-            List<PlaceHolder> allNodes = new ArrayList<>();
-            Node node = new Node(starterCard, 0, 0, placeHolderList, availableNodes, allNodes);
-            assertNotNull(node);
-            assertEquals(0, node.getX());
-            assertEquals(0, node.getY());
-            assertEquals(starterCard, node.getCard());
-            assertNotNull(node.getTopL());
-            assertNotNull(node.getTopR());
-            assertNotNull(node.getBotL());
-            assertNotNull(node.getBotR());
-        }
+    public void testFCNode() throws IOException, ParseException {
+        Deck starterDeck = new Deck(Type.STARTER);
+        Card starterCard = starterDeck.drawCard();
+        List<PlaceHolder> placeHolderList = new ArrayList<>();
+        List<PlaceHolder> availableNodes = new ArrayList<>();
+        List<PlaceHolder> allNodes = new ArrayList<>();
+        Node node = new Node(starterCard, 0, 0, placeHolderList, availableNodes, allNodes);
+        assertNotNull(node);
+        assertEquals(0, node.getX());
+        assertEquals(0, node.getY());
+        assertEquals(starterCard, node.getCard());
+        assertNotNull(node.getTopL());
+        assertNotNull(node.getTopR());
+        assertNotNull(node.getBotL());
+        assertNotNull(node.getBotR());
+    }
 
-
+    /**
+     * Tests the Node constructor with the simple constructor.
+     */
     public void testSCNode() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node node = new Node(starterCard, null, null, null, null, 0,0);
+        Node node = new Node(starterCard, null, null, null, null, 0, 0);
         assertEquals(0, node.getX());
         assertEquals(0, node.getY());
         assertNotNull(starterCard);
@@ -62,12 +72,13 @@ public class NodePHTest extends TestCase {
         assertNull(node.getBotR());
     }
 
-    /** Test Null Node
+    /**
+     * Tests the creation of a null node in the top-right direction.
      */
     public void testNullNodeTopR() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         Node topR = starterNode.nullNodeTopR();
         assertNull(topR.getCard());
         assertNull(topR.getTopL());
@@ -75,10 +86,14 @@ public class NodePHTest extends TestCase {
         assertNotNull(topR.getBotL());
         assertNull(topR.getBotR());
     }
+
+    /**
+     * Tests the creation of a null node in the top-left direction.
+     */
     public void testNullNodeTopL() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         Node topL = starterNode.nullNodeTopL();
         assertNull(topL.getCard());
         assertNull(topL.getTopL());
@@ -87,10 +102,13 @@ public class NodePHTest extends TestCase {
         assertNotNull(topL.getBotR());
     }
 
+    /**
+     * Tests the creation of a null node in the bottom-right direction.
+     */
     public void testNullNodeBotR() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         Node botR = starterNode.nullNodeBotR();
         assertNull(botR.getCard());
         assertNotNull(botR.getTopL());
@@ -99,10 +117,13 @@ public class NodePHTest extends TestCase {
         assertNull(botR.getBotR());
     }
 
+    /**
+     * Tests the creation of a null node in the bottom-left direction.
+     */
     public void testNullNodeBotL() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         Node botL = starterNode.nullNodeBotL();
         assertNull(botL.getCard());
         assertNull(botL.getTopL());
@@ -111,109 +132,124 @@ public class NodePHTest extends TestCase {
         assertNull(botL.getBotR());
     }
 
-    public void testSetNullNode() throws IOException{
+    /**
+     * Tests the setNullNode method.
+     */
+    public void testSetNullNode() throws IOException {
         List<PlaceHolder> availableNodes = new ArrayList<>();
         Deck deck = new Deck(Type.STARTER);
-        Card starterCard= deck.getCards().get(5);
+        Card starterCard = deck.getCards().get(5);
         starterCard.setSide(1);
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         starterNode.setNullNode(availableNodes);
-
     }
 
-    /** Test particular setters
+    /**
+     * Tests the setPlaceHolderByCard method.
      */
     public void testSetPlaceHolderByCard() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
         Model model = new Model();
         Deck deckRes = new Deck(Type.RESOURCES);
         Deck deckStarter = new Deck(Type.STARTER);
-        List<Player> playerslist=new ArrayList<>();
+        List<Player> playerslist = new ArrayList<>();
         model.setPlayersList(playerslist);
         Player player1 = new Player("Cartesio");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea();
+        PlayerCardArea playerCardArea = new PlayerCardArea();
         playerCardArea.setCardStarter(starter);
         playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
-        Card res= deckRes.getCards().get(0);
+        Card res = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res);
-        player1.play(model, 0, 1,1,1);
+        player1.play(model, res.getId(), 0, 1, 1);
         assertEquals(1, model.getPlayerCardArea(player1).getPlaceHolders().size());
-        PlaceHolder placeHolder= model.getPlayerCardArea(player1).getPlaceHolders().get(0);
+        PlaceHolder placeHolder = model.getPlayerCardArea(player1).getPlaceHolders().get(0);
         assertEquals(2, placeHolder.getX());
         assertEquals(0, placeHolder.getY());
-
     }
 
+    /**
+     * Tests the setNodePlaceHolder method.
+     */
     public void testSetNodePlaceHolder() throws IOException, PlaceholderNotValid, InvalidCardException, ParseException {
         Model model = new Model();
         Deck deckRes = new Deck(Type.RESOURCES);
         Deck deckStarter = new Deck(Type.STARTER);
-        List<Player> playerslist=new ArrayList<>();
+        List<Player> playerslist = new ArrayList<>();
         model.setPlayersList(playerslist);
         Player player1 = new Player("Pascal");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea();
+        PlayerCardArea playerCardArea = new PlayerCardArea();
         playerCardArea.setCardStarter(starter);
         playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
-        Card res1= deckRes.getCards().get(0);
+        Card res1 = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);
-        player1.play(model, 0, 1,1,1);
-        Card res2= deckRes.getCards().get(1);
+        player1.play(model, 0, 0, 1, 1);
+        Card res2 = deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(res2);
-        player1.play(model, 0, 2,1,-1);
+        player1.play(model, 0, 1, 1, -1);
         assertEquals(1, model.getPlayerCardArea(player1).getPlaceHolders().size());
     }
 
-    public void testSetNodeForExistingCard() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException{
+    /**
+     * Tests the setNodeForExistingCard method.
+     */
+    public void testSetNodeForExistingCard() throws IOException, ParseException, PlaceholderNotValid, InvalidCardException {
         Model model = new Model();
         Deck deckRes = new Deck(Type.RESOURCES);
         Deck deckStarter = new Deck(Type.STARTER);
-        List<Player> playerslist=new ArrayList<>();
+        List<Player> playerslist = new ArrayList<>();
         model.setPlayersList(playerslist);
         Player player1 = new Player("Smith");
         model.getPlayersList().add(player1);
         Card starter = deckStarter.getCards().get(0);
         starter.setSide(1);
-        PlayerCardArea playerCardArea=new PlayerCardArea();
+        PlayerCardArea playerCardArea = new PlayerCardArea();
         playerCardArea.setCardStarter(starter);
         playerCardArea.setStarterNode();
         model.getGameArea().put(player1, playerCardArea);
-        Card res1= deckRes.getCards().get(0);
+        Card res1 = deckRes.getCards().get(0);
         model.getPlayerCardArea(player1).getHand().add(res1);
-        player1.play(model, 0, 2,1,1);
-        Card res2= deckRes.getCards().get(1);
+        player1.play(model, 0, 2, 1, 1);
+        Card res2 = deckRes.getCards().get(1);
         model.getPlayerCardArea(player1).getHand().add(res2);
-        player1.play(model, 0, 2,-1,1);
-        Card res3= deckRes.getCards().get(2);
+        player1.play(model, 0, 2, -1, 1);
+        Card res3 = deckRes.getCards().get(2);
         model.getPlayerCardArea(player1).getHand().add(res3);
-        player1.play(model, 0, 2,0,2);
-        assertEquals(2, model.getPlayerCardArea(player1).getNodeByXY(0,2).getCard().getCoveredCornerByCard());
+        player1.play(model, 0, 2, 0, 2);
+        assertEquals(2, model.getPlayerCardArea(player1).getNodeByXY(0, 2).getCard().getCoveredCornerByCard());
         assertEquals(8, model.getPlayerCardArea(player1).getAvailableNodes().size());
         assertEquals(4, model.getPlayerCardArea(player1).getAllNodes().size());
         assertEquals(0, model.getPlayerCardArea(player1).getPlaceHolders().size());
     }
 
+    /**
+     * Tests the toString method of Node class.
+     */
     public void testToString() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        Node starterNode = new Node(starterCard, null, null, null, null, 0,0);
+        Node starterNode = new Node(starterCard, null, null, null, null, 0, 0);
         String expectedToString = "nodo: 0 0";
         assertEquals(expectedToString, starterNode.toString());
     }
+
+    /**
+     * Tests the setter and getter methods of Node class.
+     */
     public void testSetGet() throws IOException {
         Deck starterDeck = new Deck(Type.STARTER);
         Card starterCard = starterDeck.drawCard();
-        PlaceHolder placeHolder1 = new PlaceHolder(1,1);
-        PlaceHolder placeHolder2 = new PlaceHolder(1,-1);
-        PlaceHolder placeHolder3 = new PlaceHolder(-1,1);
-        PlaceHolder placeHolder4 = new PlaceHolder(-1,-1);
-        Node node = new Node(starterCard, placeHolder3, placeHolder1, placeHolder4  , placeHolder2, 0,0);
+        PlaceHolder placeHolder1 = new PlaceHolder(1, 1);
+        PlaceHolder placeHolder2 = new PlaceHolder(1, -1);
+        PlaceHolder placeHolder3 = new PlaceHolder(-1, 1);
+        PlaceHolder placeHolder4 = new PlaceHolder(-1, -1);
+        Node node = new Node(starterCard, placeHolder3, placeHolder1, placeHolder4, placeHolder2, 0, 0);
         assertEquals(starterCard, node.getCard());
         assertEquals(placeHolder1, node.getTopR());
         assertEquals(placeHolder2, node.getBotR());
@@ -223,10 +259,10 @@ public class NodePHTest extends TestCase {
         Card card = deck.drawCard();
         node.setCard(card);
         assertEquals(card, node.getCard());
-        PlaceHolder newplaceHolder1 = new PlaceHolder(2,2);
-        PlaceHolder newplaceHolder2 = new PlaceHolder(2,-2);
-        PlaceHolder newplaceHolder3 = new PlaceHolder(-2,2);
-        PlaceHolder newplaceHolder4 = new PlaceHolder(-2,-2);
+        PlaceHolder newplaceHolder1 = new PlaceHolder(2, 2);
+        PlaceHolder newplaceHolder2 = new PlaceHolder(2, -2);
+        PlaceHolder newplaceHolder3 = new PlaceHolder(-2, 2);
+        PlaceHolder newplaceHolder4 = new PlaceHolder(-2, -2);
         node.setBotL(newplaceHolder3);
         node.setBotR(newplaceHolder2);
         node.setTopL(newplaceHolder1);

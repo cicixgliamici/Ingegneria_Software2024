@@ -2,11 +2,15 @@ package org.example.model.playarea;
 
 import org.example.model.deck.Card;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * Class for the placement of cards.
  * The node is an Object with 4 connections to other nodes.
  * You can go to every node only from the beginner.
+ *
+ * This class uses iterators to avoid ConcurrentModificationException
+ * when modifying lists during iteration.
  */
 public class Node extends PlaceHolder {
     private Card card;
@@ -14,6 +18,8 @@ public class Node extends PlaceHolder {
     private PlaceHolder topR;
     private PlaceHolder botL;
     private PlaceHolder botR;
+
+    // Constructors
 
     /**
      * Constructs a Node with a card and position, setting its connections.
@@ -52,6 +58,8 @@ public class Node extends PlaceHolder {
         this.botL = botL;
         this.botR = botR;
     }
+
+    // Null Node Methods
 
     /**
      * Creates an empty and unusable node for when the corner is hidden.
@@ -124,12 +132,10 @@ public class Node extends PlaceHolder {
         }
     }
 
+    // Main method causing ConcurrentModificationException
+
     /**
      * Sets placeholders based on the card's hidden corners.
-     *
-     * This method checks each corner of the card to see if it is hidden. If a corner is hidden, it creates
-     * a new placeholder at the appropriate position and updates the list of placeholders and available nodes
-     * accordingly. It ensures that the placeholders are properly linked with the adjacent nodes.
      *
      * @param AvailableNodes the list of available nodes
      * @param PlaceHolders the list of placeholders
@@ -140,18 +146,20 @@ public class Node extends PlaceHolder {
                 this.botR = new PlaceHolder(this.x + 1, this.y - 1);
                 PlaceHolders.add(this.botR);
                 if (AvailableNodes != null && !AvailableNodes.isEmpty()) {
-                    for (PlaceHolder node : AvailableNodes) {
+                    Iterator<PlaceHolder> iterator = AvailableNodes.iterator();
+                    while (iterator.hasNext()) {
+                        PlaceHolder node = iterator.next();
                         if (node.x == this.x + 1 && node.y == this.y - 1) {
                             if (node.getTopR() != null) {
-                                (node.getTopR()).setBotL(this.botR);
+                                node.getTopR().setBotL(this.botR);
                             }
                             if (node.getBotL() != null) {
-                                (node.getBotL()).setTopR(this.botR);
+                                node.getBotL().setTopR(this.botR);
                             }
                             if (node.getBotR() != null) {
-                                (node.getBotR()).setTopL(this.botR);
+                                node.getBotR().setTopL(this.botR);
                             }
-                            AvailableNodes.remove(node);
+                            iterator.remove();
                         }
                     }
                 }
@@ -163,18 +171,20 @@ public class Node extends PlaceHolder {
                 this.botL = new PlaceHolder(this.x - 1, this.y - 1);
                 PlaceHolders.add(this.botL);
                 if (AvailableNodes != null && !AvailableNodes.isEmpty()) {
-                    for (PlaceHolder node : AvailableNodes) {
+                    Iterator<PlaceHolder> iterator = AvailableNodes.iterator();
+                    while (iterator.hasNext()) {
+                        PlaceHolder node = iterator.next();
                         if (node.x == this.x - 1 && node.y == this.y - 1) {
                             if (node.getTopL() != null) {
-                                (node.getTopL()).setBotR(this.botL);
+                                node.getTopL().setBotR(this.botL);
                             }
                             if (node.getBotL() != null) {
-                                (node.getBotL()).setTopR(this.botL);
+                                node.getBotL().setTopR(this.botL);
                             }
                             if (node.getBotR() != null) {
-                                (node.getBotR()).setTopL(this.botL);
+                                node.getBotR().setTopL(this.botL);
                             }
-                            AvailableNodes.remove(node);
+                            iterator.remove();
                         }
                     }
                 }
@@ -186,7 +196,9 @@ public class Node extends PlaceHolder {
                 this.topR = new PlaceHolder(this.x + 1, this.y + 1);
                 PlaceHolders.add(this.topR);
                 if (AvailableNodes != null && !AvailableNodes.isEmpty()) {
-                    for (PlaceHolder node : AvailableNodes) {
+                    Iterator<PlaceHolder> iterator = AvailableNodes.iterator();
+                    while (iterator.hasNext()) {
+                        PlaceHolder node = iterator.next();
                         if (node.x == this.x + 1 && node.y == this.y + 1) {
                             if (node.getTopR() != null) {
                                 node.getTopR().setBotL(this.topR);
@@ -197,7 +209,7 @@ public class Node extends PlaceHolder {
                             if (node.getTopL() != null) {
                                 node.getTopL().setBotR(this.topR);
                             }
-                            AvailableNodes.remove(node);
+                            iterator.remove();
                         }
                     }
                 }
@@ -209,7 +221,9 @@ public class Node extends PlaceHolder {
                 this.topL = new PlaceHolder(this.x - 1, this.y + 1);
                 PlaceHolders.add(this.topL);
                 if (AvailableNodes != null && !AvailableNodes.isEmpty()) {
-                    for (PlaceHolder node : AvailableNodes) {
+                    Iterator<PlaceHolder> iterator = AvailableNodes.iterator();
+                    while (iterator.hasNext()) {
+                        PlaceHolder node = iterator.next();
                         if (node.x == this.x - 1 && node.y == this.y + 1) {
                             if (node.getTopL() != null) {
                                 node.getTopL().setBotR(this.topL);
@@ -220,13 +234,15 @@ public class Node extends PlaceHolder {
                             if (node.getTopR() != null) {
                                 node.getTopR().setBotL(this.topL);
                             }
-                            AvailableNodes.remove(node);
+                            iterator.remove();
                         }
                     }
                 }
             }
         }
     }
+
+    // Other methods
 
     /**
      * Checks whether the 4 new nodes don't overlap with any placeholders and assigns the placeholder.
