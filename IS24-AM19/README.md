@@ -45,12 +45,3 @@ This project was developed as part of the Software Engineering course at the Pol
 - **Collaborative Validation:** The inclusion of two rounds of peer reviews demonstrates a commitment to iterative improvement and rigorous quality control throughout the development process.
 
 This translation and summary provide an overview of the project while emphasizing its educational value and the integration of advanced software engineering principles.
-
-<div style="text-align: center">⁂</div>
-
-[^1]: https://github.com/Ale02014
-
-[^2]: https://github.com/cicixgliamici
-
-[^3]: https://github.com/matteoc
-
